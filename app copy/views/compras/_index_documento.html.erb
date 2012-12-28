@@ -1,0 +1,65 @@
+<table class="head_grid">
+   <tr>
+      <td width="80" align="center">Fecha</td>
+      <td width="50" align="center">Doc.</td>
+      <td width="400" align="center">Provedor</td>
+      <td width="80" align="center">Moneda</td>
+      <td width="100" align="center">Total U$</td>
+      <td width="100" align="center">Iva U$</td>
+      <td width="100" align="center">Total Gs.</td>
+      <td width="100" align="center">Iva Gs.</td>
+
+   </tr>
+</table>
+<div class="rolagem" dir="div">
+
+   <table>
+      <tr>
+      </tr>
+      <% count = 1 %>
+      <% totus = 0 %>
+      <% totgs = 0 %>
+      <% ipus  = 0 %>
+      <% ipgs  = 0 %>
+      <% compras_documentos.each do |compras_documento|  %>
+         <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="80" align="center">    <%= h compras_documento.data.strftime("%d/%m/%Y")%></td>
+            <% if  compras_documento.documento_id == 2%>
+               <td width="50" align="center">FC</td>
+            <% else %>
+               <td width="50" align="center">FCR</td>
+            <% end %>
+            <td width="400" align="left">     <%= h compras_documento.persona_nome%></td>
+            <% if  compras_documento.moeda == 0%>
+               <td width="80" align="center"> U$</td>
+            <% else %>
+               <td width="80" align="center"> Gs</td>
+            <% end %>
+            <td width="100" align="right">    <%= h number_to_currency( compras_documento.total_dolar,       :format =>' %n ', :separator => ",")  %></td>
+            <td width="100" align="right">    <%= h number_to_currency( compras_documento.imposto_10_dolar,  :format =>' %n ', :separator => ",")  %></td>
+            <td width="100" align="right">    <%= h number_to_currency( compras_documento.total_guarani,     :format =>' %n ', :precision => 0)  %></td>
+            <td width="100" align="right">    <%= h number_to_currency( compras_documento.imposto_10_guarani,:format =>' %n ', :precision => 0)  %></td>
+            <td>  <a href="/compras_documentos/<%=compras_documento.id%>/edit" >Editar</a> </td>
+            <td><%= link_to 'Borrar', compras_documento, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+         </tr>
+
+         <% count += 1 %>
+         <% totus += compras_documento.total_dolar.to_f %>
+         <% totgs += compras_documento.total_guarani.to_f %>
+         <% ipus  += compras_documento.imposto_10_dolar.to_f %>
+         <% ipgs  += compras_documento.imposto_10_guarani.to_f %>
+      <% end %>
+   </table>
+</div>
+   <table>
+      <tr>
+         <td width="617"></td>
+         <td width="100" align="right">    <%= h number_to_currency(totus,       :format =>' %n ', :separator => ",")  %></td>
+         <td width="100" align="right">    <%= h number_to_currency(ipus,       :format =>' %n ', :separator => ",")  %></td>
+         <td width="100" align="right">    <%= h number_to_currency(totgs,       :format =>' %n ', :precision => 0)  %></td>
+         <td width="100" align="right">    <%= h number_to_currency(ipgs,       :format =>' %n ', :precision => 0)  %></td>
+      </tr>
+   </table>
+
+
+`

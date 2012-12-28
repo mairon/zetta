@@ -1,0 +1,83 @@
+
+<% form_for(cobros_financa) do |f| %>
+   <%= f.error_messages %>
+   <%=  f.hidden_field :cobro_id%>
+   <%=  f.hidden_field :data,:value => @cobro.data%>
+   <%=  f.hidden_field :persona_id,  :value => @cobro.persona_id%>
+   <%=  f.hidden_field :persona_nome,:value => @cobro.persona_nome%>
+   <%= hidden_field_tag :cotacao,@cobro.cotacao.to_i %>
+   <div class="group_cd">
+      <table>
+
+          <tr>
+           <td align="right">Moneda :</td>
+            <td>
+              <fieldset>
+                <%= f.radio_button :moeda, 0 ,  :Checked => "True" %> Dolar
+                <%= f.radio_button :moeda, 1%> Gs.
+              </fieldset>
+            </td>
+          </tr>
+
+         <tr>
+            <td align="right">Conta :</td>
+            <td><%= f.collection_select :conta_id, Conta.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+         </tr>
+
+         <tr>
+               <%= field_us 'Total U$:',f,:valor_dolar,:value => number_to_currency( @total_cobro_dolar.to_f - @total_desconto_dolar.to_f + @total_interes_dolar.to_f,       :format =>' %n ', :separator => "," ),
+                                                       :onblur => "UsToGs('cotacao','cobros_financa_valor_dolar','cobros_financa_valor_guarani')" %>
+
+               <%= field_us 'Retencion U$:',f,:retencion_dolar, :value => 0,
+                                                                :onblur => "UsToGs('cotacao','cobros_financa.retencion_dolar','cobros_financa_retencion_guarani')" %>
+        </tr>
+        <tr>
+               <%= field_gs 'Total Gs.:',f,:valor_guarani, :value => number_to_currency( @total_cobro_guarani.to_f - @total_desconto_guarani.to_f + @total_interes_guarani.to_f,:format =>' %n ', :precision => 0 ),
+                                                           :onblur => "GsToUs('cotacao','cobros_financa_valor_guarani','cobros_financa_valor_dolar')" %>
+
+               <%= field_gs 'Retencion Gs.:',f,:retencion_guarani, :value => 0,
+                                                                   :onblur => "GsToUs('cotacao','cobros_financa_retencion_guarani','cobros_financa_retencion_dolar')" %>
+         </tr>
+         <tr >
+            <td align="right">Cheque:</td>
+            <td><%= f.text_field :cheque, :size => 15%></td>
+
+            <td align="right">Diferido:</td>
+            <td><%= f.date_select :diferido%></td>
+         </tr>
+
+         <tr>
+            <td align="right">Banco : </td>
+            <td><%= f.text_field :banco,:size => 25%></td>
+
+            <td align="right">Titular : </td>
+            <td colspan="3"><%= f.text_field :titular,:size => 48%></td>
+         </tr>
+
+         <tr>
+            <td align="right">N.: Recibo : </td>
+            <td><%= f.text_field :numero_recibo,:size => 15%></td>
+         </tr>
+
+
+         <tr >
+            <td align="right">Documento:</td>
+            <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                  :order  => '1' ),:id,
+                 :nome %></td>
+         </tr>
+
+         <tr >
+            <td valign="top" align="right">Descripcion :</td>
+            <td><%= f.text_area :descricao,
+                 :size => '35X5',
+                 :value => 'COBRO ' + @cobro.persona_nome%></td>
+
+            <td valign="bottom"><%= f.submit '  Grabar  ' %> 
+         </tr>
+
+
+      </table>
+   </div>
+
+<% end %>

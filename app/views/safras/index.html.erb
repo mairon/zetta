@@ -1,0 +1,33 @@
+<body onload="ImputFocus('tipo')">
+<h1 align="right" id="header">Zafras</h1>
+<div class="acessos">
+   <%= link_to 'Nuevo', new_safra_path, :class => "button add" %>
+</div>
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="30" align="center">Id</td>
+      <td width="130" align="center">Inicio</td>
+      <td width="130" align="center">Fim</td>
+      <td width="500" align="center">Descricao</td>
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+
+    <table>
+      <% @safras.each do |saf| %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="30"  align="center">    <%= h saf.id %></td>
+          <td width="150" align="center">    <%= h saf.inicio.strftime("%d/%m/%Y") %></td>
+          <td width="150" align="left"  >    <%= h saf.final.strftime("%d/%m/%Y") %></td>
+          <td width="500"  align="center">    <%= h saf.descricao %></td>
+
+          <td><%= link_to 'Editar', edit_safra_path(saf) %></td>
+          <td><%= link_to 'Borrar', saf, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

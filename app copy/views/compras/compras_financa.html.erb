@@ -1,0 +1,96 @@
+\
+<ul class="tabs">
+   <li><a href="#tab1">Financiero - [Edicion]</a></li>
+</ul>
+
+<div class="tab_container">
+  <br/>
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td>Fecha : <%=@compra.data.strftime("%d/%m/%Y")%> </td>
+            <td>Compra :
+              <%if @compra.tipo == 0 %>
+                CONTADO
+              <%else%>
+                CREDITO</td>
+            <%end%>
+
+          </tr>
+          <tr>
+            <td>Proveedor : <%=@compra.persona_nome%> </td>
+          </tr>
+          <tr>
+            <td>Cotacion : <%=format("%.2f",@compra.cotacao.to_f)%> </td>
+            <% if @compra.moeda == 0 %>
+              <td>Total:  U$. <%=h number_to_currency( @compra.total_dolar, :format=>' %n ', :separeitor => ',')  %></td>
+            <% elsif @compra.moeda == 1 %>
+              <td>Total:  Gs. <%=h number_to_currency( @compra.total_guarani, :format=>' %n ', :precision => 0)  %></td>
+            <% else %>
+              <td>Total:  R$. <%=h number_to_currency( @compra.total_real, :format=>' %n ', :separeitor => ',')  %></td>            
+            <% end %>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+
+   <table>
+     <tr>
+       <td>
+         <div class="group">
+           <table>
+             <tr>
+               <td>
+                 <div id="compras_financas">
+                   <%= render :partial=>"index_financa", :locals=>{:compras_financas => @compra.compras_financas} %>
+                 </div>
+
+               </td>
+             </tr>
+           </table>
+         </div>
+       </td>
+     </tr>
+   </table>
+
+<div class="buttons">
+    <% if @compra.tipo_compra == 0 %>
+     <a href="/compras/<%=params[:id]%>" class="button back" >Volver</a> 
+     <a href="/compras/index_gasto" class="button delete"> Fin </a> 
+    <% elsif @compra.tipo_compra == 1 %>
+     <a href="/compras/<%=params[:id]%>/edit_gasto" class="button back" >Volver</a> 
+     <a href="/compras/index_gasto" class="button delete"> Fin </a> 
+    <% else %>
+     <a href="/compras/<%=params[:id]%>/compras_documento" class="button back">Volver</a> 
+     <a href="/compras" class="button delete">Fin</a> 
+    <% end %>
+   
+   <a href="/compras/<%=params[:id]%>/novo_financa" class="button add">Nuevo</a>
+</div>
+</div>
+
+
+<%= hidden_field_tag :id, @compra.id %>
+<script>
+
+
+  document.onkeydown=function(e)
+  {
+    if(e.which == 115)
+      location.href="/compras/"+ document.getElementById('id').value +'/novo_financa/';
+    //SEGUIR FIM
+    if(e.which == 39)
+      location.href="/compras";
+    //VOLTAR  EDIT
+    if(e.which == 37)
+      location.href="/compras/"+ document.getElementById('id').value+'/prorateo';
+    //LISTA DE PRODUTOS
+
+  }
+
+</script>

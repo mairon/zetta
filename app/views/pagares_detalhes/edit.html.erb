@@ -1,0 +1,42 @@
+<h1 align="right" id="header">Pagare</h1>
+
+<%= form_for(@pagares_detalhe) do |f| %>
+  <%= f.error_messages %>
+    <%= f.hidden_field :pagare_id %>
+   <%= hidden_field_tag :cotacao, @pagares_detalhe.pagare.cotacao.to_i %>
+ 
+     <ul class="tabs">
+         <li><a href="#tab1">Pagares - [Edicion]</a></li>
+      </ul>
+
+ 
+      <div class="tab_container">
+         <div id="tab1" class="tab_content">
+           <fieldset>
+             <table>
+                        <tr>
+                           <td align="right">Cuota :</td>
+                           <td><%= f.text_field :cota, :size => 3 %></td>                             
+
+                           <td align="right">Vencimento :</td>
+                           <td><%= f.date_select :vencimento %></td> 
+                        <tr>
+
+                        <tr>
+                          <%= field_us 'Valor U$.:',f,:valor_dolar, :onblur => "UsToGs('cotacao','pagares_detalhe_valor_dolar','pagares_detalhe_valor_guarani')" %>
+                          <%= field_gs 'Valor Gs.:',f,:valor_guarani, :onblur => "GsToUs('cotacao','pagares_detalhe_valor_guarani','pagares_detalhe_valor_dolar')" %>
+                        <tr>
+             </table>
+           </fieldset>
+         </div>
+
+         <div class="buttons">
+          <%= f.submit 'Grabar', :class => 'button' %>
+          <%= link_to 'Volver', pagare_path(@pagares_detalhe.pagare_id) , :class => 'button' %>      	
+         </div>
+       </div>
+                                                
+
+<% end %>
+
+

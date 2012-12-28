@@ -1,0 +1,105 @@
+<body onload="ImputFocus('codigo')">
+<% form_for [presupuesto,presupuesto_produto] do |f| %>
+   <%= f.error_messages %>
+
+   <div class="group">
+      <%= f.hidden_field :presupuesto_id %>
+      <%= f.hidden_field :produto_id %>
+      <%= f.hidden_field :fabricante_cod %>
+      <%= f.hidden_field :tipo %>
+      <%= f.hidden_field :clase_id %>
+      <%= f.hidden_field :grupo_id %>
+      <%= f.hidden_field :sub_grupo_id %>
+      <%= f.hidden_field :saldo %>
+      <%= f.hidden_field :cotacao, :value => @presupuesto.cotacao.to_i %>
+      <%= f.hidden_field :data,    :value => @presupuesto.data %>
+      <%= f.hidden_field :persona_id,    :value => @presupuesto.persona_id %>
+      <%= f.hidden_field :persona_nome,  :value => @presupuesto.persona_nome %>
+      <%= f.hidden_field :clase_produto, :value => @presupuesto.clase_produto %>
+      <%= f.hidden_field :moeda,         :value => @presupuesto.moeda %>
+      <table>
+
+         <tr height="35">
+            <td align="right">Deposito :</td>
+            <td><%= f.collection_select(  :deposito_id, Deposito.all(:order => '2'),:id,:nome,{},{:onkeyup => "EnterTab(event,'venda_produto_produto_busca_')"} )%></td>
+
+            <td align="right">Codigo :</td>
+            <td> <%= text_field_tag( 'codigo',
+                  nil,
+                  :id     => "codigo",
+                  :onchange => remote_function( :update     => "codigo",
+                     :url        => { :action     => :get_codigo_barra_produto, :id => @presupuesto.id },
+                     :with       => "'codigo='+this.value"),
+                  :size       => 5,
+                  :onkeyup    => "f(this),EnterTab(event,'presupuesto_produto_quantidade')",
+                  :onkeypress => "return bloqEnter(event)"
+               ) %>
+            </td>
+
+
+            <td align="right" >Producto :</td>
+            <td colspan="3"><%= f.text_field :produto_nome%></td>
+                <%= f.hidden_field :taxa %>
+
+            <td align="right">Cantidad :</td>
+            <td><%= f.text_field :quantidade,
+                                 :size       => 8,
+                                 :value      => 1,
+                                 :onkeypress => "return bloqEnter(event)",
+                                 :onblur     => "PresupuestoProdutoTotalDolar(),
+                                                 PresupuestoProdutoTotalGs()"%></td>
+
+            <td align="right">Saldo : <font color="red"><SPAN id="red"></SPAN> </font>
+               <font color="green"><SPAN id="green"></SPAN> </font>
+            </td>
+
+         </tr>  
+         
+                           
+         <% if @presupuesto.moeda == 0  %>
+            <tr>
+               <%= field_us 'Unit. U$ :',f, :unitario_dolar,
+               							    :onblur => "CalcQtdDescimal('presupuesto_produto_unitario_dolar','presupuesto_produto_quantidade','presupuesto_produto_total_dolar')" %>
+               <%= field_us 'Total U$ :',f,:total_dolar%>
+            </tr>
+            
+         <% elsif @presupuesto.moeda == 1 %>
+
+            <tr height="35">
+               <%= field_gs 'Unit. Gs :',f, :unitario_guarani,
+                						    :onblur => "CalcQtd('presupuesto_produto_unitario_guarani','presupuesto_produto_quantidade','presupuesto_produto_total_guarani')" %>
+               <%= field_gs 'Total Gs :',f,:total_guarani %>
+            </tr>
+
+         <% end %>
+            <tr>
+               <td>
+                  <%= f.submit "Grabar" %>
+               </td>
+            </tr>
+
+      </table>
+
+   </div>
+   </body>
+
+<% end %>
+
+
+<script>
+	function CalcAmostragem()                //
+	{
+		document.getElementById("presupuesto_produto_nro_amostra").value = 
+		parseFloat( document.getElementById("presupuesto_produto_amostra_macro_comple").value) + 
+		parseFloat( document.getElementById("presupuesto_produto_amostra_macro").value) +
+		parseFloat( document.getElementById("presupuesto_produto_amostra_completa").value) + 
+		parseFloat( document.getElementById("presupuesto_produto_amostra_extratificante").value);
+
+		document.getElementById("presupuesto_produto_ponto_amostrais").value = 
+		parseFloat( document.getElementById("presupuesto_produto_amostra_macro_comple").value) + 
+		parseFloat( document.getElementById("presupuesto_produto_amostra_macro").value) +
+		parseFloat( document.getElementById("presupuesto_produto_amostra_completa").value); 
+
+	}
+
+</script>

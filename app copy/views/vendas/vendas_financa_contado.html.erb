@@ -1,0 +1,89 @@
+  
+<body onload="CampoTipoVendaFinanca()">
+  <div class="group_cd">
+
+    <table>
+      <tr>
+        <td>Cotacion :</td>
+        <td align="right"><%=h number_to_currency(@venda.cotacao, :format=>' %n ', :separator => ",")  %></td>
+        <td>Total Prod.:  </td>
+        <td align="right"><%=format( "%.3f", @produto_count.to_f )%> </td>
+      </tr>
+
+      <tr>
+        <td><font color="green">Total Dolar : </font></td>
+        <td align="right"><font color="green"><%=h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> </font></td>
+        <td><font color="red">Total Gs.:</font> </td>
+        <td align="right"><font color="red"><%=h number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %></font> </td>
+        <td>Total IVA.:</td>
+        <td align="right"><%=h number_to_currency(@produto_iva_guarani, :format=>' %n ', :separator => ",")  %></td>
+
+      </tr>
+
+    </table>
+  </div>
+  <%= render :partial=>"/vendas/eps/index_financa_#{$empresa}", :locals=>{:vendas_financas => @venda.vendas_financas} %>
+  <div class="group">
+    <table>
+      <tr>
+        <td>Cliente :</td>
+        <td>
+          <%=  @venda.persona_nome%>
+        </td>
+
+        <td width="100" align="right">Ruc/CI :</td>
+        <td>
+          <%=  @venda.ruc%>
+        </td>
+
+      </tr>
+
+      <tr>
+        <td>Direcion :</td>
+        <td>
+          <%=  @venda.direcao%>
+        </td>
+        <td width="100" align="right">Ciudad :</td>
+        <td>
+          <%=  @venda.cidade_nome%>
+        </td>
+
+      </tr>
+    </table>
+  </div>
+
+<%= render :partial=>"index_clientes", :locals=>{:clientes => @venda.clientes} %>
+
+<a href="/vendas/vendas_financa/<%= @venda.id.to_i %>"> << Volver </a> |
+<a href="javascript:void(0)" onClick="ComprovanteVenda()">Comprobante</a> |
+<a href="javascript:void(0)" onClick="FaturaVenda()">Factura</a> |
+<a href="/vendas/new">Nuevo</a> |
+<a href="/vendas">Menu</a> |
+<a href="javascript:void(0)" onClick="fecha()">Cerrar</a>
+<%= hidden_field_tag :id_venda, @venda.id %>
+
+<script>
+  function ComprovanteVenda()                //
+  {
+    window.open('/vendas/comprovante/' + document.getElementById('id_venda').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+  }
+
+  function FaturaVenda()                     //
+  {
+    window.open('/vendas/fatura/' + document.getElementById('id_venda').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+  }
+
+  function fecha()                           //
+  {
+    self.close();
+  }
+  //ABRI POPUP-----------------------------------------------------------------
+  document.onkeydown=function(e)
+  {
+    if(e.which == 113)
+      location.href="/vendas/vendas_financa/"+ document.getElementById('id_venda').value;
+  }
+  //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>
+

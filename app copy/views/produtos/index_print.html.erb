@@ -1,0 +1,94 @@
+
+
+
+
+  <table border="1">
+        <tr>
+          <td width="50" align="center">Clase</td>
+          <td width="50" align="center">Grupo</td>
+          <td width="80" align="center">Cod.</td>
+          <td width="500" align="center">Produto</td>
+          <td width="100" align="center">Cantidad</td>
+          <td width="100" align="center">Total</td>
+          <td width="200" align="center">Observacion</td>
+
+        </tr>
+        
+      <% quebra_clase       = ""%>
+      <% quebra_grupo       = ""%>
+
+      <% for produto in @produtos %>
+
+                         <%if quebra_clase != produto.clase_id or quebra_grupo != produto.grupo_id %>
+
+                     <%if quebra_grupo != produto.grupo_id or quebra_clase != produto.clase_id %>
+
+                         <%if quebra_grupo != ""  %>
+
+                             <tr class="head">
+                                 <td colspan="2"></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+
+                        <%end%>
+
+                        <%if quebra_clase != ""  %>
+
+                             <tr class="head">
+                                 <td colspan="2"></td>
+                             </tr>
+
+                             <tr>
+                                 <td></td>
+                             </tr>
+
+
+                        <%end%>
+
+                     <%end%>
+                     <tr class="head">
+                       <td><%=h quebra_clase = produto.clase_id %> - </td>
+                       <td colspan="6">
+                                                     <%clase_descricao =  Clase.find_by_id(quebra_clase) %>
+                                                     <%= clase_descricao.descricao %></td>
+
+                     </tr>
+
+                     <tr class="head">
+                        <td colspan="1"></td>
+                        <td><%=h quebra_grupo = produto.grupo_id %> - </td>
+
+                        <td colspan="5">                         <%grupo_descricao =  Grupo.find_by_id(quebra_grupo) %>
+                                                                <%= grupo_descricao.descricao %></td>
+                     </tr>
+
+                 <%end%>
+
+
+
+        <tr class = "<%= cycle("cor1", "cor2")%>">
+          <td width="50" align="center"> <%=h produto.clase_id%> </td>
+          <td width="50" align="center"> <%=h produto.grupo_id%> </td>
+          <td width="80" align="center"> <%=h produto.cod_velho%> </td>
+          <td width="500" align="left"> <%=h produto.nome%> </td>
+          <td width="100" align="left"></td>
+          <td width="100" align="left"> </td>
+          <td width="200" align="left"></td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+
+<style type="text/css">
+  table { border-collapse: collapse;
+          font-size: 10px}
+
+  .titulo{font-size: 22px}
+  td,tr { border: 1px solid black; }
+</style>

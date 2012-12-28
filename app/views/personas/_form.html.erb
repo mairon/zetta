@@ -1,0 +1,49 @@
+<h1 align="right" id="header">Personas</h1>
+
+<%= form_for(@persona , :html => { :multipart => true })  do |f| %>
+   
+   <% if @persona.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@persona.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @persona.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div>
+      <ul class="tabs">
+         <li><a href="#tab1">Persona - [Edicion]</a></li>
+         <li><a href="#tab2">Referencias</a></li>
+         <li><a href="#tab3">Empleado</a></li>
+      </ul>
+
+      <div class="tab_container">
+         <div id="tab1" class="tab_content">
+            <%= render :partial => "personas/eps/form_principal_E03",:locals => {:f => f} %>
+         </div>
+
+         <div id="tab2" class="tab_content">
+            <%= render :partial => "personas/eps/form_cliente_E03",:locals => {:f => f} %>
+         </div>
+
+         <div id="tab3" class="tab_content">
+            <%= render :partial => "personas/eps/form_empregado_E03",:locals => {:f => f} %>
+         </div>
+
+
+   <div class="buttons">
+      <%= f.submit "   Grabar   ",:disable_with => "Aguarde...", :class => "button" %> 
+      <%= link_to 'Volver', personas_path, :class => "button back" %> 
+      <%= link_to 'Borrar', @persona, :confirm => 'Tiene Certeza?', :method => :delete, :class => "button delete" %>      
+   </div>
+ </div>
+</div>
+   
+
+<% end %>

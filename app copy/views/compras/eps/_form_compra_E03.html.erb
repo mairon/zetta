@@ -1,0 +1,332 @@
+<!--modelo INTEGRACAO COM MOEDA REAL E03!-->
+
+<%= javascript_include_tag 'form_compra' %>
+<body onload="ExibeDivCompraDetalheFatura()">
+
+  <h1 align="right" id="header">Compra-E03</h1>
+  <%= form_for(@compra) do |f| %>
+    <% if @compra.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@compra.errors.count, "error") %> prohibited this asset from being saved:</h2>
+          <ul>
+            <% @compra.errors.full_messages.each do |msg| %>
+            <li>
+              <%= msg %>
+            </li>
+        <% end %>
+          </ul>
+      </div>
+  <% end %>
+  
+  <%= f.hidden_field :clase_produto,:value =>  0 %>
+    <ul class="tabs">
+      <li><a href="#tab1">Compras - [Edicion]</a></li>
+    </ul>
+
+  <div class="tab_container">
+    <div id="tab1" class="tab_content">
+      <table>
+        <tr>
+          <td>
+            <fieldset>
+              <legend>Lanzamiento</legend>
+                <table>
+                  <tr>
+                    <td align="right">Fecha:</td>
+                    <td> <%= f.date_select :data%></td>     
+
+                    <td align="right">Unidade:</td>
+                    <td><%= f.collection_select :unidade_id, Unidade.all(:select => 'id',:order => '1'),:id,:id,{}%></td>
+                  </tr>
+
+                  <tr>
+                    <td align="right">Cotización U$ :</td>
+                    <td> <%= text_field  :compra,:cotacao ,
+                                         :size     => 10,
+                                         :value    => @compra.cotacao.to_i %>
+                     </td>           
+
+                    <td align="right">R$ :</td>
+
+                    <td> <%= text_field  :compra,:cotacao_real,
+                                         :size     => 10,
+                                         :value    => @compra.cotacao_real.to_i %>
+
+                    </td>
+                  </tr>
+                </table>
+            </fieldset>
+          </td>
+
+          <td>
+            <table>
+              <tr>
+                <td colspan="3">
+                  <fieldset>
+                    <legend>Compra</legend>
+                      <%= f.radio_button :tipo_compra, 0, :Checked => "True"%> Mercaderia
+                      <%= f.radio_button :tipo_compra, 2 %> Importacion
+                      <%= f.radio_button :tipo_compra, 3 %> Compra de Bens
+                  </fieldset>
+                </td>
+              </tr>  
+              
+              <tr>
+                <td>
+                  <fieldset>
+                    <legend>Moneda</legend>
+                      <%= f.radio_button  :moeda, 1,
+             						  		            :Checked    => "True",                                          
+                                   	 			:onblur     => "MoedaCompra('1')" %> Gs.
+                              
+                      <%= f.radio_button :moeda, 0,
+			                 			  					 :onblur => "MoedaCompra('0')"%> Dolar
+                      
+                      <%= f.radio_button :moeda, 2,
+                               					 :onblur => "MoedaCompra('2')"%> Real
+
+                      <%= hidden_field_tag :moeda, nil, :value =>  @compra.moeda %>                
+                  </fieldset>
+                </td>
+
+                <td width="200">
+                  <fieldset>
+                    <legend>Tipo</legend>
+                      <%= f.radio_button :tipo, 0,
+			                                   :Checked    => "True",
+                                         :onblur     => "TipoCompra('0'),
+                                                        ExibeDivCompraDetalheFatura(),CompraTipoDocumento()"%> Contado
+                      
+                      <%= f.radio_button :tipo, 1,
+			                                   :onblur => "TipoCompra('1'),
+                                                    ExibeDivCompraDetalheFatura(),CompraTipoDocumento()" %> Credito
+
+                      <%= hidden_field_tag :tipo, nil, :value =>  @compra.tipo %>                                  
+                  </fieldset>
+                </td>
+
+                <td><%= f.check_box :adcionais %>Gastos Adcionales
+                    <%= f.check_box :status %>No Ingres. Stock
+                </td>
+              </tr>
+            </table>
+          </td>                           
+        </tr>
+      </table>
+      
+      <table>
+        <tr>
+          <td colspan="4">
+            <fieldset>
+              <table>
+                <tr>
+                  <td align="right">Nombre :</td>
+                  <td colspan="3">
+                    <%= f.text_field :persona_nome,
+                             				 :size => 60,
+                             				 :placeholder => "Puse F2 para buscar el Nombre." %> 
+
+                    <%= link_to '',{:controller => 'personas',:action => 'new'}, :popup => ['new_window','height=700,width=1000'] , :class => "links add" %>                                    
+                       Pulse F2 para buscar.
+                    
+                    <%= f.hidden_field :despachante_id, :value => 0  %>
+                  </td>
+                </tr>
+
+                <!--    DOCUMENTO       !-->
+                <tr>
+                  <td align="right">Documento:</td>
+                  <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                                            :order  => '1' ),
+                                                                            :id,
+                                                                            :nome,{},{} %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td align="right">Numero:</td>
+                  <td><%= f.text_field :documento_numero_01,:size => 3 %>
+                      <%= f.text_field :documento_numero_02,:size => 3 %>
+                      <%= f.text_field :documento_numero,   :size => 10 %>
+                  </td>
+
+                  <td align="right"> Timbrado :</td>
+                  <td colspan="1"><%= f.text_field :documento_timbrado,:size => 15 %></td>
+                </tr>
+
+                <tr>
+                  <td colspan="4">
+                    <div id="MOEDA_FATURA_DOLAR" style="display:none;">
+                      <table>
+                        <tr>
+        	                <td colspan="4">
+                            <fieldset>
+                              <table>
+                                <tr>
+                                  <%= field_us 'Exentas U$ :',f,:exentas_dolar %>
+                                  <%= field_us 'Gravadas 5% U$ :',f,:gravadas_05_dolar,
+                     							      	                          :onblur => "CompraGravada05Dolar('compra_gravadas_05_dolar','compra_imposto_05_dolar')" %>
+
+                                  <%= field_us 'Gravadas 10% U$ :',f, :gravadas_10_dolar,
+                     							        	                          :onblur     => "CompraGravada10Dolar('compra_gravadas_10_dolar','compra_gravadas_05_dolar','compra_exentas_dolar','compra_imposto_10_dolar','compra_total_dolar')" %>
+                                </tr>
+
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <%= field_us 'Impuestos 5% U$ :',f,:imposto_05_dolar %>
+                                  <%= field_us 'Impuestos 10% U$ :',f,:imposto_10_dolar %>
+                                </tr>
+
+                                <tr>
+                                  <td colspan="4"></td>
+                                    <%= field_us 'Total U$ :',f,:total_dolar %>
+                                </tr>
+
+                                <tr>
+                                  <td colspan="4"></td>
+                                    <%= field_us 'Total Desconto U$ :',f,:desconto_dolar %>
+                                </tr>
+                              </table>
+                            </fieldset>
+		                      </td>
+        		            </tr>
+										  </table>
+                    </div>
+
+                    <div id="MOEDA_FATURA_GUARANI" style="display:none;">
+								      <table>                                     	
+		                    <tr>
+        	                <td colspan="4">
+                            <fieldset>
+                              <table>
+                                <tr>
+                                  <td>
+                                    <table>
+                                      <tr>
+                                        <%= field_gs 'Exentas Gs.:',f,:exentas_guarani %>
+
+                                        <%= field_gs 'Gravadas 5% Gs.:',f,:gravadas_05_guarani,
+                     							 	  										                :onblur     => "CompraGravada05Gs()" %>
+
+                                        <%= field_gs 'Gravadas 10% Gs.:',f, :gravadas_10_guarani,
+                      							 	  										                :onblur     => "CompraGravada10Gs()" %>
+                                      </tr>
+
+                                      <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <%= field_gs 'Impuestos 5% Gs.:',f,:imposto_05_guarani%>
+                                        <%= field_gs 'Impuestos 10% Gs.:',f,:imposto_10_guarani%>
+                                      </tr>
+
+                                      <tr>
+                                        <td colspan="4"></td>
+                                          <%= field_gs 'Total Gs.:',f,:total_guarani %>
+                                      </tr>
+
+                                      <tr>
+                                        <td colspan="4"></td>
+                                          <%= field_gs 'Total Desconto Gs.:',f,:desconto_guarani %>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </fieldset>
+		                      </td>
+        		            </tr>
+        		          </table>
+                    </div>
+
+                    <div id="MOEDA_FATURA_REAL" style="display:none;">
+									    <table>
+		                    <tr>
+        	                <td colspan="4">
+                            <fieldset>
+                              <table>
+                                <tr>
+                                  <%= field_us 'Exentas R$ :',f,:exentas_real %>
+
+                                  <%= field_us 'Gravadas 5% R$ :',f,:gravadas_05_real,
+							                            							 	          :onblur     => "CompraGravada05Dolar('compra_gravadas_05_real','compra_imposto_05_real')" %>
+
+                                  <%= field_us 'Gravadas 10% R$ :',f, :gravadas_10_real,
+                     							        	                          :onblur     => "CompraGravada10Dolar('compra_gravadas_10_real','compra_gravadas_05_real','compra_exentas_real','compra_imposto_10_real','compra_total_real')" %>
+                                </tr>
+
+                                <tr>
+                                  <td></td>
+                                  <td></td>
+                                  <%= field_us 'Impuestos 5% R$ :',f,:imposto_05_real %>
+                                  <%= field_us 'Impuestos 10% R$ :',f,:imposto_10_real %>
+                                </tr>
+
+                                <tr>
+                                  <td colspan="4"></td>
+                                    <%= field_us 'Total R$ :',f,:total_real %>
+                                </tr>
+
+                                <tr>
+                                  <td colspan="4"></td>
+                                    <%= field_us 'Total Desconto R$ :',f,:desconto_real %>
+                                </tr>
+                              </table>
+                            </fieldset>
+		                      </td>
+    	    		          </tr>
+	                    </table>
+                    </div>                                		
+									</td>
+								</tr>	
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="buttons">
+      <%= f.submit "Seguir",:disable_with => "Aguarde..." , :class => "button" %>
+    </div>
+    
+     </div>
+
+   <%end%>
+
+
+<script type="text/javascript">
+
+  //busca cotacao dolar
+  $("#compra_cotacao").focus(function(){
+    $.ajax({url: '/buscas/cotz_us_compra',
+            type: 'POST',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            data: 'data=' + $('#compra_data_3i').val()+'/'+
+                            $('#compra_data_2i').val()+'/'+
+                            $('#compra_data_1i').val(),
+            success: function(data){
+            $('#compra_cotacao').val(data);} })
+  });
+
+  //busca cotacao real
+  $("#compra_cotacao_real").focus(function(){
+    $.ajax({url: '/buscas/cotz_rs_compra',
+            type: 'POST',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            data: 'data=' + $('#compra_data_3i').val()+'/'+
+                            $('#compra_data_2i').val()+'/'+
+                            $('#compra_data_1i').val(),
+            success: function(data){
+            $('#compra_cotacao_real').val(data);} })
+  });
+
+  //ABRI POPUP
+  document.onkeydown=function(e){
+    if(e.which == 113)
+       window.open('/personas/persona_compra', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+  }
+   
+</script>
+
+		

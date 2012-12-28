@@ -1,0 +1,26 @@
+<h1 align="right" id="header">Rodados</h1>
+<%= link_to 'Nuevo', new_rodado_path,{:id => 'novo'} %>
+<div class="group">
+   <table>
+      <tr>
+         <td width="50" align="center">Cod.</td>
+         <td width="80" align="center">Chapa</td>
+         <td width="100" align="center">Modelo</td>
+         <td width="200" align="center">Responsable</td>
+      </tr>
+   </table>
+   <div class="rolagem" id="div">
+      <table>
+         <% @rodados.each do |rodado| %>
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+               <td width="50" align="center"><%= rodado.id %></td>
+               <td width="80" align="center"><%= rodado.placa %></td>
+               <td width="100" align="center"><%= rodado.modelo %></td>
+               <td width="200" align="left"><%= rodado.responsavel %></td>
+               <td><%= link_to 'Editar', edit_rodado_path(rodado) %></td>
+               <td><%= link_to 'Borrar', rodado, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+            </tr>
+         <% end %>
+      </table>
+   </div>
+</div>

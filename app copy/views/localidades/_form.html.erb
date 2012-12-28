@@ -1,0 +1,52 @@
+<%= form_for(@localidade) do |f| %>
+  <% if @localidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@localidade.errors.count, "error") %> prohibited this localidade from being saved:</h2>
+
+      <ul>
+      <% @localidade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1"> Localidad - [Edicion]</a></li>
+   </ul>
+
+
+    <div class="tab_container">
+      <div id="tab1" class="tab_content">
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+
+                <table>
+                  <tr>
+                    <td align="right">Codigo :</td>
+                    <td><%= f.text_field :codigo %></td>                        
+                  
+                    <td align="right">Ocupacao :</td>
+                    <td><%= f.text_field :ocupacao %></td>       
+                  </tr> 
+
+                  <tr>
+                    <td align="right">Status :</td>
+                    <td><%= f.number_field :status %></td>       
+                  </tr>                   
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="buttons">
+        <%= f.submit :value => " Grabar ", :class => "button" %>
+        <%= link_to 'Volver', localidades_path, :class => "button back" %>
+      </div>
+
+    </div>
+<% end %>

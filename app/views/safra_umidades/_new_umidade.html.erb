@@ -1,0 +1,32 @@
+<%= form_for(safra_umidade) do |f| %>
+  <% if safra_umidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(safra_umidade.errors.count, "error") %> prohibited this safra_umidade from being saved:</h2>
+
+      <ul>
+      <% safra_umidade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :safra_produto_id %>
+  <%= f.hidden_field :safra_id, :value => @safra_produto.safra_id %>
+  <%= f.hidden_field :produto_id, :value => @safra_produto.produto_id %>
+  
+      <div class="group_cd">
+        <table>
+          <tr>            
+            <%= field_us 'Informado:',f,:informado %>
+          </tr>
+          <tr>
+            <%= field_us 'Descuento:',f,:desconto %>
+            <td><%= f.submit :value => " Grabar ", :class => "button" %></td>
+          </tr>
+        </table>
+      </div>   
+      <div class="buttons">
+         
+      </div>
+  <% end %>
+                    

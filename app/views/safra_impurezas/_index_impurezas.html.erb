@@ -1,0 +1,23 @@
+<div class="group">
+  <table class="head_grid">
+      <tr>
+        <td width="70" align="center">Informado</td>
+        <td width="70" align="center">Descuento</td>
+        <td width="30" ></td>
+        <td width="30" ></td>
+      <tr>
+  </table>
+
+  <div class="rolagem_min" dir="div">
+    <table>
+      <% safra_impurezas.each do |saf_imp| %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="70" align="right"><%= h number_to_currency( saf_imp.informado,:format =>' %n ', :separator => ",")  %></td>
+          <td width="70" align="right"><%= h number_to_currency( saf_imp.desconto,:format =>' %n ', :separator => ",")  %></td>                            
+          <td width="30"><%= link_to 'Editar', edit_safra_impureza_path(saf_imp) %></td>
+          <td width="30"><%= link_to 'Borrar', saf_imp, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+        </tr>
+      <% end %>       
+    </table>
+  </div>
+</div>

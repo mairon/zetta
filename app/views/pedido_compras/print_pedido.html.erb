@@ -1,0 +1,100 @@
+<table>
+    <tr>
+       <td rowspan="3"><%= pdf_image_tag('logo.bmp', :style=>"margin:0px;padding:0px",:width=>"230", :height=>"85")%></td>
+       <td colspan="3" style="width:520px"><%= @pedido_compra.data.strftime("%d")%> de <%= @pedido_compra.data.strftime("%B")%>  de <%= @pedido_compra.data.strftime("%Y")%>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+       Pedido Nr. :<%= @pedido_compra.id%>
+       </td>
+    </tr>
+
+    <tr>
+      <% if @pedido_compra.moeda == 0 %>
+         <% moeda = 'Dolar'%>
+      <% else %>
+         <% moeda = 'Guaranies'%>
+      <% end %>
+      <td align="left">Moneda : <%= moeda %></td>
+      <td align="right">Cotización : <%= number_to_currency( @pedido_compra.cotacao,      :format =>' %n ', :precision => 0 ) %></td>
+    </tr>
+
+    <tr>
+      <td align="left" colspan="3" valign="top">
+        Requerente : <%= @pedido_compra.requerente_nome %>
+      <br/>
+        Proveedor : <%= @pedido_compra.persona_nome %>
+      </td>
+    </tr>
+    <tr>
+        <td colspan="3" align="center"><font size="3">Itens</font></td>
+    </tr>
+
+    <tr>
+       <td colspan="3">
+         <table>
+            <tr class="head">
+              <td align="center" width="30"></td>
+              <td align="center" width="100">Cod. Fabricante</td>
+              <td align="center" width="405">Producto</td>
+              <td align="center" width="70">Cantidad</td>
+              <td align="center" width="70">Unitario</td>
+              <td align="center" width="70">Total</td>
+            </tr>
+            <% indice = 1 %>
+            <% qtd    = 0 %>
+            <% tot_us = 0 %>
+            <% tot_gs = 0 %>
+            <% @pcp.each do |pc|%>
+            <tr>
+              <td align="center" width="30"><%= indice %></td>
+              <td align="center" width="100"><%= pc.produto_fabricante_cod %></td>
+              <td align="left" width="405"><%= pc.produto_nome %></td>
+              <td align="center" width="70"><%= pc.quantidade %></td>
+              <% if @pedido_compra.moeda == 0 %>
+                <td width="70" align="right"><%=h number_to_currency( pc.unitario_dolar,      :format =>' %n ', :separeitor => "," ) %></td>
+                <td width="70" align="right"><%=h number_to_currency( pc.total_dolar,      :format =>' %n ', :separeitor => "," ) %></td>
+                <% tot_us += pc.total_dolar %>
+              <% else %>
+                <td width="70" align="right"><%=h number_to_currency( pc.unitario_guarani,      :format =>' %n ', :precision => 0 ) %></td>
+                <td width="70" align="right"><%=h number_to_currency( pc.total_guarani,      :format =>' %n ', :precision => 0 ) %></td>
+                <% tot_gs += pc.total_guarani %>
+              <% end %>
+            </tr>
+            <% indice += 1%>
+
+            <% qtd    += pc.quantidade %>
+           <% end %>
+           <tr class="head">
+			   <td colspan="3" align="right">Totales</td>
+
+               <td align="center"> <%= qtd %></td>
+               <td></td>
+              <% if @pedido_compra.moeda == 0 %>
+                <td width="70" align="right"><%=h number_to_currency( tot_us,      :format =>' %n ', :separeitor => "," ) %></td>
+              <% else %>
+                <td width="70" align="right"><%=h number_to_currency( tot_gs,      :format =>' %n ', :precision => 0 ) %></td>
+              <% end %>
+           </tr>
+         </table>
+       </td>
+    </tr>
+ 
+    <tr>
+     <td colspan="3">Concepto : <%= @pedido_compra.descricao %> </td>
+    </tr>
+
+</table>
+
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		font-size: 10px
+	}
+	td, tr {
+		border: 1px solid black;
+	}
+</style>
+

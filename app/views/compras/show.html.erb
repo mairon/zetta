@@ -1,0 +1,91 @@
+<body onload="ImputFocus('key')">
+<h1 align="right" id="header">Compras Productos</h1>
+
+
+   <ul class="tabs">
+      <li><a href="#tab1">Compra Prod. - [Edicion]</a></li>
+   </ul>
+   <div class="tab_container">      
+   <br/>
+
+<table>
+   <tr>
+      <td>
+         <div class="group">
+            <table>
+               <tr>
+                  <td>
+                     <div id="compras_produtos">
+                        <%= render :partial=>"index_produto" %>
+                     </div>
+                  </td>
+                  <td valign="top">
+
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </td>
+     </tr>
+
+   <tr>
+      <td>
+         <div class="group">
+            <table>
+               <tr>
+                  <td>
+                     <div id="compras_produtos">
+                       <%= render :partial=>"compras/eps/new_produto_E03", :locals=>{:compras_produto=>ComprasProduto.new(:compra_id=>@compra.id)} %>
+                     </div>
+                  </td>
+                  <td valign="top">
+
+                  </td>
+               </tr>
+            </table>
+         </div>
+      </td>
+     </tr>
+
+   </table>
+  <div class="buttons">
+   <%= link_to 'Volver', edit_compra_path(@compra), :class => "button back" %> 
+   <% if @compra.adcionais == 0 %>
+      <a href="/compras/<%=params[:id]%>/compras_financa", class="button next" >Seguir</a> 
+   <% else %>
+      <a href="/compras/<%=params[:id]%>/compras_documento", class="button next" >Seguir </a> 
+   <% end %>
+   <a href="javascript:void(0)" onClick="Comprovante()" class="button print">Comprobante</a> 
+   <a href="/compras/<%=params[:id]%>/novo_produto" class="button add">Nuevo</a>
+  </div>
+ </div>
+
+<%= hidden_field_tag :id, @compra.id %>
+<%= hidden_field_tag :adcionais, @compra.adcionais %>
+<script>
+
+   function Comprovante()                //
+   {
+      window.open('/compras/' + document.getElementById('id').value+ '/comprovante/', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+   }
+
+   document.onkeydown=function(e)
+   {
+      //BOTAO F4
+      if(e.which == 115)
+         location.href="/compras/"+ document.getElementById('id').value+'/novo_produto'; 
+
+   }
+
+  //ABRI POPUP-----------------------------------------------------------------
+document.onkeydown=function(e)
+{
+    if(e.which == 113)
+        window.open('/produtos/busca_compra_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+}
+     
+//FIM ABRI POPUP----------------------------------------------------------------
+
+
+</script>
+

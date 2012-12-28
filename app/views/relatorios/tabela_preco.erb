@@ -1,0 +1,229 @@
+  <h1 align="right" id="header">.</h1>
+  Tabla de Precio
+  <div class="group">
+    <h2>
+      <%= form_tag resultado_tabela_preco_relatorios_path, :method => "get" do%>
+       <table>
+          <tr>
+            <td align="right">Clase :</td>
+            <td>
+              <%= text_field_tag( 'campo_clase',
+                                   nil,
+                                   :id       => "campo_clase",
+                                   :onchange => {:remote => true,
+                                                 :update => "campo_clase",
+                                                                 :url        => { :action => :get_clase, :id => 1},
+                                                                 :with       => "'campo_clase='+this.value"},
+                                                                 :size       => 5,
+                                                                 :onkeypress => "return bloqEnter(event)",
+                                                                 :onkeyup    => "EnterTab(event,'busca_clase')"
+                                                              ) %>
+
+              <%=   select("busca", "clase", Clase.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] },                 
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_grupo')" })   %></td>
+          </tr>
+
+          <tr>
+            <td align="right">Grupo :</td>
+
+            <td>
+              <%= text_field_tag( 'campo_grupo',
+                                   nil,
+                                   :id       => "campo_grupo",
+                                   :onchange => {:remote => true,
+                                                 :update => "campo_grupo",
+                                                                 :url        => { :action => :get_grupo, :id => 1},
+                                                                 :with       => "'campo_grupo='+this.value"},
+                                                                 :onkeypress => "return bloqEnter(event)",
+                                                                 :onkeyup    => "EnterTab(event,'busca_grupo')",
+                                                                 :size       => 5
+                              ) %>
+
+              <%=   select("busca", "grupo", Grupo.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] }, 
+                                                                                          { :include_blank => true },
+                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                            :onkeyup       => "EnterTab(event,'campo_produto')" })   %></td>
+          </tr>
+
+
+          <tr>
+            <td align="right">Producto :</td>
+
+            <td>
+              <%= text_field_tag( 'campo_produto',
+                                   nil,
+                                  :id       => "campo_produto",
+                                  :onchange => {:remote => true,
+                                                :update => "campo_produto",
+                                                                :url        => { :action => :get_produto, :id => 1},
+                                                                :with       => "'campo_produto='+this.value"},
+                                                                :size       => 5,
+                                                                :onkeypress => "return bloqEnter(event)",
+                                                                :onkeyup    => "EnterTab(event,'busca_produto')"
+
+                                ) %>
+
+
+              <%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, 
+                                                                                                          { :include_blank => true },
+                                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                                            :onkeyup       => "EnterTab(event,'busca_deposito')" })   %></td>
+          </tr>
+
+          <tr>
+            <td align="right">Deposito :</td>
+
+            <td  colspan="3">
+              <%=   select("busca", "deposito", Deposito.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, 
+                                                                                                            { :include_blank => true },
+                                                                                                            { :onkeypress    => "return bloqEnter(event)",
+                                                                                                              :onkeyup       => "EnterTab(event,'filtro')" })   %></td>
+          </tr>
+
+          <tr>
+             <td></td>
+             <td>
+                <table>
+                   <tr>
+                        <td>
+                          <fieldset>
+                            <input id         = "filtro"
+                                   name       = "filtro"
+                                   type       = "radio"
+                                   value      = "0"
+                                   checked
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Sin Saldo
+
+                            <input id    ="filtro"
+                                   name  ="filtro"
+                                   type  ="radio"
+                                   value ="1"
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Con Saldo
+
+                          </fieldset>
+                        </td>
+
+                        <td>
+                          <fieldset>
+                             <legend>Stock :</legend>
+                            <input id         = "stock"
+                                   name       = "stock"
+                                   type       = "radio"
+                                   value      = "0"
+                                   checked
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Sin
+
+                            <input id    ="stock"
+                                   name  ="stock"
+                                   type  ="radio"
+                                   value ="1"
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />No
+
+                          </fieldset>
+
+                        </td>
+
+                        <td>
+                          <fieldset>
+                             <legend>Moneda :</legend>
+                            <input id         = "moeda"
+                                   name       = "moeda"
+                                   type       = "radio"
+                                   value      = "0"
+                                   checked
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Guaranies
+
+                            <input id    ="moeda"
+                                   name  ="moeda"
+                                   type  ="radio"
+                                   value ="1"
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Dolar
+
+                            <input id    ="moeda"
+                                   name  ="moeda"
+                                   type  ="radio"
+                                   value ="2"
+                                   onkeypress = "return bloqEnter(event)"
+                                   onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Todos
+
+
+                          </fieldset>
+
+                        </td>
+
+                   </tr>
+                </table>
+             </td>
+          </tr>
+
+          <tr>
+             <td></td>
+            <td>
+              <fieldset>
+                <input id         = "inf"
+                       name       = "inf"
+                       type       = "radio"
+                       value      = "0"
+                       checked
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Precio 1
+
+                <input id    ="inf"
+                       name  ="inf"
+                       type  ="radio"
+                       value ="1"
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Precio 2
+
+                <input id    ="inf"
+                       name  ="inf"
+                       type  ="radio"
+                       value ="2"
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Precio 3
+
+                <input id    ="inf"
+                       name  ="inf"
+                       type  ="radio"
+                       value ="3"
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Todos
+
+              </fieldset>
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <input  id      ="button"
+                      type    ="submit"
+                      value   ="            Informe           "
+                      onclick = "Tipo('0')"/>
+
+              <input type     = "submit"
+                     value    = "            Excel            "
+                     onclick  = "Tipo('1')"/>
+            </td>
+          </tr>
+
+          <input type  = "hidden"
+                 name  = "tipo"
+                 id    = "tipo"
+                 size  = "5"
+                 value = "0"/>
+        </table>
+      <% end %>
+
+    </h2>
+  </div> 
+
+

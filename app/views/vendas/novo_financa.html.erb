@@ -1,0 +1,5 @@
+
+  <h1 align="right" id="header">Vendas</h1>
+  <br/>
+
+    <%= render :partial=>"new_financa", :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>

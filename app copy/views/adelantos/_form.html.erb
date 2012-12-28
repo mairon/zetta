@@ -1,0 +1,218 @@
+<%= form_for(@adelanto) do |f| %>
+   <% if @adelanto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adelanto.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @adelanto.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Adelanto - [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+         <table >
+            <tr>
+               <td>
+
+                  <fieldset>
+                     <table width="750">
+                        <tr>
+                          <td align="right">Fecha:</td>
+                          <td colspan="3"> <%= f.date_select :data %></td> 
+                        </tr>
+
+                        <tr>
+                          <td align="right">Cotizacion :</td>
+                            <td> <%= text_field  :adelanto, :cotacao,
+                              :size     => 10,
+                              :value    => @adelanto.cotacao.to_i,
+                              :onfocus  => " $.ajax({url: '/buscas/cotz_us_compra',
+                                                type: 'POST',
+                                                data: 'data=' + $('#adelanto_data_3i').val()+'/'+
+                                                $('#adelanto_data_2i').val()+'/'+
+                                                $('#adelanto_data_1i').val(),
+                                                success: function(data){
+                                                  $('#adelanto_cotacao').val(data);} })"%>
+                          </td>
+
+                          <td align="right">Cotización :</td>
+                          <td> <%= text_field :adelanto,:cotacao_real ,
+                                                        :size     => 10,
+                                                        :value    => @adelanto.cotacao_real.to_i,
+                                                        :onfocus  => " $.ajax({url: '/buscas/cotz_rs_compra',
+                                                                       type: 'POST',
+                                                                       data: 'data=' + $('#adelanto_data_3i').val()+'/'+
+                                                                       $('#adelanto_data_2i').val()+'/'+
+                                                                       $('#adelanto_data_1i').val(),
+                                                                       success: function(data){
+                                                                         $('#adelanto_cotacao_real').val(data);} })"%>
+
+                                                       
+                          </td>
+                        <tr>
+
+                          <td></td>
+                          <td>
+                            <table>
+                              <tr>
+                                <td>
+                                  <fieldset>
+                                    <legend>Tipo Producto</legend>
+                                    <%= f.radio_button :clase_produto, 0,  :Checked => "True"%>Repuestos
+                                    <%= f.radio_button :clase_produto, 1  %> Maquinario
+                                  </fieldset>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+
+                        <td align="right">Tipo :</td>
+                        <td >
+                           <fieldset>
+                              <%= f.radio_button :tipo, 0,  :Checked => "True" %> Proveedor
+                              <%= f.radio_button :tipo, 1 %> Cliente
+                              <%= f.radio_button :tipo, 2 %> Empleado
+
+                           </fieldset>
+                        </td>
+                        </tr>
+
+   				        <tr>
+					       <td align="right"> Vendedor : </td>
+					       <td> <%= f.collection_select :vendedor_id, Persona.all( :select     => ' id,nome,tipo_vendedor',
+                                                        :conditions => ["tipo_vendedor = 1"],
+                                                        :order      => '2'),:id,:nome, { :include_blank => true } %></td>
+
+				        </tr>
+
+                        <tr>
+                           <td align="right">Nombre :</td>
+                           <td colspan="4"><%= f.collection_select :persona_id, Persona.all( :select => ' id,nome',
+                                 :order  => '2' ), :id,
+                                :nome %></td>
+                        </tr>
+
+                        <tr>
+                           <td align="right">Rubro :</td>
+                           <td><%= f.collection_select :rubro_id, Rubro.all( :select => 'id,descricao',
+                                 :order  => 'codigo' ), :id,
+                                :descricao %></td>
+                        </tr>
+
+                        <tr>
+
+                           <td align="right">Documento :</td>
+                           <td colspan="4"><%= f.collection_select :documento_id, Documento.all( :select => ' id,nome',
+                                 :order  => '2' ), :id,
+                                :nome %>
+                           </td>
+
+                           <td align="right">Nr. :</td>
+                           <td colspan="4"><%= f.text_field :documento_numero,:size => 15	%>
+                           </td>
+
+
+                        </tr>
+                     </table>
+                  </fieldset>
+               </td>
+            </tr>
+         </table>
+
+         <table>
+            <tr>
+               <td>
+                  <fieldset>
+                     <table width="750">
+
+                        <tr>
+                           <td align="right">Cuenta :</td>
+                           <td><%= f.collection_select :conta_id, Conta.all( :select => ' id,nome',
+                                 :order  => '2' ), :id,
+                                :nome %></td>
+                        </tr>
+
+                        <tr>
+                           <td align="right"> Moneda :</td>
+                           <td>
+                              <fieldset>
+                                 <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+                                 <%= f.radio_button :moeda, 0 %> Dolar
+                                 <%= f.radio_button :moeda, 2 %> Real
+
+                              </fieldset>
+                           </td>
+                        </tr>
+
+
+                        <tr>
+                           <td align="right">Operación :</td>
+                           <td>
+                              <fieldset>
+                                 <%= f.radio_button :status, 0,  :Checked => "True" %> Entrada
+                                 <%= f.radio_button :status, 1 %> Salida
+
+                              </fieldset>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td align="right"></td>
+                           <td><%= f.check_box :cheque_status %> Cheque?</td>
+                        </tr>
+
+                        <tr>
+                        
+                           <td align="right">Cheque :</td>
+                           <td><%= f.text_field  :cheque,
+                                :size     => 15 %></td>
+
+                           <td align="right">Diferido :</td>
+                           <td colspan="2"><%= f.date_select :diferido%></td>
+                        </tr>
+
+                        <tr>
+                           <%= field_gs 'Valor Gs.:',f,:valor_guarani,
+          						     :onblur   => "GsToUsRs('adelanto_cotacao','adelanto_cotacao_real','adelanto_valor_guarani','adelanto_valor_dolar','adelanto_valor_real')" %>
+
+                           <%= field_us 'Valor U$:',f,:valor_dolar,
+                     		         :onblur   => "UsToGsRs('adelanto_cotacao','adelanto_cotacao_real','adelanto_valor_dolar','adelanto_valor_guarani','adelanto_valor_real')" %>
+
+                           <%= field_us 'Valor R$:',f,:valor_real,
+          						     :onblur   => "RsToUsGs('adelanto_cotacao','adelanto_cotacao_real','adelanto_valor_guarani','adelanto_valor_dolar','adelanto_valor_real')" %>
+
+                        </tr>
+
+                        <tr>
+                           <td align="right" valign="top">Concepto :</td>
+                           <td colspan="5"><%= f.text_area   :concepto,:cols => 65, :rows => 5 %></td>
+                        </tr>
+
+                     </table>
+                  </fieldset>
+               </td>
+            </tr>
+         </table>
+
+      </div>
+
+   <div class="buttons">
+      <%= link_to 'Volver', adelantos_path, :class => "button back" %>
+      <%= f.submit "   Grabar  ", :disable_with => "Aguarde...", :class => "button" %> 
+   </div>
+ </div>
+
+<% end %>
+
+

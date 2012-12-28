@@ -1,0 +1,45 @@
+<h1 align="right" id="header">Sueldos</h1>
+Sueldos - Ingresos
+<div class="group">
+  <table >
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Mes :</td>
+      <td><%= @sueldo.mes %>/<%= @sueldo.ano %> </td>
+      <td align="right">Empleado :</td>
+      <td><%= @sueldo.persona_nome %> </td>
+
+    </tr>
+
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Salario :</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario, :format=>' %n ', :precision => 0)  %> </td>
+      <td align="right">Salario Min.:</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario_minimo, :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Comision :</td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.comissao, :format=>' %n ', :precision => 0) %> </td>
+      <td align="right">C.I.:</td>
+      <td width="250" align="right"><%= @sueldo.ci.to_i %> </td>
+    </tr>
+
+    <tr class = "<%= cycle("cor1", "cor2") %>">
+      <td align="right">Total.:</td>
+      <td width="250" align="right"><%= number_to_currency(( $totprov.to_f - $totdesc.to_f ), :format=>' %n ', :precision => 0) %> </td>
+    </tr>
+  </table>
+</div>
+<%= render :partial=>"index_gasto", :locals=>{:compras => @sueldo.compras  } %>
+
+<a href="/sueldos/<%=params[:id]%>" ><< Seguir</a> |
+<a href="javascript:void(0)" onClick="ComprovanteSueldo()">Comprobante</a> |
+<%= link_to 'Salir', :action => 'index' %>
+<input type="hidden" id="id" name="id" value="<%=params[:id]%>"/>
+
+<script>
+  function ComprovanteSueldo()                //
+  {
+    window.open('/sueldos/comprovante/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+  }
+</script>

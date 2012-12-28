@@ -1,0 +1,265 @@
+<body onload="ImputFocus('presupuesto_data_3i')">
+<h1 align="right" id="header">Presupuesto</h1>
+
+<%= form_for(@presupuesto) do |f| %>
+   
+   <% if @presupuesto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@presupuesto.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @presupuesto.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Pedido Ventda - [Edicion]</a></li>
+   </ul>
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+         <table>
+            <tr>
+              <td></td>
+              <td>
+                <fieldset>
+                  <legend>Lanzamiento</legend>
+                    <table>
+                      <tr>
+                        <td align="right">Fecha :</td>
+                        <td ><%= f.date_select :data,{},{:onblur => "DataCotacao('presupuesto_data_3i','presupuesto_data_2i','presupuesto_data_1i')"}  %></td>
+                        <%= hidden_field_tag( 'key' ) %>
+
+                        <td align="right">Prev. Entrega:</td>
+                        <td><%= f.date_select :prazo_entrega %></td>                 
+                      </tr>
+
+                      <tr>
+                         <td align="right">Cotiz. Dolar :</td>
+                         <td>
+                            <%= text_field :presupuesto,:cotacao ,
+                              {:size       => '15',
+                               :onkeypress => "return bloqEnter(event)",
+                               :onkeyup    => "EnterTab(event,'presupuesto_cotacao_real')",
+                               :readonly   => "readonly",
+                               :value      => @presupuesto.cotacao.to_i,
+                               :onfocus    => {:remote => true, 
+                                               :update => "key",
+                                  :url    => { :action => :get_moeda },
+                                  :with   => "'key='+key.value "} } %>
+
+                         </td>
+
+                         <td align="right">Cotiz. Real :</td>
+                         <td>
+                            <%= text_field :presupuesto,:cotacao_real ,
+                              {:size       => '15',
+                               :onkeypress => "return bloqEnter(event)",
+                               :onkeyup    => "EnterTab(event,'presupuesto_clase_produto_0')",
+                               :readonly   => "readonly",
+                               :value      => @presupuesto.cotacao_real.to_i,
+                               :onfocus    => {:remote => true,
+                                               :update => "key",
+                                  :url    => { :action => :get_moeda_real },
+                                  :with   => "'key='+key.value "} } %>
+
+                         </td>                         
+                      </tr>   
+
+                        <tr>
+                           <td align="right">Nr.:</td>
+                           <td><%= f.text_field :documento_numero,
+                                :size     => 15%></td>
+                        </tr>
+
+
+                      <tr>
+                         <td></td>
+                         <td>
+                            <table>
+                               <tr>
+                                  <td>
+                                     <fieldset>
+                                        <legend>Moneda</legend>
+                                        <%= f.radio_button :moeda, 0, 
+                                                   :onkeypress => "return bloqEnter(event)",
+                                             :onkeyup    => "EnterTab(event,'codigo')",
+                                             :Checked => "True"%> Dolar
+                                             
+                                        <%= f.radio_button :moeda, 1, 
+                                                   :onkeypress => "return bloqEnter(event)",
+                                             :onkeyup    => "EnterTab(event,'codigo')"  %> Guaranies
+                                        <%= f.radio_button :moeda, 2, 
+                                                   :onkeypress => "return bloqEnter(event)",
+                                             :onkeyup    => "EnterTab(event,'codigo')"  %> Real
+                                     </fieldset>
+                                  </td>
+                               </tr>
+                            </table>
+                         </td>
+
+                         <td></td>
+                         <td>
+                            <table>
+                               <tr>
+                                  <td>
+                                     <fieldset>
+                                        <legend>Tipo Producto</legend>
+                                        <%= f.radio_button :clase_produto, 0, :onkeypress => "return bloqEnter(event)",
+                                                      :onkeyup    => "EnterTab(event,'presupuesto_vendedor_nome')",
+                                              :Checked => "True"%>Repuestos
+                                              
+                                        <%= f.radio_button :clase_produto, 1, :onkeypress => "return bloqEnter(event)",
+                                                      :onkeyup    => "EnterTab(event,'presupuesto_vendedor_nome')"  %> Maquinario
+                                     </fieldset>
+                                  </td>
+                               </tr>
+                            </table>
+                         </td>
+                      </tr>
+
+                      <tr>
+                         <td></td>
+                         <td>
+                            <table>
+                               <tr>
+                                  <td>
+                                     <fieldset>
+                                        <legend>Status</legend>
+                                        <%= f.radio_button :status, 0,
+                                             :Checked => "True"%> En Aberta
+                                             
+                                        <%= f.radio_button :status, 1 %> Facturado
+                                        <%= f.radio_button :status, 2 %> Cancelado
+                                     </fieldset>
+                                  </td>
+                               </tr>
+                            </table>
+                         </td>
+                      </tr>
+
+
+                      <tr>
+                        <input type="hidden" id="vendedor" name="vendedor" value="<%= current_user.usuario_nome %>"/>
+                        <td align="right">Vendedor :</td>
+                        <td><%= f.collection_select :vendedor_nome, Persona.all( :select     => ' id,nome,tipo_vendedor',
+                              :conditions => ["tipo_vendedor = 1"],
+                              :order      => '2'),:nome,:nome,{},{ :onkeypress => "return bloqEnter(event)",
+                                                   :onkeyup    => "EnterTab(event,'presupuesto_moeda_0')"} %></td>
+                      </tr>
+                    </table>
+                </fieldset>
+              </td>
+            </tr>
+
+
+            <tr>
+               <td></td>
+               <td colspan="5">
+                  <fieldset>
+                     <legend>Cliente :</legend>
+                     <table>
+                        <tr>
+
+
+                           <td align="right">Codigo :</td>
+                           <td> <%= text_field_tag( 'codigo',nil,:id         => "codigo",
+                                 :onchange   => { :remote     => true,
+                                                  :update     => "codigo",
+                                 :url        => { :action     => :get_codigo, :id => 1},
+                                 :with       => "'codigo='+this.value"},
+                                 :size       => 5,
+                                 :onkeypress => "return bloqEnter(event)",
+                     			 :onkeyup    => "EnterTab(event,'presupuesto_persona_nome')",
+                                 :onkeypress => "return bloqEnter(event)",
+                                 :value      => @presupuesto.persona_id ) %>
+                           </td>
+
+
+                           <td align="right">Cliente :</td>
+                           <td colspan="4">
+                              <%= f.text_field :persona_nome,:size => 50,
+                              				   :onkeypress => "return bloqEnter(event)",
+                     						   :onkeyup    => "EnterTab(event,'presupuesto_submit')" %> Pulse F2 para Buscar.
+                              <%= f.hidden_field :persona_id %>
+                              <%= f.hidden_field :tipo_maiorista %>
+                           </td>
+                        </tr>
+
+                        <tr>
+                           <td align="right">Ruc:</td>
+                           <td><%= f.text_field :ruc,
+                                :size     => 15,
+                                :readonly => "readonly" %></td>
+
+                           <td align="right">Clasificación :</td>
+                           <td><%= f.text_field :classificacao,
+                                :size     => 1,
+                                :readonly => "readonly",
+                                :style    => "text-align:center" %></td>
+                        </tr>
+
+
+                        <tr>
+                           <td align="right">Ciudad:</td>
+                           <td><%= f.text_field :cidade_nome,
+                                :size     => 20,
+                                :readonly => "readonly" %></td>
+
+                           <%= f.hidden_field :cidade_id %>
+
+                           <td align="right">Direcion :</td>
+                           <td><%= f.text_field :direcao,
+                                :size     => 20,
+                                :readonly => "readonly" %></td>
+
+                           <td align="right">Bairro :</td>
+                           <td><%= f.text_field :bairro,
+                                :size     => 20,
+                                :readonly => "readonly",
+                                :style    => "text-align:center" %></td>
+
+
+                        </tr>
+                     </table>
+                  </fieldset>
+               </td>
+            </tr>
+         </table>
+
+
+
+
+
+
+
+
+
+      </div>
+
+   <div class="buttons">
+      <%= link_to 'Volver', presupuestos_path  , :class => "button back"%>
+      <%= f.submit "Seguir",:disable_with => "Aguarde..." , :class => "button" %>
+   </div>
+ </div>
+
+<%end%>
+</body>
+<script>
+   function fecha()
+   {
+      self.close();
+   }
+   //ABRI POPUP-----------------------------------------------------------------
+   document.onkeydown=function(e)
+   {
+      if(e.which == 113)
+         window.open('/personas/persona_presupuesto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+   }
+   //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>

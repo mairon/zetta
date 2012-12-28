@@ -1,0 +1,46 @@
+<h1 align="right" id="header">Rubros Contables</h1>
+Rubros Edicion
+<%= form_for(@rubro) do |f| %>
+<% if @rubro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rubro.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @rubro.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="group">
+      <table>
+         <tr>
+                    <td align="right">Codigo :</td>
+        <td>              <%= text_field_tag( 'rubro[codigo]',
+                                   nil,
+                                   :id       => "rubro_codigo",
+                                   :onblur   => {:remote => true,
+                                                 :update => "rubro_codigo",
+                                                                 :url        => { :action => :get_codigo},
+                                                                 :with       => "'rubro_codigo='+this.value"},
+                                                                 :size       => 10
+                                                              ) %>
+
+            <%= f.collection_select :plano_de_conta_id, PlanoDeConta.all(:select => 'id,descricao',:order => '2'),:id,:descricao %></td>
+         </tr>
+         <tr>
+            <td>Descripcion : </td>
+            <td><%= f.text_field :descricao,
+                 :siza      => 50,
+                 :onkeydown => "f(this)",
+                 :onkeyup   => "f(this)"%></td>
+         </tr>
+      </table>
+   </div>
+
+   <%= f.submit "Grabar" %> |
+   <%= link_to 'Volver', rubros_path %>
+
+<% end %>

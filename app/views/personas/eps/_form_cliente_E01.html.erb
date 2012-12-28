@@ -1,0 +1,125 @@
+  <div>
+    <table>
+      <tr height="35">
+        <td>
+          <table>
+            <tr height="35">
+              <td align="right">Fecha Nacimiento :</td>
+              <td><%= f.date_select :data_nascimento%></td>
+
+              <td align="right">Email :</td>
+              <td><%= f.text_field :email,
+                                   :size => 15%></td>
+
+              <td align="right">Estado Civil :</td>
+              <td><%= f.text_field :estado_civil,
+                                   :size       => 15,
+                                   :onkeypress => "return bloqEnter(event)"%></td>
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr height="35">
+        <td>
+          <fieldset>
+            <legend>Datos Profisionales</legend>
+            <table>
+
+            <tr height="35">
+
+              <td align="right">Lugar de Trabajo :</td>
+              <td><%= f.text_field :lugar_trabalho,
+                                   :size       => 15,
+                                   :onkeypress => "return bloqEnter(event)"%></td>
+
+              <td align="right">Cargo :</td>
+              <td><%= f.text_field :cargo,
+                                   :size       => 15,
+                                   :onkeypress => "return bloqEnter(event)"%></td>
+              <td align="right">Antiguidad :</td>
+              <td><%= f.text_field :antiguidade,
+                                   :size       => 15,
+                                   :onkeypress => "return bloqEnter(event)"%></td>
+
+              <td align="right">Profision :</td>
+              <td><%= f.text_field :profisao,
+                                   :size       => 15,
+                                   :onkeypress => "return bloqEnter(event)"%></td>
+
+            </tr>
+
+            </table>
+          </fieldset>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <fieldset>
+            <legend>Referencias</legend>
+                <table>
+                    <tr height="35">
+
+                      <td align="right">Ref. 1 :</td>
+                      <td><%= f.text_field :referencia1,
+                                           :size       => 25,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+
+                      <td align="right">Tel :</td>
+                      <td><%= f.text_field :referenciatel1,
+                                           :size       => 15,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+                    </tr>
+
+                    <tr height="35">
+
+                      <td align="right">Ref. 2 :</td>
+                      <td><%= f.text_field :referencia2,
+                                           :size       => 25,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+
+                      <td align="right">Tel :</td>
+                      <td><%= f.text_field :referenciatel2,
+                                           :size       => 15,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+                    </tr>
+
+                    <tr height="35">
+
+                      <td align="right">Ref. 3 :</td>
+                      <td><%= f.text_field :referencia3,
+                                           :size       => 25,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+
+                      <td align="right">Tel :</td>
+                      <td><%= f.text_field :referenciatel3,
+                                           :size       => 15,
+                                           :onkeypress => "return bloqEnter(event)"%></td>
+                    </tr>
+
+                </table>
+          </fieldset>
+        </td>
+      </tr>
+
+    </table>
+    <table>
+        <tr height="35">
+
+          <td align="right">Linea Maxima de Credito :</td>
+          <td> <%= f.text_field :limite_credito,
+                                :size       => 35,
+                                :onkeypress => "return bloqEnter(event)"%></td>
+        </tr>
+
+        <tr>
+          <td align="right" valign="top">Observacion :</td>
+                          <td><%= f.text_area :observacao,
+                                              :size => '40X2'%></td>
+
+        </tr>
+    </table>
+  </div>
+

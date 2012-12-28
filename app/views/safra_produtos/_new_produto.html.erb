@@ -1,0 +1,40 @@
+<%= form_for(safra_produto) do |f| %>
+  <% if safra_produto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(safra_produto.errors.count, "error") %> prohibited this safra_produto from being saved:</h2>
+
+      <ul>
+      <% safra_produto.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field :safra_id %>
+  
+      <div class="group_cd">
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+                <legend>Produto :</legend>
+                  <table>
+                    <tr>
+                      <td align="right">Produto :</td>
+                      <td><%= f.collection_select :produto_id, Produto.all( :select => ' id,nome',
+                               :order  => '2' ), 
+                               :id,
+                               :nome %>
+                               <%= f.submit :value => " Grabar ", :class => "button" %>
+                      </td>
+                    </tr>
+                  </table>
+                </fieldset>
+              </td> 
+            </tr>
+          </table>
+        </div>   
+<% end %>
+
+  </div>
+                 

@@ -1,0 +1,42 @@
+<h1 align="right" id="header">Pedido Venta</h1>
+
+<ul class="tabs">
+   <li><a href="#tab1">Pedido Venta - [Productos]</a></li>
+</ul>
+
+<div class="tab_container">
+   <div id="tab1" class="tab_content">
+      <div class="group">
+
+
+         <div class="grid">
+            <%= render :partial=>"presupuesto_produtos/index", :locals=>{:presupuesto => @presupuesto,:presupuesto_produtos => @presupuesto.presupuesto_produtos} %>
+         </div>
+
+
+
+         <%= render :partial=>"presupuesto_produtos/new_produto" , :locals=>{:presupuesto => @presupuesto, :presupuesto_produto => PresupuestoProduto.new}%>
+
+      </div>
+   </div>
+
+<div class="buttons">
+   <%= link_to 'Volver', edit_presupuesto_path(@presupuesto),:class =>'button back' %> 
+   <%= link_to 'Generar (PDF)', print_presupuesto_presupuesto_path(@presupuesto),:class =>'button print' %> 
+   <%= link_to 'Salir', presupuestos_path,:class =>'button delete' %>
+   
+   	<%= hidden_field_tag :maiorista, @presupuesto.tipo_maiorista %>
+</div>
+</div>
+
+<script>
+   document.onkeydown=function(e)
+   {
+      //LISTA DE PRODUTOS
+      var cliente = document.getElementById('maiorista').value
+      var moeda = document.getElementById('presupuesto_produto_moeda').value
+      if(e.which == 113)
+         window.open('/produtos/busca_presupuesto_produto?cliente='+cliente+'&moeda='+moeda+'', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=50, WIDTH=2500, HEIGHT=400');
+
+   }
+</script>

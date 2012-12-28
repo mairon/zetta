@@ -1,0 +1,96 @@
+<body onload="ImputFocus('producao_data_3i')">
+   <h1 align="right" id="header">Produción</h1>
+
+   <%= form_for(@producao) do |f| %>
+      
+    <% if @producao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@producao.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @producao.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+      <ul class="tabs">
+         <li><a href="#tab1">Produción - [Edicion]</a></li>
+      </ul>
+
+      <div class="tab_container">
+         <div id="tab1" class="tab_content">
+            <table>
+               <tr>
+                  <td>
+                     <fieldset>
+
+                        <table>
+                           <tr>
+                              <td align="right">Fecha :</td>
+                              <td colspan="3"><%= f.date_select :data,{},{:onblur => "DataCotacao('producao_data_3i','producao_data_2i','producao_data_1i')"}  %></td>
+                              <%= hidden_field_tag( 'key' ) %>
+                           </tr>
+
+                           <tr>
+                              <td align="right">Cotización :</td>
+                              <td><%= text_field :producao,
+                                   :cotacao ,
+                                   { :size     => 10,
+                                    :dir     => "rtl",
+                                    :value    => @producao.cotacao.to_i,
+                                    :onfocus  => {:remote => true,
+                                                  :update => "key",
+                                       :url    => { :action => :get_moeda},
+                                       :with   => "'key='+ key.value "} } %>
+                              </td>
+                           </tr>
+
+                           <tr>
+                              <td align="right">Producto :</td>
+                              <td colspan="4">
+
+                  <%= text_field_tag( 'codigo',
+                     nil,
+                     :id     => "codigo",
+                     :onchange => {:remote => true,
+                                   :update => "codigo",
+                        :url        => { :action     => :get_codigo },
+                        :with       => "'codigo='+this.value"},
+                     :size       => 5
+
+                  ) %>
+
+
+                              <%= f.collection_select :produto_id, Produto.all( :select => ' id,nome',
+                                    :order  => '2' ), :id,
+                                   :nome %></td>
+                           </tr>
+
+                           <tr>
+                              <td align="right">Cantidad :</td>
+                              <td><%= f.text_field  :quantidade,
+                                   :size     => 15 ,
+                                   :dir      => "rtl"%></td>
+                           </tr>
+
+                        </table>
+                     </fieldset>
+                  </td>
+               </tr>
+            </table>
+         </div>
+
+      <div class="buttons">
+     <%= link_to 'Volver', producaos_path  , :class => "button back" %> 
+         <%= f.submit "Seguir", :disable_with => "Aguarde...", :class => "button next"  %>
+      </div>
+    </div>
+
+   <% end %>
+</body>
+
+

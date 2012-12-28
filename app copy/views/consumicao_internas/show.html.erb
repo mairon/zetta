@@ -1,0 +1,45 @@
+<h1 align="right" id="header">Consumición Interna</h1>
+
+<ul class="tabs">
+	<li>
+		<a href="#tab1">Consumición Interna - [Productos]</a>
+	</li>
+</ul>
+
+<div class="tab_container">
+	<div id="tab1" class="tab_content">
+		<div class="group">
+
+			<table>
+				<tr>
+					<td>Fecha :</td>
+					<td><%= @consumicao_interna.data.strftime("%d/%m/%Y")%></td>
+
+				</tr>
+			</table>
+		</div>
+		<br/>
+		<div class="grid">
+            <%= render :partial=>"consumicao_interna_produtos/index", :locals=>{:consumicao_interna => @consumicao_interna,:consumicao_interna_produtos => @consumicao_interna.consumicao_interna_produtos} %>			
+		</div>
+		      <%= render :partial=>"consumicao_interna_produtos/new_produto" , :locals=>{:consumicao_interna => @consumicao_interna, :consumicao_interna_produto => ConsumicaoInternaProduto.new}%>
+
+	</div>
+  </div>
+
+<div class="buttons">
+	  <%= link_to 'Volver', edit_consumicao_interna_path(@consumicao_interna), :class => "button back" %> 
+	  <%= link_to 'Fin', consumicao_internas_path, :class => "button delete" %>
+</div>
+
+</div>
+
+<script>
+	document.onkeydown= function(e) {
+		//LISTA DE PRODUTOS
+		if(e.which == 113)
+			window.open('/produtos/busca_consumicao_interna_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=50, WIDTH=2500, HEIGHT=400');
+
+	}
+</script>
+

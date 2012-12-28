@@ -1,0 +1,51 @@
+<%= form_for(@safra) do |f| %>
+  <% if @safra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@safra.errors.count, "error") %> prohibited this safra from being saved:</h2>
+
+      <ul>
+      <% @safra.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <ul class="tabs">
+      <li><a href="#tab1">Cadastro de Zafra - [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+        <table>
+              <tr>
+                <td width="1000">
+                  <fieldset >
+                    <table>
+                      <tr>
+                        <td align="right">Descricao :</td>
+                        <td colspan="4"><%= f.text_field :descricao,:size => 79 %></td>                        
+                      </tr>
+
+                      <tr>
+                        <td align="right">Inicio :</td>
+                        <td><%= f.date_select :inicio %></td>                        
+
+                        <td align="right">Fim :</td>
+                        <td><%= f.date_select :final %></td>                        
+                      </tr> 
+                    </table>
+                  </fieldset>
+                </td> 
+              </tr>
+            </table>
+          </div>   
+          <div class="buttons">
+            <%= f.submit :value => "Seguir", :class => "button" %>
+            <%= link_to 'Volver', safras_path, :class => "button back" %>
+          </div>
+<% end %>
+
+  </div>

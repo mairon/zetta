@@ -1,0 +1,10 @@
+	<% if params[:detalhe] == "2" %>
+      <%= render :partial => 'resumo_pagar' %>
+	<% else %>
+      <% if params[:moeda] == "1" %>
+            <%= render :partial => 'contas_pagar_guarani' %>
+      <% else %>
+            <%= render :partial => 'contas_pagar_dolar' %>
+      <% end %>
+	<% end %>
+

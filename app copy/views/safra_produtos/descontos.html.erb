@@ -1,0 +1,119 @@
+<h1 id="header">
+	Zafra <%= @safra_produto.safra_id %>
+	Producto <%= @safra_produto.produto_id %> - 
+	<%= @safra_produto.produto_nome %> 
+</h1>
+  <ul class="tabs">
+      <li><a href="#tab1">Descuentos - [Edicion]</a></li>
+  </ul>
+ 	<div class="tab_container">
+    <table>
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <fieldset>
+                <legend>Humedades</legend>
+                  <%= render :partial=>"/safra_umidades/index_umidades", :locals=>{ :safra_umidades => @safra_produto.safra_umidades } %>
+                  <%= render :partial=>"/safra_umidades/new_umidade", :locals=>{ :safra_umidade => SafraUmidade.new(:safra_produto_id=>@safra_produto.id) } %>
+                </fieldset>
+              </td>
+          
+              <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Impurezas</legend>
+                        <%= render :partial=>"/safra_impurezas/index_impurezas", :locals=>{ :safra_impurezas => @safra_produto.safra_impurezas } %>
+                        <%= render :partial=>"/safra_impurezas/new_impurezas", :locals=>{ :safra_impureza => SafraImpureza.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+              <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Averiados</legend>
+                        <%= render :partial=>"/safra_averiados/index_averiados", :locals=>{ :safra_averiados => @safra_produto.safra_averiados } %>
+                        <%= render :partial=>"/safra_averiados/new_averiados", :locals=>{ :safra_averiado => SafraAveriado.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+              <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Quebrados</legend>
+                        <%= render :partial=>"/safra_quebrados/index_quebrados", :locals=>{ :safra_quebrados => @safra_produto.safra_quebrados } %>
+                        <%= render :partial=>"/safra_quebrados/new_quebrados", :locals=>{ :safra_quebrado => SafraQuebrado.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr></tr>
+            <tr>  
+               <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Verdosos</legend>
+                        <%= render :partial=>"/safra_verdosos/index_verdosos", :locals=>{ :safra_verdosos => @safra_produto.safra_verdosos } %>
+                        <%= render :partial=>"/safra_verdosos/new_verdosos", :locals=>{ :safra_verdoso => SafraVerdoso.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+              <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Ardidos</legend>
+                        <%= render :partial=>"/safra_ardidos/index_ardidos", :locals=>{ :safra_ardidos => @safra_produto.safra_ardidos } %>
+                        <%= render :partial=>"/safra_ardidos/new_ardidos", :locals=>{ :safra_ardido => SafraArdido.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+               <td>
+                <table>
+                  <tr>
+                    <td>
+                      <fieldset>
+                      <legend>Brotados</legend>
+                        <%= render :partial=>"/safra_brotados/index_brotados", :locals=>{ :safra_brotados => @safra_produto.safra_brotados } %>
+                        <%= render :partial=>"/safra_brotados/new_brotados", :locals=>{ :safra_brotado => SafraBrotado.new(:safra_produto_id=>@safra_produto.id) } %>
+                      </fieldset>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <div class="buttons">
+      <%= link_to 'Volver', safra_path(@safra_produto.safra_id), :class => 'button back' %>
+    </div>
+  </div>
+

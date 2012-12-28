@@ -1,0 +1,29 @@
+<div class="group">
+   <table class="head_grid">
+      <tr>
+         <td width="50" align="center"></td>
+         <td width="80" align="center">Cod.</td>
+         <td width="600" align="center">Producto</td>
+         <td width="80" align="center">Cantidad</td>
+         <td width="100" align="center">Preco Venta U$.</td>
+         <td width="100" align="center">Preco Venta Gs.</td>
+      </tr>
+   </table>
+   <div class="rolagem_cobro" dir="div">
+      <table>
+		<% indice = 1%>
+	  	<% transferencia_deposito_detalhes.each do |transferencia_deposito_detalhe| %>
+          <tr class = "<%= cycle("cor1", "cor2") %>">
+		    <td width="50" align="center"><%=h indice %></td>
+		    <td width="80" align="center"><%=h transferencia_deposito_detalhe.produto_id %></td>
+		    <td width="600" align="left"><%=h transferencia_deposito_detalhe.produto_nome %></td>
+		    <td width="80" align="right"><%=h transferencia_deposito_detalhe.quantidade %></td>
+		    <td width="100" align="right"><%=h number_to_currency( transferencia_deposito_detalhe.preco_dolar, :format =>' %n ', :separator => "," ) %></td>
+		    <td width="100" align="right"><%=h number_to_currency( transferencia_deposito_detalhe.preco_guarani, :format =>' %n ', :precision => 0 ) %></td>
+		    <td><%= link_to 'Editar', edit_transferencia_deposito_detalhe_path(transferencia_deposito_detalhe) %></td>
+		    <td><%= link_to 'Borrar', transferencia_deposito_detalhe, :confirm => 'Tiene Certeza ?', :method => :delete %></td>
+		  </tr>
+		  <% indice += 1 %>
+		<% end %>
+	</table>
+</ div>

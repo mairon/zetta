@@ -1,0 +1,44 @@
+  <br>
+<div class="group">
+<%= form_for(@usuario) do |f| %>
+
+  <% if @usuario.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@usuario.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @usuario.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <h2> Usuario</h2>
+
+  <p>
+    <%= f.label :usuario_nome %><br />
+    <%= f.text_field :usuario_nome,:onkeydown => "f(this)", :onkeyup => "f(this)" %>
+  </p>
+  <p>
+    <%= f.label :usuario_senha %><br />
+    <%= f.password_field :usuario_senha %>
+  </p>
+
+
+  <p>
+   <%= f.radio_button :tipo, 0 %> Administrado
+   <%= f.radio_button :tipo, 1 %> Financeiro
+   <%= f.radio_button :tipo, 2 %> Usuario
+   </p>
+  <p>
+    <%= f.submit 'Grabar' %>
+  </p>
+
+
+<% end %>
+</div>
+<%= link_to 'Volver', usuarios_path %>
+

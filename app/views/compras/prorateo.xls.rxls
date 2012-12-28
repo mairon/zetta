@@ -1,0 +1,92 @@
+sheet = workbook.create_worksheet
+sheet.name = "Relatorio Prorateo Compra"
+
+format  = Spreadsheet::Format.new( :color => "white", :weight => "bold", :pattern_fg_color => "gray", :pattern => 1, :align => :center)
+bold    = Spreadsheet::Format.new :weight => :bold, :align => :right
+left    = Spreadsheet::Format.new :align => :left
+right   = Spreadsheet::Format.new :align => :right
+center  = Spreadsheet::Format.new :align => :center
+sheet.row(00).default_format = format
+
+sheet[00,00]  = ''
+sheet[00,01]  = 'Producto'
+sheet[00,02]  = 'Cantidad'
+sheet[00,03]  = 'Unit'
+sheet[00,04]  = 'Total'
+sheet[00,05]  = 'Costo'
+sheet[00,06]  = 'Iva'
+sheet[00,07]  = '%'
+sheet[00,8]   = 'Descuestos'
+sheet[00,9]   = 'Flete'
+sheet[00,10]  = 'Despacho'
+sheet[00,11]  = 'Outros'
+
+indice             = 1
+total_dolar        = 0
+iva_dolar          = 0
+total_porcentagem  = 0
+total_desconto     = 0
+total_frete        = 0
+total_despacho     = 0
+total_outros       = 0
+
+@compras_produto.each do |lancamento|
+
+          total_dolar          += lancamento.total_dolar
+
+          sum       = ComprasProduto.sum(:total_dolar, :conditions => ['compra_id = ?',lancamento.compra_id])
+          porcentagem    = ( ( lancamento.total_dolar * 100 ) / sum )
+          
+          row = sheet.row(indice)          
+          row.push  indice
+          row.push  lancamento.produto_nome
+          row.push  lancamento.quantidade          
+          row.push  number_to_currency( lancamento.unitario_dolar,       :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.total_dolar,          :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.custo_contabil_dolar, :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.iva_dolar,            :format =>' %n ', :separator => "," )
+          row.push  format( "%.6f",porcentagem.to_f )
+          row.push  number_to_currency( lancamento.desconto_dolar,            :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.frete_dolar,          :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.despacho_dolar,       :format =>' %n ', :separator => "," )
+          row.push  number_to_currency( lancamento.outros_dolar,         :format =>' %n ', :separator => "," )
+
+          sheet.row(indice).set_format(0,  center)
+          sheet.row(indice).set_format(1,  right)
+          sheet.row(indice).set_format(2,  center)
+          sheet.row(indice).set_format(3,  right)
+          sheet.row(indice).set_format(4,  right)
+          sheet.row(indice).set_format(5,  right)
+          sheet.row(indice).set_format(6,  right)
+          sheet.row(indice).set_format(7,  right)
+          sheet.row(indice).set_format(8,  right)
+          sheet.row(indice).set_format(9,  right)
+          sheet.row(indice).set_format(10,  right)
+          sheet.row(indice).set_format(11,  right)
+
+          indice            = indice + 1
+          iva_dolar         = iva_dolar + lancamento.iva_dolar
+          total_porcentagem = total_porcentagem + porcentagem
+          total_desconto     = total_desconto + lancamento.desconto_dolar
+          total_frete        = total_frete + lancamento.frete_dolar
+          total_despacho     = total_despacho + lancamento.despacho_dolar
+          total_outros       = total_outros + lancamento.outros_dolar
+
+
+end
+
+row = sheet.row(indice)
+row[4] = number_to_currency( total_dolar,          :format =>' %n ', :separator => "," )
+row[6] = number_to_currency( iva_dolar,            :format =>' %n ', :separator => "," )
+row[7] = number_to_currency( total_porcentagem,            :format =>' %n ', :separator => "," )
+row[8] = number_to_currency( total_desconto,            :format =>' %n ', :separator => "," )
+row[9] = number_to_currency( total_frete,            :format =>' %n ', :separator => "," )
+row[10] = number_to_currency( total_despacho,            :format =>' %n ', :separator => "," )
+row[11] = number_to_currency( total_outros,            :format =>' %n ', :separator => "," )
+sheet.row(indice).set_format(4, bold)
+sheet.row(indice).set_format(6, bold)
+sheet.row(indice).set_format(7, bold)
+sheet.row(indice).set_format(8, bold)
+sheet.row(indice).set_format(9, bold)
+sheet.row(indice).set_format(10, bold)
+sheet.row(indice).set_format(11, bold)

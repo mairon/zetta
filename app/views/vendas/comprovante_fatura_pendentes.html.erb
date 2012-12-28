@@ -1,0 +1,146 @@
+
+<body onload="">
+
+    <table align="left"  valign="top"  border="1" >
+
+      <tr>
+        <td colspan="4" height="140">
+          <FONT FACE="times new roman" size="2">
+          </FONT>
+        </td>
+
+      <tr>
+      </tr>
+
+        <td width="130">
+          <FONT FACE="times new roman" size="2">
+          </FONT>
+        </td>
+
+        <td width="650"align="left">
+          <FONT FACE="times new roman" size="2">
+            <%= Time.now.strftime("%d") %> de <%= Time.now.strftime("%B") %> de <%= Time.now.strftime("%Y") %>
+          </FONT>
+        </td>
+
+        <td width="80" align="center">
+          <FONT FACE="times new roman" size="2">
+            XX
+          </FONT>
+        </td>
+
+        <td width="80" align="center">
+          <FONT FACE="times new roman" size="2">
+            
+          </FONT>
+        </td>
+      </tr>
+
+      <tr>
+        <td width="80" align="center">
+          <FONT FACE="times new roman" size="2">            
+          </FONT>
+        </td>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">
+            COSUMIDOR FINAL
+          </FONT>
+        </td>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">
+            
+          </FONT>
+        </td>
+      </tr>
+      <tr>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">
+          </FONT>
+        </td>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">
+            CIUDAD DEL ESTE
+          </FONT>
+        </td>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">            
+          </FONT>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+        </td>
+        <td width="80" align="left">
+          <FONT FACE="times new roman" size="2">
+            <%= current_user.usuario_nome %>
+          </FONT>
+        </td>
+
+      </tr>
+      <tr height="300" valign="top" >
+        <td colspan="5">
+          <table>
+            <tr>
+              <td>
+
+                <% tottaxa0       = 0 %>
+                <% tottaxa5       = 0 %>
+                <% tottaxa10      = 0 %>
+                <% total_venda    = 0 %>
+                <% iva_guarani_5  = 0 %>
+                <% iva_guarani_10 = 0 %>
+                <% @vendas.each do |venda| %>                
+                <% quantidade          = VendasProduto.sum(:quantidade,:conditions       => ['venda_id = ?',venda.id] ) %>
+                <% unitario            = VendasProduto.sum(:unitario_guarani,:conditions => ['venda_id = ?',venda.id] ) %>
+                <% total_guarani_0     = VendasProduto.sum(:total_guarani,:conditions    => ['taxa = 0  AND venda_id = ?',venda.id] ) %>
+                <% total_guarani_5     = VendasProduto.sum(:total_guarani,:conditions    => ['taxa = 5  AND venda_id = ?',venda.id] ) %>
+                <% total_guarani_10    = VendasProduto.sum(:total_guarani,:conditions    => ['taxa = 10 AND venda_id = ?',venda.id] ) %>
+                <% iva_guarani_5       = VendasProduto.sum(:iva_guarani,:conditions      => ['taxa = 5  AND venda_id = ?',venda.id] ) %>
+                <% iva_guarani_10      = VendasProduto.sum(:iva_guarani,:conditions      => ['taxa = 10 AND venda_id = ?',venda.id] ) %>
+                  <tr>
+                    <td width="50"  align="center"><FONT FACE="times new roman" size="2"> 0 </font></td>
+                    <td width="50"  align="center"><FONT FACE="times new roman" size="2"> <%= format("%.3f",quantidade.to_f) %></font> </td>
+                    <td width="350" align="left"><FONT FACE="times new roman" size="2"> PRODUCTOS</font> </td>
+                    <td width="80"  align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(unitario, :format=>' %n ', :precision => 0) %> </font></td>
+                      <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(total_guarani_0, :format=>' %n ', :precision => 0) %></font> </td>
+                      <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(total_guarani_5, :format=>' %n ', :precision => 0) %></font> </td>
+                      <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(total_guarani_10, :format=>' %n ', :precision => 0) %></font> </td>
+                      <% tottaxa0     = tottaxa0  + total_guarani_0 %>
+                      <% tottaxa5     = tottaxa5  + total_guarani_5 %>
+                      <% tottaxa10    = tottaxa10 + total_guarani_10 %>
+                      <% total_venda  = tottaxa0  + tottaxa5 + tottaxa10%>
+                  </tr>
+                <%end%>
+              </td>
+            </tr>
+          </table>
+        </td>
+     </tr>
+     <tr>
+       <td colspan="1"></td>
+       <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(tottaxa0, :format=>' %n ', :precision => 0) %></font> </td>
+       <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(tottaxa5, :format=>' %n ', :precision => 0) %></font> </td>
+       <td width="100" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(tottaxa10, :format=>' %n ', :precision => 0) %></font> </td>
+     </tr>
+     <tr>
+       <td colspan="0"></td>
+       <td align="left"><FONT FACE="times new roman" size="2"> <%= total_venda.por_extenso.upcase %></font> </td>
+       <td  colspan="2" rowspan="2" align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(total_venda, :format=>' %n ', :precision => 0) %></font></td>
+     </tr>
+     <tr>
+     </tr>
+     <tr>
+       <td colspan="0"></td>
+       <td align="right"><FONT FACE="times new roman" size="2"> <%= number_to_currency(iva_guarani_5, :format=>' %n ', :precision => 0)%></font> </td>
+       <td ><FONT FACE="times new roman" size="2"> <%= number_to_currency(iva_guarani_10, :format=>' %n ', :precision => 0)%></font></td>
+       <td ><FONT FACE="times new roman" size="2"> <%= number_to_currency(iva_guarani_5 + iva_guarani_10, :format=>' %n ', :precision => 0)%></font></td>
+     </tr>
+
+    </table>  
+</body>
+
+
+
+
+
+

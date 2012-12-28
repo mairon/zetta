@@ -1,0 +1,199 @@
+    <table>
+      <tr>
+        <td>
+          <table>
+            
+            <tr>
+              <td align="right">Nombre :</td>
+              <td><%= f.text_field :nome,
+                                   :size       => 55,
+                                   :onkeypress => "return bloqEnter(event)",
+                                   :onkeydown => "f(this)",
+                                   :onkeyup   => "f(this)" %>*</td>
+
+
+              <td align="right">Ruc :</td>
+              <td><%= f.text_field :ruc,
+                                   :size => 15,
+                                   :onkeypress => "return bloqEnter(event)"%>*</td>
+
+              <td align="right">codigo :</td>
+              <td><%= f.text_field :cod_velho,
+                                   :size  => 12,
+                                   :value => @cod_cliente,
+                                   :onkeypress => "return bloqEnter(event)"%>*</td>
+
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <td>
+          <fieldset>
+            <legend>Direciones</legend>
+            <table>
+
+              <tr>
+                <td align="right">Direcion :</td>
+                <td><%= f.text_field :direcao,
+                                     :size       => 20,
+                                     :onkeypress => "return bloqEnter(event)"%>*</td>
+
+
+                <td align="right">Ciudad :</td>
+                <td><%= f.collection_select :cidade_id, Cidade.all(:select => 'id,nome',
+                                                                   :order => '2'),:id,
+                                                                   :nome, {:onkeypress => "return bloqEnter(event)"} %></td>
+
+                <td align="right">Barrio :</td>
+                <td><%= f.text_field :bairro,
+                                     :size      => 15,
+                                     :onkeydown => "f(this)",
+                                     :onkeyup   => "f(this)" %></td>
+
+              </tr>
+
+              <tr>
+
+                <td align="right" valign="top">Telefono :</td>
+                <td valign="top"><%= f.text_field :telefone,
+                                                  :size => 15%></td>
+
+                <td align="right" valign="top">Complemento :</td>
+                <td colspan="4"><%= f.text_area :direcao_complemento,
+                                                :size => '62X1'%></td>
+              </tr>
+
+            </table>
+          </fieldset>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <fieldset>
+                  <legend>Tipo</legend>
+                  <table>
+                    <tr>
+                      <td><%= f.radio_button :tipo, 0%> Fisico</td>
+                      <td><%= f.radio_button :tipo, 1%> Juridico</td>
+                    </tr>
+                  </table>
+                </fieldset>
+              </td>
+
+              <td>
+                <fieldset>
+                  <legend>Clasificacion</legend>
+                  <table>
+                    <tr>
+                      <td><%= f.select :classificacao,
+                          (
+                          [
+                            ["A", "A"],
+                            ["B", "B"],
+                            ["C", "C"],
+                            ["D", "D"],
+                            ["E", "E"]
+
+                          ]
+                        )%>
+                      </td>
+                    </tr>
+                  </table>                  
+                </fieldset>
+              </td>
+
+              <td>
+
+                <fieldset>
+                  <legend>Estado</legend>
+                  <table>
+                    <tr>
+                      <td><%= f.radio_button :estado,0%>Activo</td>
+                      <td><%= f.radio_button :estado,1%>Bloqueado</td>
+                    </tr>
+                  </table>
+                </fieldset>
+
+              </td>
+
+
+
+            </tr>
+
+            <tr>
+              <td>
+                <fieldset>
+                  <legend>Tipo Persona</legend>
+                  <table>
+                    <tr>
+                      <td><%= f.check_box :tipo_fornecedor%>Proveedor</td>
+                      <td><%= f.check_box :tipo_cliente%>Cliente</td>
+                      <td><%= f.check_box :tipo_fabricante%>Fabricante</td>
+                    </tr>
+                    <tr>
+                      <td><%= f.check_box :tipo_vendedor%>Vendedor</td>
+                      <td><%= f.check_box :tipo_funcionario,
+                                          :onclick => "javascript: PersonaExibeDiv('conteudo');"%>Empleado</td>
+                      <td><%= f.check_box :tipo_maiorista%>Maiorista</td>
+                      <td><%= f.check_box :tipo_despachante%>Despachante</td>
+                    </tr>
+
+                  </table>
+                </fieldset>
+              </td>
+             </tr>
+          </table>
+        </td>
+      </tr>
+  </table>
+<div id="conteudo" style="display: none;" class="group_cd">
+    <fieldset>
+      <legend>Datos Financieros</legend>
+      <table>
+        <tr>
+          <td align="right">Departamento :</td>
+          <td><%= f.text_field :departamento %></td>
+        </tr>
+        <tr>
+          <td align="right">Fecha Ingresso :</td>
+          <td><%= f.date_select :data_entrada %></td>
+        </tr>
+        <tr>
+          <td align="right">Salario :</td>
+          <td><%= f.text_field :salario,
+                               :size => 15%></td>
+        </tr>
+        <tr>
+          <td align="right">Salario Minimo :</td>
+          <td><%= f.text_field :salario_minimo,
+                               :size     => 15,
+                               :onchange => "CalculoDeIps()"%></td>
+        </tr>
+        <tr>
+          <td align="right">I.P.S. :</td>
+          <td><%= f.text_field :ips,
+                               :size => 15%></td>
+        </tr>
+
+        <tr>
+          <td align="right">Comision :</td>
+          <td><%= f.text_field :comissao,
+                               :size => 15%></td>
+        </tr>
+
+        <tr>
+          <td align="right">C.I.:</td>
+          <td><%= f.text_field :ci,
+                               :size => 15%></td>
+        </tr>
+
+      </table>
+    </fieldset>
+  </div>

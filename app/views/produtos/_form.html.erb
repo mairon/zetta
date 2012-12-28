@@ -1,0 +1,41 @@
+<body onload="ImputFocus('produto_nome')">
+<h1 align="right" id="header">Productos</h1>  
+<%= form_for(@produto , :html => { :multipart => true }) do |f| %>
+   
+   <% if @produto.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@produto.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @produto.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Producto - [Edicion]</a></li>
+      <li><%= link_to '[Roteiro]',"/produtos/roteiro/#{@produto.id}" %></li>
+      <li><%= link_to '[Composicion]',"/produtos/composicao/#{@produto.id}" %></li>
+
+   </ul>
+
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+         <%= render :partial => "produtos/eps/form_principal_E03",:locals => {:f => f} %>
+      </div>
+
+   <div class="buttons">
+         <%= f.submit "   Grabar  ",:disable_with => "Aguarde...", :class => "button"  %> 
+         <%= link_to 'Volver', produtos_path, :class => "button back" %>
+   </div>
+<% end %>   
+</body>
+
+
+
+

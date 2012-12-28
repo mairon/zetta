@@ -1,0 +1,53 @@
+<div class="group">
+
+  <table>
+    <tr>
+      <td width="80" align="center">Cod.</td>
+      <td width="80" align="center">Fecha</td>
+      <td width="250" align="center">Clientes</td>
+      <td width="100" align="center">Tipo</td>
+      <td width="100" align="center">Gs.</td>
+      <td width="100" align="center">Us.</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+    <table>
+
+      <% @cobros.each do |cobro| %>
+         <% financa_gs    = CobrosFinanca.sum( :valor_guarani,:conditions => ["cobro_id = ?",cobro.id]) %>
+         <% financa_us    = CobrosFinanca.sum( :valor_dolar,:conditions => ["cobro_id =?",cobro.id]) %>
+         <% count_detalhe = CobrosDetalhe.count( :id,:conditions => ["cobro_id =?",cobro.id]) %>
+         <% if cobro.adelanto != 1 %>
+            <% if count_detalhe <= 0 || financa_us <= 0 %>
+               <% color = '#fa3e40' %>
+            <% end %>
+        <% end %>
+        <tr class= "<%= cycle( "cor1", "cor2" )%>">
+
+          <td width="80"  align="center" bgcolor="<%=color%>"><%= cobro.id%> <% if cobro.adelanto == 1 %>(AD) <% end %></td>
+          <td width="80"  align="center" bgcolor="<%=color%>"><%=  cobro.data.strftime("%d/%m/%Y")%></td>
+          <td width="250" align="left" bgcolor="<%=color%>"><%= cobro.persona_nome%></td>
+          <% if cobro.moeda == 1 %>
+            <td width="50"  align="center" bgcolor="<%=color%>">Gs.</td>
+          <% else %>
+            <td width="50"  align="center" bgcolor="<%=color%>">U$.</td>
+          <% end %>
+          <td width="100" align="right" bgcolor="<%=color%>"><%=number_to_currency(  financa_gs, :format =>' %n ', :precision => 0)%></td>
+          <td width="100" align="right" bgcolor="<%=color%>"><%= number_to_currency(  financa_us, :format =>' %n ', :separeitor => ",")%></td>
+          <td bgcolor="<%=color%>"><%= link_to 'Editar', edit_cobro_path(cobro) %></td>
+          <td bgcolor="<%=color%>"><%= link_to 'Borrar', cobro, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+
+

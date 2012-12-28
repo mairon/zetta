@@ -1,0 +1,48 @@
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="100"align="center">Codigo</td>
+      <td width="100"align="center">Fecha</td>
+      <td width="450"align="center">Descpripcion</td>
+      <td width="100"align="center">Debe</td>
+      <td width="100"align="center">Haber</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+      <% desc = 0 %>
+      <% prov = 0 %>
+      <% sueldos_detalhes.each do |sueldos_detalhe| %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="100" align="center"><%= sueldos_detalhe.id %></td>
+          <td width="100" align="center"><%= sueldos_detalhe.data.strftime("%d/%m/%Y") %></td>
+          <td width="450" align="left"><%= sueldos_detalhe.descricao %></td>
+          <% if sueldos_detalhe.estado == 1 %>
+          <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.valor_guarani, :format=>' %n ', :precision => 0)   %></td>
+          <td width="100" align="right">0.0</td>
+          
+          <%desc = desc + sueldos_detalhe.valor_guarani%>
+          <% else %>            
+            <td width="100" align="right">0.0</td>
+            <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.valor_guarani, :format=>' %n ', :precision => 0)   %></td>
+            <%prov = prov + sueldos_detalhe.valor_guarani%>
+           <% end %>
+            <td><%= link_to 'Editar', edit_sueldos_detalhe_path(sueldos_detalhe) %></td>
+            <td><%= link_to 'Borrar', sueldos_detalhe, :confirm => 'Tiene Certeza ?', :method => :delete %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <table>
+    <tr>
+      <td width="650"></td>
+      <td width="100" align="right"><%= number_to_currency( desc, :format=>' %n ', :precision => 0)   %></td>
+      <td width="100" align="right"><%= number_to_currency( prov, :format=>' %n ', :precision => 0)   %></td>
+      <td width="200" align="right">Total ==> <%= number_to_currency(prov.to_f - desc.to_f, :format=>' %n ', :precision => 0)   %></td>
+
+    </tr>
+
+  </table>
+  </div>

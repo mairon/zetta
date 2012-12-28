@@ -1,0 +1,5 @@
+<% if params[:modelo].to_s == '0' %>
+  <%= render '/contabilidades/forms/result_livro_venda_detalhado' %>
+<% else %>
+  <%= render '/contabilidades/forms/result_livro_venda_resumen' %>
+<% end %>

@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  controle_pulv_id: 1
+  data: 2012-11-09
+  modelo: MyString
+  hora_maq: 1
+  bico_01: MyString
+  bico_02: MyString
+  vazao_01: 1
+  vazao_02: 1
+  autonomia_01: MyString
+  autonomia_02: MyString
+  velocidade_01: 1
+  velocidade_02: 1
+  etiqueta: 1
+  calibracao: 1
+  regular: 1
+  condicao_maq: 1
+
+two:
+  controle_pulv_id: 1
+  data: 2012-11-09
+  modelo: MyString
+  hora_maq: 1
+  bico_01: MyString
+  bico_02: MyString
+  vazao_01: 1
+  vazao_02: 1
+  autonomia_01: MyString
+  autonomia_02: MyString
+  velocidade_01: 1
+  velocidade_02: 1
+  etiqueta: 1
+  calibracao: 1
+  regular: 1
+  condicao_maq: 1

@@ -1,0 +1,194 @@
+<script type="text/javascript">
+  
+    $(document).ready(function() {  
+      $('#compras_financa_persona_id').find('option[value="<%= @compra.persona_id.to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_data_3i').find('option[value="<%= @compra.data.strftime("%d").to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_data_2i').find('option[value="<%= @compra.data.strftime("%m").to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_data_1i').find('option[value="<%= @compra.data.strftime("%Y").to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_diferido_3i').find('option[value="<%= @compra.data.strftime("%d").to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_diferido_2i').find('option[value="<%= @compra.data.strftime("%m").to_i %>"]').attr('selected',true).change();
+      $('#compras_financa_diferido_1i').find('option[value="<%= @compra.data.strftime("%Y").to_i %>"]').attr('selected',true).change();
+
+  });
+
+function TipoFinancaCompra(){
+
+    if ( $('#tipo').val() == 0){
+        $('#compras_financa_documento_id').val(2);
+        $('#CONTADO').css("display", "inline");
+        $('#CREDITO').css("display", "none");
+        $("#compras_financa_conta_id").focus();
+
+    }
+    else{
+        $('#compras_financa_documento_id').val(3)
+        $('#CONTADO').css("display", "none");
+        $('#CREDITO').css("display", "inline");
+    }
+}
+
+function TipoCompra(d){
+    $('#tipo').val(d)
+}
+</script>
+
+<%= form_for(compras_financa) do |f| %>
+  <%= f.hidden_field :compra_id %>
+  <%= f.hidden_field :cotacao, :value => @compra.cotacao.to_i %>
+  <%= f.hidden_field :cotacao_real, :value => @compra.cotacao_real.to_i %>
+  <%= f.hidden_field :tipo,:value => @compra.tipo%>
+  <%= f.hidden_field :moeda,:value => @compra.moeda %>
+  <%= f.hidden_field :descricao,:value => @compra.descricao %>
+  <%= f.hidden_field :clase_produto,:value => @compra.clase_produto%>
+  <%= f.hidden_field :tipo_compra, :value => @compra.tipo_compra %> 
+  <%= f.hidden_field :documento_id, :value => @compra.documento_id %> 
+  <%= f.hidden_field :documento_nome, :value => @compra.documento_nome %> 
+
+<ul class="tabs">
+   <li><a href="#tab1">Financiero - [Edicion]</a></li>
+</ul>
+
+
+<div class="tab_container">
+   <div id="tab1" class="tab_content">
+
+    <table>
+
+      <tr>
+         <td align="right">Fecha :</td>
+         <td colspan="3"><%= f.date_select :data %></td>
+      </tr>
+
+
+      <tr>
+         <td align="right">Proveedor:</td>
+         <td><%= f.collection_select :persona_id, Persona.all( :select => 'id,nome',
+                                                     :order  => 'nome' ),:id,
+                                                                         :nome,{},
+                                                                        {:class => "selc_medium"}%></td>
+
+      </tr>
+              
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Tipo</legend>
+            <% if @compra.tipo.to_i == 1 %>
+            	<%= f.radio_button :tipo, 1,  
+                                 :Checked  => "True",
+                                 :onblur   => "TipoCompra('1'),TipoFinancaCompra()" %> Credito
+            								  
+            	<%= f.radio_button :tipo, 0, 
+            					           :onblur => "TipoCompra('0'),TipoFinancaCompra()" %> Contado
+			      <% else %>
+            	<%= f.radio_button :tipo, 1,
+            								     :onblur => "TipoCompra('1'),TipoFinancaCompra()" %> Credito
+            								  
+            	<%= f.radio_button :tipo, 0, 
+            	 				   :Checked    => "True",
+            					   :onblur     => "TipoCompra('0'),TipoFinancaCompra()" %> Contado
+			      <% end %>            
+            <input type="hidden" id="tipo" value="<%= @compra.tipo %>"/>
+
+          </fieldset>
+        </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <fieldset>
+            <legend>Moneda</legend>
+            <% if @compra.moeda.to_i == 1 %>
+            	<%= f.radio_button :moeda, 1, :Checked => "True" %> Gs.            					   
+            	<%= f.radio_button :moeda, 0 %> Dolar
+            	<%= f.radio_button :moeda, 2 %> Real
+            <% elsif  @compra.moeda.to_i == 0 %>
+            	<%= f.radio_button :moeda, 1 %> Gs.            					   
+            	<%= f.radio_button :moeda, 0, :Checked => "True" %> Dolar
+            	<%= f.radio_button :moeda, 2 %> Real
+            <% else %>
+            	<%= f.radio_button :moeda, 1 %> Gs.            					   
+            	<%= f.radio_button :moeda, 0 %> Dolar
+            	<%= f.radio_button :moeda, 2, :Checked => "True" %> Real
+            <% end %>
+          </fieldset>
+        </td>
+      </tr>
+  </table>
+
+  <table>
+    <tr>
+      <td width="60" align="right">Numero:</td>
+      <td>
+        <%= f.text_field :documento_numero_01, :size => 5, :onblur => "TipoFinancaCompra()", :value => @compra.documento_numero_01 %>-
+        <%= f.text_field :documento_numero_02, :size => 5, :value => @compra.documento_numero_02%>-
+        <%= f.text_field :documento_numero, :size => 15, :value => @compra.documento_numero%>
+      </td>
+    </tr>     
+  </table>
+
+     <div id="CREDITO" style="display: none;">
+        <table>
+           <tr>
+              <td width="60" align="right">Cota:</td>
+              <td><%= f.text_field :cota, :size => 10 ,:value => @cota_total %></td>
+
+             <td align="right">Venc.:</td>
+             <td><%= f.date_select :vencimento %></td>
+           </tr>
+        </table>
+     </div>
+
+     <div id="CONTADO" style="display: none;">
+        <table>
+           <tr>
+             <td width="60" align="right">Cuenta:</td>
+             <td><%= f.collection_select :conta_id, Conta.all(:order => '1'),:id,:nome, { :include_blank => true },
+                                                                                        { :class => "selc_mini"} %></td>
+
+             <td align="right">Cheque:</td>
+             <td><%= f.text_field :cheque, :size => 15 %></td>
+
+             <td align="right">Diferido:</td>
+             <td><%= f.date_select :diferido %></td>
+           </tr>
+        </table>
+    </div>
+    <table>
+       <tr>
+          <%= field_us 'Valor U$.', f, :valor_dolar,
+                                       :onchange => "UsToGsRs( 'compras_financa_cotacao',
+                                                             'compras_financa_cotacao_real',
+                                                             'compras_financa_valor_dolar',
+                                                             'compras_financa_valor_guarani',
+                                                             'compras_financa_valor_real')",
+                                        :value => number_to_currency(@cp_sum_dolar, :format=>'%n', :separator => ",")  %>
+          
+          <%= field_gs 'Valor Gs.',f,:valor_guarani,
+          						     :onchange => "GsToUsRs( 'compras_financa_cotacao',
+                                                             'compras_financa_cotacao_real',
+                                                             'compras_financa_valor_guarani',
+                                                             'compras_financa_valor_dolar',
+                                                             'compras_financa_valor_real')",
+                          :value => number_to_currency(@cp_sum_guarani, :format=>'%n', :precision => 0)  %>
+
+          <%= field_us 'Valor R$.',f,:valor_real,
+          						     :onchange   => "RsToUsGs('compras_financa_cotacao',
+                                                  'compras_financa_cotacao_real',
+                                                  'compras_financa_valor_guarani',
+                                                  'compras_financa_valor_dolar',
+                                                  'compras_financa_valor_real')",
+                             :value => number_to_currency(@cp_sum_real, :format=>'%n', :separator => ",")  %>
+
+        </tr>
+   </table>
+      
+ </div>
+<div class="buttons">
+  <a href="/compras/<%=params[:id]%>/compras_financa" class="button back">Volver</a> 
+   <%= f.submit "   Grabar  ",:disable_with => "Aguarde...", :class => "button"  %>
+</div>
+</div>
+<% end %>

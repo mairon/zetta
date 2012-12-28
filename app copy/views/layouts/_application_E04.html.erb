@@ -1,0 +1,120 @@
+
+<div class="menu">
+   <ul>
+      <li><a href="/menus"> Menu</a></li>
+      <li><a href="#">Cadastros</a>
+         <ul>
+            <li><a href="/moedas">                     Cotizacion</a></li>
+            <li><a href="/personas">                   Personas</a></li>
+            <li><a href="/produtos">                   Productos</a></li>
+            <li><a href="/clases">                     Clases</a></li>
+            <li><a href="/grupos">                     Grupos</a></li>
+            <li><a href="/sub_grupos">                 Sub-Grupos</a></li>
+            <li><a href="/planos">                     Plan de Pagos</a></li>
+            <li><a href="/depositos">                  Depositos</a></li>
+            <li><a href="/documentos">                 Documentos</a></li>
+            <li><a href="/rubros">                     Rubros Contables</a></li>
+            <li><a href="/plano_de_contas">            Plan de Cuentas</a></li>
+            <li><a href="/rodados">                    Rodados</a></li>
+            <li><a href="/contas">                     Caja/Banco</a></li>
+            <li><a href="/paises">                     Paises</a></li>
+            <li><a href="/estados">                    Estados</a></li>
+            <li><a href="/cidades">                    Cidades</a></li>
+         </ul>
+      </li>
+
+      <li><a href="#">Procesos</a>
+         <ul>
+            <li><a href="/stocks/stock_inicial">        Stock Inicial</a></li>
+            <li><a href="/pedido_compras">              Pedido de Compras</a></li>
+            <li><a href="/compras">                     Compras</a></li>
+            <li><a href="/vendas">                      Ventas</a></li>
+            <li><a href="/consumicao_internas">         Consumición Interna</a></li>            
+            <li><a href="/producaos">                   Produción</a></li>
+            <li><a href="/manutencao_maquinas">         Manutencion de Equipos</a></li>
+            <li><a href="/presupuestos">                Presupuesto</a></li>
+            <li><a href="/nota_remicaos">               Nota de Remicion</a></li>
+            <li><a href="/recepcao_nota_remicaos">      Recepcion Nota de Remision</a></li>
+            <li><a href="/vendas/faturas_pendentes">    Facturas Pendientes</a></li>
+            <li><a href="/produtos/consulta_stock">     Consulta Stock</a></li>
+            <li><a href="/nota_creditos">               Nota de Credito</a></li>
+            <li><a href="/nota_credito_proveedors">     Nota de Credito Prov.</a></li>
+               <li><a href="/vendas_entrada_produtos">     Vuelto de Mercaderia</a></li>
+            <% if current_user.tipo == 0 or current_user.tipo == 1  %>
+               <li><a href="/compras/index_gasto">         Gastos</a></li>
+               <li><a href="/cobros">                      Cobros</a></li>
+               <li><a href="/pagos">                       Pagos</a></li>
+               <li><a href="/ingressos">                   Ingresos</a></li>
+               <li><a href="/egressos">                    Egresos</a></li>
+               <li><a href="/transferencia_contas">        Transferencias Entre Cuentas</a></li>
+               <li><a href="/fechamento_caixas">        Cierre de Caja</a></li>
+               <li><a href="/sueldos">                     Sueldos y Jornales</a></li>
+               <li><a href="/adelantos">                   Adelantos</a></li>
+
+            <% end %>
+         </ul>
+      </li>
+
+      <li><a href="#">Relatorios</a>
+         <ul>
+            <li><a href="/clientes">                              Receber</a></li>
+            <li><a href="/proveedores">                           Pagar</a></li>
+            <li><a href="/relatorios/tabela_preco">               Tabla de Precios</a></li>
+            <li><a href="/stocks">                                Ficha de Stock</a></li>
+            <li><a href="/relatorios/historico_precos">           Historico de Precios</a></li>
+            <li><a href="/stocks/iventario">                      Iventario</a></li>
+            <li><a href="/stocks/rentabilidade">                  Rentabilidad</a></li>
+            <li><a href="/relatorios/compras">                    Compras</a></li>
+            <li><a href="/relatorios/vendas">                     Ventas</a></li>
+            <li><a href="/relatorios/consumicao_interna">         Consumicion Interna</a></li>
+            <% if current_user.tipo == 0 or current_user.tipo == 1  %>
+               <li><a href="/financas">                              Extracto Caja</a></li>
+               <li><a href="/financas/extrato_bancario">             Extracto Bancario</a></li>
+               <li><a href="/relatorios/fechamento_caixa">           Cierre de Caja</a></li>
+               <li><a href="/relatorios/cobros">                     Cobros</a></li>               
+               <li><a href="/relatorios/pagos">                      Pagos</a></li>               
+               <li><a href="/relatorios/remicao">                    Remiciones</a></li>
+               <li><a href="/relatorios/cheque_diferido">            Cheques Diferidos</a></li>
+               <li><a href="/relatorios/gastos">                     Gastos</a></li>
+               <li><a href="/relatorios/comissoes">                     Comisiones</a></li>
+               <li><a href="/relatorios/resumo_mes">                 Resume del Mes</a></li>               
+            <% end %>
+         </ul>
+      </li>
+      <% if current_user.tipo == 0 or current_user.tipo == 1  %>
+         <li><a href="#">Contabilidad</a>
+            <ul>
+               <li><a href="/diarios">                                 Asientos Contables</a></li>
+               <li><a href="/relatorios/generar_acientos_contables">   Generar Asientos Contables</a></li>
+               <hr/>
+               <li><a href="/relatorios/livro_compra">                 Libro Compra</a></li>
+               <li><a href="/relatorios/resumo_compra">                Resumen Compra</a></li>
+               <li><a href="/compras_documentos">                      Facturas Compras/Gastos</a></li>
+               <li><a href="/relatorios/livro_venda">                  Libro Venda</a></li>
+               <li><a href="/faturas">                                 Facturas Ventas</a></li>
+               <li><a href="/relatorios/livro_diario">                 Libro Diario</a></li>
+               <li><a href="/relatorios/livro_mayor">                  Libro Mayor</a></li>
+               <li><a href="/relatorios/balance">                      Balance de Suma y Saldos</a></li>
+               <li><a href="/relatorios/balance_general">              Balance General</a></li>
+
+            </ul>
+         </li>
+      <% end %>
+
+      <li><a href="#">Soporte</a>
+         <ul>
+            <li><a href="suporte/comando">                          Comando</a></li>
+
+         </ul>
+      </li>
+
+      <% if current_user.tipo == 0 or current_user.tipo == 1  %>
+         <li><a href="#">Sistema</a>
+            <ul>
+               <li><a href="/unidades">                     Unidades</a></li>
+               <li><a href="/usuarios">                     Usuarios</a></li>
+            </ul>
+         </li>
+      <% end %>
+   </ul>
+</div>

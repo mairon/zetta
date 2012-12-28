@@ -1,0 +1,33 @@
+<h1 align="right" id="header">Transferencia de Depositos</h1>
+<%= link_to 'Nuevo', new_transferencia_deposito_path, :id => 'novo' %>
+<div class="group">
+
+  <table>
+    <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="100" align="center">Fecha</td>
+      <td width="150" align="center">Deposito Origem</td>
+      <td width="150" align="center">Deposito Destino</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <table>
+
+<% @transferencia_depositos.each do |transferencia_deposito| %>
+  <tr class = "<%= cycle("cor1", "cor2")%>"> 
+    <td width="70" align="center"><%= transferencia_deposito.id %></td>
+    <td width="100" align="center"><%= transferencia_deposito.data.strftime("%d/%m/%Y") %></td>
+    <td width="150"><%= transferencia_deposito.deposito_origem_nome %></td>
+    <td width="150"><%= transferencia_deposito.deposito_destino_nome %></td>
+    <td><%= link_to 'Editar', edit_transferencia_deposito_path(transferencia_deposito) %></td>
+    <td><%= link_to 'Borrar', transferencia_deposito, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+    </div>
+</div>
+
+
+
+

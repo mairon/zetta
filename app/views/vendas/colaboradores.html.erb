@@ -1,0 +1,59 @@
+  
+  <div class="group_cd">
+
+    <table>
+      <tr>
+        <td>Cotacion :</td>
+        <td align="right"><%=h number_to_currency(@venda.cotacao, :format=>' %n ', :separator => ",")  %></td>
+        <td>Total Prod.:  </td>
+        <td align="right"><%=format( "%.3f", @produto_count.to_f )%> </td>
+      </tr>
+
+      <tr>
+        <td><font color="green">Total Dolar : </font></td>
+        <td align="right"><font color="green"><%=h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> </font></td>
+        <td><font color="red">Total Gs.:</font> </td>
+        <td align="right"><font color="red"><%=h number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %></font> </td>
+        <td>Total IVA.:</td>
+        <td align="right"><%=h number_to_currency(@produto_iva_guarani, :format=>' %n ', :separator => ",")  %></td>
+
+      </tr>
+
+    </table>
+  </div>
+   <%= render :partial=>"/vendas_colaboradors/index_colaborador", :locals=>{:vendas_colaboradors => @venda.vendas_colaboradors} %>
+
+   <div class="group_cd">
+      <%= render :partial=>"/vendas_colaboradors/new_colaborador", :locals=>{:vendas_colaborador =>VendasColaborador.new(:venda_id=>@venda.id)} %>
+   </div>
+<div class="buttons">
+<a href="/vendas/<%= @venda.id.to_i %>" , class ="button back">Volver</a> 
+<a href="/vendas/vendas_financa/<%= @venda.id.to_i %>" , class ="button next">Seguir</a> 
+<a href="javascript:void(0)" onClick="fecha()" , class ="button">Cerrar</a>
+<%= hidden_field_tag :id_venda, @venda.id %>
+</div>
+<script>
+  function ComprovanteVenda()                //
+  {
+    window.open('/vendas/comprovante/' + document.getElementById('id_venda').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+  }
+
+  function FaturaVenda()                     //
+  {
+    window.open('/vendas/fatura/' + document.getElementById('id_venda').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+  }
+
+  function fecha()                           //
+  {
+    self.close();
+  }
+  //ABRI POPUP-----------------------------------------------------------------
+  document.onkeydown=function(e)
+  {
+    if(e.which == 113)
+      location.href="/vendas/vendas_financa/"+ document.getElementById('id_venda').value;
+  }
+  //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>
+

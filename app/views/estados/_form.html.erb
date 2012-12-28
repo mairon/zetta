@@ -1,0 +1,41 @@
+<h1 align="right" id="header">Estados</h1>
+<%= link_to 'Volver', estados_path %>
+<%= form_for(@estado) do |f| %>
+
+  <% if @estado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@estado.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @estado.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<div class="group">
+  <h2>Estado</h2>
+<table>
+  <tr>
+    <td><b>Estado</b></td>
+    <td><%= f.text_field :nome,
+                         :size => 20,
+                         :onkeydown => "f(this)",
+                         :onkeyup => "f(this)"%></td>
+  </tr>
+
+  <tr>
+    <td><b>Pais</b></td>
+    <td><%= f.collection_select :paise_id, Paise.all(:order => '1'),:id,:nome %></td>
+  </tr>
+
+
+</table>
+  </div>
+
+<%= f.submit "Grabar" %> |
+<%= link_to 'Volver', estados_path %>
+<% end %>

@@ -182,7 +182,7 @@
 
 <script type="text/javascript">
 $("#cod_busca").keyup(function(){
-  $.ajax({url: '/buscas/vendas_produto',
+  $.ajax({url: '/buscas/busca_produto',
           type: 'POST',
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: 'cod=' + $('#cod_busca').val() +

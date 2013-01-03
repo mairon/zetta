@@ -1,0 +1,39 @@
+<%= form_for(produto_barra) do |f| %>
+  <% if produto_barra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(produto_barra.errors.count, "error") %> prohibited this produto_barra from being saved:</h2>
+
+      <ul>
+      <% produto_barra.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<%= f.hidden_field :produto_id %>
+  <table>
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td>
+              <div class="field">
+                <td align="right">Cod. Barra :</td>
+                <td><%= f.text_field :barra %></td>  
+              </div>
+            </td>
+
+            <td>
+              <div class="actions">
+                <%= f.submit "   Grabar   ", :class => "button" %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  
+
+
+<% end %>

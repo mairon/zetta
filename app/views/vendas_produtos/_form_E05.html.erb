@@ -1,0 +1,204 @@
+<!-- form base balcao! -->
+<%= form_for(@vendas_produto) do |f| %>
+
+<!-- form base! -->
+      <div class="backgrounds">
+      <%= f.text_field :produto_nome, :class => 'large', :placeholder => 'Producto' %>
+      </div>
+      <div class="left">  
+
+        <%= text_field :cod,:busca,                
+                       :class => 'medium',
+                       :onkeyup    => "EnterTab(event,'vendas_produto_quantidade')",
+                       :onkeypress => "return bloqEnter(event)" %>
+        <br>
+
+        <%= f.hidden_field :venda_id %>
+        <%= f.hidden_field :produto_id %>
+        <%= f.hidden_field :deposito_id, :value => 1 %>
+        <%= f.hidden_field :fabricante_cod %>
+        <%= f.hidden_field :codigo %>
+        <%= f.hidden_field :tipo %>
+        <%= f.hidden_field :clase_id %>
+        <%= f.hidden_field :grupo_id %>
+        <%= f.hidden_field :sub_grupo_id %>
+        <%= f.hidden_field :saldo %>
+        <%= f.hidden_field :cotacao, :value => '4550' %>
+        <%= f.hidden_field :persona_id,    :value => @vendas_produto.venda.persona_id %>
+        <%= f.hidden_field :persona_nome,  :value => @vendas_produto.venda.persona_nome %>
+        <%= f.hidden_field :clase_produto, :value => @vendas_produto.venda.clase_produto %>
+        <%= f.hidden_field :moeda,         :value => @vendas_produto.venda.moeda %>
+        <input type="hidden" id="moeda" name="moeda" value="<%= @vendas_produto.venda.moeda %>" />
+
+        <fieldset>
+        <table>
+          <tr height="35">
+            <td align="right">Cantidad :</td>
+            <td><%= f.text_field :quantidade,
+                             :size       => 8,
+                             :value      => 1,
+                             :onkeyup    => "EnterTab(event,'vendas_produto_total_desconto')",
+                             :onkeypress => "return bloqEnter(event)",
+                             :onblur     => " VendasProdutoTotalDolar(),
+                                              VendasProdutoTotalGs(),
+                                              VendasProdutoIvaGs(),
+                                              VendasProdutoIvaDolar()"%></td>
+
+            <td align="right">Saldo : <font color="red"><SPAN id="red"></SPAN> </font>
+                                      <font color="green"><SPAN id="green"></SPAN> </font>
+            </td>
+          </tr>
+          <tr>
+
+            <td align="right">Total Desc.:</td>
+            <td><%= f.text_field :total_desconto,
+                                 :size       => 5,
+                                 :value      => 0,
+                                 :onkeyup    => "EnterTab(event,'vendas_produto_interes')",
+                                 :onkeypress => "return bloqEnter(event)",
+                                  :onchange   => " VendasProdutoTotalDolar(),
+                                                  VendasProdutoTotalGs(),
+                                                  VendasProdutoIvaGs(),
+                                                  VendasProdutoIvaDolar(),
+                                                  VendasProdutoTotalDesconto()"%> %</td>
+
+
+            <td align="right">Maximo Desc.:</td>
+            <td><%= f.text_field :desconto,
+                                 :size    => 5,
+                                 :readonly => "readonly",
+                                 :value   => '',
+                                 :onkeyup => "EnterTab(event,'vendas_produto_interes')",
+                                 :onkeypress => "return bloqEnter(event)",
+                                 :onchange   => " VendasProdutoTotalDolar(),
+                                                  VendasProdutoTotalGs(),
+                                                  VendasProdutoIvaGs(),
+                                                  VendasProdutoIvaDolar()",
+                                  :readonly => "readonly"%> %</td>
+
+            <td align="right">Interes:</td>
+            <td><%= f.text_field :interes,
+                                 :size       => 5,
+                                 :value      => 0,
+                                 :onkeyup    => " EnterTab(event,'vendas_produto_unitario_guarani')",
+                                 :onkeypress => " return bloqEnter(event)",
+                                 :onchange   => " VendasProdutoTotalDolar(),
+                                                  VendasProdutoTotalGs(),
+                                                  VendasProdutoIvaGs(),
+                                                  VendasProdutoIvaDolar(),
+                                                  VendasProdutoInteres() "%> %</td>
+            <%= f.hidden_field :taxa %>
+          </tr>
+
+
+
+          <% if @vendas_produto.venda.moeda == 0  %>
+            <tr height="35">
+              <%= field_us 'Unit. U$ :',f,:unitario_dolar,
+                                          :onkeypress => " return bloqEnter(event)",
+                                          :onblur     => " VendasProdutoUnitGs(),
+                                                           VendasProdutoTotalDolar(),
+                                                           VendasProdutoTotalGs(),
+                                                           VendasProdutoIvaGs(),
+                                                           VendasProdutoIvaDolar(),
+                                                           VendasProdutoPorcentagemInversa()" %>
+              <%= f.hidden_field :total_guarani%>
+              <%= field_us 'Total U$ :',f,:total_dolar,
+                                          :readonly => "readonly",            
+                                          :onblur => "VendasProdutoPorcentagemInversa(),
+                                                      VendasProdutoIvaGs(),
+                                                      VendasProdutoIvaDolar()" %>
+              <%= f.hidden_field :unitario_guarani %>
+              <%= f.hidden_field :preco_dolar %>
+              <%= f.hidden_field :preco_guarani %>
+              <%= f.hidden_field :preco_fixo_dolar %>
+              <%= f.hidden_field :preco_fixo_guarani %>
+              <%= f.hidden_field :iva_dolar%>
+              <%= f.hidden_field :iva_guarani%>
+
+              <td>
+                <%= f.submit "Adicionar", :class => "button" %>                
+              </td>
+
+              <td>
+                <%= image_tag("load.gif",
+                             :align => "absmiddle",
+                             :border => 0,
+                             :id => "spinner",
+                             :width => 21,
+                             :height => 21,
+                             :style =>"display: none;" ) %>
+              </td>
+            </tr>
+          <% else %>
+            <tr>
+              <%= field_gs 'Unit. Gs.:',f,:unitario_guarani,
+                                          :onblur => " VendasProdutoUnitDolar(),
+                                                       VendasProdutoTotalDolar(),
+                                                       VendasProdutoTotalGs(),
+                                                       VendasProdutoIvaGs(),
+                                                       VendasProdutoIvaDolar(),
+                                                       VendasProdutoPorcentagemInversa()" %>
+
+              <%= field_gs 'Total. Gs.:',f,:total_guarani,
+                                           :onblur => "VendasProdutoPorcentagemInversa(),
+                                                       VendasProdutoIvaGs(),
+                                                       VendasProdutoIvaDolar()" %>
+              <%= f.hidden_field :iva_dolar %>
+              <%= f.hidden_field :iva_guarani %>
+              <%= f.hidden_field :preco_dolar %>
+              <%= f.hidden_field :preco_guarani %>
+              <%= f.hidden_field :preco_fixo_dolar %>
+              <%= f.hidden_field :preco_fixo_guarani %>            
+              <%= f.hidden_field :total_dolar%>
+              <%= f.hidden_field :unitario_dolar%>
+              <td></td>
+              <td>
+                <%= f.submit " Adicionar ", :class => "button" %>                
+              </td>
+
+              <td>
+                <%= image_tag("load.gif",
+                             :align => "absmiddle",
+                             :border => 0,
+                             :id => "spinner",
+                             :width => 21,
+                             :height => 21,
+                             :style =>"display: none;" ) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+        </fieldset>
+        <div class="texts">
+          <div id="sub_total">
+          <span>Sub-Total:</span>
+
+            <%= number_to_currency(VendasProduto.sum(:total_guarani,   :conditions => ['venda_id = ?',@vendas_produto.venda.id]), :format=>' %n ',:precision => 0) %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+<script type="text/javascript">
+$("#cod_busca").keyup(function(){
+  $.ajax({url: '/buscas/busca_produto',
+          type: 'POST',
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: 'cod=' + $('#cod_busca').val() +
+                '&id='+ $('#id').val(),
+          success: function(prod){
+          $('#vendas_produto_produto_nome').val(prod.nome);
+          $('#vendas_produto_produto_id').val(prod.id);
+          $('#vendas_produto_clase_id').val(prod.clase_id);
+          $('#vendas_produto_grupo_id').val(prod.grupo_id);
+          $('#vendas_produto_tipo').val(prod.tipo);
+          $('#vendas_produto_desconto').val(prod.desconto);
+          $('#vendas_produto_unitario_dolar').val(number_format( prod.preco_venda_dolar,2, ',', '.'));
+          $('#vendas_produto_unitario_guarani').val(number_format( prod.preco_venda_guarani,0, ',', '.'));
+          $('#vendas_produto_preco_dolar').val(number_format( prod.preco_venda_dolar,2, ',', '.'));
+          $('#vendas_produto_preco_guarani').val(number_format( prod.preco_venda_dolar,0, ',', '.'));
+        }})
+});
+
+</script>

@@ -21,12 +21,14 @@
                   <td align="right"> Fecha:</td>
                   <td><input name       = "inicio"
                              id         = "inicio"
+                             type       = "text"
                              size       = "10"
                              onkeyup    = "Formatadata(this,event),EnterTab(event,'final')" />
                      Hasta
 
                      <input name       = "final"
                             id         = "final"
+                            type       = "text"
                             size       = "10"
                             onkeyup    = "Formatadata(this,event)"/></td>
                </tr>
@@ -54,7 +56,7 @@
                   <td>
 
                      <input type="button"  class="button" onclick="pesquisa(document.getElementById('busca').value)" value="Buscar"/>
-                     <%= image_tag("/images/load.gif",
+                     <%= image_tag("load.gif",
                                    :align => "absmiddle",
                                    :border => 0,
                                    :id => "spinner",
@@ -125,7 +127,7 @@
    {
 
 
-          Element.show('spinner')
+          $('#spinner').show();
 
       //alert(nick);
 
@@ -200,7 +202,7 @@
             // retornado nela, como texto HTML
 
 
-            onSuccess:Element.hide('spinner')
+            onSuccess:$('#spinner').hide();
 
             document.getElementById('pagina').innerHTML = req.responseText;
 

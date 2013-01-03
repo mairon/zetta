@@ -50,7 +50,7 @@
                   <td width="100" align="right"  bgcolor="<%=color%>">   <%=h number_to_currency(venda.total_guarani, :format=>' %n ', :precision => 0 )  %></td>
                   <td width="100" align="right"  bgcolor="<%=color%>">   <%=h number_to_currency(venda.total_dolar, :format=>' %n ', :separator => "," )  %></td>
                   <td width="70" align="center"  bgcolor="<%=color%>">   <%=h tipo  %></td>
-                  <td><%= link_to 'Editar', edit_venda_path(venda), :popup => ['new_window','height=1100,width=1500'] %></td>
+                  <td><%= link_to 'Editar', venda_path(venda), :popup => ['new_window','height=1100,width=1500'] %></td>
                   <td><%= link_to 'Borrar', venda, :confirm => 'Tiene Certeza?', :method => :delete %></td>
                   <td><%= link_to 'VS', "vendas/visualizacao/#{venda.id}", :popup => ['new_window','height=900,width=900'] %></td>
 
@@ -68,7 +68,7 @@
                   <td width="100" align="right"  >   <%=h number_to_currency(venda.total_dolar, :format=>' %n ', :separator => "," )  %></td>
                   <td width="70" align="center"  >   <%=h tipo  %></td>
                   <% if venda.status == 0  or current_user.tipo == 0 %>
-                    <td><%= link_to 'Editar', edit_venda_path(venda), :popup => ['new_window','height=1100,width=1500'] %></td>
+                    <td><%= link_to 'Editar', venda_path(venda), :popup => ['new_window','height=1100,width=1500'] %></td>
                     <td><%= link_to 'Borrar', venda, :confirm => 'Tiene Certeza?', :method => :delete %></td>
                   <% end %>
                     <td><%= link_to 'VS', "vendas/visualizacao/#{venda.id}", :popup => ['new_window','height=900,width=900'] %></td>

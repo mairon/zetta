@@ -4,6 +4,7 @@ class Produto < ActiveRecord::Base
   has_many :vendas_produtos
   has_many :produtos_roteiros, :order => 1
   has_many :produto_composicao, :order => 1
+  has_many :produto_barras, :order => 1
   belongs_to :safra_umidades
   belongs_to :safra_produtos
 

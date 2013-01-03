@@ -148,6 +148,7 @@ class VendasProdutosController < ApplicationController
     def edit                        #
         @vendas_produto = VendasProduto.find(params[:id])
         @vendas_produto.current_user = current_user.tipo
+        render :layout => 'layout_vendas'
     end
 
     def create                      #
@@ -168,7 +169,7 @@ class VendasProdutosController < ApplicationController
             if @vendas_produto.update_attributes(params[:vendas_produto])
 
                 flash[:notice] = 'Actualizado con Sucesso'
-                format.html { redirect_to "/vendas/show/#{@vendas_produto.venda_id}" }
+                format.html { redirect_to "/vendas/#{@vendas_produto.venda_id}" }
                 format.xml  { head :ok }
             else
                 format.html { render :action => "edit" }
@@ -177,13 +178,10 @@ class VendasProdutosController < ApplicationController
         end
     end
 
-    def destroy                     #
-        @vendas_produto = VendasProduto.find(params[:id])
-        @vendas_produto.destroy
-
-        respond_to do |format|
-            format.html { redirect_to "/vendas/show/#{@vendas_produto.venda_id}" }
-            format.xml  { head :ok }
-        end
+    def destroy
+      @vendas_produto = VendasProduto.destroy(params[:id])
+      respond_to do |format|
+            format.html { redirect_to "/vendas/#{@vendas_produto.venda_id}" }
+      end
     end
 end

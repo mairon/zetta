@@ -30,7 +30,7 @@ class BuscasController < ApplicationController
     return render :text => moeda.real_venda.to_i
   end
 
-  def vendas_produto
+  def busca_produto
     @venda = Venda.find(params[:id])
     prod =  Produto.find_by_barra( params[:cod])
 

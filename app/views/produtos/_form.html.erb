@@ -15,12 +15,13 @@
       </ul>
     </div>
   <% end %>
-
    <ul class="tabs">
       <li><a href="#tab1">Producto - [Edicion]</a></li>
-      <li><%= link_to '[Roteiro]',"/produtos/roteiro/#{@produto.id}" %></li>
-      <li><%= link_to '[Composicion]',"/produtos/composicao/#{@produto.id}" %></li>
-
+      <% if params[:action] != 'new' %>
+        <li><%= link_to '[Roteiro]',"/produtos/#{@produto.id}/roteiro" %></li>
+        <li><%= link_to '[Composicion]',"/produtos/#{@produto.id}/composicao" %></li>
+        <li><%= link_to '[Cod. Barra]',"/produtos/#{@produto.id}/cod_barra" %></li>
+      <% end %>
    </ul>
 
 

@@ -1,5 +1,7 @@
 Zetta::Application.routes.draw do
 
+  resources :produto_barras
+
   resources :unidade_metricas
 
   resources :localidades
@@ -97,41 +99,47 @@ Zetta::Application.routes.draw do
   end                   
   resources :produtos do
     collection do
-    get 'roteiro'
-    get 'dinamic_busca_consulta_stock'             
-    get 'index_print'                              
-    get 'consulta_stock'                           
-    get 'busca_compra_produto'                     
-    get 'dinamic_busca_compra_produto'             
-    get 'busca_composicao_produto'                 
-    get 'dinamic_busca_composicao_produto'         
-    get 'busca_pedido_compra_produto'              
-    get 'dinamic_busca_pedido_compra_produto'      
-    get 'busca_presupuesto_produto'                
-    get 'dinamic_busca_presupuesto_produto'        
-    get 'busca_venda_produto'                      
-    get 'dinamic_busca_venda_produto'              
-    get 'busca_consumicao_interna_produto'         
-    get 'dinamic_busca_consumicao_interna_produto' 
-    get 'busca_manutencao_mq_produto'              
-    get 'dinamic_busca_manutencao_mq_produto'      
-    get 'busca_producao_produto'                   
-    get 'dinamic_busca_producao_produto'           
-    get 'busca_remicao_produto'                    
-    get 'dinamic_busca_remicao_produto'            
-    get 'busca_venda_produto_maiorista'            
-    get 'dinamic_busca_venda_produto_maiorista'    
-    get 'dinamic_busca'                            
-    get 'busca_ordem_produto'                      
-    get 'dinamic_busca_ordem_produto'              
-    get 'imagem'                                   
+      get 'dinamic_busca_consulta_stock'             
+      get 'index_print'                              
+      get 'consulta_stock'                           
+      get 'busca_compra_produto'                     
+      get 'dinamic_busca_compra_produto'             
+      get 'busca_composicao_produto'                 
+      get 'dinamic_busca_composicao_produto'         
+      get 'busca_pedido_compra_produto'              
+      get 'dinamic_busca_pedido_compra_produto'      
+      get 'busca_presupuesto_produto'                
+      get 'dinamic_busca_presupuesto_produto'        
+      get 'busca_venda_produto'                      
+      get 'dinamic_busca_venda_produto'              
+      get 'busca_consumicao_interna_produto'         
+      get 'dinamic_busca_consumicao_interna_produto' 
+      get 'busca_manutencao_mq_produto'              
+      get 'dinamic_busca_manutencao_mq_produto'      
+      get 'busca_producao_produto'                   
+      get 'dinamic_busca_producao_produto'           
+      get 'busca_remicao_produto'                    
+      get 'dinamic_busca_remicao_produto'            
+      get 'busca_venda_produto_maiorista'            
+      get 'dinamic_busca_venda_produto_maiorista'    
+      get 'dinamic_busca'                            
+      get 'busca_ordem_produto'                      
+      get 'dinamic_busca_ordem_produto'              
+      get 'imagem'                                   
+    end
+    member do
+      get 'cod_barra'
+      get 'roteiro'
+      get 'composicao'
+
     end
   end  
   resources :financas do
     collection do
       get 'relatorio_financas'
       get 'extrato_bancario'
-      get 'resultado_extrato_bancario'      
+      get 'resultado_extrato_bancario'    
+
     end  
   end
   resources :forms

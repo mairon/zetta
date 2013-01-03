@@ -6,6 +6,9 @@ class ProdutosController < ApplicationController
         @produto = Produto.find(params[:id])
     end
 
+    def cod_barra
+        @produto = Produto.find(params[:id])
+    end
 
     def composicao
         @produto = Produto.find(params[:id])

@@ -43,7 +43,7 @@ Zetta::Application.routes.draw do
     match 'cotz_us_venda'  => "buscas#cotz_us_venda", :via => :post
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
-    match 'vendas_produto'  => "buscas#vendas_produto", :via => :post    
+    match 'busca_produto'  => "buscas#busca_produto", :via => :post    
   end
 
   #login

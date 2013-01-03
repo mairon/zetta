@@ -1,0 +1,79 @@
+<body onload="SueldoDetalheFocoData()">
+  <% form_for(sueldos_detalhe) do |f| %>
+    <%= f.error_messages %>
+  <%= f.hidden_field :sueldo_id %>
+  <%= f.hidden_field :persona_id, :value => @sueldo.persona_id %>
+  <%= f.hidden_field :persona_nome, :value => @sueldo.persona_nome %>
+  Sueldo Detalhe - Edicion 
+  <div class="group_cd">
+    <table>
+        <tr>
+          <td align="right">Fecha :</td>
+          <td><%= f.date_select :data ,{},{:onblur => "SueldoDetalheCotacao()"} %></td>
+          <%= hidden_field_tag( 'key' ) %>
+        </tr>
+          <tr>
+             <td></td>
+            <td>
+              <fieldset>
+                <legend>Moneda</legend>
+                <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+                <%= f.radio_button :moeda, 0%> Dolar                
+              </fieldset>
+            </td>
+          </tr>
+
+        <tr>
+          <td align="right">Cotizacion :</td>
+          <td>             <%= text_field :sueldos_detalhe,
+                                          :cotacao ,
+                                          { :size    => 15,
+                                            :onfocus  => remote_function(:update => "key",
+                                                                        :url    => { :action => :get_moeda},
+                                                                                     :with   => "'key='+ key.value ") } %></td>
+        </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <fieldset>
+          <legend>Estado :</legend>
+          <%= f.radio_button :estado, 0,:Checked => "True" %>Haber
+          <%= f.radio_button :estado , 1 %>Descuento
+        </fieldset>
+      </td>
+    </tr>
+    
+    <tr>
+       <td align="right">Documento:</td>
+       <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                                :order  => '1' ),:id,
+                                                                                 :nome %></td>
+    </tr>
+
+
+    <tr>
+        <td>Valor Gs.:</td>
+        <td><%= f.text_field :valor_guarani,
+                             :onchange => "SueldoDetalheGuaraniDolar()" %></td>
+        <td>Valor U$.:</td>
+        <td><%= f.text_field :valor_dolar,
+                             :onchange => "SueldoDetalheDolarGuarani()" %></td>
+
+      </tr>
+
+      <tr>
+        <td valign="top" align="right">Descripcion :</td>
+        <td><%= f.text_area :descricao,
+                             :size => '35x5'%></td>
+
+      </tr>
+
+    </table>
+  </div>
+  <div class="buttons">
+      <%= f.submit "   Grabar   ",:disable_with => "Aguarde...", :class => "button"  %>      
+      <%= link_to 'Volver', @sueldo, :class => "button back" %> 
+  </div>
+  <% end %>
+</body>

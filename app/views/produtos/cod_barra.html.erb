@@ -1,0 +1,43 @@
+<body onload="ImputFocus('produtos_roteiro_setor')">
+<h1 align="right" id="header">Productos</h1>  
+   <ul class="tabs">
+      <li><%= link_to '[Composicion]',"/produtos/composicao/#{@produto.id}" %></li>
+      <li><%= link_to '[Roteiro]',"/produtos/roteiro/#{@produto.id}" %></li>
+      <li><%= link_to '[editar]',"/produtos/#{@produto.id}/edit" %></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab2" class="tab_content">
+
+      <div class="grid">
+        <%= render :partial=>"produto_barras/index_barra", :locals=>{:produto_barra => @produto, :produto_barras => @produto.produto_barras} %>
+      </div>
+
+      <div class="group">
+        <%= render :partial => '/produto_barras/form', :locals=>{:produto_barra=>ProdutoBarra.new(:produto_id=>@produto.id)}%>
+      </div>
+      
+       <div class="buttons">
+           <%= link_to 'Volver', produtos_path, :class => "button back" %>
+       </div>
+      </div>
+   </div>
+</body>
+
+
+<script>
+  //ABRI POPUP-----------------------------------------------------------------
+document.onkeydown=function(e)
+{
+    if(e.which == 113)
+        window.open('/produtos/busca_composicao_produto', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+}
+     
+//FIM ABRI POPUP----------------------------------------------------------------
+
+
+</script>
+
+
+
+

@@ -1,0 +1,87 @@
+<h1 align="right" id="header">Nota de Credito Proveedor</h1>
+    <ul class="tabs">
+        <li><a href="#tab1">N.C. Proveedor - [Aplicacion]</a></li>
+    </ul>
+
+    <div class="tab_container">
+		<div class="groupvenda">
+		    <table>
+		      <tr>
+		        <td width="150" align="center">Cod.</td>
+		        <td width="150" align="center">Fecha</td>
+		        <td width="350" align="center">Documento</td>
+		        <td width="50" align="center">Cota</td>
+		        <td width="100" align="center">Divida</td>
+				<td width="100" align="center">Anterior</td>
+				<td width="100" align="center">Saldo</td>
+		      </tr>
+		    </table>
+
+		    <div class="rolagem_cobro" dir="div">
+
+		      <table>
+		        <% @dividas.each do |ft| %>
+			          <%  anterior_dolar     = Proveedore.sum(:pago_dolar, :conditions => ["persona_id = ? AND documento_numero_01 = ? AND documento_numero_02 = ? AND documento_numero = ? AND cota = ? ",ft.persona_id,ft.documento_numero_01,ft.documento_numero_02,ft.documento_numero,ft.cota]) %>
+          			  <%  anterior_guarani   = Proveedore.sum(:pago_guarani, :conditions => ["persona_id = ? AND documento_numero_01 = ? AND documento_numero_02 = ? AND documento_numero = ? AND cota = ?",ft.persona_id,ft.documento_numero_01,ft.documento_numero_02,ft.documento_numero,ft.cota]) %>
+          			  <%  saldo_dolar        = ft.divida_dolar - anterior_dolar   %>
+          			  <%  saldo_guarani      = ft.divida_guarani - anterior_guarani   %>
+
+
+
+		           <tr class = "<%= cycle("cor1", "cor2") %> "
+						              onMouseOver="javascript:this.style.backgroundColor='#949494'"
+					                  onMouseOut="javascript:this.style.backgroundColor=''"
+              						  onClick="Fecha( 
+                              '<%= ft.vencimento %>',
+                              '<%= ft.documento_numero_01 %>',
+                              '<%= ft.documento_numero_02 %>',
+                              '<%= ft.documento_numero %>',
+                              '<%= ft.cota %>')">
+		             <td width="150" align="center"><%= ft.id%></td>                        
+		             <td width="150" align="center"><%= ft.data.strftime("%d/%m/%Y") %></td>                        
+		             <td width="350" align="center"><%= ft.documento_numero_01 %>-<%= ft.documento_numero_02 %>-<%= ft.documento_numero %></td>
+		             <td width="50" align="center"><%= ft.cota %></td>       
+
+ 					 <% if @nota_credito_proveedor.moeda.to_f == 0 %> 
+						<td width="100" align="right"><%= number_to_currency( ft.divida_dolar,    :format=>' %n ', :separator => ",") %></td>
+        				<td width="100" align="right"><%= number_to_currency( anterior_dolar, :format=>' %n ', :separator => ',') %></td>
+						<td width="100" align="right"><%= number_to_currency( saldo_dolar,    :format=>' %n ', :separator => ",") %></td>
+
+					 <% else %> 
+						<td width="100" align="right"><%= number_to_currency( ft.divida_guarani,    :format=>' %n ', :precision => 0 ) %></td>
+        				<td width="100" align="right"><%= number_to_currency( anterior_guarani, :format=>' %n ', :precision => 0 ) %></td>
+						<td width="100" align="right"><%= number_to_currency( saldo_guarani,    :format=>' %n ', :precision => 0 ) %></td>
+					 <% end %>		                              
+		           </tr>
+		        <% end %>
+		      </table>
+		    </div>
+		</div>
+    	<div class="group">
+    		 <%= render :partial=>"/nota_credito_proveedor_aplics/new_aplic", :locals=>{:nota_credito_proveedor_aplic=>NotaCreditoProveedorAplic.new(:nota_credito_proveedor_id=>@nota_credito_proveedor.id)} %> 
+    	</div>
+    	<%= render :partial=>"/nota_credito_proveedor_aplics/index_aplic", :locals=>{:nota_credito_proveedor_aplics => @nota_credito_proveedor.nota_credito_proveedor_aplics} %>
+    </div>
+    <div class="buttons">
+   	<% if @nota_credito_proveedor.operacao == 0 %>	
+    	<%= link_to 'Volver', "/nota_credito_proveedors/nc_proveedor_produtos/#{@nota_credito_proveedor.id}" , :class => 'button back' %>          
+    <% else %>
+        <%= link_to 'Volver', edit_nota_credito_proveedor_path(@nota_credito_proveedor),:class => 'button back' %>
+    <% end %>
+    <%= link_to "Finalizar", "/nota_credito_proveedors/nc_proveedor_financa/#{@nota_credito_proveedor.id}" ,:class => 'button next' %>
+
+    </div>
+
+<script>
+      function Fecha(vencimento,documento_numero_01,documento_numero_02,documento_numero,cota)
+  {
+    document.getElementById('nota_credito_proveedor_aplic_vencimento').value          = vencimento;
+    document.getElementById('nota_credito_proveedor_aplic_documento_numero_01').value = documento_numero_01;
+    document.getElementById('nota_credito_proveedor_aplic_documento_numero_02').value = documento_numero_02;
+    document.getElementById('nota_credito_proveedor_aplic_documento_numero').value    = documento_numero;
+    document.getElementById('nota_credito_proveedor_aplic_cota').value                = cota;    
+    document.getElementById("nota_credito_proveedor_aplic_valor_dolar").focus()
+  }
+
+
+</script>

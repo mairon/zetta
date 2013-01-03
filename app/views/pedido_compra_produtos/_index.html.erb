@@ -1,0 +1,54 @@
+<div class="group">
+    
+   <table class="head_grid">
+      <tr>
+         <td width="50" align="center"></td>
+         <td width="100" align="center">Fabricante Cod.</td>
+         <td width="100" align="center">Deposito</td>
+         <td width="500" align="center">Producto</td>
+         <td width="100" align="center">Cantidad</td>
+         <td width="100" align="center">Unit.</td>
+         <td width="100" align="center">Total</td>
+      </tr>
+   </table>
+   <div class="rolagem" dir="div">
+      <table>
+        <% indice = 1 %>
+        <% tot_us = 0 %>
+        <% tot_gs = 0 %>
+        <% pedido_compra_produtos.each do |pedido_compra_produto| %>        
+          <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="50" align="center"><%=h indice %></td>
+            <td width="100" align="center"><%=h pedido_compra_produto.produto_fabricante_cod %></td>
+            <td width="100" align="center"><%=h pedido_compra_produto.deposito_nome %></td>
+            <td width="500" align="left"><%=h pedido_compra_produto.produto_nome %></td>
+            <td width="100" align="center"><%=h pedido_compra_produto.quantidade %></td>
+           <% if @pedido_compra.moeda == 0%>
+            <td width="100" align="right"><%=h number_to_currency( pedido_compra_produto.unitario_dolar,      :format =>' %n ', :separeitor => "," ) %></td>
+            <td width="100" align="right"><%=h number_to_currency( pedido_compra_produto.total_dolar,      :format =>' %n ', :separeitor => "," ) %></td>
+            <% tot_us += pedido_compra_produto.total_dolar %>
+           <% else %> 
+            <td width="100" align="right"><%=h number_to_currency( pedido_compra_produto.unitario_guarani,      :format =>' %n ', :precision => 0 ) %></td>
+            <td width="100" align="right"><%=h number_to_currency( pedido_compra_produto.total_guarani,      :format =>' %n ', :precision => 0 ) %></td>
+            <% tot_gs += pedido_compra_produto.total_guarani %>            
+          <% end %>  
+            <td ><%= link_to 'Editar', edit_pedido_compra_produto_path(pedido_compra_produto) %></td>
+            <td ><%= link_to 'Borrar', pedido_compra_produto, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+          </tr> 
+          <% indice += 1 %>
+       <% end %>
+   </table>
+  </div>
+  <table >
+      <tr>
+        <td width="950"></td>      
+        <% if @pedido_compra.moeda == 0%>
+           <td width="100" align="right"><%=h number_to_currency( tot_us,      :format =>' %n ', :separeitor => "," ) %></td>
+        <% else %>
+           <td width="100" align="right"><%=h number_to_currency( tot_gs,      :format =>' %n ', :precision => 0 ) %></td>
+        <% end %>
+      </tr>
+  </table>
+</div>
+
+

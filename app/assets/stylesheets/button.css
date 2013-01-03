@@ -1,0 +1,273 @@
+.buttons{
+    padding: 7px;
+    border: 1px solid #b1b5d0;
+    margin-bottom: 0px;
+    color: #333;
+    line-height: 1;
+    text-shadow: 0 2px 0 #eee;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    background: #eee;
+    background: -moz-linear-gradient(top, #eee 0%, #ccc 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#ccc));
+    background-image: -o-linear-gradient(top,rgb(221,221,221),rgb(187,187,187));   
+
+    
+
+}
+
+
+
+
+.enviar {   
+  border: 1px solid #b1b5d0;
+    border: 1px solid #b1b5d0;
+   padding: 10px; 
+   -webkit-border-radius:0.2em;
+   -moz-border-radius:0.2em;
+   border-radius:0.2em;
+   font-family:verdana,geneva,arial,helvetica,sans-serif;
+   font-size:14px;
+   font-weight:bold;
+} 
+
+.enviar:hover {   
+  background: #ddd;
+  border: 1px solid #bbb;
+  border-bottom: 1px solid #999;
+  cursor: pointer;
+  text-shadow: 0 2px 0 #ddd;
+  -moz-box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 1px 1px #eee;
+  -webkit-box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 1px 1px #eee;
+  box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 1px 1px #eee;
+
+  
+} 
+
+
+.sair {   
+	
+  border: 1px solid #111;
+   padding: 10px 20px; 
+   -webkit-border-radius:0.2em;
+   -moz-border-radius:0.2em;
+   border-radius:0.2em;
+   font-family:verdana,geneva,arial,helvetica,sans-serif;
+   font-size:14px;
+   font-weight:bold;
+  -moz-box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 1px 1px #eee;
+  -webkit-box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 1px 1px #eee;
+  box-shadow: inset 1px 1px 0px 0px #999999, 1px 1px 2px 2px #eee;
+   text-decoration: none; 
+   color: #333; 
+} 
+
+
+.links {   	
+  border: 1px solid #b1b5d0;
+   padding: 0px 6px;
+   margin-right: 5px;
+    line-height:230%;
+    text-align:right;
+   -webkit-border-radius:0.2em;
+   -moz-border-radius:0.2em;
+   border-radius:0.2em;
+   font-family:verdana,geneva,arial,helvetica,sans-serif;
+        background-color: #ccc;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+        background-image: -webkit-linear-gradient(top, #eee, #ccc);
+        background-image: -moz-linear-gradient(top, #eee, #ccc);
+        background-image: -ms-linear-gradient(top, #eee, #ccc);
+        background-image: -o-linear-gradient(top, #eee, #ccc);
+        background-image: linear-gradient(top, #eee, #ccc);
+        font: bold 1em/2em Arial, Helvetica;
+        text-decoration: none;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255,255,255,.8);
+        -moz-border-radius: .2em;
+        -webkit-border-radius: .2em;
+        border-radius: .2em;
+        -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+   
+   font-size:14px;
+   font-weight: bold; 
+   text-decoration: none; 
+   color: #333; 
+} 
+
+.links:hover {   	
+        background-color: #ddd;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ddd));
+        background-image: -webkit-linear-gradient(top, #fafafa, #ddd);
+        background-image: -moz-linear-gradient(top, #fafafa, #ddd);
+        background-image: -ms-linear-gradient(top, #fafafa, #ddd);
+        background-image: -o-linear-gradient(top, #fafafa, #ddd);
+        background-image: linear-gradient(top, #fafafa, #ddd);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');
+} 
+.button
+{
+        display: inline-block;
+        white-space: nowrap;
+        background-color: #ccc;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+        background-image: -webkit-linear-gradient(top, #eee, #ccc);
+        background-image: -moz-linear-gradient(top, #eee, #ccc);
+        background-image: -ms-linear-gradient(top, #eee, #ccc);
+        background-image: -o-linear-gradient(top, #eee, #ccc);
+        background-image: linear-gradient(top, #eee, #ccc);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#cccccc');
+        border: 1px solid #777;
+        padding: 0 1.5em;
+        margin: 2px;
+        font: bold 1em/2em Arial, Helvetica;
+        text-decoration: none;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255,255,255,.8);
+        -moz-border-radius: .2em;
+        -webkit-border-radius: .2em;
+        border-radius: .2em;
+        -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+}
+
+
+.button_info
+{
+        display: inline-block;
+        white-space: nowrap;
+        background-color: #ccc;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+        background-image: -webkit-linear-gradient(top, #eee, #ccc);
+        background-image: -moz-linear-gradient(top, #eee, #ccc);
+        background-image: -ms-linear-gradient(top, #eee, #ccc);
+        background-image: -o-linear-gradient(top, #eee, #ccc);
+        background-image: linear-gradient(top, #eee, #ccc);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#eeeeee', EndColorStr='#cccccc');
+        border: 1px solid #777;
+        padding: 0 1.5em;
+        margin: 2px;
+        width: 110px;
+        font: bold 1em/2em Arial, Helvetica;
+        text-decoration: none;
+        color: #333;
+        text-shadow: 0 1px 0 rgba(255,255,255,.8);
+        -moz-border-radius: .2em;
+        -webkit-border-radius: .2em;
+        border-radius: .2em;
+        -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+        box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+}
+
+.button:hover
+{
+        background-color: #ddd;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ddd));
+        background-image: -webkit-linear-gradient(top, #fafafa, #ddd);
+        background-image: -moz-linear-gradient(top, #fafafa, #ddd);
+        background-image: -ms-linear-gradient(top, #fafafa, #ddd);
+        background-image: -o-linear-gradient(top, #fafafa, #ddd);
+        background-image: linear-gradient(top, #fafafa, #ddd);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');
+}
+
+.button:active
+{
+        -moz-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+        -webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+        box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+        position: relative;
+        top: 1px;
+}
+
+.button:focus
+{
+        outline: 0;
+        background: #fafafa;
+}    
+
+.button:before
+{
+        background: #ccc;
+        background: rgba(0,0,0,.1);
+        float: left;
+        width: 1em;
+        text-align: center;
+        font-size: 1.5em;
+        margin: 0 1em 0 -1em;
+        padding: 0 .2em;
+        -moz-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+        -webkit-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+        box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+        -moz-border-radius: .15em 0 0 .15em;
+        -webkit-border-radius: .15em 0 0 .15em;
+        border-radius: .15em 0 0 .15em;
+        pointer-events: none;
+}
+
+/* Hexadecimal entities for the icons */
+
+.add:before
+{
+        content: "\271A";
+}
+
+.edit:before
+{
+        content: "\270E";
+}
+
+.delete:before
+{
+        content: "\2718";
+}
+
+.save:before
+{
+        content: "\2714";
+}
+
+.email:before
+{
+        content: "\2709";
+}
+
+.like:before
+{
+        content: "\2764";
+}
+
+.next:before
+{
+        content: "\21AA";
+}
+
+.back:before
+{
+        content: "\21A9";
+}
+
+.star:before
+{
+        content: "\2605";
+}
+
+.spark:before
+{
+        content: "\2737";
+}
+
+.play:before
+{
+        content: "\25B6";
+}
+
+.print:before
+{
+        content: url(icon_print_black.png);
+}

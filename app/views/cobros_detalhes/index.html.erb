@@ -1,0 +1,31 @@
+<h1 align="right" id="header">Cobros</h1>
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="80" align="center">Cod.</td>
+      <td width="80" align="center">Fecha</td>
+      <td width="250" align="center">Clientes</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+    <table>
+
+      <% for d in @cobros_detalhes %>
+        <tr class = "<%= cycle( "cor1", "cor2" )%>">
+          <td><%= d.id %></td>
+          <td><%= d.cobro.moeda %></td>
+
+
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>
+
+
+
+

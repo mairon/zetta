@@ -1,0 +1,143 @@
+<body onload="window.print()">
+	<tr>
+		<td style="height:14.57cm;width:30cm;" valign="top">
+		<table border="0">
+			
+			<tr>
+				<td style="height:3.00cm" valign="top"><span style="margin-left:21.00cm;font-family:Lucida Console, Courier, Monotype;font-size:10px;"><%= @cobro.documento_numero%></span> </td>
+			</tr>
+			
+			<tr>
+				<td valign="top" style="height:1.90cm;width:29cm;">
+			        <table  style="font-family:Lucida Console, Courier, Monotype;font-size:14px;" border="0">
+			        	<tr>
+			        		<td width="1450" valign="top" rowspan="7">
+			        			
+
+			                    <table  style="font-family:Lucida Console, Courier, Monotype;font-size:12px; margin-top:25px;">
+
+			        				<% @cd.each do |cd|%>
+			        				       <tr>
+   			        				  	      <td width="150" align="left"><%= cd.data_lanz.strftime("%d/%m/%Y")%></td>
+   			        				  	      <td width="450" align="right"><%= cd.documento_numero%></td>
+			        				  	      <td width="1000" align="right">
+      			        			           <% if @cobro.moeda == 0 %> 
+			        			                  <%= number_to_currency( cd.cobro_dolar.to_f,      :format =>' %n ', :separeitor => "," )%>
+			        			               <% else %>
+			        			                  <%= number_to_currency( cd.cobro_guarani.to_f,      :format =>' %n ', :precision =>0 )%>
+			        			               <% end %>
+			        			
+			        				  	      </td>
+			        				       </tr>
+			        				   <% end %>
+
+			        			</table>
+			        				   
+
+
+			        		</td>
+			        		<!--TOTAL TOPO!-->
+			        		<td width="200" valign="bottom">				
+								<span style="margin-left:12.00cm;font-size:16px;" >
+   			        			   <% if @cobro.moeda == 0 %> 
+			        			      <%= number_to_currency( @total_us.to_f,      :format =>' %n ', :separeitor => "," )%>
+			        			   <% else %>
+			        			      <%= number_to_currency( @total_gs.to_f,      :format =>' %n ', :precision =>0 )%>
+			        			   <% end %>			        			
+			                    </span>
+							</td>
+			        	</tr>
+			        	
+			        	<tr>
+			        		
+			        		<td width="790" valign="bottom" style="height:1.90cm;width:29cm;"><span style="margin-left:6.60cm"> <%= @cobro.data.strftime("%d")%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= @cobro.data.strftime("%B")%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= @cobro.data.strftime("%Y")%> </span></td>
+
+			        	</tr>
+
+			        	<tr>
+			        		
+			        		<td width="200">
+			        			<span style="margin-left:5.45cm"> <%= @cobro.persona_nome %> </span>
+			        		</td>
+			        	</tr>
+
+
+
+			        	<tr>
+			        		
+			        		<td width="200" style="height:0.90cm">
+			        			<span style="margin-left:9.50cm;"> <%= @cobro.ruc %> </span>
+			        		</td>
+			        	</tr>
+
+						<tr >
+							<td>
+								<table  align="right">
+									<tr style="font-family:Lucida Console, Courier, Monotype;font-size:12px;">
+										<td width="450"  style="height:1.80cm">
+											<span style="margin-left:8.05cm;" >
+												<% if @cobro.moeda == 0 %>
+												   <%= @total_us.to_f.por_extenso_em_dolares.upcase %>
+												<% else %>
+												   <%= @total_gs.to_f.por_extenso.upcase %>
+												<% end %>
+						                    </span>
+											
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+
+						<tr style="font-family:Lucida Console, Courier, Monotype;font-size:12px;">
+							<td width="200">
+								<br>
+
+			        			<span style="margin-left:5.40cm"><%= @cf_last.descricao %> </span>
+								<br>
+								<br>
+								<br>
+			        		</td>							
+						</tr>
+
+
+						<tr style="font-family:Lucida Console, Courier, Monotype;font-size:12px;">
+							<td>
+								<table>
+									<tr>
+										<td style="font-family:Lucida Console, Courier, Monotype;font-size:12px;">
+											<span style="margin-left:5.80cm">
+							    				<% @cheque_false.each do |cd|%>
+				        				  	     &nbsp;&nbsp; X
+						    				    <% end %>
+						    				</span>
+										</td>
+					    				
+		        				  	      <td align="left" style="font-family:Lucida Console, Courier, Monotype;font-size:12px;">
+		        				  	      	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		        				  	      	
+		        				  	      	<% @cheque_true.each do |cd|%>
+		        				  	      		<%= cd.cheque %> / 
+											<% end %>
+		        				  	      </td>
+				    				    
+
+									</tr>
+								</table>
+				 				<table  style="font-family:Lucida Console, Courier, Monotype;font-size:12px; margin-top:25px;">
+		    				       <tr>		    				       	
+		    				       </tr>
+				    			</table>								
+							</td>
+
+						</tr>
+
+
+			        </table>		
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>

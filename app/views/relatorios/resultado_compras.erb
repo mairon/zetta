@@ -1,0 +1,43 @@
+   
+<div class="group">
+   <table>
+      <% tot_gs  = 0 %>
+      <% tot_us  = 0 %>
+      <% tot_rs  = 0 %>
+      <% qtd     = 0 %>
+      <% @compras.each do |cp| %>
+         
+         <% compra = ComprasProduto.sum(:quantidade,:conditions=> ["compra_id = ?",cp.id]) %>
+         <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="80"  align="center">   <%=  cp.data.strftime("%d/%m/%Y") %></td>
+            <td width="450" align="left">     <%=  cp.persona_nome %></td>
+            <td width="250" align="center">   <%=  cp.documento_numero_01 %> - <%=  cp.documento_numero_02 %> - <%=  cp.documento_numero %></td>
+            <td width="100" align="right">     <%=  compra %></td>
+            <% if params["moeda"].to_s  == '0' %>
+               <td width="100" align="right">    <%=  number_to_currency( cp.total_dolar, :format =>' %n ', :separeitor => ',' ) %> </td>
+            <% elsif params["moeda"].to_s  == '1' %>
+               <td width="100" align="right">    <%=  number_to_currency( cp.total_guarani, :format =>' %n ', :precision => 0 ) %> </td>
+            <% else %>
+               <td width="100" align="right">    <%=  number_to_currency( cp.total_real, :format =>' %n ', :separeitor => ',' ) %> </td>
+            <% end %>
+         </tr>
+         <% tot_gs  += cp.total_guarani %>
+         <% tot_us  += cp.total_dolar %>
+         <% tot_rs  += cp.total_real %>
+         <% qtd     += compra %>
+
+      <% end %>
+      <tr class="head" height="30">
+         <td colspan="3"></td>
+         <td width="100" align="right">    <%=  number_to_currency( qtd, :format =>' %n ', :separeitor => ',' ) %> </td>
+
+         <% if params["moeda"].to_s  == '0' %>
+            <td width="100" align="right">    <%=  number_to_currency( tot_us, :format =>' %n ', :separeitor => ',' ) %> </td>
+         <% elsif params["moeda"].to_s  == '1' %>
+            <td width="100" align="right">    <%=  number_to_currency( tot_gs, :format =>' %n ', :precision => 0 ) %> </td>
+         <% else %>
+            <td width="100" align="right">    <%=  number_to_currency( tot_rs, :format =>' %n ', :separeitor => ',' ) %> </td>
+         <% end %>
+      </tr>
+   </table>
+</div>

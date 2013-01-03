@@ -1,0 +1,89 @@
+
+<h1 id="header">Fecha <%= @cobro.data.strftime("%d/%m/%Y")%> |
+                Prov. <%= @cobro.persona_nome %> |
+                Moneda :
+                <% if @cobro.moeda == 0 %>
+                  <font color="green"> Dolar</font>
+                <% elsif @cobro.moeda == 1 %>
+                  <font color="red"> Guaranies </font>
+                <% else %>
+                  <font color="blue"> Real</font>
+                <% end %>
+                | Cotizacion U$.: 
+                <%= number_to_currency( @cobro.cotacao, :format =>' %n ', :precision => 0 ) %> 
+                R$.: <%= number_to_currency( @cobro.cotacao_real, :format =>' %n ', :precision => 0 ) %>
+</h1>
+<body onload="CobroDifeirdoData()">
+<br/>
+  <div class="group">
+    <table>
+      <input type="hidden" id="data" value="<%=@cobro.data.strftime("%d").to_i%>"/>
+      <input type="hidden" id="mes" value="<%=@cobro.data.strftime("%m").to_i%>"/>
+      <input type="hidden" id="ano" value="<%=@cobro.data.strftime("%Y").to_i%>"/>
+            <tr>
+       <% if @cobro.moeda == 0 %>
+            <td align="right">Valor U$.:</td>
+            <td><%= number_to_currency( @total_cobro_dolar.to_f,       :format =>' %n ', :separator => "," ) %></td>
+
+            <td align="right">Desc. :</td>
+            <td><%= number_to_currency( @total_desconto_dolar.to_f,    :format =>' %n ', :separator => "," ) %> (-)</td>
+
+            <td align="right">Int.:</td>
+            <td><%= number_to_currency( @total_interes_dolar.to_f,      :format =>' %n ', :separator => "," ) %> (+)</td>
+
+            <td width="300" align="right"><font color="green" size="3">Total :</td>
+            <td><font color="green" size="3" ><%= number_to_currency( @total_cobro_dolar.to_f - @total_desconto_dolar.to_f + @total_interes_dolar.to_f,       :format =>' %n ', :separator => "," ) %></font></td>
+       <% elsif @cobro.moeda == 1 %>
+            <td align="right">Valor Gs.:</td>
+            <td><%= number_to_currency( @total_cobro_guarani.to_f,       :format =>' %n ', :precision => 0 ) %></td>
+
+            <td align="right">Desc.:</td>
+            <td><%= number_to_currency( @total_desconto_guarani.to_f,    :format =>' %n ', :precision => 0 ) %> (-)</td>
+
+            <td align="right">Int.:</td>
+            <td><%= number_to_currency( @total_interes_guarani.to_f,      :format =>' %n ', :precision => 0 ) %> (+)</td>
+
+            <td width="300" align="right"><font color="red" size="3">Total :</td>
+            <td><font color="red" size="3" ><%= number_to_currency( @total_cobro_guarani.to_f - @total_desconto_guarani.to_f + @total_interes_guarani.to_f,       :format =>' %n ', :precision => 0 ) %></font></td>
+       <% else %>
+            <td align="right">Valor R$.:</td>
+            <td><%= number_to_currency( @total_cobro_real.to_f,       :format =>' %n ', :separator => "," ) %></td>
+
+            <td align="right">Desc.:</td>
+            <td><%= number_to_currency( @total_desconto_real.to_f,    :format =>' %n ', :separator => "," ) %> (-)</td>
+
+            <td align="right">Int.:</td>
+            <td><%= number_to_currency( @total_interes_real.to_f,      :format =>' %n ', :separator => "," ) %> (+)</td>
+
+            <td width="300" align="right"><font color="Blue" size="3">Total :</td>
+            <td><font color="blue" size="3" ><%= number_to_currency( @total_cobro_real.to_f - @total_desconto_real.to_f + @total_interes_real.to_f,       :format =>' %n ', :separator => "," ) %></font></td>
+
+        <% end %>
+            </tr>
+    </table>
+  </div>
+  <br/>
+
+  <%= render :partial=>"index_financa", :locals=>{:cobros_financas => @cobro.cobros_financas} %>
+
+  <br/>
+
+  <%= render :partial=>"new_financa_#{$empresa}", :locals=>{:cobros_financa=>CobrosFinanca.new(:cobro_id=>@cobro.id)} %>
+  <div class="buttons">
+  	
+  	
+  	<a href="/cobros/show/<%=params[:id]%>" class="button back" >Volver</a> 
+  	<a href="/cobros" class="button delete" >Salir</a></td>
+	<a href="javascript:void(0)" class="button print" onClick="ComprovanteRecibo()">Recibo</a>
+	<%= hidden_field_tag :id, @cobro.id %>
+
+  </div>
+
+</body>
+
+<script>
+	function ComprovanteRecibo()                //
+	{
+		window.open('/cobros/recibo/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+	}
+</script>

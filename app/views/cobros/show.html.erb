@@ -1,0 +1,78 @@
+<h1 id="header">Fecha <%= @cobro.data.strftime("%d/%m/%Y")%> |
+                Prov. <%= @cobro.persona_nome %> |
+                Moneda :
+                <% if @cobro.moeda == 0 %>
+                  <font color="green"> Dolar</font>
+                <% elsif @cobro.moeda == 1 %>
+                  <font color="red"> Guaranies </font>
+                <% else %>
+                  <font color="blue"> Real</font>
+                <% end %>
+                | Cotizacion U$.: 
+                <%= number_to_currency( @cobro.cotacao, :format =>' %n ', :precision => 0 ) %> 
+                R$.: <%= number_to_currency( @cobro.cotacao_real, :format =>' %n ', :precision => 0 ) %>
+</h1>
+
+<div class="group">
+<table>  
+  <tr height="150">
+    <td valign="top">
+    <%= render :partial=>"busca_cliente" %>
+    </td>    
+  </tr>
+</table>
+</div>
+
+  <%= render :partial=>"new_detalhe", :locals=>{:cobros_detalhe=>CobrosDetalhe.new(:cobro_id=>@cobro.id)} %>
+
+  <%= render :partial=>"index_detalhe", :locals=>{:cobros_detalhes => @cobro.cobros_detalhes} %>
+
+<div class="buttons">
+  <a href="/cobros/<%=params[:id]%>/edit" class="button back">Volver</a> 
+  <% if @cobro.adelanto == 1 %>
+    <a href="/cobros/" class="button delete"> Fin</a> 
+  <% else %>
+    <a href="#" onclick="SeguirCobros()" class="button next">Seguir</a> 
+  <% end %>
+  <a href="/cobros/nova_cota/<%=params[:id]%>" class="button add">Nuevo</a> 
+  <a href="/cobros/gera_pdf_cobros/<%=params[:id]%>.pdf" class="button print" >  Pdf  </a>
+    
+</div>
+
+<%= hidden_field_tag :id, @cobro.id %>
+<%= hidden_field_tag :count, @count %>
+
+
+<script>
+function SeguirCobros() //
+{
+   id = document.getElementById('id').value
+        {
+            if ( document.getElementById('count').value <= 0  )
+                {
+                   alert ('Es Necessario Agregar Los Cobros Pulse F4');
+                   return false;
+                }
+            else
+                {
+                    location.href="/cobros/cobro_final/" + id ;
+                }
+
+         }
+
+}
+
+  document.onkeydown=function(e)
+{
+  //BOTAO F4
+  if(e.which == 115)
+    location.href="/cobros/nova_cota/"+ document.getElementById('id').value;
+          //SEGUIR FINANCAS
+        //VOLTAR  EDIT
+        if(e.which == 37)
+          location.href="/cobros/edit/"+ document.getElementById('id').value;
+        //LISTA DE PRODUTOS
+
+}
+
+</script>

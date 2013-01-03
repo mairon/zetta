@@ -1,0 +1,36 @@
+<h1 align="right" id="header">Sector</h1>
+Sector Edicion
+<%= form_for(@clase) do |f| %>
+
+  <% if @clase.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@clase.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @clase.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<div class="group">
+  
+  <table>
+    <tr>
+      <td><b>Descripcion :</b></td>
+      <td><%= f.text_field :descricao,
+                           :size      => 40 %></td>
+      <td><b>Cod. Implantacion :</b></td>
+      <td><%= f.text_field :cod_impl,
+                           :size      => 5 %></td>
+
+    </tr>
+  </table>
+
+</div>
+<%= f.submit "Grabar" %> |
+<%= link_to 'Volver', clases_path %>
+<% end %>

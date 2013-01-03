@@ -1,0 +1,37 @@
+
+<br/>
+<div class="group">
+  <table>
+    <tr>
+      <td width="100" align="center">Cuota</td>
+      <td width="100" align="center">Valor</td>
+      <td width="100" align="center">Vencimento</td>
+    </tr>
+  </table>
+
+  <table>
+    <% clientes.each do |pagare| %>
+             
+                  <tr class = "<%= cycle("cor1", "cor2") %>">
+                     <td width="100" align="center"><%= pagare.cota %></td>
+                     <td width="100" align="right"><%= number_to_currency( pagare.divida_guarani, :format=>' %n ',:precision => 0) %></td>
+                     <td width="100" align="center"><%= pagare.vencimento.strftime("%d/%m/%Y") %> <input type="hidden" id="id" value="<%= pagare.id %>"/></td>
+                     <td><a href="javascript:void(0)" onClick="Cliente()">Imprimir</a> </td>
+                  </tr>
+                  
+    <% end %>
+  </table>
+</div>
+
+
+  <script>
+    function Cliente()                          //
+    {
+      window.open('/clientes/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+    }
+
+    function fecha()                           //
+    {
+      self.close();
+    }
+  </script>

@@ -1,0 +1,70 @@
+<h1 align="right" id="header">.</h1>
+Libro Venda
+<div class="group">
+  <h2>
+    <%= form_tag resultado_livro_venda_contabilidades_path, :method => "get" do%>
+      <table>
+
+        <tr valign="top">
+          <td> Fecha:</td>
+          <td>
+            <fieldset>
+              <table>
+                <tr>
+                  <td>
+                    Mes<input name="mes" id="mes"  size="5" type="text"/>
+                    Año<input name="ano" id="ano"  size="5" type="text"/>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+
+        <tr>
+          <td align="right">Formato :</td>
+          <td>
+            <fieldset>
+              <input id         = "modelo"
+                     name       = "modelo"
+                     type       = "radio"
+                     value      = "0"
+                     checked
+                     onkeypress = "return bloqEnter(event)"
+                     onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Detalhado
+
+              <input id    ="modelo"
+                     name  ="modelo"
+                     type  ="radio"
+                     value ="1"
+                     onkeypress = "return bloqEnter(event)"
+                     onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Resumido
+
+            </fieldset>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td></td>
+          <td>
+            <input type="submit" value="           Informe           " onclick="Tipo('0')"/>
+            <input type="submit" value="          Excel          " onclick="Tipo('1')"/>
+          </td>
+
+        </tr>
+
+        <input type="hidden" name="tipo" id="tipo"  size="5" value="0"/>
+      </table>
+    <% end %>
+  </h2>
+</div>
+
+
+<script>
+  function Tipo(d)                 //
+
+  {
+    document.getElementById('tipo').value = d
+  }
+</script>

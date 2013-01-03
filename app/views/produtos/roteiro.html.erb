@@ -1,0 +1,29 @@
+<body onload="ImputFocus('produtos_roteiro_setor')">
+<h1 align="right" id="header">Productos</h1>  
+   <ul class="tabs">
+      <li><%= link_to '[editar]',"/produtos/#{@produto.id}/edit" %></li>
+      <li><a href="#tab2" id="tab2">[Roteiro]</a></li>
+      <li><%= link_to '[Composicion]',"/produtos/composicao/#{@produto.id}" %></li>      
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab2" class="tab_content">
+
+      <div class="grid">
+         <%= render :partial=>"produtos_roteiros/index_roteiro", :locals=>{:produtos_roteiro => @produto,:produtos_roteiros => @produto.produtos_roteiros} %>
+      </div>
+
+      <div class="group">
+        <%= render :partial => '/produtos_roteiros/form', :locals=>{:produtos_roteiro=>ProdutosRoteiro.new(:produto_id=>@produto.id)}%>
+      </div>
+      
+       <div class="buttons">
+           <%= link_to 'Volver', produtos_path, :class => "button back" %>
+       </div>
+      </div>
+   </div>
+</body>
+
+
+
+

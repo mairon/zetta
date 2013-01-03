@@ -1,0 +1,54 @@
+   <%= form_for(@venda) do |f| %>
+      
+      <% if @venda.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@venda.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @venda.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+      <ul class="tabs">
+         <li><a href="#tab1">Venta [Edicion]</a></li>
+      </ul>
+      <div class="tab_container">
+         <div id="tab1" class="tab_content">
+            <%= render :partial => Form.last.form_venda_cliente ,:locals => {:f => f}%>
+         </div>
+         <div class="buttons">
+           <%= f.submit "   Seguir   ",:disable_with => "Aguarde..." , :class => "button" %>
+         </div>         
+      </div>
+   <%end%>
+
+   <script>
+      function fecha()
+      {
+         self.close();
+      }
+      //ABRI POPUP-----------------------------------------------------------------
+      document.onkeydown=function(e)
+      {
+         if(e.which == 113)
+            window.open('/personas/persona_venda', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+      }
+      //FIM ABRI POPUP----------------------------------------------------------------
+
+   </script>
+
+</body>
+</body>
+
+
+
+
+
+
+
+

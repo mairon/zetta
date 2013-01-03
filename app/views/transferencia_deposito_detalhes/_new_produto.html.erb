@@ -1,0 +1,26 @@
+
+<% form_for(transferencia_deposito_detalhe) do |f| %>
+  <%= f.error_messages %>
+
+    <%= f.hidden_field :transferencia_deposito_id, :value => @transferencia_deposito.id %>
+    <%= f.hidden_field :deposito_origem_id, :value => @transferencia_deposito.deposito_origem_id %>
+    <%= f.hidden_field :deposito_origem_nome, :value => @transferencia_deposito.deposito_origem_nome %>
+    <%= f.hidden_field :deposito_destino_id, :value => @transferencia_deposito.deposito_destino_id %>
+    <%= f.hidden_field :deposito_destino_nome, :value => @transferencia_deposito.deposito_destino_nome %>
+    <%= f.hidden_field :data, :value => @transferencia_deposito.data %>
+
+  <div class="group">
+    <table>
+    	<tr>
+			<td align="right">Producto :</td>
+    		<td><%= f.collection_select :produto_id, Produto.all( :select => ' id, nome', :order  => '2' ), :id, :nome %></td>   
+    	</tr>
+		<tr>
+			<td align="right">Cantidad :</td>
+    		<td><%= f.text_field :quantidade, :size => 15 %> <%= f.submit '  Add  ', :class => "button" %> </td>   
+		</tr>
+    </table>
+  </div>    
+<% end %>
+
+

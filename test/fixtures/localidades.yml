@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  codigo: MyString
+  ocupacao: MyString
+  status: 1
+
+two:
+  codigo: MyString
+  ocupacao: MyString
+  status: 1

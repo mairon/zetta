@@ -1,0 +1,42 @@
+<table>
+  <tr>
+    <td width="50" align="center">Cod</td>
+    <td width="50" align="center">Fabri. Cod	</td>
+    <td width="50" align="center">Clase</td>
+    <td width="50" align="center">Grupo</td>
+    <td width="500" align="center">Procduto</td>
+    <td width="50" align="center">Saldo</td>
+    <td width="50" align="center">Referencia</td>
+
+  </tr>
+</table>
+
+<div class="rolagem" id="div">
+  <table>
+
+    <% @produtos.each do |produto| %>
+      <tr class = "<%= cycle( "cor1", "cor2" )%>"
+          onMouseOver="javascript:this.style.backgroundColor='#949494'"
+          onMouseOut="javascript:this.style.backgroundColor=''"
+          onClick="Fecha( '<%= produto.fabricante_cod %>',          
+                          '<%= produto.nome %>',
+                          '<%= produto.taxa.to_i %>',
+                          '<%= produto.id %>',
+                          '<%= produto.codigo %>',
+                          '<%= produto.clase_id %>',
+                          '<%= produto.grupo_id %>',
+                          '<%= produto.porcen_balcao.to_i %>',
+                          '<%= produto.porcen_mayo.to_i %>',
+                          '<%= produto.porcen_mino.to_i %>',
+                          '<%= produto.sub_grupo_id %>')">
+        <td width="50" align="center"> <%=h produto.id%> </td>
+        <td width="50" align="center"> <%=h produto.fabricante_cod%> </td>
+        <td width="50" align="center"> <%=h produto.clase_id%> </td>
+        <td width="50" align="center"> <%=h produto.grupo_id%> </td>
+        <td width="500" align="left">   <%=h produto.nome%> </td>
+        <td width="50"  align="center"> <%=h format( "%.3f",produto.stock.to_f ) %> </td>        
+        <td width="50"  align="center"> <%=h produto.referencia%> </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

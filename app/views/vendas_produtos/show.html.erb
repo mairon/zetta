@@ -1,0 +1,62 @@
+<body onload="CampoProduto()">
+
+<h1 align="right" id="header">Vendas</h1>
+<br/>
+
+
+
+<% form_for(@vendas_produto) do |f| %>
+  <%= f.error_messages %>
+  <div class="group">
+    <%= f.hidden_field :venda_id %>
+    <%= f.hidden_field :produto_id %>
+    <%= f.hidden_field :fabricante_cod %>
+    <%= f.hidden_field :codigo %>
+    <%= f.hidden_field :cotacao %>
+    <table>
+
+      <tr>
+        <td><b>Produto :</b></td>
+
+        <td><%= hidden_field_tag( :produto_busca ,nil) %>
+          <%= f.hidden_field :produto_nome%>
+          <%= text_field_with_auto_complete  :venda_produto_produto_busca,nil,
+            {:onblur => remote_function(:update => "venda_produto_produto_busca_",
+              :url => { :action => :get_produto},
+              :with => "'produto_busca='+this.value"),
+            :onkeydown => "f(this)",
+            :onkeyup => "f(this)",
+          :value => @vendas_produto.produto_nome},
+            {:url => formatted_produtos_path(:js),
+            :method => :get,
+            :param_name => 'busca'}
+        %></td>
+
+        <td><b>Cantidad :</b></td>
+        <td><%= f.text_field :quantidade, :size => 5, :onblur => "VendaTotalDolar(),VendaTotalGs()"%></td>
+        <td>Saldo :<font color="red"><SPAN ID="red"></SPAN> </font>
+          <font color="green"><SPAN ID="green"></SPAN> </font>
+        </td>
+      </tr>
+      <tr>
+        <td><b>Unit. Dolar :</b></td>
+        <td><%= f.text_field :unitario_dolar, :size => 15, :readonly => "readonly" %></td>
+        <td><b>Unit. Gs :</b></td>
+        <td><%= f.text_field :unitario_guarani, :size => 15, :readonly => "readonly" %></td>
+      </tr>
+      <tr>
+        <td><b>Total Dolar:</b></td>
+        <td><%= f.text_field :total_dolar, :size => 15, :readonly => "readonly" %> </td>
+        <td><b>Total Gs.:</b></td>
+        <td><%= f.text_field :total_guarani, :size => 15, :readonly => "readonly" %>     <%= f.submit "Grabar" %>
+        </td>
+      </tr>
+
+
+    </table>
+
+ <%= f.submit "Grabar" %>  <a href="/vendas/show/<%= @vendas_produto.venda_id.to_i %>">Volver</a>
+  <%end%>
+
+</div>
+</body>

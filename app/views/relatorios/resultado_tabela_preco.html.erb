@@ -1,0 +1,209 @@
+
+<div class="group">
+
+   <table>
+      <% quebra_clase            = ""%>
+      <% quebra_grupo            = ""%>
+
+      <% @tabela_preco.each do |produto| %>
+
+         <%if quebra_clase != produto.clase_id or quebra_grupo != produto.grupo_id %>
+
+            <%if quebra_grupo != produto.grupo_id or quebra_clase != produto.clase_id %>
+
+               <%if quebra_grupo != ""  %>
+
+               <%end%>
+
+               <%if quebra_clase != ""  %>
+
+               <%end%>
+
+            <%end%>
+
+            <tr class="head">
+               <td><%=h quebra_clase = produto.clase_id %> - </td>
+               <td colspan="9">
+                  <%clase_descricao =  Clase.find_by_id(quebra_clase) %>
+                  <%= clase_descricao.descricao %></td>
+
+
+
+            </tr>
+
+            <tr class="head">
+               <td colspan="1"></td>
+               <td><%=h quebra_grupo = produto.grupo_id %> - </td>
+
+               <td colspan="8">             <%grupo_descricao =  Grupo.find_by_id(quebra_grupo) %>
+                  <%= grupo_descricao.descricao %></td>
+            </tr>
+
+         <%end%>
+         <% deposito = " AND deposito_id = #{params[:busca]["deposito"]}" unless params[:busca]["deposito"].blank? %>
+         <% stock = Stock.sum( 'entrada - saida',:conditions => ["produto_id = ? #{deposito}", produto.id] ) %>
+
+         <% if params[:filtro].to_s == "1" %>
+
+            <% if stock.to_i > 0 %>
+
+               <tr>
+                  <td width="30"></td>
+                  <td width="50" align="center">  <%= produto.id %> </td>
+                  <td width="570"  align="left">  <%= produto.nome%> </td>
+                  <td width="40"  align="left">  <%= produto.desconto %> %</td>
+                  <% if params[:stock].to_s == "0" %>
+                     <td width="70" align="right">  <%= number_to_currency(stock, :format=>' %n ', :precision => 0) %> </td>
+                  <% end %>
+                  <% if params[:inf].to_s == "0" %>
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td
+                     <% end %>
+
+                  <% elsif params[:inf].to_s == "1" %>
+
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+
+                  <% elsif params[:inf].to_s == "2" %>
+
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+
+                  <% else %>
+
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+                  <% end %>
+                  <td width="200" align="right"></td>
+               </tr>
+
+            <%end%>
+
+         <% else %>
+
+            <tr>
+               <td width="50"></td>
+               <td width="80" align="center">  <%= produto.id%> </td>
+               <td width="570"  align="left">  <%= produto.nome%> </td>
+               <td width="30"  align="left">  <%= produto.desconto %> </td>               
+                  <% if params[:stock].to_s == "0" %>
+                     <td width="70" align="right">  <%= number_to_currency(stock, :format=>' %n ', :precision => 0) %> </td>
+                  <% end %>
+                  <% if params[:inf].to_s == "0" %>
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td
+                     <% end %>
+
+                  <% elsif params[:inf].to_s == "1" %>
+
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+
+                  <% elsif params[:inf].to_s == "2" %>
+
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+
+
+                  <% else %>
+                     <% if params[:moeda].to_s == "0" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "1" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+
+                     <% elsif params[:moeda].to_s == "2" %>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_venda_dolar, :format=>' %n ', :separeitor => "," ) %> </td
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_maiorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_guarani, :format=>' %n ', :precision => 0 ) %> </td>
+                        <td width="80" align="right">  <%= number_to_currency(produto.preco_minorista_dolar, :format=>' %n ', :separeitor => "," ) %> </td>
+                     <% end %>
+                  <% end %>
+               <td width="200" align="right"></td>
+            </tr>
+
+
+         <% end %>
+
+      <% end %>
+   </table>
+</div>
+
+
+<style type="text/css">
+   table { border-collapse: collapse;
+           font-size: 9px}
+
+   .titulo{}
+   td,tr { border: 1px solid black; }
+</style>
+
+

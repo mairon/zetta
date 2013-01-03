@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  data: 2012-11-09
+  persona_id: 1
+  persona_name: MyString
+  area: 9.99
+  direcao: MyString
+
+two:
+  data: 2012-11-09
+  persona_id: 1
+  persona_name: MyString
+  area: 9.99
+  direcao: MyString

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  safra_produto_id: 1
+  safra_id: 1
+  produto_id: 1
+  informado: 9.99
+  desconto: 9.99
+
+two:
+  safra_produto_id: 1
+  safra_id: 1
+  produto_id: 1
+  informado: 9.99
+  desconto: 9.99

@@ -1,0 +1,29 @@
+<h1 align="right" id="header">.</h1>
+<div class="acessos">
+  <%= link_to 'Nuevo', new_nota_credito_proveedor_path, :class => "button add" %>
+</div>
+
+<div class="group">
+   <table>
+      <tr>
+         <td width="50" align="center">Cod.</td>
+         <td width="100" align="center">Fecha</td>
+         <td width="350" align="center">Proveedor</td>
+      </tr>
+   </table>
+
+   <div class="rolagem" dir="div">
+      <table>
+        <% @nota_credito_proveedors.each do |nota_credito_proveedor| %>
+          <tr class = "<%= cycle("cor1", "cor2") %>">
+            <td width="50" align="center"> <%= nota_credito_proveedor.id %></td>
+            <td width="100" align="center"> <%= nota_credito_proveedor.data.strftime("%d/%m/%Y")%></td>
+            <td width="350" align="left"> <%= nota_credito_proveedor.persona_nome%></td>
+            <td><%= link_to 'Editar', edit_nota_credito_proveedor_path(nota_credito_proveedor) %></td>
+            <td><%= link_to 'Borrar', nota_credito_proveedor, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+</div>
+

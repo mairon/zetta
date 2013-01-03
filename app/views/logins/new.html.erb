@@ -1,0 +1,91 @@
+
+<%= form_tag :action => "logar", :html => { :id => "login_form" }  do  %>
+
+	
+	<% tolerancia = @vencimento.vencimento + 5 %>
+
+	<!--AVISO PREVIO!-->
+	<% if ( Date.today - @vencimento.vencimento ).to_i >= 0  and @vencimento.status == 0  %>
+		<div class="message info"><p>
+	 		FALTAN <%= tolerancia - Date.today %> PARA ESPIRAR SU CONTRA-SENHA
+	 	</p></div>
+	<% end %>
+	<!--AVISO DE BLOUEIO!-->
+	<% if Date.today >  tolerancia %>
+		<div class="message info">
+			<p>		       
+			Lo Sistema esta Bloqueado  <%= Date.today - tolerancia %> dias,Consulte a parte Administrativa.
+			<% if @vencimento.status == 0 %>
+				<% @vencimento.update_attribute :status, 1 %>
+			<% end %>
+	 	</p>
+	 </div>
+	<% end %>
+
+	
+	<% unless notice.blank? %>
+		<div class="message errormsg">
+			<a class="close" data-dismiss="alert"></a>
+			<%= flash[:notice] %>
+		</div>	
+	<% end %>
+	<p>
+		<label>Unidade:</label>
+		<br />
+		<%= text_field_tag( 'unidade',nil,
+	                                    :id       => "unidade",
+	                                    :class    => "text_seach",	                                    
+	                                    :onblur   => " $.ajax({url: '/buscas/get_unidade',
+	                                    	 										type: 'POST',
+         																										data: 'unidade=' + this.value,
+           																									success: function(data){
+             																								$('#busca_unidade_id').val(data);} })") %>
+
+	<%= select( "busca","unidade_id", Unidade.all( :select => 'id,unidade_nome',
+																										:order  => 'unidade_nome').collect {|p| [ p.unidade_nome, p.id ] }, 
+	                           												{ :include_blank => true},
+	                           												{:class => 'text' } ) %>
+	</p>
+	<!--Usuario!-->
+	<p>
+		<label>Usuário:</label>
+		<br />
+		<%= text_field_tag( 'usuario', nil,
+	                                 :id       => "unidade",
+	                                 :class    => "text_seach",	                                    
+	                                 :onblur => " $.ajax({url: '/buscas/get_usuario',
+	                                   	 										type: 'POST',
+         																									data: 'usuario=' + this.value,
+           																								success: function(data){
+             																							$('#busca_usuario_id').val(data);} })") %>
+
+	<%= select( "busca", "usuario_id", Usuario.all( :select => 'id,usuario_nome',
+																										 :order  => 'usuario_nome').collect {|p| [ p.usuario_nome, p.id ] }, 
+	                           												 { :include_blank => true},			                      
+		                         												 { :class => 'text' } )   %>
+	</p>
+
+	<p>
+		<label>Senha:</label>
+		<br />
+		<%= password_field_tag :usuario_senha,nil, :class => 'text' %>
+	</p>
+
+	<p class="formend">
+		<% if @vencimento.status != 1 %>
+			<input type="submit" class="submit" id="submit" value="Entrar" />
+		<% end %>	
+
+		<small style="float:right; margin-top:8px;" > <span class="style3">Powered by</span> <b>MercoSys</b>		
+		<span class="style3">Version 0.0.1</span> </small>
+	</p>
+
+<% end %>
+	
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input:text:first').focus();
+});
+
+</script>
+

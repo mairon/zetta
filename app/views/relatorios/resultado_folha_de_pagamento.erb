@@ -1,0 +1,39 @@
+
+<table>
+  <% tot_debe = 0 %>
+  <% tot_haber = 0 %>
+  <% @sueldo.each do |sd| %>
+     <% tot_sd_detalhe_haber = SueldosDetalhe.sum(:valor_guarani,:conditions => ["date_part('month', DATA) = '#{params[:mes]}'  AND  date_part('year', DATA) = '#{params[:ano]}' AND estado = 0 AND persona_id = #{sd.id} "]) %>
+     <% tot_sd_detalhe_debe  = SueldosDetalhe.sum(:valor_guarani,:conditions => ["date_part('month', DATA) = '#{params[:mes]}'  AND  date_part('year', DATA) = '#{params[:ano]}' AND estado = 1 AND persona_id = #{sd.id}"]) %>
+     <% if tot_sd_detalhe_haber.to_f + tot_sd_detalhe_debe.to_f > 0 %>
+       <tr>
+  	     <td width="50" align="center"><%= sd.id %></td>
+  	     <td width="350" align="left"><%= sd.nome %></td>
+  	     <td width="100" align="right"><%= number_to_currency( tot_sd_detalhe_debe.to_f,  :format=>' %n ', :precision => 0 ) %></td>
+  	     <td width="100" align="right"><%= number_to_currency( tot_sd_detalhe_haber.to_f ,:format=>' %n ', :precision => 0 )%></td>
+  	     <td width="100" align="right"><%= number_to_currency( ( tot_sd_detalhe_haber.to_f - tot_sd_detalhe_debe.to_f ) ,:format=>' %n ', :precision => 0 )%></td>
+       </tr>
+       
+       <% tot_debe +=  tot_sd_detalhe_debe.to_f %>
+       <% tot_haber += tot_sd_detalhe_haber.to_f %>
+
+       <% sd_detalhe  = SueldosDetalhe.all(:conditions => ["sueldo_id = ?", sd.id]) %>
+       <% sd_detalhe.each do |sdd| %>
+  	     <td width="50" align="center"><%= sdd.id %></td>
+  	     <td width="350" align="left"><%= sdd.descricao %></td>          
+  	     <td width="350" align="left"><%= sdd.valor_guarani %></td>          
+       <% end %>
+
+
+    <% end %>
+  <% end %>
+  
+  <tr class="head">
+    <td width="50" align="center"></td>
+  	<td width="350" align="left"></td>
+  	<td width="100" align="right"><%= number_to_currency( tot_debe.to_f,  :format=>' %n ', :precision => 0 ) %></td>
+  	<td width="100" align="right"><%= number_to_currency( tot_haber.to_f ,:format=>' %n ', :precision => 0 )%></td>
+  	<td width="100" align="right"><%= number_to_currency( ( tot_haber.to_f - tot_debe.to_f ) ,:format=>' %n ', :precision => 0 )%></td>
+  </tr>
+
+</table>

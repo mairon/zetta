@@ -1,0 +1,35 @@
+
+
+<div class="group">
+  <table>
+    <tr>
+      <td width="80" align="center">Fecha</td>
+      <td width="400" align="center">Provedor</td>
+      <td width="200" align="center">Rubro Contable</td>
+      <td width="100" align="center">Total Gs.</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+
+    <table>
+      <tr>
+      </tr>
+
+      <% for compra in compras %>
+
+           <tr class = "<%= cycle("cor1", "cor2") %>">
+             <td width="80" align="center">    <%= h compra.data.strftime("%d/%m/%Y")%></td>
+             <td width="400" align="left">   <%= h compra.persona_nome%></td>
+             <td width="200" align="left">   <%= h compra.rubro_descricao%></td>
+             <td width="100" align="right">   <%=h number_to_currency(compra.total_guarani, :format=>' %n ', :precision => 0)  %></td>
+             <td><a href="/compras/edit_gasto/<%=compra.id%>" >Editar</a></td>
+             <td><%= link_to 'Borrar', compra, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+           </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+

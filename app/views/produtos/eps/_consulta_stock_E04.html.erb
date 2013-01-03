@@ -1,0 +1,101 @@
+<table>
+   <tr>
+      <td width="70" align="center">Cod.</td>
+      <td width="70" align="center">Cod. Fabri.</td>
+      <td width="500" align="center">Produto</td>
+      <td width="150" align="center">Ubicacion</td>
+      <td width="70" align="center">Saldo</td>
+      <td width="70" align="center">Desc.</td>
+      <td width="30" align="center"></td>
+      <td width="200" align="center">Prov.</td>
+      <td width="70" align="center">Costo Gs.</td>
+      <td width="70" align="center">U$ .</td>
+      <td width="70" align="center">Balcao Gs.</td>
+      <td width="70" align="center">U$.</td>
+      <td width="70" align="center">Mayor Gs.</td>
+      <td width="70" align="center">U$.</td>
+      <td width="70" align="center">Corp. Gs.</td>
+      <td width="70" align="center">U$.</td>
+
+
+   </tr>
+</table>
+
+<div class="rolagem" id="div">
+   <table>
+
+      <% for produto in @produtos %>
+         <% quantidade        = Stock.sum("entrada - saida",:conditions => ['produto_id = ?',produto.id] ) %>
+         <% last_custo        = Stock.all(:conditions => ['status = 0 and produto_id = ?',produto.id] ,:order => 'id desc limit 1') %>
+         <%if params[:filtro].to_s == "0"%>
+
+            <% if quantidade.to_f > 0 %>
+               <tr class = "<%= cycle( "cor1", "cor2" )%>">
+                  <td width="70" align="center"> <%=h produto.id%> </td>
+                  <td width="70" align="center"> <%=h produto.fabricante_cod%> </td>
+                  <td width="500" align="left">   <%=link_to  produto.nome, {:controller => 'produtos',:action => 'show', :id => produto.id}, :popup => ['new_window','height=400,width=800']%> </td>
+                  <td width="100" align="center"> <%=h produto.locacao%> </td>
+                  <% if quantidade.to_i <= 0 %>
+                     <td width="70"  align="center"><font color="red"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+                  <%else%>
+                     <td width="70"  align="center"><font color="green"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+                  <%end%>
+                  <td width="70" align="left">    <%=h produto.desconto%> %</td>
+                     <% moeda = produto.compras_produtos.last ? produto.compras_produtos.last.moeda.to_s : "1" %>
+                     <% if  moeda == "0"%>
+                        <td width="30" align="center">U$</td>
+                     <% else %>
+                        <td width="30" align="center">Gs</td>
+                     <% end %>
+
+                     <td width="200" align="left">   <%=h produto.compras_produtos.last ? produto.compras_produtos.last.persona_nome : "----" %> </td>
+                     <td width="70" align="right">   <%=h number_to_currency( last_custo.last ?  ( last_custo.last.unitario_guarani.to_f ) : "0",       :format =>' %n ', :precision  => 0 ) %> </td>
+                     <td width="70" align="right">   <%=h number_to_currency( last_custo.last  ? ( last_custo.last.unitario_dolar.to_f )  : "0",         :format =>' %n ', :separeitor => "," ) %> </td>
+                  <td width="70" align="right"> <font color="#0000FF">  <%=h number_to_currency( produto.preco_venda_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#0000FF">  <%=h number_to_currency( produto.preco_venda_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#FF6600">   <%=h number_to_currency( produto.preco_maiorista_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#FF6600">  <%=h number_to_currency( produto.preco_maiorista_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#CC33CC">  <%=h number_to_currency( produto.preco_minorista_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#CC33CC">  <%=h number_to_currency( produto.preco_minorista_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+
+               </tr>
+            <% end %>
+         <% else %>
+            <tr class = "<%= cycle( "cor1", "cor2" )%>">
+               <td width="70" align="center"> <%=h produto.id %> </td>
+               <td width="500" align="left">   <%=link_to  produto.nome, {:controller => 'produtos',:action => 'show', :id => produto.id}, :popup => ['new_window','height=400,width=800']%> </td>
+               <% if quantidade.to_i <= 0 %>
+                  <td width="70"  align="center"><font color="red"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+               <%else%>
+                  <td width="70"  align="center"><font color="green"> <%=h format( "%.3f",quantidade.to_f ) %></font> </td>
+               <%end%>
+               <td width="70" align="left">    <%=h produto.desconto%> %</td>
+                  <% moeda = produto.compras_produtos.last ? produto.compras_produtos.last.moeda.to_s : "1" %>
+                  <% if  moeda == "0"%>
+                     <td width="30" align="center">U$</td>
+                  <% else %>
+                     <td width="30" align="center">Gs</td>
+                  <% end %>
+
+                  <td width="200" align="left">   <%=h produto.compras_produtos.last ? produto.compras_produtos.last.persona_nome : "----" %> </td>
+                  <td width="70" align="right">   <%=h number_to_currency( last_custo.last ?  ( last_custo.last.unitario_guarani.to_f ) : "0",       :format =>' %n ', :precision  => 0 ) %> </td>
+                  <td width="70" align="right">   <%=h number_to_currency( last_custo.last  ? ( last_custo.last.unitario_dolar.to_f )  : "0",         :format =>' %n ', :separeitor => "," ) %> </td>
+                  <td width="70" align="right"> <font color="#0000FF">  <%=h number_to_currency( produto.preco_venda_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#0000FF">  <%=h number_to_currency( produto.preco_venda_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#FF6600">   <%=h number_to_currency( produto.preco_maiorista_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#FF6600">  <%=h number_to_currency( produto.preco_maiorista_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#CC33CC">  <%=h number_to_currency( produto.preco_minorista_guarani,       :format =>' %n ', :precision  => 0 ) %> </font> </td>
+                  <td width="70" align="right"> <font color="#CC33CC">  <%=h number_to_currency( produto.preco_minorista_dolar,         :format =>' %n ', :separeitor => "," ) %> </font> </td>
+
+            </tr>
+
+         <% end %>
+      <% end %>
+   </table>
+</div>
+
+
+
+
+
+

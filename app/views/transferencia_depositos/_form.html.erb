@@ -1,0 +1,71 @@
+<body onload="ImputFocus('transferencia_deposito_data_3i')">
+<h1 align="right" id="header">Transferencia de Depositos</h1>
+
+<%= form_for(@transferencia_deposito) do |f| %>
+    <% if @transferencia_deposito.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transferencia_deposito.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @transferencia_deposito.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Transf. de Depositos  [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+
+		<div class="group">
+			 <table>
+			    <tr>
+			      <td align="right">Fecha :</td>
+			      <td><%= f.date_select :data %></td>
+			    </tr>
+    
+			    <tr>
+      				<td></td>
+				      <td>
+				        <fieldset>
+			            <legend>Deposito Origen</legend>
+				            <table>
+			  		              <tr>
+						                <td><%= f.collection_select :deposito_origem_id, Deposito.all( :select => ' id, nome',:order  => '2' ), :id, :nome %></td>
+ 					             </tr>
+				            </table>
+			           </fieldset>
+			        </td>
+				    <td width="250">
+			        	<fieldset>
+		           		<legend>Deposito Destino</legend>
+		            		<table>
+        			      		<tr>
+        			          		<td><%= f.collection_select :deposito_destino_id, Deposito.all( :select => ' id, nome', :order  => '2' ), :id, :nome %></td>
+			              		</tr>
+            				</table>
+		        		</fieldset>
+      				</td>
+		      </tr>
+
+			  <tr>
+			      <td align="top" valign="top">Concepto :</td>
+			      <td colspan="2"><%= f.text_area :concepto, :size => '70x4'%></td>
+		      </tr>
+		  </table>
+		</div>
+     </div>
+   	 <div class="buttons">
+      	<%= link_to 'Volver', transferencia_depositos_path , :class => "button back"%>
+      	<%= f.submit "   Grabar  ",:disable_with => "Aguarde..."  , :class => "button"%> 
+     </div>
+</div>
+</boby>
+<% end %>

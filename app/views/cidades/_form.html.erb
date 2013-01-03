@@ -1,0 +1,40 @@
+<h1 align="right" id="header">Cidades</h1>
+<%= link_to 'Volver', cidades_path %>
+<%= form_for(@cidade) do |f| %>
+
+  <% if @cidade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cidade.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @cidade.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="group">
+  <h2>Cidade</h2>
+  <table>
+    <tr>
+      <td><b>Cidade :</b></td>
+      <td><%= f.text_field :nome, 
+                           :size => '30',
+                           :onkeydown => "f(this)",
+                           :onkeyup => "f(this)"%></td>
+    </tr>
+
+    <tr>
+      <td><b>Estado :</b></td>
+      <td><%= f.collection_select :estado_id, Estado.all(:order => '1'),:id,:nome %></td>
+    </tr>
+  </table>
+</div>
+    <%= f.submit "Grabar" %> |
+    <%= link_to 'Volver', cidades_path %>
+<% end %>
+
+

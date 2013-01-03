@@ -1,0 +1,81 @@
+<h1 id="header">Cuenta</h1>
+<%= form_for(@conta) do |f| %>
+   <% if @conta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@conta.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @conta.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <ul class="tabs">
+      <li><a href="#tab1">Cuenta - [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+        <table>
+          <tr>
+            <td></td>
+            <td>
+              <fieldset>
+                <legend>Tipo</legend>
+                <%= f.radio_button :tipo, 0, :checked => true %>Caja
+                <%= f.radio_button :tipo, 1 %>Banco
+              </fieldset>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="right"><b>Unidade:</b></td>
+            <td><%= f.collection_select :unidade_id, Unidade.all(:select => 'id',:order => '1'),:id,:id %></td>
+
+          </tr>
+
+          <tr >
+            <td align="right"><b>Conta :</b></td>
+            <td><%= f.text_field :nome %></td>
+        </tr>
+
+        <tr >
+          <td align="right"><b>Numero :</b></td>
+          <td><%= f.text_field :numero, :size => 15 %></td>
+        </tr>
+
+        <tr >
+          <td align="right"><b>Direcion :</b></td>
+          <td><%= f.text_field :direcao %></td>
+          <td align="right"><b>Ciudad :</b></td>
+          <td><%= f.collection_select :cidade_id, Cidade.all(:select => 'id,nome',:order => '2'),:id,:nome %></td>
+        </tr>
+
+        <tr>
+          <td align="right"><b>Encargado :</b></td>
+          <td><%= f.text_field :encarregado %></td>
+        </tr>
+
+        <tr>
+          <td align="right"><b>Rubro :</b></td>
+          <td><%= f.collection_select :rubro_id, Rubro.all(:select => 'id,descricao,codigo',:order => 'descricao'),:id,:descricao %></td>
+
+          <td><b>Codigo :</b></td>
+          <td><%= f.text_field :cod_contabil %></td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="buttons">
+      <%= f.submit "   Grabar  ", :disable_with => "Aguarde...", :class => "button" %> 
+      <%= link_to 'Volver', contas_path, :class => "button" %>
+
+    </div>
+  </div>
+<% end %>
+
+

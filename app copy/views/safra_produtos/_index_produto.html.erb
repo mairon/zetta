@@ -1,0 +1,20 @@
+<table class="head_grid">
+  <tr>
+    <td width="80" align="center">Id</td>
+    <td width="600" align="center">Produto</td>
+  <tr>
+</table>
+
+<div class="rolagem" dir="div">
+  <table>
+    <% safra_produtos.each do |saf_pro| %>
+      <tr class = "<%= cycle("cor1", "cor2") %>">
+        <td width="80" align="center"><%= saf_pro.produto_id %></td>
+        <td width="600" align="left"><%= saf_pro.produto_nome %></td>
+        <td><%= link_to 'Descuentos', descontos_safra_produto_path(saf_pro) %></td>
+        <td><%= link_to 'Editar', edit_safra_produto_path(saf_pro) %></td>
+        <td><%= link_to 'Borrar', saf_pro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>        
+  </table>
+</div>

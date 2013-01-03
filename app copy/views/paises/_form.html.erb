@@ -1,0 +1,37 @@
+<h1 align="right" id="header">Pais</h1>
+<%= link_to 'Volver', paises_path %>
+<%= form_for(@paise) do |f| %>
+  
+  <% if @paise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@paise.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @paise.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="group">
+    <h2>Pais</h2>
+    <table>
+      <tr>
+        <td><b>Pais:</b></td>
+        <td><%= f.text_field :nome, 
+                             :siza      => 30,
+                             :onkeydown => "f(this)",
+                             :onkeyup   => "f(this)"%></td>
+      </tr>
+    </table>
+  </div>
+
+  <%= f.submit "Grabar" %> |
+  <%= link_to 'Volver', paises_path %>
+<% end %>
+
+
+

@@ -1,0 +1,154 @@
+<ul class="tabs">
+  <li><a href="#tab1">Venta [Producto]</a></li>
+</ul>
+<div class="tab_container">
+	<table>
+       <tr>
+           <td>
+    <div class="group">
+	  <table>
+		<tr>
+			<td align="right">Cliente : </td>
+			<td><%= @venda.persona_nome %></td>
+
+			<td align="right">Ruc : </td>
+			<td><%= @venda.ruc %></td>
+
+			<td align="right">Clasificacion : </td>
+			<td><%= @venda.classificacao   %></td>
+
+			<td align="right">Cliente : </td>
+			<% if @venda.tipo_maiorista == 0  %>
+			<td>Balcao</td>
+			<% elsif @venda.tipo_maiorista == 1%>
+			<td>Mayorista</td>
+			<% elsif @venda.tipo_maiorista == 2%>
+			<td>Corporativo</td>
+			<% else %>
+			<td>Balcao</td>
+			<% end %>
+		</tr>
+
+		<tr>
+			<td align="right">Limite Credito :</td>
+			<td align="right"><%= number_to_currency( @venda.limite_credito, :format=>' %n ', :separator => ",",:precision => 0) %></td>
+
+			<td align="right">Saldo Disponivel :</td>
+			<td align="right"><%= number_to_currency( @venda.limite_credito, :format=>' %n ', :separator => ",",:precision => 0) %></td>
+
+			<td align="right">Cotizacion:</td>
+			<td align="right"><%= number_to_currency( @venda.cotacao, :format=>' %n ', :separator => ",",:precision => 0) %></td>
+
+		</tr>
+	</table>
+  </div>
+           
+   </td>
+       </tr>
+		<tr>
+			<td>
+			<div class="group">
+				<table class="head_grid">
+					<tr>
+						<td width="50" align="center">Cod.</td>
+						<td width="350" align="center">Producto</td>
+						<td width="80" align="center">Cantidad</td>
+						<td width="80" align="center">Unit </td>
+						<td width="80" align="center">Total </td>
+						<td width="80" align="center">Iva.</td>
+						<td width="80" align="center">Descuento</td>
+						<td width="90"></td>
+
+					</tr>
+				</table>
+				<div class="rolagem" dir="div">
+					<div id="vendas_produtos">
+						<%= render :partial=>"/vendas_produtos/index_produto", :collection => 	@vp %>
+					</div>
+				</div>
+			</div>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td align="center">
+			<div class="group">
+				<table>
+					<tr>
+						<% if @venda.moeda == 0 %>
+
+							<td>
+								<font class="style3" color="green">Total U$.:</font>
+								<font class="style3" color="green">
+									<span id="total_dolar">	<%= number_to_currency(@total_dolar, :format=>' %n ', :separator => ",") %></span>
+								</font>
+							</td>
+
+						<% elsif @venda.moeda == 1 %>
+
+							<td>
+								<font class="style3" color="red">Total Gs.:</font>
+								<font class="style3" color="red">
+									<span id="total_guarani"><%= number_to_currency(@total_guarani, :format=>' %n ',:precision => 0) %></span>
+								</font>													
+							</td>
+
+						<% else %>
+
+							<td>
+								<font class="style3" color="blue">Total R$.:</font>
+								<font class="style3" color="blue">
+									<span id="total_real"><%= number_to_currency(@total_real, :format=>' %n ', :separator => ",") %></span>
+								</font>													
+							</td>
+						<% end %>
+
+					</tr>
+				</table>
+			</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td> <%= render :partial=>Form.last.form_venda_produtos, :locals=>{:vendas_produto=>VendasProduto.new(:venda_id=>@venda.id)} %> </td>
+		</tr>
+	</table>
+
+
+<div class="buttons">
+
+	<%= link_to 'Volver', edit_venda_path(@venda) , :class => "button back" %>
+	<% if @venda.tipo_venda == 0 %>
+	   <%= link_to 'Seguir ', vendas_financa_vendas_path(:id => @venda.id) , :class => "button next" %>
+	<% else %>
+		<a href="/vendas/colaboradores/<%= @venda.id.to_i %>", class ="button next">Seguir </a> |
+	<% end %>   
+	   <a href="javascript:void(0)"class="button print" onClick="ComprovanteOrden()">Comprovante</a>
+	   <%= hidden_field_tag :id, @venda.id %>
+	   <%= hidden_field_tag :moeda, @venda.moeda %>
+	   <%= hidden_field_tag :maiorista, @venda.tipo_maiorista %>
+</div>
+
+  </div>
+
+
+<script>
+	function ComprovanteOrden()                //
+	{
+		window.open('/vendas/requerimento_ordem_servico/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+	}
+
+	document.onkeydown= function(e) {
+		var cliente  = document.getElementById('maiorista').value
+		var deposito = document.getElementById('vendas_produto_deposito_id').value
+		//BOTAO F4
+		if(e.which == 115)
+			location.href="/vendas/novo_produto/"+ document.getElementById('id').value;
+		//LISTA DE PRODUTOS
+		if(e.which == 113)
+			window.open('/produtos/busca_venda_produto?cliente='+cliente+'&deposito_id='+deposito+'', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=50, WIDTH=2500, HEIGHT=400');
+
+	}
+</script>
+

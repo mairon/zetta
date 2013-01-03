@@ -1,0 +1,103 @@
+<style type="text/css">
+html,body,div,table,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{margin:0;padding:0;}img,body,html{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}ol,ul {list-style:none;}caption,th {text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;}q:before,q:after{content:'';}.ext-el-mask
+{
+    z-index: 100;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.style3 {
+    font-family: Geneva, Arial;
+    font-weight: bold;
+    font-size: 65px;
+
+
+}
+
+div#contents h1
+{
+    font-size: 120%;
+
+}
+
+/*FIM ALINHAMENTO---------------------------------------------------------------*/
+/*QUADRO CADASTRO---------------------------------------------------------------*/
+.head
+{
+    font-weight:bold;
+
+}
+
+tr.corb2 {
+    background: #e1e1e8;
+}
+
+tr.corb1 {
+    background: white;
+}
+
+
+@media print {
+    body { background-color: #FFF; }
+    #container {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    .break {
+        page-break-before: always;
+
+
+    }
+}
+
+
+
+table { font-family:Lucida Console, Courier, Monotype;
+        font-size:9px;}
+
+.titulo{
+font-family:Lucida Console, Courier, Monotype;
+font-size: 20px}
+
+div.border
+{
+    border: 1px solid black;
+    margin-bottom: 0px;
+    font-family:verdana,geneva,arial,helvetica,sans-serif;
+    font-size:14px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    font-weight:bold;
+
+}
+
+   
+
+</style>
+
+<table>
+   <tr>
+      <td width="50"align="center">Cod.</td>
+      <td width="350"align="center">Nombre</td>
+      <td width="200"align="center">Direcion</td>
+      <td width="100"align="center">Tel</td>
+      <td width="300"align="center">Regiao</td>
+   </tr>
+   <% @personas.each do |persona|  %>
+   <tr class = "<%= cycle("cor1", "cor2")%>">
+      <td width="50"align="center"><%=h persona.id.to_s.rjust(6,'0') %></td>
+      <td width="450"align="left"><%=h persona.nome %></td>
+      <td width="200"align="left"><%=h persona.direcao %></td>
+      <td width="100"align="center"><%=h persona.telefone %></td>
+      <td width="300"align="center"></td>
+   </tr>
+   <% end %>
+</table>
+

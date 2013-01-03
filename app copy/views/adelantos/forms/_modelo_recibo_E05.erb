@@ -1,0 +1,75 @@
+<body onload="window.print()">
+	<tr>
+		<td style="height:13.50cm" valign="top" width="1800">
+		<table border="0">
+			
+			<tr>
+				<td width="1800" style="height:3.50cm" valign="bottom"><span style="margin-left:21.00cm;font-family:Lucida Console, Courier, Monotype;font-size:10px;"><%= @adelanto.documento_numero%></span> </td>
+			</tr>
+			
+			<tr>
+				<td valign="top" style="height:1.90cm" width="400">
+			        <table  style="font-family:Lucida Console, Courier, Monotype;font-size:12px;" border="0">
+			        	<tr>
+			        	    <td></td>
+			        		<td width="400" valign="bottom" align="right" colspan="2"><span> <%= @adelanto.data.strftime("%d")%> de <%= @adelanto.data.strftime("%B")%> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <%= @adelanto.data.strftime("%Y")%> </span></td>
+			        	</tr>
+			        	
+			        	<tr style="height:1.00cm">
+			        		<td width="790" valign="bottom"><span style="margin-left:6.50cm"> <%= @adelanto.persona_nome %> </span></td>
+			        		<td width="200" valign="bottom"></td>
+			        	</tr>
+
+			        	<tr style="height:0.95cm">
+			        		<td width="790" align="right"><span> </span></td>
+			        					        		<td width="200" align="right" valign="bottom"></td>
+			        		<td width="200">
+			        		</td>
+			        	</tr>
+
+			        	<tr style="height:1.00cm" >
+    				      <td colspan="3">
+					        <span style="margin-left:10.30cm;" >
+						      <% if @adelanto.moeda == 0 %>
+						      <%= @adelanto.valor_dolar.to_f.por_extenso_em_dolares.upcase.ljust(175 - @adelanto.valor_dolar.to_f.por_extenso_em_dolares.upcase.to_s.size, "-" )[0..65] %>
+						      <% else %>
+						      <%= @adelanto.valor_guarani.to_f.por_extenso.upcase.ljust(175 - @adelanto.valor_guarani.to_f.por_extenso.upcase.to_s.size, "=" )[0..65] %>
+						      <% end %>
+                          </span>
+   	        	        </tr>
+   	        	        
+			        	<tr style="height:1.00cm" >
+    				      <td  colspan="3">
+					        <span style="margin-left:0cm;" >
+						      <% if @adelanto.moeda == 0 %>
+      	                        <%= @adelanto.valor_dolar.to_f.por_extenso_em_dolares.upcase.ljust(157 - @adelanto.valor_dolar.to_f.por_extenso_em_dolares.upcase.to_s.size, "=" )[46..157] %>
+						      <% else %>
+						      <%= @adelanto.valor_guarani.to_f.por_extenso.upcase.ljust(157 - @adelanto.valor_guarani.to_f.por_extenso.upcase.to_s.size, "=" )[46..157] %>
+						      <% end %>
+                          </span>
+   	        	        </tr>
+
+			        	<tr style="height:1.00cm" >
+    				      <td  colspan="3">
+					        <span style="margin-left:6.50cm;font-family:Lucida Console, Courier, Monotype;font-size:10px;">
+					          <%= @adelanto.concepto %>
+                          </span>
+   	        	        </tr>
+
+   	        	        
+			        	<tr style="height:6.00cm" >
+    				      <td  colspan="3">
+					        <span style="margin-left:3cm;font-family:Lucida Console, Courier, Monotype;font-size:16px;">
+						      <% if @adelanto.moeda == 0 %>
+                                <%=number_to_currency(@adelanto.valor_dolar.to_f, :format=>' %n ', :separeitor => 0)%>
+						      
+						      <% else %>
+                                <%=number_to_currency(@adelanto.valor_guarani.to_f, :format=>' %n ', :precision => 0)%>
+						      <% end %>
+                          </span>
+   	        	        </tr>
+   	        	        
+    	           </table>		
+				</td>
+			</tr>
+       </table>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>MercoSys Enterprise</title>
+    <%= stylesheet_link_tag 'vendas/venda','button' %>
+    <%= javascript_include_tag 'jquery', 'all','vendas','jquery.maskMoney' %>
+
+    <%= csrf_meta_tag %>    
+    <script>
+      $(function(){
+          $(".money_us").maskMoney({thousands:".", decimal:",", allowZero: true, defaultZero: true})
+          $(".money_gs").maskMoney({thousands:".",precision:0, allowZero: true, defaultZero: true})
+      })
+    </script>   
+
+  </head>
+  <body>
+    <div class="header">
+      <span class="header_logo">MercoSys Zetta</span>
+      <span class="header_log">        
+        Unidade : <%= current_unidade.unidade_nome %> |
+        Usuario : <%= current_user.usuario_nome%> |
+        <% if session[:logged] %>
+          <%= link_to "logout", login_path(1) ,:method => :delete %>
+        <% end %>
+      </span>
+    </div>
+
+
+    <div class="Mensagem" id="observacao">
+      <%= flash[:observacao] %>
+      <%= flash[:notice] %>
+    </div>
+    <div class="backb">
+      <div class="contents">
+        <%= yield :layout %>
+      </div>
+    </div>
+    
+  <div class="footer">
+      Copyright © 2011-2012 - Zetta - Powered by <a href="http://mercosysinformatica.com">Mercosys</a>
+  </div>
+    
+  </body>
+</html>

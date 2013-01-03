@@ -1,0 +1,255 @@
+<body onload="window.print()">
+
+
+   <table align="left"  valign="top">
+
+      <tr>
+         <td>
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;">
+              <b>            	
+               <%= $empresa_nome %>
+              <b>               
+            </FONT>
+         </td>
+
+         <td  align="right">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;">
+              <b>            	
+               COMPROBANTE DE VENTA   N. <%=@venda.id%>
+              <b>               
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td>
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;">
+               Ruc 6014995-7
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td>
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;">
+               <b>
+	              Tel: 0673-220578 / 0983-633712
+               <b>
+
+            </FONT>
+         </td>
+      </tr>
+
+
+      <tr>
+         <td>
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;">
+               Santa Rita - Alto Paraná
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            </FONT>
+         </td>
+      </tr>
+
+
+
+      <tr>
+         <td>
+            <table>
+
+               <tr>
+
+                  <td>
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                        Cliente :
+                     </FONT>
+                  </td>
+
+                  <td align="left"  colspan="4">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                     	<b>
+                        <%= @venda.persona_nome %>
+                        </b>
+                     </FONT>
+                  </td>
+
+                  <td align="right">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                        Cod :
+                     </FONT>
+                  </td>
+
+                  <td align="left">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                     	<b>
+                          <%= @venda.persona_cod %>
+                        </b>
+                     </FONT>
+                  </td>
+
+
+
+                  <td align="right">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                        Ruc/C.I. :
+                     </FONT>
+                  </td>
+
+                  <td align="left">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                     	<b>
+                          <%= @venda.ruc %>
+                        <b>
+                     </FONT>
+                  </td>
+
+
+               </tr>
+
+
+               <tr>
+                  <td>
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                        Vendedor :
+                     </FONT>
+                  </td>
+
+                  <td align="left">
+                     <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                        <%= @venda.vendedor_nome %>
+                     </FONT>
+                  </td>
+
+               </tr>
+
+            </table>
+         </td>
+
+
+      </tr>
+
+      <%if @venda.moeda == 0
+         moeda = "DOLAR"
+      else
+         moeda = "GUARANI"
+      end
+   %>
+
+
+      <tr>
+         <td align="left">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               MONEDA: <%=moeda%>
+            </FONT>
+         </td>
+         <td align="right">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               EMISION: <%=@venda.data.strftime("%d/%m/%Y")%> <%=Time.now.strftime("%H:%M:%S")%>
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            </FONT>
+         </td>
+      </tr>
+
+      <tr height="330">
+         <td colspan="2" align="center" valign="top">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+
+               <table align="center">
+                  <tr>
+                     <td width="50" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Codigo</font></td>
+                     <td width="50" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Ubicacion</font></td>
+                     <td width="300" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Producto</font></td>
+                     <td width="50" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Cantidad</font></td>
+                     <td width="50" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Unit.</font></td>
+                     <td width="50" align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >Total</font></td>
+                  </tr>
+                  <tr>
+                     <td colspan="5">
+                        <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+                           --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                        </FONT>
+                     </td>
+                  </tr>
+                  <% @venda_produto.each do |produto| %>
+                     <% prod = Produto.find_by_id(produto.produto_id)  %>
+                     <tr>
+                        <td align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= produto.fabricante_cod %> </font></td>
+                        <td align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= prod.locacao %> </font></td>
+                        <td align="left"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= produto.produto_nome %></font> </td>
+                        <td align="center"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= produto.quantidade %></font> </td>
+                        <% if  @venda.moeda == 0 %>
+                           <td align="right"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= number_to_currency(produto.unitario_dolar, :format=>' %n ', :separeitor => ',') %> </font></td>
+                           <td align="right"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= number_to_currency(produto.total_dolar, :format=>' %n ', :separeitor => ',') %></font> </td>
+                        <% else %>
+                           <td align="right"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= number_to_currency(produto.unitario_guarani, :format=>' %n ', :precision => 0) %> </font></td>
+                           <td align="right"><FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" > <%= number_to_currency(produto.total_guarani, :format=>' %n ', :precision =>0) %></font> </td>
+                        <% end %>
+                     </tr>
+
+                  <%end%>
+               </table>
+
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            </FONT>
+         </td>
+      </tr>
+
+
+      <tr>
+         <td colspan="2" align="right">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               <b>
+                  <% if @venda.moeda == 0 %>
+                     Total =>  <%= number_to_currency(@produto_sum_us, :format=>' %n ', :separeitor => ',') %>
+                  <% else %>
+                     Total =>  <%= number_to_currency(@produto_sum_gs, :format=>' %n ', :precision => 0) %>
+                  <% end %>
+               </b>
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            </FONT>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2" align="center">
+            <FONT style="font-family:Lucida Console, Courier, Monotype;font-size:13px;" >
+               Nota para simples control de Stock. Carece de valor Fiscal. Agradecemos su Preferencia
+            </FONT>
+         </td>
+      </tr>
+
+   </table>
+
+</body>
+
+
+
+
+

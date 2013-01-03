@@ -1,0 +1,80 @@
+<%= form_for(pagos_financa) do |f| %>
+  <td><%= f.hidden_field :pago_id,:value      => @pago.id%></td>
+  <td><%= f.hidden_field :data,:value         => @pago.data%></td>
+  <td><%= f.hidden_field :moeda,:value        => @pago.moeda%></td>
+  <td><%= f.hidden_field :persona_id,:value   => @pago.persona_id%></td>
+  <td><%= f.hidden_field :persona_nome,:value => @pago.persona_nome%></td>
+  <div class="group_cd">
+    <table>
+
+        <tr>
+          <td></td>
+          <td>
+              <table>
+                <tr>
+                  <td>
+                    <fieldset>
+                      <legend>Moneda</legend>
+                      <% if @pago.moeda == 0 %>
+                        <%= f.radio_button :moeda, 1 %> Gs.
+                        <%= f.radio_button :moeda, 0,  :Checked => "True" %> Dolar
+                        <%= f.radio_button :moeda, 2 %> Real
+                      <% elsif @pago.moeda == 1 %>
+                        <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
+                        <%= f.radio_button :moeda, 0 %> Dolar
+                        <%= f.radio_button :moeda, 2 %> Real
+                      <% else %>
+                        <%= f.radio_button :moeda, 1 %> Gs.
+                        <%= f.radio_button :moeda, 0 %> Dolar
+                        <%= f.radio_button :moeda, 2,  :Checked => "True" %> Real
+                      <% end %>
+
+                    </fieldset>
+                  </td>
+                </tr>
+              </table>
+          </td>
+        </tr>
+
+      <tr>
+         <td class="label">Conta :</td>
+        <td><%= f.collection_select :conta_id, Conta.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+
+        <td class="label">Cheque:</td>
+        <td><%= f.text_field :cheque, :size => 15%></td>
+        <td class="label">Diferido:</td>
+        <td><%= f.date_select :diferido  %></td>
+      </tr>
+          
+      <tr>
+          <%= field_us 'Valor U$ :',f,:valor_dolar, :value => number_to_currency( ( ( @pago_us.to_f + @interes_us.to_f ) - @desconto_us.to_f ), :format =>'%n', :separator => ',' ) %>
+
+          <%= field_gs 'Gs.:',f,:valor_guarani, :value => number_to_currency( ( ( @pago_gs.to_f + @interes_gs.to_f )- @desconto_gs.to_f ),:format =>'%n', :precision => 0 ) %>
+
+          <%= field_us 'R$ :',f,:valor_real, :value => number_to_currency( ( ( @pago_rs.to_f + @interes_rs.to_f ) - @desconto_rs.to_f ), :format =>'%n', :separator => ',' ) %>
+
+      </tr>
+      <tr>
+        <td class="label">Documento:</td>
+        <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                                  :order  => '1' ),:id,
+                                                                                   :nome %></td>
+        <td class="label" valign="top" rowspan="4">Descripcion :</td>
+        <td colspan="3" rowspan="4"><%= f.text_area :descricao,
+                             :cols => 55, :rows => 5,
+                             :value => 'PAGO ' + @pago.persona_nome%></td>
+        
+      </tr>
+
+        <td class="label">Nr. Recibo:</td>
+        <td><%= f.text_field :numero_recibo, :size => 15%></td>
+
+
+    </table>
+  </div>
+<div class="buttons">
+  <%= f.submit "  Grabar  ", :class => "button" %> 
+  <a href="/pagos/<%=@pago.id%>" class="button back">Volver</a> 
+  <a href="/pagos" class="button delete"> Fin</a>    
+</div>
+<% end %>

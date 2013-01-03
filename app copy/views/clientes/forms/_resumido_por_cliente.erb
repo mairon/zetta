@@ -1,0 +1,39 @@
+<% tot_us = 0 %>
+<% tot_gs = 0 %>
+<% tot_rs = 0 %>
+
+<table>
+	<% @resumo.each do |rs| %>
+	<tr>
+		<td width="20" align="center"><%= rs.persona_id %></td>
+        <td width="550" align="left">   <%= rs.nome %> - Tel.:  <%= rs.telefone %></td>
+		<% if params[:moeda].to_s == "0" %>
+			<td width="100" align="right"><%= number_to_currency( rs.div_us.to_f, :format=>' %n ', :separeitor => ",")%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.cob_us.to_f, :format=>' %n ', :separeitor => ",")%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.div_us.to_f - rs.cob_us.to_f, :format=>' %n ', :separeitor => ",")%></td>
+		<% elsif params[:moeda].to_s == "1" %>
+			<td width="100" align="right"><%= number_to_currency( rs.div_gs, :format=>' %n ', :precision => 0 )%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.cob_gs, :format=>' %n ', :precision => 0 )%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.div_gs.to_f - rs.cob_gs.to_f, :format=>' %n ', :precision => 0 )%></td>
+		<% else %>			
+			<td width="100" align="right"><%= number_to_currency( rs.div_rs.to_f, :format=>' %n ', :separeitor => ",")%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.cob_rs.to_f, :format=>' %n ', :separeitor => ",")%></td>
+			<td width="100" align="right"><%= number_to_currency( rs.div_rs.to_f - rs.cob_rs.to_f, :format=>' %n ', :separeitor => ",")%></td>
+		<% end %>
+		<td width="80" align="center"><%= rs.venci.to_date.strftime("%d/%m/%Y") %></td>
+	</tr>
+	<% tot_us += rs.div_us.to_f - rs.cob_us.to_f %>
+	<% tot_gs += rs.div_gs.to_f - rs.cob_gs.to_f %>
+	<% tot_rs += rs.div_rs.to_f - rs.cob_rs.to_f %>
+	<% end %>
+
+	<tr class="head">
+		<% if params[:moeda].to_s == "0" %>
+			<td colspan="5" width="100" align="right"><%= number_to_currency( tot_us, :format=>' %n ', :separeitor => "," ) %></td>
+		<% elsif params[:moeda].to_s == "1" %>
+			<td colspan="5" width="100" align="right"><%= number_to_currency( tot_gs, :format=>' %n ', :precision => 0 ) %></td>
+		<% else %>
+		<td colspan="5" width="100" align="right"><%= number_to_currency( tot_rs, :format=>' %n ', :separeitor => "," ) %></td>
+		<% end %>
+	</tr>
+</table>

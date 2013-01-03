@@ -1,0 +1,159 @@
+
+<h1 align="right" id="header">.</h1>
+   <ul class="tabs">
+      <li><a href="#tab1">Compra Doc. - [Edicion]</a></li>
+   </ul>
+   <div class="tab_container">
+   <br/>
+   <table>
+      <tr>
+         <td>
+            <div class="group">
+               <table>
+
+                  <tr height="5" class = "cor2">
+                     <td align="right">Total Factura : </td>
+                     <td align="right">
+                        <% if @compra.moeda == 0%>
+                           <%=h number_to_currency( @compra.total_dolar,       :format =>' %n ', :separator => "," )  %>
+                           <input type="hidden" id="fatura_total_dolar" value="<%=@compra.total_dolar.to_i%>"/>
+                           <input type="hidden" id="produto_total_dolar" value="<%=@total_dolar.to_i%>"/>
+                           <input type="hidden" id="fatura_total_guarani" value="<%=@compra.total_guarani.to_i%>"/>
+                           <input type="hidden" id="produto_total_guarani" value="<%=@total_guarani.to_i%>"/>
+                        <% else %>
+                           <%= number_to_currency( @compra.total_guarani,       :format =>' %n ',:precision => 0 ) %>
+                           <input type="hidden" id="fatura_total_guarani" value="<%=@compra.total_guarani.to_i%>"/>
+                           <input type="hidden" id="produto_total_guarani" value="<%=@total_guarani.to_i%>"/>
+                           <input type="hidden" id="fatura_total_dolar" value="<%=@compra.total_dolar.to_i%>"/>
+                           <input type="hidden" id="produto_total_dolar" value="<%=@total_dolar.to_i%>"/>
+                        <% end %>
+                     </td>
+
+                  </tr>
+
+                  <tr class = "cor1">
+                     <td align="right">Total Productos :</td>
+                     <td align="right">
+                        <% if @compra.moeda == 0%>
+                           <%=h number_to_currency( @sum_produtos_dolar,       :format =>' %n ', :separator => "," )  %>
+                        <% else %>
+                           <%= number_to_currency( @sum_produtos_guarani,       :format =>' %n ',:precision => 0 ) %>
+                        <% end %>
+                     </td>
+                     <td>_</td>
+                  </tr>
+
+                  <tr class = "cor2">
+                     <td align="right">Total Descuentos :</td>
+                     <td align="right">
+                        <% if @compra.moeda == 0%>
+                           <%=h number_to_currency( @sum_desconto_dolar,       :format =>' %n ', :separator => "," )  %>
+                        <% else %>
+                           <%= number_to_currency( @sum_desconto_guarani,       :format =>' %n ',:precision => 0 ) %>
+                        <% end %>
+                     </td>
+                  </tr>
+
+                  <tr>
+                     <td></td>
+                     <td>---------------</td>
+                  </tr>
+                  <tr class = "cor1">
+                     <td align="right">Total :</td>
+                     <td align="right">
+                        <% if @compra.moeda == 0%>
+                           <%=h number_to_currency( @total_dolar,       :format =>' %n ', :separator => "," )  %>
+                        <% else %>
+                           <%= number_to_currency( @total_guarani,       :format =>' %n ',:precision => 0 ) %>
+                        <% end %>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </td>
+
+
+         <td valign="top">
+            <div class="group">
+               <table>
+                  <input type="hidden" id="tipo" value="<%=@compra.tipo%>"/>
+                  <tr>
+                     <td align="right">Fecha :</td>
+                     <td> <%=@compra.data.strftime("%d/%m/%Y")%> </td>
+                  </tr>
+                  <tr>
+                     <td align="right">Cotacion :</td>
+                     <td><%=number_to_currency( @compra.cotacao.to_f,       :format =>' %n ',:precision => 0 )%> </td>
+                  </tr>
+                  <tr>
+                     <td align="right">Compra :</td>
+                     <td>
+                        <%if @compra.tipo == 0 %>
+                           CONTADO
+                        <%else%>
+                           CREDITO</td>
+                     <%end%>
+                  </tr>
+                  <tr>
+                     <td align="right">N. Factura :</td>
+                     <td><%=@compra.documento_numero_01%> -
+                         <%=@compra.documento_numero_02%> -
+                         <%=@compra.documento_numero%>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td align="right">Proveedor :</td>
+                     <td><%=@compra.persona_nome%></td>
+                  </tr>
+               </table>
+            </div>
+         </td>
+      </tr>
+
+   </table>
+
+
+<input type="hidden" name="cotacao"id="cotacao"/>
+<table>
+  <tr>
+    <td>
+      <div class="group">
+        <table>
+          <tr>
+            <td>
+              <div id="compras_financas">
+                <%= render :partial=>"index_documento", :locals=>{:compras_documentos => @compra.compras_documentos} %>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+</table>
+<div class="buttons">
+  <a href="/compras/<%=params[:id]%>" class="button back">Volver</a> 
+  <a href="/compras/<%=params[:id]%>/total_documento" class="button next">Seguir</a>
+  <a href="/compras/<%=params[:id]%>/novo_documento" class="button add">Nuevo</a>
+</div>
+</div>
+
+<%= hidden_field_tag :id, @compra.id %>
+<script>
+
+
+  document.onkeydown=function(e)
+  {
+    if(e.which == 115)
+      location.href="/compras/"+ document.getElementById('id').value+ "/novo_documento";
+    //SEGUIR FINANCAS
+    if(e.which == 39)
+      location.href="/compras/"+ document.getElementById('id').value+ "/total_documento";
+    //VOLTAR  EDIT
+    if(e.which == 37)
+      location.href="/compras/"+ document.getElementById('id').value+ "/show";
+    //LISTA DE PRODUTOS
+
+  }
+
+</script>

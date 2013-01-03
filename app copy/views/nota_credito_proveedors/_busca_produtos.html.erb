@@ -1,0 +1,82 @@
+  <div class="group">  
+    <table>
+      <tr>
+        <td width="50" align="center">Cod.</td>
+        <td width="50" align="center">Cod. Compra</td>
+        <td width="700" align="center">Producto</td>
+        <td width="100" align="center">Cantidad</td>
+        <td width="100" align="center">Unit.</td>
+        <td width="100" align="center">Tot.</td>
+        <td width="100" align="center">Iva.</td>
+      </tr>
+    </table>
+
+    <div class="rolagem_cobro" dir="div">
+      <table>
+         <% @produtos.each do |nc| %>
+            <% st = Stock.count(:id,:conditions => ["compra_id = ? AND produto_id = ?",nc.compra_id,nc.produto_id])%>
+               <% if st == 1 %>	
+                  <tr class = "<%= cycle("cor1", "cor2") %>"
+                  	  onMouseOver="javascript:this.style.backgroundColor='#949494'"
+                      onMouseOut="javascript:this.style.backgroundColor=''"
+                      onClick="Fecha( '<%= nc.compra_id %>',
+                                      '<%= nc.produto_id %>',
+                                      '<%= nc.produto_nome %>',
+                                      '<%= nc.clase_id %>',
+                                      '<%= nc.grupo_id %>',
+                                      '<%= nc.deposito_id %>',
+                                      '<%= nc.deposito_nome %>',
+                                      '<%= nc.quantidade.to_i %>',
+                                      '<%= number_to_currency(nc.unitario_dolar, :format=>' %n ', :separator => ",") %>',
+                                      '<%= number_to_currency(nc.total_dolar, :format=>' %n ', :separator => ",") %>',
+                                      '<%= number_to_currency(nc.iva_dolar, :format=>' %n ', :separator => ",") %>',
+                                      '<%= number_to_currency(nc.unitario_guarani, :format=>' %n ', :precision => 0 ) %>',
+                                      '<%= number_to_currency(nc.total_guarani, :format=>' %n ', :precision => 0 ) %>',
+                                      '<%= number_to_currency(nc.iva_guarani, :format=>' %n ', :precision => 0 ) %>')">
+                      
+                      <td width="50" align="center"><%= nc.id %></td>
+                      <td width="50" align="center"><%= nc.compra_id %></td>
+                      <td width="700" align="left"><%= nc.produto_nome %></td>
+                      <td width="100" align="center"><%= nc.quantidade %></td>
+                      <% if @nota_credito_proveedor.moeda == 0 %>
+                        <td width="100" align="right">   <%= number_to_currency(nc.unitario_dolar, :format=>' %n ', :separator => ",")  %></td>               
+                        <td width="100" align="right">   <%= number_to_currency(nc.total_dolar, :format=>' %n ', :separator => ",")  %></td>               
+                        <td width="100" align="right">   <%= number_to_currency(nc.iva_dolar, :format=>' %n ', :separator => ",")  %></td>
+                      <% else %>
+                        <td width="100" align="right">   <%= number_to_currency(nc.unitario_guarani, :format=>' %n ', :precision => 0 )  %></td>               
+                        <td width="100" align="right">   <%= number_to_currency(nc.total_guarani, :format=>' %n ', :precision => 0 )  %></td>               
+                        <td width="100" align="right">   <%= number_to_currency(nc.iva_guarani, :format=>' %n ', :precision => 0 )  %></td>
+                      <% end %>
+                  </tr>
+               <% end %>               
+         <% end %>
+      </table>
+    </div>
+  <div>  
+</div>  
+
+
+
+<script>
+	
+      function Fecha(compra_id,produto_id,produto_nome,clase_id,grupo_id,deposito_id,deposito_nome,quantidade,unitario_dolar,total_dolar,iva_dolar,unitario_guarani,total_guarani,iva_guarani)
+  {
+    document.getElementById('nota_credito_proveedor_produto_compra_id').value         = compra_id;
+    document.getElementById('nota_credito_proveedor_produto_produto_id').value        = produto_id;
+    document.getElementById('nota_credito_proveedor_produto_produto_nome').value      = produto_nome;
+    document.getElementById('nota_credito_proveedor_produto_clase_id').value          = clase_id;
+    document.getElementById('nota_credito_proveedor_produto_grupo_id').value          = grupo_id;
+    document.getElementById('nota_credito_proveedor_produto_deposito_id').value       = deposito_id;
+    document.getElementById('nota_credito_proveedor_produto_deposito_nome').value     = deposito_nome;
+    document.getElementById('nota_credito_proveedor_produto_quantidade').value        = quantidade;
+    document.getElementById('nota_credito_proveedor_produto_unitario_dolar').value    = unitario_dolar;
+    document.getElementById('nota_credito_proveedor_produto_total_dolar').value       = total_dolar;
+    document.getElementById('nota_credito_proveedor_produto_iva_dolar').value         = iva_dolar;
+    document.getElementById('nota_credito_proveedor_produto_unitario_guarani').value  = unitario_guarani;
+    document.getElementById('nota_credito_proveedor_produto_total_guarani').value     = total_guarani;
+    document.getElementById('nota_credito_proveedor_produto_iva_guarani').value       = iva_guarani;
+    document.getElementById('nota_credito_proveedor_produto_quantidade').focus();    
+  }
+	
+	
+</script>

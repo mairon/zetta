@@ -1,0 +1,37 @@
+<h1 align="right" id="header">Saldo Inicial Clientes</h1>
+<%= link_to 'Nuevo', new_cliente_path, :class => 'button add' %>
+<div class="group">
+  <h2>Cidades</h2>
+  <table>
+    <tr>
+      <td width="50" align="center">Cod.</td>
+      <td width="200" align="center">Fecha</td>
+      <td width="200" align="center">Cliente</td>
+      <td width="100" align="center">Divida U$.</td>
+      <td width="100" align="center">Divida Gs.</td>
+      <td width="100" align="center">Cobro U$.</td>
+      <td width="100" align="center">Cobro Gs.</td>
+    </tr>
+  </table>
+  <div class="rolagem" id="div">
+    <% for cliente in @clientes %>
+      <table>
+        <tr class = "<%= cycle("cor1", "cor2")%>" >
+
+          <td width="50" align="center" ><%=h cliente.id %></td>
+          <td width="200" align="left"><%=h cliente.data.strftime("%d/%m/%Y") %></td>
+          <td width="200" align="left"><%=h cliente.persona_nome %></td>
+          <td width="100" align="right"><%=h number_to_currency(  cliente.divida_dolar, :format =>' %n ', :separeitor => ',') %></td>
+          <td width="100" align="right"><%=h number_to_currency(  cliente.divida_guarani, :format =>' %n ', :precision => 0) %></td>
+          <td width="100" align="right"><%=h number_to_currency(  cliente.cobro_dolar, :format =>' %n ', :separeitor => ',') %></td>
+          <td width="100" align="right"><%=h number_to_currency(  cliente.cobro_guarani, :format =>' %n ', :precision => 0) %></td>
+          <td><%= link_to 'Editar', edit_cliente_path(cliente) %></td>
+          <td><%= link_to 'Borrar', cliente, :confirm => 'Tiene Certeza?', :method => :delete %></td>          
+        </tr>
+      </table>
+
+    <% end %>
+
+  </div>
+</div>
+

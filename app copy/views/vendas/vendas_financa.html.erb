@@ -1,0 +1,184 @@
+<div class="group">
+<<<<<<< HEAD
+	<table class="backgrounds">
+	<tr>
+		<td>Cotizacion:</td>
+		<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
+		<td align="right">Total Prod.: </td>
+		<td align="right"><%= format( "%.3f", @produto_count.to_f )%> </td>
+	</tr>
+
+	<tr>
+		<td>
+		<font size="7" color="green">
+			Total U$ :
+		</font>
+		</td>
+		<td align="right">
+		<font size="7" color="green">
+			<%= h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> 
+		</font>
+		</td>
+
+		<td width="300" align="right">
+			<font size="7" color="red">
+				Total Gs.:
+			</font>
+		</td>
+		<td align="right">
+			<font size="7" color="red">
+				<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
+			</font>
+		</td>
+=======
+		<table class="backgrounds">
+		<tr>
+			<td>Cotizacion:</td>
+			<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
+			<td align="right">Total Prod.: </td>
+			<td align="right"><%= format( "%.3f", @produto_count.to_f )%> </td>
+		</tr>
+
+		<tr>
+			<td>
+			<font size="7" color="green">
+				Total U$ :
+			</font>
+			</td>
+			<td align="right">
+			<font size="7" color="green">
+				<%= h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> 
+			</font>
+			</td>
+
+			<td width="300" align="right">
+				<font size="7" color="red">
+					Total Gs.:
+				</font>
+			</td>
+			<td align="right">
+				<font size="7" color="red">
+					<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
+				</font>
+			</td>
+
+			<td width="300" align="right">
+				<font size="7" color="blue">
+					Total R$.:
+				</font>
+			</td>
+			<td align="right">
+				<font size="7" color="blue">
+					<%= number_to_currency(@produto_sum_real, :format=>' %n ', :separator => ",", :separator => ",")  %>
+				</font>
+			</td>
+
+		</tr>				
+	</table>	
+
+
+>>>>>>> 33aa6b935f691d98325a122452cd7151778f7fdb
+
+		<td width="300" align="right">
+			<font size="7" color="blue">
+				Total R$.:
+			</font>
+		</td>
+		<td align="right">
+			<font size="7" color="blue">
+				<%= number_to_currency(@produto_sum_real, :format=>' %n ', :separator => ",", :separator => ",")  %>
+			</font>
+		</td>
+
+<<<<<<< HEAD
+	</tr>				
+</table>	
+
+<br/>
+<div class="left">
+	<%= render :partial=>Form.last.form_venda_financa, :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>
+</div>    
+<div class="right">
+	<%= render :partial=>"/vendas/eps/index_financa_E03", :locals=>{:vendas_financas => @venda.vendas_financas} %>
+</div>
+<br/>
+<br/>
+
+<div class="backgrounds">
+	<div class="buttons">
+	  <%= form_for(@venda) do |vd| %>                
+			<a href="/vendas/<%= @venda.id.to_i %>" class="button back">Volver </a>
+			<a href="/vendas/<%= @venda.id.to_i %>/gerador_cotas" class="button">Gerar Cuotas </a>
+	    <a href="javascript:void(0)" class="button print" onClick="ComprovanteVenda()">Comprobante</a>
+	    <a href="javascript:void(0)" class="button print" onClick="ComprovantePagare()">Pagare</a>
+			<% if @count_all.to_i >  0 %>
+		 	  <a href="#" onclick="Seguir()" class="button next"> Seguir</a>
+		    <%= vd.hidden_field :status %> 
+			  <a href="javascript:void(0)"class="button print" onClick="FaturaVenda()">Factura</a>
+		    <%= vd.submit "  Finalizar  ",:disable_with => "Aguarde..." , :class => "button",:onclick => "Finalizar()", :confirm => 'Encerrar La Venta' %>
+			  <a href="/vendas/new" class="button add"> Nuevo </a>	   
+			  <a href="/vendas" class="button delete"> Salir </a>
+			<% end %>
+	  <% end %>
+	</div>
+</div>
+=======
+<%= render :partial=>Form.last.form_venda_financa, :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>
+</div> 
+>>>>>>> 33aa6b935f691d98325a122452cd7151778f7fdb
+
+</div> 
+
+<%= hidden_field_tag :id, @venda.id %>
+<%= hidden_field_tag :count, @count_all.to_i %>
+<%= hidden_field_tag :sum_dolar, @produto_sum_dolar.to_f %>
+<%= hidden_field_tag :sum_guarani, @produto_sum_guarani.to_f %>
+<%= hidden_field_tag :moeda, @venda.moeda %>
+
+<script>
+
+	function Finalizar() //
+	{
+		document.getElementById('venda_status').value = 1
+	}
+
+	function Seguir() //
+	{
+		var id = document.getElementById('id').value
+		var us = document.getElementById('sum_dolar').value
+		var gs = document.getElementById('sum_guarani').value
+
+		if ( document.getElementById('count').value <= 0  ) {
+			alert ('Es Necessario Agregar Los Datos Finacieros');
+			return false;
+		} else {
+			location.href="/vendas/vendas_entrada_produto/" + id ;
+		}
+
+		if ( document.getElementById('count').value > 0  ) {
+			if ( document.getElementById('moeda').value == 0  ){
+				document.getElementById('sum_dolar').value
+			}
+		}
+
+
+	}
+
+	function ComprovanteVenda(){
+		window.open('/vendas/' + document.getElementById('id').value + '/comprovante', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+	}
+
+	function ComprovantePagare(){
+		window.open('/vendas/' + document.getElementById('id').value + '/pagare', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+	}
+
+
+	function FaturaVenda(){
+		window.open('/vendas/' + document.getElementById('id').value+'/fatura', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+	}
+
+	function fecha(){
+		self.close();
+	}
+</script>
+

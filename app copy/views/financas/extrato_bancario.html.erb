@@ -1,0 +1,108 @@
+<body onload="DataFinal(),CampoInicio()">
+   <h1 align="right" id="header">.</h1>
+   Extracto Bancario
+   <div class="group">
+      <h2>
+<<<<<<< HEAD
+         <%= form_tag resultado_extrato_bancario_financas_path, :method => "get" do%>
+=======
+         <%=form_tag resultado_extrato_bancario_financas_path, :method => "get" do%>
+>>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
+            <table>
+
+               <tr>
+                  <td> Fecha </td>
+<<<<<<< HEAD
+                  <td><input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                     Hasta
+                     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/></td>
+=======
+                  <td><input name="inicio" id="inicio"  size="10"  type="text" onkeyup="Formatadata(this,event)" />
+                     Hasta
+                     <input name="final"  id="final"   size="10" type="text" onkeyup="Formatadata(this,event)"/></td>
+>>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
+               </tr>
+
+               <tr>
+                  <td> Cheque :</td>
+<<<<<<< HEAD
+                  <td><input name="cheque" id="cheque"  size="10" /></td>
+=======
+                  <td><input name="cheque" id="cheque"  size="10"  type="text" /></td>
+>>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
+               </tr>
+
+               <tr>
+                  <td></td>
+                  <td>
+                     <fieldset>
+                        <legend>Filtros</legend>
+                        <input id="filtro" name="filtro" type="radio" value="0"  checked 
+                                           onkeyup="Formatadata(this,event),EnterTab(event,'tipo_cliente')",
+                                           onkeypress="return bloqEnter(event)"/> Agrupado por Cheque
+
+                        <input id="filtro" name="filtro" type="radio" value="1" 
+                                           onkeyup="Formatadata(this,event),EnterTab(event,'tipo_cliente')",
+                                           onkeypress="return bloqEnter(event)"/>Detalhado
+
+                     </fieldset>
+                  </td>
+               <tr>
+
+
+
+               <tr>
+                  <td>Cuenta :</td>
+                  <td>
+                     <%=   select("busca", "conta", Conta.all(:select => 'id,nome',:conditions => ['tipo = 1'],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
+                  </td>
+               </tr>
+
+               <tr>
+<<<<<<< HEAD
+=======
+                  <td align="right"></td>
+                  <td><%= check_box_tag :futuros, true %>Mostrar Lanz. Fucturos</td>
+               </tr>
+
+               <tr>
+>>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
+                  <td></td>
+                  <td>
+                     <fieldset>
+                        <legend>Moneda</legend>
+                        <input id="moeda" name="moeda" type="radio" value="0"  checked/>Dolar
+                        <input id="moeda" name="moeda" type="radio" value="1"/>Guaranies
+                        <input id="moeda" name="moeda" type="radio" value="2"/>Reais
+                     </fieldset>
+                  </td>
+               </tr>
+
+
+               <tr>
+                  <td></td>
+                  <td>
+<<<<<<< HEAD
+                     <input type="submit" value="            Informe           " onclick="Tipo('0')"/>
+                     <input type="submit" value="            Excel            " onclick="Tipo('1')"/>
+=======
+                     <input type="submit" value="Informe" onclick="Tipo('0')" class="button_info" />
+                     <input type="submit" value="Excel" onclick="Tipo('1')"  class="button_info"/>
+>>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
+                  </td>
+
+               </tr>
+
+               <input type="hidden" name="tipo" id="tipo"  size="5" value="0"/>
+
+
+            <% end %>
+
+         </table>
+
+
+      </h2>
+   </div>
+</body>
+
+

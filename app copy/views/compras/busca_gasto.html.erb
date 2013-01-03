@@ -1,0 +1,38 @@
+<div class="group">
+  <table>
+    <tr>
+      <td width="50" align="center">Cod.</td>
+      <td width="80" align="center">Fecha</td>
+      <td width="400" align="center">Proveedor</td>
+      <td width="350" align="center">Rubro Contable</td>
+      <td width="150" align="center">Documento</td>
+      <td width="100" align="center">Total Gs.</td>
+      <td width="100" align="center">Total U$.</td>
+
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+
+
+    <table>
+      <tr>
+      </tr>
+
+      <% @compras.each do |gt| %>
+            <% dr = Diario. find_by_tabela_id(gt.id )%>
+           <tr class = "<%= cycle("cor1", "cor2") %>">
+             <td width="80" align="center">    <%= gt.id %></td>
+             <td width="80" align="center">    <%= gt.data.strftime("%d/%m/%Y")%></td>
+             <td width="400" align="left">   <%= gt.persona_nome%></td>
+             <td width="350" align="left">   <%= gt.rubro_descricao%></td>
+             <td width="150" align="center">   <%= gt.documento_numero_01%>-<%= gt.documento_numero_02%>-<%= gt.documento_numero%></td>             
+             <td width="100" align="right">   <%=h number_to_currency( gt.total_guarani, :format=>' %n ', :precision => 0)  %></td>
+             <td width="100" align="right">   <%=h number_to_currency( gt.total_dolar, :format=>' %n ', :separeitor => ',')  %></td>
+             <td><a href="/compras/<%=gt.id%>/edit_gasto" >Editar</a></td>
+             <td><%= link_to 'Borrar', gt, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+           </tr>
+      <% end %>
+    </table>
+  </div>
+
+<%= will_paginate @compras, :update => 'pagina', :options => {:prev_label => '<< Anterior',:next_label => 'Próximo >>'}%>

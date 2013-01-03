@@ -1,0 +1,212 @@
+
+  <h1 align="right" id="header">Compra</h1>
+
+  <%= form_for(@compra) do |f| %>
+    <% if @compra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@compra.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @compra.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.hidden_field :cotacao,:value => @compra.cotacao.to_i  %>
+
+
+   <ul class="tabs">
+      <li><a href="#tab1">Producto - [Edicion]</a></li>
+   </ul>
+
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+        <table>
+          <tr>
+             <td align="right">Descuento U$ :</td>
+            <td><%= f.text_field :desconto_dolar, 
+                                 :size    => 15,
+                                 :value   => number_to_currency( @compra.desconto_dolar.to_f, :format =>' %n ', :separator => "," ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                 :dir     =>"rtl",
+                                 :onblur  => "CompraProrateoUsToGs('compra_desconto_dolar','compra_desconto_guarani')"  %></td>
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :desconto_guarani, 
+                                 :size    => 15,
+                                 :value   => number_to_currency( @compra.desconto_guarani.to_f, :format =>' %n ', :precision => 0 ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                 :dir     =>"rtl",
+                                 :precision => 0,
+                                 :onblur  => "CompraProrateoGsToUs('compra_desconto_guarani','compra_desconto_dolar')"  %></td>
+          </tr>
+
+          <tr>
+            <td align="right">Flete U$ :</td>
+            <td><%= f.text_field :frete_dolar,
+                                 :size    => 15,
+                                 :value   => number_to_currency( @total_frete_dolar, :format =>' %n ', :separator => "," ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                 :dir     =>"rtl",
+                                 :onblur  => "CompraProrateoUsToGs('compra_frete_dolar','compra_frete_guarani')"  %></td>
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :frete_guarani, 
+                                 :size    => 15,
+                                 :value   => number_to_currency( @total_frete_guarani, :format =>' %n ', :precision => 0 ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                 :dir     =>"rtl",
+                                 :precision => 0,
+                                 :onblur  => "CompraProrateoGsToUs('compra_frete_guarani','compra_frete_dolar')"  %></td>
+          </tr>
+
+          <tr>
+            <td align="right">Seguro U$ :</td>
+            <td><%= f.text_field :seguro_dolar,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_seguro_dolar, :format =>' %n ', :separator => "," ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                 :dir     =>"rtl",
+                                 :onblur  => "CompraProrateoUsToGs('compra_seguro_dolar','compra_seguro_guarani')"  %></td>
+
+            <td align="right"> Gs.:</td>
+            <td><%= f.text_field :seguro_guarani,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_seguro_guarani, :format =>' %n ', :precision => 0 ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                 :dir     =>"rtl",
+                                 :precision => 0,
+                                 :onblur  => "CompraProrateoGsToUs('compra_seguro_guarani','compra_seguro_dolar')"  %></td>
+          </tr>
+
+          <tr>
+            <td align="right">Iva U$ :</td>
+            <td><%= f.text_field :iva_total_dolar,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_iva_dolar, :format =>' %n ', :separator => "," ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                 :dir     =>"rtl",
+                                 :onblur  => "CompraProrateoUsToGs('compra_iva_total_dolar','compra_iva_total_guarani')"  %></td>
+
+            <td align="right"> Gs.:</td>
+            <td><%= f.text_field :iva_total_guarani,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_iva_guarani, :format =>' %n ', :precision => 0 ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                 :dir     =>"rtl",
+                                 :precision => 0,
+                                 :onblur  => "CompraProrateoGsToUs('compra_iva_total_guarani','compra_iva_total_dolar')"  %></td>
+
+          </tr>
+          <tr>
+            <td align="right">Outros U$ :</td>
+            <td><%= f.text_field :outros_dolar,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_outros_dolar, :format =>' %n ', :separator => "," ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                 :dir     =>"rtl",
+                                 :onblur  => "CompraProrateoUsToGs('compra_outros_dolar','compra_outros_guarani')"  %></td>
+
+
+            <td align="right">Gs.:</td>
+            <td><%= f.text_field :outros_guarani,
+                                 :size   => 15,
+                                 :value   => number_to_currency( @total_outros_guarani, :format =>' %n ', :precision => 0 ),
+                                 :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                 :dir     =>"rtl",
+                                 :precision => 0,
+                                 :onblur  => "CompraProrateoGsToUs('compra_outros_guarani','compra_outros_dolar')"  %></td>
+          </tr>
+        </table>
+
+<!-- DESPACHO !-->
+       <% if @compra.tipo_compra == 2 %>
+        <table>
+          <tr>
+            <td>
+              <fieldset>
+                <legend>Despacho</legend>
+                <table>
+
+
+                   <tr>
+                     <td align="right">Total Doc. U$ :</td>
+                     <td><%= number_to_currency( @total_dolar_documento, :format =>' %n ',:separator => "," ) %></td>
+                     <input type="hidden" id="total_documento_dolar" value="<%= number_to_currency( @total_dolar_documento,       :format =>' %n ',:separator => "," ) %>" />
+
+                     <td align="right">Gs.:</td>
+                     <td><%= number_to_currency( @total_guarani_documento.to_f, :format =>' %n ',:precision => 0 )  %></td>
+                     <input type="hidden" id="total_documento_guarani" value="<%= number_to_currency( @total_guarani_documento.to_f,       :format =>' %n ',:precision => 0 ) %>" />
+                   </tr>
+
+
+                   <tr>
+                     <td align="right">Imponible :</td>
+                     <td><%= f.text_field :valor_imponible,
+                                          :onKeyUp =>"maskIt(this,event,'###.###.###.###.###',true)",
+                                          :dir     =>"rtl",
+                                          :size    => 15 %></td>
+
+                   </tr>
+
+                   <tr>
+                     <td align="right">Iva Despacho U$ :</td>
+                     <td><%= f.text_field :iva_despacho_dolar,
+                                          :size    => 15,
+                                          :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                          :dir     =>"rtl",
+                                          :onblur  =>"CompraTotalDespachoDolar()" %></td>
+
+                     <td align="right">Gs.:</td>
+                     <td><%= f.text_field :iva_despacho_guarani,
+                                          :size    => 15,
+                                          :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                          :dir     =>"rtl",
+                                          :precision => 0,
+                                          :onblur  => "CompraTotalDespachoGs()"%></td>
+                  </tr>
+
+                  <tr>
+                    <td align="right">Invoice U$ :</td>
+                    <td><%= number_to_currency( @total_invoice_dolar, :format =>' %n ',:separator => "," ) %></td>
+                  <input type="hidden" id="total_invoice_dolar" value="<%=  number_to_currency(  @total_invoice_dolar , :format =>' %n ',:separator => "," ) %>" />
+                    <td align="right">Gs.:</td>
+                    <td><%= number_to_currency( @total_invoice_guarani, :format =>' %n ',:precision => 0 ) %></td>
+                    <input type="hidden" id="total_invoice_guarani" value="<%= number_to_currency( @total_invoice_guarani, :format =>' %n ',:precision => 0 ) %>" />
+                  </tr>
+
+
+                  <tr>
+                    <td align="right">Despacho U$ :</td>
+                    <td><%= f.text_field :despacho_dolar,
+                                         :onKeyUp =>"maskIt(this,event,'###.###.###,##',true)",
+                                         :dir     =>"rtl",
+                                         :size   => 15 %></td>
+
+                    <td align="right">Gs.:</td>
+                    <td><%= f.text_field :despacho_guarani,
+                                         :onKeyUp =>"maskIt(this,event,'###.###.###',true)",
+                                         :dir     =>"rtl",
+                                         :precision => 0,
+                                         :size   => 15 %></td>
+                  </tr>
+              </table>
+              </fieldset>
+              
+            </td>
+          </tr>
+        </table>
+       <% end %>
+      </div>
+    <div class="buttons">
+         <a href="/compras/<%=params[:id]%>/compras_documento" class="button back" >Volver</a>
+         <%= f.submit "   Proratear   ",:disable_with => "Aguarde...",:class =>"button"  %>
+    </div>
+  </div>
+
+  <%end%>

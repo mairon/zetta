@@ -1,0 +1,179 @@
+<script language="javascript">
+   function bloqEnter(objEvent) {
+      var iKeyCode;
+      iKeyCode = objEvent.keyCode;
+      if(iKeyCode == 13) return false;
+      return true;
+   }
+</script>
+
+<body onload="CampoTipo()">   
+   <br/>
+   <div class="group">
+      <h2>
+         <%= form_tag dinamic_busca_consulta_stock_produtos_path, :method => "get" do%>
+
+                     Deposito :<%= select("busca", "deposito", Deposito.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] },
+                                               {:onkeyup    => "EnterTab(event,'tipo')",
+                                                :onkeypress => "return bloqEnter(event)"})   %>
+
+
+            <select name="tipo" id="tipo" onkeyup="EnterTab(event,'busca')" onkeypress="return bloqEnter(event)" >
+               <option>CODIGO</option>
+               <option>DESCRIPCION</option>
+            </select>
+
+            <input id="busca" name="busca" type="text" onKeyUp="f(this)"onkeydown = "f(this)" onkeypress ="return bloqEnter(event)"onkeyup="EnterTab(event,'button')"  />
+            <input type   ="button"
+                   id     ="button"
+                   onclick="pesquisa(document.getElementById('busca').value)"
+                   value  ="Buscar..."/>
+
+            <input type="checkbox" value="0" id="teste" onclick="check(),pesquisa(document.getElementById('busca').value)"/>
+            <input id="filtro" name="filtro" type="hidden" value="0"/> Sen Saldo
+
+      <%= image_tag("/images/load.gif",
+              :align => "absmiddle",
+              :border => 0,
+              :id => "spinner",
+              :width => 21,
+              :height => 21,
+              :style =>"display: none;" ) %>
+            
+
+         <% end %>
+
+      </h2>
+      <div id="pagina">
+      </div>
+
+
+
+      <script language="javascript">
+
+
+
+function check(){
+ if (document.getElementById('teste').checked == false )
+ {
+ document.getElementById('filtro').value  = 0
+ }else
+ document.getElementById('filtro').value  = 1
+
+ }
+
+
+
+         function pesquisa(valor)
+
+         {
+
+            tipo   = document.getElementById('tipo').value
+            filtro = document.getElementById('filtro').value
+            deposito = document.getElementById('busca_deposito').value
+            //FUNÇÃO QUE MONTA A URL E CHAMA A FUNÇÃO AJAX
+
+            url="/produtos/dinamic_busca_consulta_stock?deposito_id="+deposito+"&tipo="+tipo+"&filtro="+filtro+"&busca="+valor;
+
+            ajax(url);
+
+         }
+
+
+         function ajax(url)
+
+         {
+
+
+
+            //alert(nick);
+
+            //alert(dest);
+
+            //alert(msg);
+           Element.show('spinner')
+
+
+
+            req = null;
+
+            // Procura por um objeto nativo (Mozilla/Safari)
+
+            if (window.XMLHttpRequest) {
+
+               req = new XMLHttpRequest();
+
+               req.onreadystatechange = processReqChange;
+
+               req.open("GET",url,true);
+
+               req.send(null);
+
+               // Procura por uma versão ActiveX (IE)
+
+            } else if (window.ActiveXObject) {
+
+               req = new ActiveXObject("Microsoft.XMLHTTP");
+
+               if (req) {
+
+
+                  req.onreadystatechange = processReqChange;
+
+                  req.open("GET",url,true);
+
+
+
+                  req.send();
+
+               }
+
+            }
+
+         }
+
+
+
+         function processReqChange()
+
+         {
+
+
+
+            // apenas quando o estado for "completado"
+
+            if (req.readyState == 4) {
+
+
+
+               // apenas se o servidor retornar "OK"
+
+
+
+               if (req.status ==200) {
+
+
+
+                  // procura pela div id="pagina" e insere o conteudo
+
+                  // retornado nela, como texto HTML
+
+
+                  onSuccess:Element.hide('spinner')
+                  document.getElementById('pagina').innerHTML = req.responseText;
+
+
+
+               } else {
+
+                  alert("Houve um problema ao obter os dados:n" + req.statusText);
+
+               }
+
+            }
+
+         }
+      </script>
+   </div>
+</body>
+

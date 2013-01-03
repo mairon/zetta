@@ -1,0 +1,135 @@
+<div class="group">
+	<p>Producto : <%= @produto.nome%></p>
+</div>
+<br />
+
+<div class="group">
+	<table >
+		<tr>
+			<td colspan="2" valign="top">
+			<table>
+				<tr>
+					<td>
+					<div class="group">						
+  					  <% if @produto.picture_content_type.present? %>
+					    <%= image_tag @produto.picture.url,:size => "240x210" %>
+					  <% else %>
+					    <%= image_tag ('../images/defalt.jpg',:size => "240x210") %>
+					  <% end %>
+					<br />
+  					Stock Atual : <%= @quantidade %>
+					<br />
+					Obs.: <%= @produto.obs %>  					
+					</div>
+					</td>
+					<td valign="top">
+
+					<table>
+						<tr>
+							<td>
+
+							<div class="group_menu">
+								<h2>Ult. Compras</h2>
+
+								<table>
+									<tr>
+										<td width="50" align="center">Cod.</td>
+										<td width="70" align="center">Fecha</td>
+										<td width="480" align="center">Proveedor</td>
+										<td width="100" align="center">Cantidad</td>
+										<td width="100" align="center">Costo</td>
+									</tr>
+								</table>
+								<div class="RolagemShow" id="div">
+									<table>
+										<% total = 0 %>
+										<% @ultima_compra.each do |uc| %>
+										<tr class = "<%= cycle("cor1", "cor2") %>">
+											<td width="50" align="left"><%= uc.compra_id %></td>
+											<td width="70" align="center"><%= uc.data.strftime("%d/%m/%Y") %></td>
+											<td width="480" align="left"><%= uc.persona_nome %></td>
+											<td width="100" align="center"><%= uc.quantidade %></td>
+											<td width="100" align="right"> <%= number_to_currency(uc.unitario_dolar, :format=>' %n ', :separator => ",")  %></td>
+										</tr>
+										<% end %>
+									</table>
+								</div>
+							</div>
+							</td>
+						</tr>
+					</table>
+
+					<table>
+						<tr>
+							<td>
+
+							<div class="group_menu">
+								<h2>Ult. Vendas</h2>
+
+								<table>
+									<tr>
+										<td width="50" align="center">Cod.</td>
+										<td width="70" align="center">Fecha</td>
+										<td width="480" align="center">Cliente</td>
+										<td width="100" align="center">Cantidad</td>
+										<td width="100" align="center">Unit.</td>
+									</tr>
+								</table>
+								<div class="RolagemShow" id="div">
+									<table>
+										<% @ultima_venda.each do |uv| %>
+										<tr class = "<%= cycle("cor1", "cor2") %>">
+											<td width="50" align="left"><%= uv.venda_id %></td>
+											<td width="70" align="center"><%= uv.data.strftime("%d/%m/%Y") %></td>
+											<td width="480" align="left"><%= uv.persona_nome %></td>
+											<td width="100" align="center"><%= uv.quantidade %></td>
+											<td width="100" align="right"> <%= number_to_currency(uv.unitario_dolar, :format=>' %n ', :separator => ",")  %></td>
+										</tr>
+										<% end %>
+									</table>
+								</div>
+							</div>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<div class="group">
+								<h2>Pedido Pendientes</h2>
+
+								<table>
+									<tr>
+										<td width="50" align="center">Cod.</td>
+										<td width="70" align="center">Fecha</td>
+										<td width="70" align="center">Fecha Llegada</td>
+										<td width="480" align="center">Cliente</td>
+										<td width="100" align="center">Cantidad</td>
+										<td width="100" align="center">Unit.</td>
+									</tr>
+								</table>
+
+								<div class="RolagemShow" id="div">
+									<table>
+										<% @ultima_venda.each do |uv| %>
+										<tr class = "<%= cycle("cor1", "cor2") %>">
+											<td width="50" align="left"><%= uv.venda_id %></td>
+											<td width="70" align="center"><%= uv.data.strftime("%d/%m/%Y") %></td>
+											<td width="480" align="left"><%= uv.persona_nome %></td>
+											<td width="100" align="center"><%= uv.quantidade %></td>
+											<td width="100" align="right"> <%= number_to_currency(uv.unitario_dolar, :format=>' %n ', :separator => ",")  %></td>
+										</tr>
+										<% end %>
+									</table>
+								</div>				
+			</div>
+			
+			</td>
+		</tr>
+	</table>
+</div>
+

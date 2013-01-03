@@ -1,0 +1,458 @@
+<!--INTEGRACAO COM A MOEDA REAL E01!-->
+<body onload="ExibeDivCompraDetalheFatura(),ImputFocus('compra_data')">
+   <h1 align="right" id="header">Compra</h1>
+   <%= form_for(@compra) do |f| %>
+      <% if @compra.errors.any? %>
+      <div id="error_explanation">
+      <h2><%= pluralize(@compra.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% @compra.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+   
+      <%= f.hidden_field :tipo_compra, :value => 1%>
+
+      <ul class="tabs">
+         <li><a href="#tab1">Gastos - [Edicion]</a></li>
+      </ul>
+
+
+      <div class="tab_container">
+         <div id="tab1" class="tab_content">
+            
+            <table>
+               <tr>
+                  <td>
+                     <fieldset>
+                        <table>
+                           <tr>
+                              <td align="right">Fecha:</td>
+                              <td>
+                              	<% if params[:action] == 'new_gasto'%>
+			 				    	<%= field_data f,:data,10,'compra_unidade_id',:onfocus => "DataField('compra_data')" %>
+			 				    <% else %>
+			 				    	<%= field_data f,:data,10,'compra_unidade_id' %>			 				    
+			 				    <% end %>                                             
+                              </td>
+
+                              <td align="right">Unidade:</td>
+                              <td><%= f.collection_select :unidade_id, Unidade.all(:select => 'id',:order => '1'),:id,:id,{},{
+               										    :onkeyup    => "EnterTab(event,'compra_cotacao')",
+                   						   				:onkeypress => "return bloqEnter(event)"} %></td>
+                              
+                           </tr>
+
+                           <tr>
+                              <td align="right">Cotizacion U$ :</td>
+                              <td><%= text_field :compra,
+                                                 :cotacao ,
+                                               { :size       => 10,
+                                               	 :value      => @compra.cotacao.to_i,
+							                     :onkeypress => "return bloqEnter(event)",
+                     							 :onkeyup    => "EnterTab(event,'compra_cotacao_real')",
+                                                 :onfocus    => remote_function(:update => "compra_data",
+                                                 :url        => { :action => :get_moeda},
+                                                 :with       => "'compra_data='+ compra_data.value ") } %>
+                              </td>
+
+                              <td align="right">Cotizacion R$ :</td>
+                              <td><%= text_field :compra,
+                                                 :cotacao_real ,
+                                               { :size       => 10,
+                                               	 :value      => @compra.cotacao_real.to_i,
+							                     :onkeypress => "return bloqEnter(event)",
+                     							 :onkeyup    => "EnterTab(event,'compra_moeda_1')",
+                                                 :onfocus    => remote_function(:update => "compra_data",
+                                                 :dir        => "rtl",
+                                                 :url        => { :action => :get_moeda_real},
+                                                 :with       => "'compra_data='+ compra_data.value ") } %>
+                              </td>
+                           </tr>
+                        </table>
+                     </fieldset>
+                  </td>
+
+                  <td>
+                     <table>
+                        <tr>
+                           <td>
+                              <table>
+
+                                 <tr>
+                                    <td>
+                                       <fieldset>
+                                          <legend>Moneda</legend>
+                                          <%= f.radio_button :moeda, 1,
+							                     			 :onkeypress => "return bloqEnter(event)",
+                     							 			 :onkeyup    => "EnterTab(event,'compra_tipo_0')",
+                     							 			 :Checked    => "True",                                          
+                                            	 			 :onblur     => "MoedaCompra('1')" %> Gs.
+                                          <br/>
+                                          <%= f.radio_button :moeda, 0,
+							                     			 :onkeypress => "return bloqEnter(event)",
+                     							 			 :onkeyup    => "EnterTab(event,'compra_tipo_0')",                                                                                   
+                                          					 :onblur => "MoedaCompra('0')"%> Dolar
+                                          <%= f.radio_button :moeda, 2,
+							                     			 :onkeypress => "return bloqEnter(event)",
+                     							 			 :onkeyup    => "EnterTab(event,'compra_tipo_0')",                                                                                   
+                                          					 :onblur => "MoedaCompra('2')"%> Real
+
+
+                                          <input type="hidden" id="moeda" value="<%= @compra.moeda %>"/>
+                                       </fieldset>
+                                    </td>
+
+                                    <td width="200">
+                                       <fieldset>
+                                          <legend>Tipo</legend>
+                                          <%= f.radio_button :tipo, 0,
+							                     			 :onkeypress => "return bloqEnter(event)",
+                     							 			 :onkeyup    => "EnterTab(event,'compra_adcionais')",                                                                                   
+                                                             :Checked    => "True",
+                                                             :onblur     => "TipoCompra('0'),
+                                                                          ExibeDivCompraDetalheFatura(),CompraTipoDocumento()"%> Contado
+                                          <br/>
+                                          <%= f.radio_button :tipo, 1,
+							                     			 :onkeypress => "return bloqEnter(event)",
+                     							 			 :onkeyup    => "EnterTab(event,'compra_adcionais')",                                                                                   
+                                                             :onblur => "TipoCompra('1'),
+                                                                         ExibeDivCompraDetalheFatura(),CompraTipoDocumento()" %> Credito
+
+                                          <input type="hidden" id="tipo" value="<%= @compra.tipo %>"/>
+                                       </fieldset>
+                                    </td>
+                                    <td><%= f.check_box :adcionais,
+                                              			:onkeypress => "return bloqEnter(event)",
+                     							 		:onkeyup    => "EnterTab(event,'compra_persona_nome')" %>Gastos Adcionales</td>
+                                 </tr>
+
+                              </table>
+
+                           </td>
+                        </tr>
+                     </table>
+
+                  </td>
+               </tr>
+            </table>
+
+            <table>
+                <tr>
+                   <td colspan="4">
+                      <fieldset>
+                           <table>
+                              <tr>
+                                 <td align="right">Nombre :</td>
+                                 <td colspan="3">
+                                    <%= f.text_field :persona_nome,
+                                    				 :size => 60,
+                                    				 :placeholder => "Puse F2 para buscar el Nombre.", 
+                                    				 :onkeypress => "return bloqEnter(event)",
+                     							 	 :onkeyup    => "EnterTab(event,'compra_rubro_id')" %> 
+                                    <%= link_to '',{:controller => 'personas',:action => 'new'}, :popup => ['new_window','height=700,width=1000'] , :class => "links add"%>                                    
+                                    Pulse F2 para buscar.
+                                    <%= f.hidden_field :despachante_id, :value => 0  %>
+                                 </td>
+                              </tr>
+
+                              <tr>
+                                 <td align="right">Rubro:</td>
+                                 <td><%= f.collection_select :rubro_id, Rubro.all( :select => 'id,descricao',
+                                                                                           :order  => '1' ),
+                                                                                           :id,
+                                                                                           :descricao,{},
+                                                                                          {:onkeypress => "return bloqEnter(event)",
+                     							 	 									   :onkeyup    => "EnterTab(event,'compra_rodado_id')"} %></td>
+
+                              </tr>
+                               
+                              <tr>
+                                 <td align="right">Rodados:</td>
+                                 <td><%= f.collection_select :rodado_id, Rodado.all( :select => 'id,placa',
+                                                                                     :order  => '2' ),
+                                                                                     :id,
+                                                                                     :placa, { :include_blank => true },
+                                                                                    {:onkeypress => "return bloqEnter(event)",
+                     							 	 					 		     :onkeyup    => "EnterTab(event,'compra_empregado_id')"} %></td>
+
+                              </tr>
+
+
+                              <tr>
+                                 <td align="right">Vendedor:</td>
+                                 <td><%= f.collection_select :empregado_id, Persona.all( :conditions => ["tipo_funcionario = 1"],
+                                                                                         :select => 'id,nome',
+                                                                                         :order  => '1' ),
+                                                                                         :id,
+                                                                                         :nome, { :include_blank => true },
+                                                                                        {:onkeypress => "return bloqEnter(event)",
+                     							 	 									 :onkeyup    => "EnterTab(event,'compra_tipo_gasto_0')"} %></td>
+
+                              </tr>
+
+
+                              <!--    DOCUMENTO       !-->
+
+                              <tr>
+                                 <td>Tipo Gasto :</td>
+                                 <td>
+                                    <fieldset>
+                                       <%= f.radio_button :tipo_gasto, 0,
+                                       					  :onkeypress => "return bloqEnter(event)",
+                     							 	 	  :onkeyup    => "EnterTab(event,'compra_documento_id')",  :Checked => "True"%> Legal
+                                       <%= f.radio_button :tipo_gasto, 1,
+                                       					  :onkeypress => "return bloqEnter(event)",
+                     							 	 	  :onkeyup    => "EnterTab(event,'compra_documento_id')" %> Legal Revertido
+                                       <%= f.radio_button :tipo_gasto, 2,
+                                       					  :onkeypress => "return bloqEnter(event)",
+                     							 	 	  :onkeyup    => "EnterTab(event,'compra_documento_id')" %> Comun
+                                       <%= f.radio_button :tipo_gasto, 3,
+                                       					  :onkeypress => "return bloqEnter(event)",
+                     							 	 	  :onkeyup    => "EnterTab(event,'compra_documento_id')" %> Comun Revertido
+                                    </fieldset>
+                                 </td>
+                               </tr>
+
+
+                              <tr>
+                                 <td align="right">Documento:</td>
+                                 <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
+                                                                                           :order  => '1' ),
+                                                                                           :id,
+                                                                                           :nome,{},{
+                                       					  								   :onkeypress => "return bloqEnter(event)",
+                     							 	 	  								   :onkeyup    => "EnterTab(event,'compra_ob_ref')"} %></td>
+
+                                 <td align="right">Ob. Ref:</td>
+                                 <td><%= f.collection_select :ob_ref, Produto.all( :select => 'fabricante_cod',:conditions => ["grupo_id = 4"],
+                                                                                           :order  => 'fabricante_cod' ),
+                                                                                           :fabricante_cod,
+                                                                                           :fabricante_cod,{},{
+                                       					  								   :onkeypress => "return bloqEnter(event)",
+                     							 	 	  								   :onkeyup    => "EnterTab(event,'compra_documento_numero_01')"} %></td>
+
+                              </tr>
+
+                              <tr>
+                                 <td align="right">Numero:</td>
+                                 <td><%= f.text_field :documento_numero_01,:size => 3,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeyup    => "EnterTab(event,'compra_documento_numero_02')"%>-
+                                     <%= f.text_field :documento_numero_02,:size => 3,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeyup    => "EnterTab(event,'compra_documento_numero')"%>-
+                                     <%= f.text_field :documento_numero,   :size => 10,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeyup    => "EnterTab(event,'compra_documento_timbrado')" %></td>
+
+                                 <td align="right"> Timbrado :</td>
+                                 <td colspan="1"><%= f.text_field :documento_timbrado,:size => 15,
+                                       					  :onkeypress => "return bloqEnter(event)",
+                     							 	 	  :onkeyup    => "EnterTabMoedaCompra(event)" %></td>
+
+                              </tr>
+                              
+                               <tr>
+                                  <td colspan="4">
+                                     <div id="MOEDA_FATURA_DOLAR" style="display:none;">
+                                  	<table>
+
+		                             <tr>
+        	                          <td colspan="4">
+                                        <fieldset>
+                                           <table>
+                                              <tr>
+                                                 <%= field_us 'Exentas U$ :',f,:exentas_dolar,
+                                       				  :onkeypress   => "return bloqEnter(event)",
+                     							 	  :onkeydown    => "EnterTab(event,'compra_gravadas_05_dolar')" %>
+
+                                                 <%= field_us 'Gravadas 5% U$ :',f,:gravadas_05_dolar,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeydown    => "EnterTab(event,'compra_gravadas_10_dolar')",
+                     							 	  :onblur     => "CompraGravada05Dolar('compra_gravadas_05_dolar','compra_imposto_05_dolar')" %>
+
+                                                 <%= field_us 'Gravadas 10% U$ :',f,:gravadas_10_dolar,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeydown  => "EnterTab(event,'compra_total_dolar')",
+                     							 	  :onblur     => "CompraGravada10Dolar('compra_gravadas_10_dolar','compra_gravadas_05_dolar','compra_exentas_dolar','compra_imposto_10_dolar','compra_total_dolar')" %>
+                                              </tr>
+
+                                              <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <%= field_us 'Impuestos 5% U$ :',f,:imposto_05_dolar %>
+
+                                                <%= field_us 'Impuestos 10% U$ :',f,:imposto_10_dolar %>
+                                             </tr>
+
+                                             <tr>
+                                                <td colspan="4"></td>
+                                                <%= field_us 'Total U$ :',f,:total_dolar,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeydown    => "EnterTab(event,'compra_desconto_dolar')" %>
+                                             </tr>
+
+                                             <tr>
+                                                <td colspan="4"></td>
+                                                <%= field_us 'Total Desconto U$ :',f,:desconto_dolar,
+                                       				  :onkeypress => "return bloqEnter(event)",
+                     							 	  :onkeydown    => "EnterTab(event,'compra_descricao')" %>
+                                             </tr>
+                                           </table>
+                                        </fieldset>
+		                                  </td>
+        		                       </tr>
+										</table>
+                                     </div>
+
+                                     <div id="MOEDA_FATURA_GUARANI" style="display:none;">
+								     <table>                                     	
+		                              <tr>
+        	                          <td colspan="4">
+                                        <fieldset>
+                                           <table>
+                                                <tr>
+                                                   <td>
+                                                      <table>
+                                                         <tr>
+                                                            <%= field_gs 'Exentas Gs.:',f,:exentas_guarani,
+                                       				  									  :onkeypress => "return bloqEnter(event)",
+                     							 	  									  :onkeydown  => "EnterTab(event,'compra_gravadas_05_guarani')" %>
+
+                                                            <%= field_gs 'Gravadas 5% Gs.:',f,:gravadas_05_guarani,
+                                       				  										  :onkeypress => "return bloqEnter(event)",
+                     							 	  										  :onkeydown  => "EnterTab(event,'compra_gravadas_10_guarani')",
+                     							 	  										  :onblur     => "CompraGravada05Gs()" %>
+
+                                                            <%= field_gs 'Gravadas 10% Gs.:',f,:gravadas_10_guarani,
+                                       				  										   :onkeypress => "return bloqEnter(event)",
+                     							 	  										   :onkeydown  => "EnterTab(event,'compra_total_guarani')",
+                     							 	  										   :onblur     => "CompraGravada10Gs()" %>
+                                                         </tr>
+
+                                                         <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <%= field_gs 'Impuestos 5% Gs.:',f,:imposto_05_guarani%>
+
+                                                            <%= field_gs 'Impuestos 10% Gs.:',f,:imposto_10_guarani%>
+                                                         </tr>
+
+                                                         <tr>
+                                                            <td colspan="4"></td>
+                                                            <%= field_gs 'Total Gs.:',f,:total_guarani,
+                                       				  									:onkeypress => "return bloqEnter(event)",
+                     							 	  									:onkeydown  => "EnterTab(event,'compra_desconto_guarani')"%>
+                                                         </tr>
+
+                                                         <tr>
+                                                            <td colspan="4"></td>
+                                                            <%= field_gs 'Total Desconto Gs.:',f,:desconto_guarani,
+                                       				  											 :onkeypress => "return bloqEnter(event)",
+                     							 	  											 :onkeydown  => "EnterTab(event,'compra_descricao')" %>
+                                                         </tr>
+                                                     </table>
+                                                   </td>
+                                                </tr>
+                                           </table>
+                                        </fieldset>
+		                                  </td>
+        		                       </tr>
+        		                      </table>
+                                     </div>
+
+                                     <div id="MOEDA_FATURA_REAL" style="display:none;">
+									 <table>
+		                              <tr>
+        	                           <td colspan="4">
+
+                                        <fieldset>
+                                           <table>
+                                              <tr>
+                                                 <%= field_us 'Exentas R$ :',f,:exentas_real,
+                                       				  						   :onkeypress => "return bloqEnter(event)",
+                     							 	      					   :onkeydown  => "EnterTab(event,'compra_gravadas_05_real')" %>
+
+                                                 <%= field_us 'Gravadas 5% R$ :',f,:gravadas_05_real,
+                                       				  						       :onkeypress => "return bloqEnter(event)",
+                     							 	      					       :onkeydown  => "EnterTab(event,'compra_gravadas_10_real')",
+							                      							 	   :onblur     => "CompraGravada05Dolar('compra_gravadas_05_real','compra_imposto_05_real')" %>
+
+                                                 <%= field_us 'Gravadas 10% R$ :',f,:gravadas_10_real,
+                                       				  						       :onkeypress => "return bloqEnter(event)",
+                     							 	      					       :onkeydown  => "EnterTab(event,'compra_total_real')",
+                     							 	                               :onblur     => "CompraGravada10Dolar('compra_gravadas_10_real','compra_gravadas_05_real','compra_exentas_real','compra_imposto_10_real','compra_total_real')" %>
+                                             </tr>
+
+                                             <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <%= field_us 'Impuestos 5% R$ :',f,:imposto_05_real %>
+
+                                                <%= field_us 'Impuestos 10% R$ :',f,:imposto_10_real %>
+                                             </tr>
+
+                                             <tr>
+                                                <td colspan="4"></td>
+                                                <%= field_us 'Total R$ :',f,:total_real,
+                                       				  						:onkeypress => "return bloqEnter(event)",
+                     							 	      					:onkeydown  => "EnterTab(event,'compra_desconto_real')" %>
+                                             </tr>
+
+                                             <tr>
+                                                <td colspan="4"></td>
+                                                <%= field_us 'Total Desconto R$ :',f,:desconto_real,
+                                       				  						   :onkeypress => "return bloqEnter(event)",
+                     							 	      					   :onkeydown  => "EnterTab(event,'compra_descricao')" %>
+                                             </tr>
+                                           </table>
+                                        </fieldset>
+		                                  </td>
+    	    		                       </tr>
+	                                  	</table>
+
+                                     </div>                                		
+									</td>
+								</tr>	
+                           </table>
+
+                      </fieldset>
+                   </td>
+                </tr>
+                <tr>
+                   <td align="right" valign="top">Concepto :</td>
+                   <td>
+                      <%= f.text_area :descricao, :cols => 85, :rows => 4,:onkeypress => "return bloqEnter(event)"%>
+                   </td>
+                </tr>
+            </table>
+
+        </div>
+
+     <div class="buttons">
+      <%= link_to 'Volver', index_gasto_compras_path, :class => "button back" %> 
+      <%= f.submit "   Seguir   &nbsp;&#187;",:disable_with => "Aguarde...", :class => "button"  %> 
+     </div>
+   </div>
+
+   <%end%>
+</body>
+
+<script>
+
+
+   //ABRI POPUP-----------------------------------------------------------------
+   document.onkeydown=function(e)
+   {
+      if(e.which == 113)
+         window.open('/personas/persona_compra', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=400');
+   }
+   //FIM ABRI POPUP----------------------------------------------------------------
+
+</script>

@@ -1,0 +1,31 @@
+<div class="group">
+   <table>
+      <tr>
+         <td width="40" align="center">Cod.</td>
+         <td width="70" align="center">Fecha</td>
+         <td width="350" align="center">Obra</td>
+
+      </tr>
+   </table>
+   <div class="rolagem" dir="div">
+      <table>
+         <% @esf.each do |nc| %>
+         
+               <tr class = "<%= cycle("cor1", "cor2") %>">
+                  <td width="40" align="center"  >    <%= h nc.id%></td>
+                  <td width="70" align="center"  >    <%= h nc.data.strftime("%d/%m/%Y")%></td>
+                  <td width="350" align="left">    <%= h truncate( nc.produto_nome, :length => 35 ) %></td>
+                  <td><%= link_to 'Editar', edit_entrada_saida_func_path(nc) %></td>
+                  <td><%= link_to 'Borrar', nc, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+               </tr>
+         <% end %>
+      </table>
+   </div>
+</div>
+
+<%= will_paginate @esf, :update => 'pagina', :options => {:prev_label => '<< Anterior',:next_label => 'Próximo >>'}%>
+
+
+
+
+

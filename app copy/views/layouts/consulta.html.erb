@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>MecoSys Enterprise</title>
+    <%= stylesheet_link_tag 'scaffold' %>
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'cadastros'%>
+  </head>
+
+  <script>
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      if(e.which == 27)
+        self.close();
+
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+
+  </script>
+
+
+  <body>
+    <div class="cabeca">
+      <span class="style1">MecoSys Enterprise</span>
+      <span class="style2">        
+        Unidade:   <%= current_user.usuario_nome %>
+        Usuario:   <%= current_unidade.unidade_nome %>
+        <% if session[:logged] %>
+          <%= link_to "logout", login_path(1) ,:method => :delete %>
+        <% end %>
+      </span>
+    </div>
+
+    <div id="contents">
+      <%= yield :layout %>
+    </div>
+  </body>
+</html>

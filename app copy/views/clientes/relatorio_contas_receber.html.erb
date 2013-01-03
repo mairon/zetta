@@ -1,0 +1,59 @@
+<% if params[:detalhe] == "0"%>
+
+   		<%= render :partial => "/clientes/forms/resumido_por_cliente"  %>
+
+<% elsif params[:detalhe] == "3"%>
+
+	<% if params[:moeda].to_s  == "1" %>
+   		<%= render :partial => "/clientes/forms/resumido_por_fatura_gs"  %>
+	<% elsif params[:moeda].to_s  == "0" %>
+		<%= render :partial => "/clientes/forms/resumido_por_fatura_us"  %>   		
+	<% else %>
+		<%= render :partial => "/clientes/forms/resumido_por_fatura_rs"  %>   		
+	<% end %>
+
+<% elsif params[:detalhe] == "4"%>
+
+ 	<%= render :partial => "/clientes/forms/resumido_cliente_vencimento"  %>
+<% elsif params[:detalhe] == "5" %>
+
+ 	<%= render :partial => "/clientes/forms/planilha_detalhado_us"  %>
+<% elsif params[:detalhe] == "6" %>
+
+	<% if params[:moeda].to_s  == "1" %>
+	 	<%= render :partial => "/clientes/forms/extracto_para_cliente_gs"  %> 	
+	<% else %>
+		<%= render :partial => "/clientes/forms/extracto_para_cliente_us"  %> 		
+	<% end %>
+
+<% elsif params[:detalhe] == "7" %>
+		<%= render :partial => "/clientes/forms/acerto_entre_contas"  %> 		
+<% else %>
+
+	<% if params[:moeda].to_s  == "1" %>
+
+		<% if params[:int].to_s  == "2"%>
+			<%= render :partial => "/clientes/forms/detalhado_todos_gs"  %>		   	
+		<% else %>
+			<%= render :partial => "/clientes/forms/detalhado_gs"  %>   			
+		<% end %>
+
+	<% elsif params[:moeda].to_s  == "0" %>
+
+		<% if params[:int].to_s  == "2" %>
+		   	<%= render :partial => "/clientes/forms/detalhado_todos_us"  %>
+		<% else %>
+   			<%= render :partial => "/clientes/forms/detalhado_us"  %>
+		<% end %>
+
+	<% else %>
+
+		<% if params[:int].to_s  == "2" %>
+		   	<%= render :partial => "/clientes/forms/detalhado_todos_rs"  %>
+		<% else %>
+   			<%= render :partial => "/clientes/forms/detalhado_rs"  %>
+		<% end %>
+
+	<% end %>
+
+<% end %>

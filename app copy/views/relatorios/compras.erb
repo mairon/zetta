@@ -1,0 +1,114 @@
+
+<body onload="DataInicio(),DataFinal(),CampoInicio()">
+   <h1 align="right" id="header">.</h1>
+   Relatorio Compras
+   <div class="group">
+      <h2>
+         <%= form_tag resultado_compras_relatorios_path, :method => "get" do%>
+            <table>
+               <tr>
+                  <td align="right"> Fecha:</td>
+                  <td>
+                     <input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                     Hasta
+                     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>
+                  </td>
+               </tr>
+
+               <tr>
+                  <td align="right">Proveedor :</td>
+                  <td>
+                     <%=   select("busca", "proveedor", Persona.all(:select => 'id,nome',:conditions => ['tipo_fornecedor = 1'],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
+                  </td>
+               </tr>
+
+               <tr>
+                  <td align="right">Producto :</td>
+                  <td>
+                     <%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
+                  </td>
+               </tr>
+
+
+              <tr>
+                <td align="right">Tipo Compra :</td>
+                <td>
+                  <fieldset>
+                    <%= radio_button_tag :tipo_compra, 0,  :Checked => "True"%>Compra Interna
+                    <%= radio_button_tag :tipo_compra, 2  %> Compra de Importacion
+                    <%= radio_button_tag :tipo_compra, 3  %> Compra de Bienes
+                  </fieldset>
+                </td>
+              </tr>
+
+              <tr>
+                <td align="right">Clase :</td>
+                <td>
+                  <fieldset>
+                    <%= radio_button_tag :clase_produto, 0,  :Checked => "True"%>Repuestos
+                    <%= radio_button_tag :clase_produto, 1  %> Maquinario
+                    <%= radio_button_tag :clase_produto, 2  %> Repuestos/Maquinario
+                    <%= radio_button_tag :clase_produto, '' %> Todos                    
+                  </fieldset>
+                </td>
+              </tr>
+
+
+                <tr>
+                  <td align="right">Moneda :</td>
+                  <td>
+                    <fieldset>
+                      <input id         = "moeda"
+                             name       = "moeda"
+                             type       = "radio"
+                             value      = "0"
+                             checked
+                             onkeypress = "return bloqEnter(event)"
+                             onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Dolar
+
+                      <input id    ="moeda"
+                             name  ="moeda"
+                             type  ="radio"
+                             value ="1"
+                             onkeypress = "return bloqEnter(event)"
+                             onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Guaranies
+
+                      <input id    ="moeda"
+                             name  ="moeda"
+                             type  ="radio"
+                             value ="2"
+                             onkeypress = "return bloqEnter(event)"
+                             onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Reais
+
+                    </fieldset>
+                  </td>
+                </tr>
+
+
+               <tr>
+                  <td></td>
+                  <td>
+                     <input  id      ="button"
+                             type    ="submit"
+                             value   ="            Informe           "
+                             onclick = "Tipo('0')"/>
+
+                     <input type     = "submit"
+                            value    = "            Excel            "
+                            onclick  = "Tipo('1')"/>
+                  </td>
+               </tr>
+
+               <input type  = "hidden"
+                      name  = "tipo"
+                      id    = "tipo"
+                      size  = "5"
+                      value = "0"/>
+
+            </table>
+         <% end %>
+      </h2>
+   </div>
+</body>
+
+

@@ -1,0 +1,37 @@
+<table>
+	<% entrada = 0 %>
+	<% saida   = 0 %>
+	<% @esfd.each do |e| %>
+		<% if e.status == 0 %>
+			<% st = 'Entrada' %>
+			<% entrada += 1 %>
+		<% else %>
+			<% st = 'Salida' %>
+			<% saida   += 1 %>	
+		<% end %>
+	<tr>
+		<td width="80" align="center" ><%= e.data.strftime("%d/%m/%Y") if e.status == 0 %></td>
+		<td width="80" align="center" ><%= e.data.strftime("%d/%m/%Y") if e.status == 1 %></td>
+		<td width="80" align="center"><%= e.ob_ref %></td>
+		<td width="350" align="left"><%= truncate(e.responsavel_nome, :legth => 25 ) %></td>
+		<td width="350" align="left"><%= truncate(e.persona_nome, :legth => 25 ) %></td>
+		<td width="100" align="center"><%= st %></td>
+		<td width="250" align="left"><%= truncate(e.descricao, :legth => 25 ) %></td>
+	</tr>
+	
+	<% end %>
+
+	<tr>
+		<td colspan="10">---------------------------------------------------------------------------------------------------------------------------------------------------</td>
+	</tr>
+
+	
+	<tr>
+		<td colspan="2">Total Entrada :</td>
+		<td align="right"><%= entrada %></td>
+	</tr>
+	<tr>
+		<td colspan="2">Total Salida :</td>
+		<td align="right"><%= saida %></td>
+	</tr>
+</table>

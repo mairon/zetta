@@ -1,0 +1,245 @@
+<body onload="window.print()">
+
+
+  <table align="left"  valign="top">
+
+
+    <tr>
+      <td>
+          <FONT FACE="times new roman" size="4">
+             San Lorenzo S.A. Muebles y Eletrodomesticos
+            </FONT>
+        </td>
+
+       <td  align="right">
+          <FONT FACE="times new roman" size="5">
+            COMPROBANTE DE VENTA   N. <%=@venda.id%>
+          </FONT>
+       </td>
+
+
+    </tr>
+
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+
+
+    <tr>
+      <td>
+        <table>
+
+          <tr>
+            <td>
+             <FONT FACE="times new roman" size="3">
+              Vendedor :
+             </FONT>
+            </td>
+
+            <td align="left">
+               <FONT FACE="times new roman" size="3">
+               <%= @venda.vendedor_nome %>
+               </FONT>
+            </td>
+          </tr>
+
+
+          <tr>
+            <td>
+             <FONT FACE="times new roman" size="3">
+              Cliente :
+             </FONT>
+            </td>
+
+            <td align="left"  colspan="4">
+               <FONT FACE="times new roman" size="3">
+               <%= @venda.persona_nome %>
+               </FONT>
+            </td>
+
+            <td align="right">
+             <FONT FACE="times new roman" size="3">
+              Cod :
+             </FONT>
+            </td>
+
+            <td align="left">
+               <FONT FACE="times new roman" size="3">
+               <%= @venda.persona_cod %>
+               </FONT>
+            </td>
+
+
+
+            <td align="right">
+             <FONT FACE="times new roman" size="3">
+              Ruc/C.I. :
+             </FONT>
+            </td>
+
+            <td align="left">
+               <FONT FACE="times new roman" size="3">
+               <%= @venda.ruc %>
+               </FONT>
+            </td>
+
+
+          </tr>
+
+          <tr>
+            <td>
+             <FONT FACE="times new roman" size="3">
+              Direcion :
+             </FONT>
+            </td>
+
+            <td align="left">
+               <FONT FACE="times new roman" size="3">
+               <%= @venda.cidade_nome %>
+               </FONT>
+            </td>
+
+
+            <td>
+             <FONT FACE="times new roman" size="3">
+              Tel :
+             </FONT>
+            </td>
+
+            <td align="left">
+               <FONT FACE="times new roman" size="3">
+               <%  tel = Persona.find_by_id(@venda.persona_id) %>
+               <% tel.telefone %>
+               </FONT>
+            </td>
+
+          </tr>
+
+
+        </table>
+        </td>
+
+
+    </tr>
+
+    <%if @venda.moeda == 0
+      moeda = "DOLAR"
+    else
+      moeda = "GUARANI"
+    end
+    %>
+
+
+    <tr>
+      <td align="left">
+          <FONT FACE="times new roman" size="3">
+            MONEDA: <%=moeda%>
+          </FONT>
+       </td>
+       <td align="right">
+          <FONT FACE="times new roman" size="3">
+            EMISION: <%=@venda.data.strftime("%d/%m/%Y")%> <%=Time.now.strftime("%H:%M:%S")%>
+          </FONT>
+       </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2" align="center">
+        <FONT FACE="times new roman" size="3">
+          ITEMS DEL COMPROBANTE
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+
+    <tr height="365">
+      <td colspan="2" align="center" valign="top">
+        <FONT FACE="times new roman" size="3">
+
+          <table align="center" >
+
+      <tr>
+        <td width="50" align="center"><FONT FACE="times new roman" size="3">Codigo</font></td>
+        <td width="300" align="center"><FONT FACE="times new roman" size="3">Producto</font></td>
+        <td width="50" align="center"><FONT FACE="times new roman" size="3">Cantidad</font></td>
+        <td width="50" align="center"><FONT FACE="times new roman" size="3">Unit.</font></td>
+        <td width="50" align="center"><FONT FACE="times new roman" size="3">Total</font></td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+          </FONT>
+        </td>
+      </tr>
+      <% @venda_produto.each do |produto| %>
+
+        <tr>
+          <td align="center"><FONT FACE="times new roman" size="3"> <%= produto.produto_cod %> </font></td>
+          <td align="left"><FONT FACE="times new roman" size="3"> <%= produto.produto_nome %></font> </td>
+          <td align="center"><FONT FACE="times new roman" size="3"> <%= produto.quantidade %></font> </td>
+          <td align="right"><FONT FACE="times new roman" size="3"> <%= number_to_currency(produto.unitario_guarani, :format=>' %n ', :precision => 0) %> </font></td>
+          <td align="right"><FONT FACE="times new roman" size="3"> <%= number_to_currency(produto.total_guarani, :format=>' %n ', :precision =>0) %></font> </td>
+        </tr>
+
+      <%end%>
+    </table>
+
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td colspan="2" align="right">
+        <FONT FACE="times new roman" size="3">
+          <b>
+            Total =>  <%= number_to_currency(@produto_sum_gs, :format=>' %n ', :precision => 0) %>
+          </b>
+        </FONT>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <FONT FACE="times new roman" size="3">
+          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        </FONT>
+      </td>
+    </tr>
+
+
+  </table>
+
+</body>
+

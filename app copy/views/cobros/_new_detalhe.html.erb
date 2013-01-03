@@ -1,0 +1,185 @@
+<%= form_for(cobros_detalhe) do |f| %>
+  <% if cobros_detalhe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cobros_detalhe.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+        <% cobros_detalhe.errors.full_messages.each do |msg| %>
+        <li>
+        <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :cobro_id  %>
+  <%= f.hidden_field :persona_id,   :value => @cobro.persona_id %>
+  <%= f.hidden_field :persona_nome, :value => @cobro.persona_nome  %>
+  <%= f.hidden_field :data,         :value => @cobro.data  %>
+  <%= f.hidden_field :venda_id %>
+  <%= f.hidden_field :clase_produto %>
+  <%= f.hidden_field :vendedor_id %>
+  <%= f.hidden_field :vendedor_nome %>
+  <%= f.hidden_field :pagare %>
+  <%= f.hidden_field :data_lanz %>
+  <%= f.hidden_field :moeda, :value =>  @cobro.moeda.to_i%>
+  <%= hidden_field_tag :cotacao,@cobro.cotacao.to_i %>
+<div class="group_cd">
+  <table>
+    <tr >
+      <td align="right">Documento :</td>
+      <td><%= f.text_field :documento_nome, 
+                           :size     => 20 ,
+                           :readonly => "readonly"%></td>
+      <td align="right">N. Doc.:</td>
+      <td><%= f.text_field :documento_numero_01, 
+                           :size     => 2 ,
+                           :readonly => "readonly"%>
+          <%= f.text_field :documento_numero_02,
+                           :size     => 2 ,
+                           :readonly => "readonly"%>
+          <%= f.text_field :documento_numero,
+                           :size     => 20 ,
+                           :readonly => "readonly"%></td>
+      <td align="right">Cuota :</td>
+      <td><%= f.text_field :cota,
+                           :size     => 10 ,
+                           :readonly => "readonly"%></td>
+      <td align="right">Vencimento :</td>
+      <td><%= f.date_select :vencimento ,
+                            :readonly => "readonly"%></td>
+    </tr>
+
+    <tr >
+
+      <!-- VALORES DOLAR!-->
+      <% if @cobro.moeda == 0 %>
+
+            <%= field_us 'Valor U$ :',f,:valor_dolar,:readonly => "readonly" %>
+            <%= f.hidden_field :valor_guarani %>
+            <%= f.hidden_field :valor_real %>
+
+            <%= field_us 'Anterior U$ :',f,:anterior_dolar,:readonly => "readonly" %>
+            <%= f.hidden_field :anterior_guarani %>
+            <%= f.hidden_field :anterior_real %>
+
+            <%= field_us 'Saldo U$ :',f,:saldo_dolar,:readonly => "readonly" %>
+            <%= f.hidden_field :saldo_guarani %>
+            <%= f.hidden_field :saldo_real %>
+
+      <!-- VALORES GUARANI !-->
+      <% elsif @cobro.moeda == 1 %>
+      
+            <%= field_gs 'Valor Gs.:',f,:valor_guarani,:readonly => "readonly" %>
+            <%= f.hidden_field :valor_dolar %>
+            <%= f.hidden_field :valor_real %>
+
+            <%= field_gs 'Anterior Gs.:',f,:anterior_guarani,:readonly => "readonly" %>
+            <%= f.hidden_field :anterior_dolar %>
+            <%= f.hidden_field :anterior_real %>
+
+            <%= field_gs 'Saldo Gs.:',f,:saldo_guarani,:readonly => "readonly" %>
+            <%= f.hidden_field :saldo_dolar %>
+            <%= f.hidden_field :saldo_real %>
+
+      <% else %>
+
+            <%= field_us 'Valor R$ :',f,:valor_real, :readonly => "readonly" %>
+            <%= f.hidden_field :valor_dolar %>
+            <%= f.hidden_field :valor_real %>
+
+            <%= field_us 'Anterior R$ :',f,:anterior_real, :readonly => "readonly" %>
+            <%= f.hidden_field :anterior_dolar %>
+            <%= f.hidden_field :anterior_real %>
+
+            <%= field_us 'Saldo R$ :',f,:saldo_real, :readonly => "readonly" %>
+            <%= f.hidden_field :saldo_dolar %>
+            <%= f.hidden_field :saldo_real %>
+
+      <% end %>
+    </tr>
+
+    <tr >
+      <td></td>
+      <td colspan="6">
+        <fieldset>
+          <table>
+            <tr>
+             <% if @cobro.moeda == 0 %>
+
+                    <%= field_us 'Descuento :',f,:desconto_dolar, :value => 0 %>
+
+                    <%= field_us 'Interes :',f,:interes_dolar %>
+                    <%= f.hidden_field :interes_guarani %>
+                    <%= f.hidden_field :interes_real %>
+
+                    <%= field_us 'U$ :',f,:cobro_dolar %>
+
+             <% elsif @cobro.moeda == 1 %>
+                    <%= field_gs 'Descuento :',f, :desconto_guarani, :value => 0 %>
+
+                    <%= field_gs 'Interes :',f,:interes_guarani %>
+
+                    <%= field_gs 'Gs.:',f,:cobro_guarani %>
+                    <%= f.hidden_field :interes_dolar %>
+                    <%= f.hidden_field :interes_real %>
+
+             <% else %>
+
+                    <%= field_us 'Descuento :',f,:desconto_real, :value => 0 %>
+
+                    <%= field_us 'Interes :',f,:interes_real %>
+                    <%= f.hidden_field :interes_guarani %>
+                    <%= f.hidden_field :interes_dolar %>                    
+
+                    <%= field_us 'U$ :',f,:cobro_real %>
+
+             <% end %>
+            </tr>
+            <tr>
+             <td><%= f.check_box :interes %>Interes</td>
+              <td align="right">Estado:</td>
+              <td colspan="2"><%= f.radio_button :estado,0, :Checked => "True", :onblur => "VerificaValor()"%> Parte</td>
+              <td><%= f.radio_button :estado,1, :onblur => "VerificaValor()"  %> Cancelacion</td>
+              
+            </tr>
+          </table>
+          
+        </fieldset>
+      </td>
+      <td valign="bottom">
+        <%= f.submit "  Grabar   ", :class => 'button' %>
+      </td>
+    </tr>
+
+  </table></div>
+  
+  <script>
+    //ABRI POPUP-----------------------------------------------------------------
+    document.onkeydown=function(e)
+    {
+      var id      = document.getElementById("cobros_detalhe_cobro_id") .value;
+      if(e.which == 113)
+        window.open('/cobros/busca_cliente/'+id, 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1400, HEIGHT=400');
+    }
+    //FIM ABRI POPUP----------------------------------------------------------------
+
+
+function VerificaValor(){
+  if ( document.getElementById('moeda').value == '0' ){
+        if ( (document.getElementById('cobros_detalhe_cobro_dolar').value == document.getElementById('cobros_detalhe_saldo_dolar').value) && ( document.getElementById('cobros_detalhe_estado_0').checked)) {
+            alert('Verifique se no es Cancelacion lo Lanzamiento!')
+        }
+  }
+  else if ( document.getElementById('moeda').value == 1 ){
+    alert('dolar') 
+  }
+  else {
+    alert('dolar') 
+  }
+}
+
+
+  </script>
+<% end %>

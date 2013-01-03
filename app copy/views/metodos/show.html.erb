@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Cod:</b>
+  <%= @metodo.cod %>
+</p>
+
+<p>
+  <b>Nome:</b>
+  <%= @metodo.nome %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @metodo.status %>
+</p>
+
+<p>
+  <b>Equipo:</b>
+  <%= @metodo.equipo_id %>
+</p>
+
+<p>
+  <b>Equipo nome:</b>
+  <%= @metodo.equipo_nome %>
+</p>
+
+
+<%= link_to 'Edit', edit_metodo_path(@metodo) %> |
+<%= link_to 'Back', metodos_path %>

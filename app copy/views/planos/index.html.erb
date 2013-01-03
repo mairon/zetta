@@ -1,0 +1,26 @@
+<h1 align="right" id="header">Plan de Pagos</h1>
+<%= link_to 'Nuevo', new_plano_path, :id => 'novo' %>
+<div class="group">
+  <table>
+    <tr>
+    	<td width="50" align="center" >Cod.</td>
+    	<td width="200" align="center" >Condicion</td>
+    	<td width="100" align="center" >Pediodo</td>
+    	<td width="50" align="center" >Tasa</td>
+    </tr>
+  </table>
+  <div class="rolagem" dir="div">
+  
+    <table>
+      <% @planos.each do |plano| %>
+        <tr class = "<%= cycle("cor1", "cor2") %>">
+          <td width="50"  align="center"><%=h plano.id %></td>
+          <td width="200" align="left"><%=h plano.condicao %></td>
+          <td width="100" align="center"><%=h plano.mes %>/<%=h plano.ano %></td>
+          <td width="50" align="right"><%=h plano.taxa %>  %</td>
+          <td><%= link_to 'Editar', edit_plano_path(plano) %></td>
+          <td><%= link_to 'Borrar', plano, :confirm => 'Tiene Certeza ?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>

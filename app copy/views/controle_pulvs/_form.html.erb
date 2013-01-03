@@ -1,0 +1,67 @@
+<body onload="ImputFocus('controle_pulv_data_3i')">
+   <%= form_for(@controle_pulv) do |f| %>
+  <% if @controle_pulv.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@controle_pulv.errors.count, "error") %> prohibited this controle_pulv from being saved:</h2>
+
+      <ul>
+      <% @controle_pulv.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+   <ul class="tabs">
+      <li><a href="#tab1">Controle de Pulv. - [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+        <table>
+              <tr>
+                <td width="1000">
+                  <fieldset >
+                    <table>
+                      <tr>
+                        <td align="right">Fecha :</td>
+                        <td><%= f.date_select :data %></td>                        
+                      </tr>
+
+                      <tr>
+                         <td align="right">Cliente :</td>
+                         <td colspan="4"><%= f.collection_select :persona_id, Persona.all( :select => ' id,nome',
+                               :order  => '2' ), :id,
+                              :nome %></td>
+                      
+
+                      </tr>
+
+                      <tr>
+                        <td align="right">Area :</td>
+                        <td><%= f.text_field :area, :size => 15 %></td>                        
+                      </tr>
+
+                      <tr>
+
+                         <td align="right">Ciudad :</td>
+                         <td><%= f.collection_select :cidade_id, Cidade.all(:select => 'id,nome',
+                                                     :order => '2'),:id,
+                                                     :nome, {:onkeypress => "return bloqEnter(event)"} %></td>
+
+                      </tr>
+                    </table>
+                  </fieldset>                    
+                </td>
+              </tr>
+        </table>
+      </div>
+      <div class="buttons">
+        <%= f.submit :value => "Seguir", :class => "button" %>
+        <%= link_to 'Back', controle_pulvs_path, :class => "button back" %>
+      </div>
+      <% end %>
+
+    </div>

@@ -1,0 +1,25 @@
+<h1 align="right" id="header">Ubicación</h1>
+<div class="acessos">
+   <%= link_to 'Nuevo', new_localizacao_path, :class => "button add" %>
+</div>
+
+<table class="head_grid">
+          <tr>
+            <td width="100" align="center">Sigla</td>
+            <td width="450" align="center">Ocupación</td>
+          </tr>
+</table>
+
+<div class="rolagem" dir="div">
+<table>
+<% @localizacaos.each do |localizacao| %>
+  <tr class = "<%= cycle("cor1", "cor2") %>">
+    <td width="100" align="center"><%= localizacao.sigla %></td>
+    <td width="450" align="left"><%= localizacao.ocupacao %></td>
+    
+    <td><%= link_to 'Editar', edit_localizacao_path(localizacao) %></td>
+    <td><%= link_to 'Borrar', localizacao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+</div>

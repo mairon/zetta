@@ -1,5 +1,11 @@
 Zetta::Application.routes.draw do
 
+  resources :variavels
+
+  resources :elementos
+
+  resources :localizacaos
+
   resources :produto_barras
 
   resources :unidade_metricas
@@ -226,7 +232,7 @@ resources :pagares_detalhe
       get  'detalhes_produto'                      
       get  'busca_vendas'
       get  'vendas_financa_contado'               
-      get  'vendas_financa' 
+       
       get  'gerar_cotas_credito'
       get  'busca_vendas'
       post 'filtro_faturas_pendentes'
@@ -239,6 +245,7 @@ resources :pagares_detalhe
     member do
       get  'vendas_financa'
       get  'gerador_cotas'
+      get  'fatura'
     end 
   end
   resources :vendas_financas

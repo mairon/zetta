@@ -1,3 +1,4 @@
 class UnidadeMetrica < ActiveRecord::Base
-  attr_accessible :nome, :sigla
+
+  has_many :variavels
 end

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @variavel.nome %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @variavel.sigla %>
+</p>
+
+<p>
+  <b>Valor:</b>
+  <%= @variavel.valor %>
+</p>
+
+<p>
+  <b>Unidade metrica:</b>
+  <%= @variavel.unidade_metrica_id %>
+</p>
+
+<p>
+  <b>Unidade metrica nome:</b>
+  <%= @variavel.unidade_metrica_nome %>
+</p>
+
+
+<%= link_to 'Edit', edit_variavel_path(@variavel) %> |
+<%= link_to 'Back', variavels_path %>

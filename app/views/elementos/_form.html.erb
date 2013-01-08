@@ -1,0 +1,55 @@
+<%= form_for(@elemento) do |f| %>
+  <% if @elemento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@elemento.errors.count, "error") %> prohibited this elemento from being saved:</h2>
+
+      <ul>
+      <% @elemento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+   <ul class="tabs">
+      <li><a href="#tab1">Elementos - [Edicion]</a></li>
+   </ul>
+
+    <div class="tab_container">
+      <div id="tab1" class="tab_content">
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+                <table>
+                  <tr>
+                    <td align="right">Nombre :</td>
+                    <td><%= f.text_field :nome, :size => 80 %></td>                        
+
+                    <td align="right">Sigla :</td>
+                    <td><%= f.text_field :sigla, :size => 30 %></td>  
+                  </tr>
+
+                  <tr>
+                    <td align="right">Fórmula :</td>
+                    <td><%= f.text_field :formula, :size => 50 %></td>  
+                  </tr>
+
+                  <tr>
+                    <td align="right">Factor :</td>
+                    <td><%= f.text_field :fator, :size => 30 %></td>  
+                  </tr>
+
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <%= f.submit :value => " Grabar ", :class => "button" %>
+      <%= link_to 'Volver', elementos_path, :class => "button back" %>
+    </div>
+<% end %>

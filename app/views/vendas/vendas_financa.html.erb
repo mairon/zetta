@@ -1,14 +1,30 @@
 <div class="group">
 	<table class="backgrounds">
 	<tr>
-		<td>Cotizacion:</td>
-		<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
 		<td align="right">Total Prod.: </td>
 		<td align="right"><%= format( "%.3f", @produto_count.to_f )%> </td>
+
+		<td align="right">Cotizacion U$:</td>
+		<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
+
+		<td align="right">Cotizacion R$:</td>
+		<td align="right"><%= h number_to_currency(@venda.cotacao_real, :format=>' %n ', :precision => 0)  %></td>
+
 	</tr>
 
-	<tr>
+	<tr>	
 		<td>
+			<font size="7" color="red">
+				Total Gs.:
+			</font>
+		</td>
+		<td align="right">
+			<font size="7" color="red">
+				<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
+			</font>
+		</td>
+
+		<td width="300" align="right">
 		<font size="7" color="green">
 			Total U$ :
 		</font>
@@ -19,16 +35,6 @@
 		</font>
 		</td>
 
-		<td width="300" align="right">
-			<font size="7" color="red">
-				Total Gs.:
-			</font>
-		</td>
-		<td align="right">
-			<font size="7" color="red">
-				<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
-			</font>
-		</td>
 
 		<td width="300" align="right">
 			<font size="7" color="blue">
@@ -57,16 +63,15 @@
 <div class="backgrounds">
 	<div class="buttons">
 	  <%= form_for(@venda) do |vd| %>                
-			<a href="/vendas/<%= @venda.id.to_i %>" class="button back">Volver </a>
+			<a href="/vendas/<%= @venda.id.to_i %>" class="button back">Volver (F3) </a>
 			<a href="/vendas/<%= @venda.id.to_i %>/gerador_cotas" class="button">Gerar Cuotas </a>
 	    <a href="javascript:void(0)" class="button print" onClick="ComprovanteVenda()">Comprobante</a>
 	    <a href="javascript:void(0)" class="button print" onClick="ComprovantePagare()">Pagare</a>
 			<% if @count_all.to_i >  0 %>
-		 	  <a href="#" onclick="Seguir()" class="button next"> Seguir</a>
 		    <%= vd.hidden_field :status %> 
 			  <a href="javascript:void(0)"class="button print" onClick="FaturaVenda()">Factura</a>
 		    <%= vd.submit "  Finalizar  ",:disable_with => "Aguarde..." , :class => "button",:onclick => "Finalizar()", :confirm => 'Encerrar La Venta' %>
-			  <a href="/vendas/new" class="button add"> Nuevo </a>	   
+			  <a href="/vendas/new_balcao" class="button add"> Nuevo (F4)</a>	   
 			  <a href="/vendas" class="button delete"> Salir </a>
 			<% end %>
 	  <% end %>
@@ -126,5 +131,18 @@
 	function fecha(){
 		self.close();
 	}
-</script>
 
+    document.onkeydown=function(e){
+
+	//BOTAO F4
+		if(e.which == 115)
+			location.href="/vendas/new_balcao"
+		//back 
+		if(e.which == 114)
+			location.href="/vendas/" + document.getElementById('id').value 
+
+		//LISTA DE clientes
+		if(e.which == 113)
+            window.open('/personas/persona_venda', 'Pagina', ' SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1000, HEIGHT=450');
+     }
+</script>

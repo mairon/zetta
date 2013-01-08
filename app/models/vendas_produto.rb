@@ -2,17 +2,11 @@ class VendasProduto < ActiveRecord::Base
   belongs_to :venda
   belongs_to :produto
   validates_presence_of :produto_nome,:quantidade
+  validate :valid_stock
   before_save :calcs  
   attr_accessor :current_user
   
-  def persona_busca       #
-    persona.nome if persona_nome
-  end
-
-  def persona_busca=(nome)#
-    self.persona_nome = Persona.find_or_create_by_nome(nome) unless nome.blank?
-  end
-
+  
 #BUSCA PRODUTO NOTA DE CREDITO
 
   def self.nota_credito_produto(params)
@@ -24,24 +18,24 @@ class VendasProduto < ActiveRecord::Base
 
   end
 
-  def validate                         #
+  def valid_stock
     if produto.tipo_produto == 0
     
       #VERIFICA SALDO EM STOCK DISPONIVEL
        saldo = Stock.sum('entrada - saida',:conditions => ["produto_id = ? AND data <= ?",self.produto_id, venda.data])
       if ( saldo.to_f  <= 0 )
-         errors.add_to_base( "No tiene saldo Disponible" )
+        errors[:base] << ( "No tiene saldo Disponible" )
       end
 
       #VERIFICA SE SALDO E MAIOR QUE A QUANTIDADE DA VENDA
       if ( self.quantidade > saldo.to_f   )
-        errors.add_to_base( "La quantidade es Mayor que su Saldo" )
+        errors[:base] << ("La quantidade es Mayor que su Saldo" )
       end
 
       #VERIFICA MAXIMO DE DESCONTO
       if self.current_user.to_i != 0
         if ( self.total_desconto.to_i > self.desconto.to_i   )
-          errors.add_to_base( "Descuento no Autorizando!" )
+          errors[:base] << ("Descuento no Autorizando!" )
         end  
       end
 
@@ -49,17 +43,17 @@ class VendasProduto < ActiveRecord::Base
 
     if self.moeda == 0
       if ( self.unitario_dolar <= 0   )
-        errors.add_to_base( "Agrege lo Unitario" )
+        errors[:base] << ("Agrege lo Unitario" )
       end
       if ( self.total_dolar <= 0   )
-        errors.add_tocotacao_real_base( "Agrege lo Total" )
+        errors[:base] << ("Agrege lo Total" )
       end
     else
       if ( self.unitario_guarani <= 0   )
-        errors.add_to_base( "Agrege lo Unitario" )
+        errors[:base] << ("Agrege lo Unitario" )
       end
       if ( self.total_guarani <= 0   )
-        errors.add_to_base( "Agrege lo Total" )
+        errors[:base] << ("Agrege lo Total" )
       end
     end
   end

@@ -1,9 +1,9 @@
 class Venda < ActiveRecord::Base
   has_many :clientes,          :order => 1
-  has_many :vendas_produtos,   :order => 1
-  has_many :vendas_financas,   :order => 1
-  has_many :vendas_colaboradors,   :order => 1  
-  has_many :vendas_entrada_produtos,   :order => 1
+  has_many :vendas_produtos,   :order => 1, :dependent => :destroy
+  has_many :vendas_financas,   :order => 1, :dependent => :destroy
+  has_many :vendas_colaboradors,   :order => 1, :dependent => :destroy  
+  has_many :vendas_entrada_produtos,   :order => 1, :dependent => :destroy
   belongs_to :persona
 
   validates_presence_of :cotacao,

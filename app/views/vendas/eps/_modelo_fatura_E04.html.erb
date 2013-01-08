@@ -1,14 +1,15 @@
+
 <body onload="print()">
 	<% if @venda.tipo == 0
-    contado = "XX"
+    condicao = "CONTADO"
   else
-    credito = "XX"
+    condicao = "CREDITO"
   end
 %>
 			<table align="left"  valign="top"  border="0" >
 
 				<tr>
-					<td colspan="4" height="128" align="right" valign="bottom">
+					<td colspan="5" height="142" width="1100" align="right" valign="bottom">
 					<FONT FACE="times new roman" size="1">
 						<%= @venda.documento_numero_01%>-<%= @venda.documento_numero_02%>-<%= @venda.documento_numero%> 
 					</FONT>
@@ -16,67 +17,49 @@
 
 				</tr>
 				
-				<tr>
-					<td width="70" align="right">						
-					<FONT FACE="times new roman" size="1.5">
-						<%= @venda.data.strftime("%d") %>
+				<tr height="22">
+					<td width="20"></td>
+					<td colspan="2" width="70" align="left">						
+					<FONT FACE="times new roman" size="1">
+						<%= @venda.data.strftime("%d/%m/%Y") %>
 					</FONT>
 					</td>
 
-					<td width="900" align="center" colspan="2" valign="top">
-					<FONT FACE="times new roman" size="1.5">
-						 <%= @venda.data.strftime("%B") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= @venda.data.strftime("%Y") %>
+					<td width="70" align="left">						
+					<FONT FACE="times new roman" size="1">
+						<%= condicao %>
 					</FONT>
 					</td>
 				</tr>
 
-				<tr>
-					<td align="left" colspan="2">
-					<FONT FACE="times new roman" size="1.5">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= @venda.vendas_financas.last ? @venda.vendas_financas.last.fatura_legal : "." %>
+				<tr height="22">
+					<td></td>
+					
+					<td  colspan="2" align="left">
+					<FONT FACE="times new roman" size="2">
+						<%= @venda.vendas_financas.last ? @venda.vendas_financas.last.fatura_legal : "." %>
 					</FONT>
 					</td>
-					<td align="center">
+
+					<td align="left">
 					<FONT FACE="times new roman" size="2">
-                     <%= @venda.vendas_financas.last ? @venda.vendas_financas.last.fatura_legal_ruc : "." %>
+						teste ruc<%= @venda.vendas_financas.last ? @venda.vendas_financas.last.fatura_legal_ruc : "." %>
 					</FONT>
 					</td>
 				</tr>
 				
 				<tr>
-					<td  align="left">
-					<FONT FACE="times new roman" size="2">
-					</FONT>
-					</td>
+					<td></td>
 					
-					<td width="80" align="left">
+					<td width="200" width="80" align="left">
 					<FONT FACE="times new roman" size="2">
-						<%= @venda.direcao %>
-					</FONT>
-					</td>
-					<td width="80" align="left">
-					<FONT FACE="times new roman" size="2">
-						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <%= @venda.telefone %>
-					</FONT>
-					</td>
-				</tr>
-				<tr>
-					<td >
-					</td>
-					<td align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= @venda.vendedor_nome %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</FONT>
-					</td>
-					<td width="25" align="right" height="10" valign="top">
-					<FONT FACE="times new roman"  size="1.5">
-					  <%= contado %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						teste direcao<%= @venda.direcao %>
 					</FONT>
 					</td>
 
-					<td width="80" align="right" valign="top">
-					<FONT FACE="times new roman"  size="1.5">
-						<%= credito %>
+					<td width="20" align="left">
+					<FONT FACE="times new roman" size="2">
+						teste<%= @venda.telefone %>
 					</FONT>
 					</td>
 				</tr>
@@ -85,10 +68,10 @@
 				<tr height="30">
 				</tr>
 
-				<tr height="350" valign="top" >
+				<tr height="290" valign="top" >
 					<td colspan="5">
 						
-					<table border="0" width="1100">
+					<table border="0">
 						<tr>
 							<% count        = 1 %>
 							<% tottaxa0_gs  = 0 %>
@@ -100,38 +83,27 @@
 
 							<% @venda_produto.each do |produto| %>
 
-							<tr>
+							<tr>								
 								<td width="40"  align="left">
-								<FONT FACE="times new roman" size="1.5">
-									<%= count %>
-								</font>
-								</td>
-								<td width="150"  align="center">
 								<FONT FACE="times new roman" size="1.5">
 									<%= produto.quantidade.to_f %>
 								</font>
 								</td>
 								
-								<td width="120"  align="center">
-								<FONT FACE="times new roman" size="1.5">
-									<%= produto.id %>
-								</font>
-								</td>
-								
-								<td width="400" align="left">
+								<td width="520" align="left">
 								<FONT FACE="times new roman" size="1.5">
 									<%= produto.produto_nome %>
 								</font>
 								</td>
 
 								<% if @venda.moeda == 0 %>
-								<td width="100"  align="right">
+								<td width="140"  align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.unitario_dolar, :format=>' %n ', :separeitor => ',') %>
 								</font>
 								</td>
 								<% else %>
-								<td width="100"  align="right">
+								<td width="140"  align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.unitario_guarani, :format=>' %n ', :precision => 0) %>
 								</font>
@@ -139,24 +111,24 @@
 								<% end %>
 								<% if produto.taxa.to_i == 0 %>
 								<% if @venda.moeda == 0 %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
-									<%= number_to_currency(produto.total_dolar, :format=>' %n ', :separeitor => ',') %>
+									<%= number_to_currency(produto.quantidade.to_f * produto.unitario_dolar, :format=>' %n ', :separeitor => ',') %>
 								</font>
 								</td>
 								<% else %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
-									<%= number_to_currency(produto.total_guarani, :format=>' %n ', :precision => 0) %>
+									<%= number_to_currency( produto.quantidade.to_f * produto.unitario_guarani, :format=>' %n ', :precision => 0) %>
 								</font>
 								</td>
 								<% end %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									0
 								</font>
 								</td>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									0
 								</font>
@@ -166,25 +138,25 @@
 								<% tottaxa0_us  = tottaxa0_us + produto.total_dolar %>
 
 								<% elsif produto.taxa.to_i == 5 %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									0
 								</font>
 								</td>
 								<% if @venda.moeda == 0 %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.total_dolar, :format=>' %n ', :separeitor => ',') %>
 								</font>
 								</td>
 								<% else %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.total_guarani, :format=>' %n ', :precision => 0) %>
 								</font>
 								</td>
 								<% end %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									0
 								</font>
@@ -194,18 +166,25 @@
 								<% tottaxa05_us  = tottaxa05_us + produto.total_dolar %>
 
 								<% elsif produto.taxa.to_i == 10 %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									0
 								</font>
+								</td>
+								<td width="140" align="right">
+								<FONT FACE="times new roman" size="1.5">
+									0
+								</font>
+								</td>
+
 								<% if @venda.moeda == 0 %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.total_dolar, :format=>' %n ', :separeitor => ',') %>
 								</font>
 								</td>
 								<% else %>
-								<td width="100" align="right">
+								<td width="140" align="right">
 								<FONT FACE="times new roman" size="1.5">
 									<%= number_to_currency(produto.total_guarani, :format=>' %n ', :precision => 0) %>
 								</font>
@@ -219,61 +198,74 @@
 							<% count += 1 %>
 							<%end%>
 							</td>
-						</tr>
-					</table>
+						</tr>						
+				    </table>
+					</td>
+				</tr>
+
+<!--RESULTADOS !-->
+
+				<tr>
+					<td colspan="5">					
+						<table>
+
+						<% if @venda.moeda == 0 %>
+							<tr>
+								<td colspan="4"></td>
+                  <td width="140" align="right">
+                   	<FONT FACE="times new roman" size="1.5">
+						          <%= number_to_currency(tottaxa0_us, :format=>' %n ', :separeitor => ',') %>
+					          </font>
+					        </td>                              	
+
+                  <td width="140" align="right">
+                   	<FONT FACE="times new roman" size="1.5">
+						          <%= number_to_currency(tottaxa05_us, :format=>' %n ', :separeitor => ',') %>
+					          </font>
+					        </td>                              	
+
+                  <td width="140" align="right">
+                   	<FONT FACE="times new roman" size="1.5">
+						          <%= number_to_currency(tottaxa10_us, :format=>' %n ', :separeitor => ',') %>
+					          </font>
+					        </td>                              	                              	
+				        </tr>
+
+				      <% else %>
+
+							<tr>
+								<td width="750"></td>
+            		<td width="100" align="right">
+                 	<FONT FACE="times new roman" size="1.5">
+						        <%= number_to_currency(tottaxa0_gs, :format=>' %n ', :precision => 0) %>
+					        </font>
+					      </td>                              	
+
+                <td width="140" align="right">
+                 	<FONT FACE="times new roman" size="1.5">
+						        <%= number_to_currency(tottaxa05_gs, :format=>' %n ', :precision => 0) %>
+					        </font>
+					      </td>                              	
+
+                <td width="140" align="right">
+                 	<FONT FACE="times new roman" size="1.5">
+						        <%= number_to_currency(tottaxa10_gs, :format=>' %n ', :precision => 0) %>
+					        </font>
+					      </td>                              	                              	
+				       </tr>
+				     	<% end %>							
+						</table>
 					</td>
 				</tr>
 				
-				<!--RESULTADOS !-->
+				<tr>
+					<td></td>
+		    </tr>
 
-				<tr height="30">
-					<td colspan="3" valign="center" align="left">
-					<FONT FACE="times new roman" size="1.5">
-						Cotz. <%= number_to_currency(@venda.cotacao, :format=>' %n ', :separeitor => ',') %> 
-					</font>
-					</td>
-					<% if @venda.moeda == 0 %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_dolar, :format=>' %n ', :separeitor => ',') %>
-					</font>
-					</td>
-					<% else %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0) %>
-					</font>
-					</td>
-					<% end %>
-				</tr>
-
-
-				<tr height="40">
+				<tr height="38">
 					<td colspan="3" valign="center">
 					<FONT FACE="times new roman" size="1.5">
-					</font>
-					</td>
-					<% if @venda.moeda == 0 %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_dolar, :format=>' %n ', :separeitor => ',') %>
-					</font>
-					</td>
-					<% else %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0) %>
-					</font>
-					</td>
-					<% end %>
-				</tr>
-
-
-
-				<tr height="20">
-					<td colspan="3" valign="top">
-					<FONT FACE="times new roman" size="1.5">
-						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 						<% if @venda.moeda == 0 %>
 						<%= @produto_sum_dolar.to_f.por_extenso_em_dolares.upcase %>
 						<% else %>
@@ -281,48 +273,48 @@
 						<% end %>
 					</font>
 					</td>
+
 					<% if @venda.moeda == 0 %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_dolar, :format=>' %n ', :separeitor => ',') %>
-					</font>
-					</td>
+						<td width="100" align="right">
+							<FONT FACE="times new roman" size="1.5">
+								<%= number_to_currency(@produto_sum_dolar.to_f, :format=>' %n ', :separeitor => ',') %>
+							</font>
+						</td>
 					<% else %>
-					<td width="100" align="right">
-					<FONT FACE="times new roman" size="1.5">
-						<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0) %>
-					</font>
-					</td>
+						<td width="100" align="right">
+							<FONT FACE="times new roman" size="1.5">
+								<%= number_to_currency(@produto_sum_guarani.to_f, :format=>' %n ', :precision => 0) %>
+							</font>
+						</td>
 					<% end %>
 				</tr>
 
-				<tr>
+				<tr height="20">
 					<td colspan="0"></td>
 				</tr>
 				<tr>
 				</tr>
 				<tr>
-					<% if  @venda.moeda == 0%>
+					<% if  @venda.moeda == 0 %>
 
-					<td align="center" width="300" valign="top" colspan="2">
+					<td align="center" width="500" valign="top" colspan="2">
 					<FONT FACE="times new roman" size="1.5">
-								<%= number_to_currency(@produto_sum_iva10_us.to_f, :format=>' %n ', :separeitor => ',')%>
-
+						<%= number_to_currency(@produto_sum_iva05_us.to_f, :format=>' %n ', :separeitor => ',')%>
 					</font>
 					</td>
 
 					<td>
 					<table>
 						<tr>
-							<td width="250" align="center" valign="top">
+							<td width="200" align="center" valign="top">
 							<FONT FACE="times new roman" size="1.5">
-								<%= number_to_currency(@produto_sum_iva05_us.to_f + @produto_sum_iva10_us.to_f, :format=>' %n ', :separeitor => ',')%>
-
+								<%= number_to_currency(@produto_sum_iva10_us.to_f, :format=>' %n ', :separeitor => ',')%>
 							</font>
 							</td>
 
 							<td width="200" align="right" valign="top">
 							<FONT FACE="times new roman" size="1.5">
+								<%= number_to_currency(@produto_sum_iva05_us.to_f + @produto_sum_iva10_us.to_f, :format=>' %n ', :separeitor => ',')%>
 							</font>
 							</td>
 						</tr>
@@ -331,23 +323,24 @@
 
 					<% else %>
 
-					<td align="center" width="500" colspan="2" valign="top">
-					<FONT FACE="times new roman" size="1.5">
-					</font>
+					<td align="center" width="300" colspan="2" valign="top">
+						<FONT FACE="times new roman" size="1.5">
+							<%= number_to_currency(@produto_sum_iva05_gs.to_f, :format=>' %n ', :separeitor => ',')%>
+						</font>
 					</td>
 
 					<td>
 					<table>
 						<tr>
-							<td width="200" align="center" valign="top">
+							<td width="50" align="left" valign="top">
 							<FONT FACE="times new roman" size="1.5" >
 								<%= number_to_currency(@produto_sum_iva10_gs.to_f, :format=>' %n ', :precision => 0)%>
 							</font>
 							</td>
 
-							<td width="320" align="right" valign="top" >
+							<td width="200" align="right" valign="top">
 							<FONT FACE="times new roman" size="1.5">
-							<%= number_to_currency(@produto_sum_iva05_gs.to_f + @produto_sum_iva10_gs.to_f, :format=>' %n ', :precision => 0)%>
+								<%= number_to_currency(@produto_sum_iva05_gs.to_f + @produto_sum_iva10_gs.to_f, :format=>' %n ', :precision => 0)%>
 							</font>
 							</td>
 						</tr>

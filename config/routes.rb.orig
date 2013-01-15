@@ -1,10 +1,16 @@
 Zetta::Application.routes.draw do
 
 <<<<<<< HEAD
-  resources :produto_barras
+  resources :variavels
+
+  resources :elementos
+
+  resources :localizacaos
 
 =======
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
+>>>>>>> b403d38993e2a96d2e5659c1ed9d1ee456a4a3f1
+  resources :produto_barras
+
   resources :unidade_metricas
 
   resources :localidades
@@ -48,7 +54,7 @@ Zetta::Application.routes.draw do
     match 'cotz_us_venda'  => "buscas#cotz_us_venda", :via => :post
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
-    match 'vendas_produto'  => "buscas#vendas_produto", :via => :post    
+    match 'busca_produto'  => "buscas#busca_produto", :via => :post    
   end
 
   #login
@@ -102,7 +108,6 @@ Zetta::Application.routes.draw do
   end                   
   resources :produtos do
     collection do
-<<<<<<< HEAD
       get 'dinamic_busca_consulta_stock'             
       get 'index_print'                              
       get 'consulta_stock'                           
@@ -136,48 +141,14 @@ Zetta::Application.routes.draw do
       get 'roteiro'
       get 'composicao'
 
-=======
-    get 'roteiro'
-    get 'dinamic_busca_consulta_stock'             
-    get 'index_print'                              
-    get 'consulta_stock'                           
-    get 'busca_compra_produto'                     
-    get 'dinamic_busca_compra_produto'             
-    get 'busca_composicao_produto'                 
-    get 'dinamic_busca_composicao_produto'         
-    get 'busca_pedido_compra_produto'              
-    get 'dinamic_busca_pedido_compra_produto'      
-    get 'busca_presupuesto_produto'                
-    get 'dinamic_busca_presupuesto_produto'        
-    get 'busca_venda_produto'                      
-    get 'dinamic_busca_venda_produto'              
-    get 'busca_consumicao_interna_produto'         
-    get 'dinamic_busca_consumicao_interna_produto' 
-    get 'busca_manutencao_mq_produto'              
-    get 'dinamic_busca_manutencao_mq_produto'      
-    get 'busca_producao_produto'                   
-    get 'dinamic_busca_producao_produto'           
-    get 'busca_remicao_produto'                    
-    get 'dinamic_busca_remicao_produto'            
-    get 'busca_venda_produto_maiorista'            
-    get 'dinamic_busca_venda_produto_maiorista'    
-    get 'dinamic_busca'                            
-    get 'busca_ordem_produto'                      
-    get 'dinamic_busca_ordem_produto'              
-    get 'imagem'                                   
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
     end
   end  
   resources :financas do
     collection do
       get 'relatorio_financas'
       get 'extrato_bancario'
-<<<<<<< HEAD
       get 'resultado_extrato_bancario'    
 
-=======
-      get 'resultado_extrato_bancario'      
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
     end  
   end
   resources :forms
@@ -264,7 +235,7 @@ resources :pagares_detalhe
       get  'detalhes_produto'                      
       get  'busca_vendas'
       get  'vendas_financa_contado'               
-      get  'vendas_financa' 
+       
       get  'gerar_cotas_credito'
       get  'busca_vendas'
       post 'filtro_faturas_pendentes'
@@ -277,6 +248,7 @@ resources :pagares_detalhe
     member do
       get  'vendas_financa'
       get  'gerador_cotas'
+      get  'fatura'
     end 
   end
   resources :vendas_financas

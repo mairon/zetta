@@ -791,7 +791,7 @@ def resultado_controle_visitas
 
     respond_to do |format|
       format.html do
-        render  :pdf                    => "resultado_pedidos_vendas",                
+        render  :pdf                    => "resultado_controle_visitas",                
                 :layout                 => "layer_relatorios",
                 :margin => {:top        => '1.20in',
                             :bottom     => '0.25in',

@@ -131,7 +131,7 @@ Zetta::Application.routes.draw do
       get 'dinamic_busca'                            
       get 'busca_ordem_produto'                      
       get 'dinamic_busca_ordem_produto'              
-      get 'imagem'                                   
+      get 'imagem'                                  
     end
     member do
       get 'cod_barra'
@@ -232,7 +232,7 @@ resources :pagares_detalhe
       get  'detalhes_produto'                      
       get  'busca_vendas'
       get  'vendas_financa_contado'               
-       
+      get  'vendas_financa' 
       get  'gerar_cotas_credito'
       get  'busca_vendas'
       post 'filtro_faturas_pendentes'
@@ -245,7 +245,6 @@ resources :pagares_detalhe
     member do
       get  'vendas_financa'
       get  'gerador_cotas'
-      get  'fatura'
     end 
   end
   resources :vendas_financas
@@ -253,14 +252,17 @@ resources :pagares_detalhe
   resources :vendas_produtos
   
   resources :producaos do
+    collection do
+      get 'busca'
+      get 'producao_final'
+    end
     resources :producao_produtos do 
       collection do 
-        get 'busca'
-        get 'producao_final'
         get 'detalhe_print'
       end 
     end 
   end  
+
   resources :manutencao_maquinas do
     resources :manutencao_maquina_produtos
   end
@@ -411,6 +413,8 @@ resources :pagares_detalhe
       get 'resultado_livro_diario'
       get 'controle_visitas'
       get 'resultado_controle_visitas'
+      get 'fluxo_caixa'
+      get 'resultado_fluxo_caixa'
     end
   end
 

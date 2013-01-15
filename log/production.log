@@ -7718,3 +7718,1020 @@ Processing by BuscasController#cotz_us_compra as */*
   Parameters: {"data"=>"27/12/2012"}
   Rendered text template (0.0ms)
 Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 1.2ms)
+Connecting to database specified by database.yml
+Compiled jquery.js  (77ms)  (pid 93406)
+Compiled jquery_ujs.js  (0ms)  (pid 93406)
+Compiled all.js  (0ms)  (pid 93406)
+Compiled select2.js  (1ms)  (pid 93406)
+Compiled jquery.maskMoney.js  (0ms)  (pid 93406)
+Compiled abas.js  (0ms)  (pid 93406)
+Compiled application.js  (125ms)  (pid 93406)
+Compiled global.js  (0ms)  (pid 93406)
+Compiled logins.js  (27ms)  (pid 93406)
+Compiled vendas.js  (1ms)  (pid 93406)
+Compiled scaffold.css  (0ms)  (pid 93406)
+Compiled button.css  (0ms)  (pid 93406)
+Compiled table.css  (0ms)  (pid 93406)
+Compiled select2.css  (0ms)  (pid 93406)
+Compiled application.css  (72ms)  (pid 93406)
+Compiled logins.css  (0ms)  (pid 93406)
+Compiled vendas/venda.css  (0ms)  (pid 93406)
+Connecting to database specified by database.yml
+
+
+Started GET "/vendas" for 127.0.0.1 at 2012-12-28 15:28:24 -0200
+Processing by VendasController#index as HTML
+  Rendered vendas/index.html.erb within layouts/application (31.7ms)
+  Rendered layouts/_application_E03.html.erb (3.4ms)
+Completed 200 OK in 211ms (Views: 198.6ms | ActiveRecord: 11.2ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2012-12-28 15:28:25 -0200
+Served asset /application.css - 304 Not Modified (48ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-12-28 15:28:25 -0200
+Served asset /application.js - 304 Not Modified (63ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2012-12-28 15:28:25 -0200
+Served asset /wbg.gif - 200 OK (13ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2012-12-28 15:28:25 -0200
+Served asset /gray/toolbar/bg.gif - 200 OK (2ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2012-12-28 15:28:25 -0200
+Served asset /load.gif - 304 Not Modified (3ms)
+
+
+Started GET "/vendas/new_balcao" for 127.0.0.1 at 2012-12-28 15:28:29 -0200
+Processing by VendasController#new_balcao as HTML
+Redirected to http://localhost:3000/vendas/20
+Completed 302 Found in 814ms (ActiveRecord: 465.6ms)
+
+
+Started GET "/vendas/20" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"20"}
+  Rendered vendas_produtos/_new_produto.html.erb (204.4ms)
+  Rendered collection (0.0ms)
+  Rendered vendas/eps/_show_E02.html.erb (349.0ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (369.4ms)
+Completed 200 OK in 441ms (Views: 384.7ms | ActiveRecord: 34.2ms)
+
+
+Started GET "/assets/vendas/venda.css" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Served asset /vendas/venda.css - 200 OK (6ms)
+
+
+Started GET "/assets/button.css" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Served asset /button.css - 200 OK (21ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Served asset /vendas.js - 200 OK (37ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2012-12-28 15:28:30 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started POST "/buscas/busca_produto" for 127.0.0.1 at 2012-12-28 15:28:34 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"20"}
+Completed 200 OK in 134ms (Views: 2.4ms | ActiveRecord: 5.9ms)
+
+
+Started POST "/buscas/busca_produto" for 127.0.0.1 at 2012-12-28 15:28:34 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"20"}
+Completed 200 OK in 9ms (Views: 2.3ms | ActiveRecord: 4.9ms)
+
+
+Started POST "/buscas/busca_produto" for 127.0.0.1 at 2012-12-28 15:28:36 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"20"}
+Completed 200 OK in 12ms (Views: 2.3ms | ActiveRecord: 7.4ms)
+
+
+Started POST "/vendas_produtos" for 127.0.0.1 at 2012-12-28 15:28:37 -0200
+Processing by VendasProdutosController#create as JS
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Z6lR3w17YvwYQHVg1OfsfUgSFp+3UF7AuWBYIZBtBKA=", "vendas_produto"=>{"produto_nome"=>"ABSTRATO DE MADERA 01", "venda_id"=>"20", "produto_id"=>"19", "deposito_id"=>"1", "fabricante_cod"=>"", "codigo"=>"", "tipo"=>"0", "clase_id"=>"4", "grupo_id"=>"1", "sub_grupo_id"=>"", "saldo"=>"0,00", "cotacao"=>"4550", "persona_id"=>"1122", "persona_nome"=>"CIABAY", "clase_produto"=>"", "moeda"=>"", "quantidade"=>"1", "total_desconto"=>"0", "desconto"=>"", "interes"=>"0", "taxa"=>"0,00", "unitario_guarani"=>"186.000", "total_guarani"=>"186.000", "iva_dolar"=>"0,000000", "iva_guarani"=>"0,000000", "preco_dolar"=>"0,00", "preco_guarani"=>"0", "preco_fixo_dolar"=>"", "preco_fixo_guarani"=>"", "total_dolar"=>"0,00", "unitario_dolar"=>"0,00"}, "cod"=>{"busca"=>""}, "moeda"=>""}
+  Rendered vendas_produtos/_vendas_produto.html.erb (4.3ms)
+  Rendered vendas_produtos/create.js.erb (18.0ms)
+Completed 200 OK in 134ms (Views: 35.6ms | ActiveRecord: 81.6ms)
+
+
+Started POST "/buscas/busca_produto" for 127.0.0.1 at 2012-12-28 15:28:37 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"20"}
+Completed 200 OK in 11ms (Views: 2.7ms | ActiveRecord: 4.9ms)
+
+
+Started GET "/vendas/20/vendas_financa" for 127.0.0.1 at 2012-12-28 15:30:21 -0200
+Processing by VendasController#vendas_financa as HTML
+  Parameters: {"id"=>"20"}
+  Rendered vendas/eps/_new_financa_E05.html.erb (146.2ms)
+  Rendered vendas/eps/_index_financa_E03.html.erb (8.7ms)
+  Rendered vendas/vendas_financa.html.erb within layouts/layout_vendas (401.2ms)
+Completed 200 OK in 450ms (Views: 406.9ms | ActiveRecord: 33.6ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-12-28 15:30:21 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/vendas_financas" for 127.0.0.1 at 2012-12-28 15:30:29 -0200
+Processing by VendasFinancasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Z6lR3w17YvwYQHVg1OfsfUgSFp+3UF7AuWBYIZBtBKA=", "vendas_financa"=>{"venda_id"=>"20", "cotacao"=>"4500", "persona_nome"=>"CIABAY", "persona_id"=>"1122", "ruc"=>"", "direcao"=>"", "cidade_nome"=>"", "cidade_id"=>"", "bairro"=>"", "vendedor_id"=>"", "vendedor_nome"=>"", "clase_produto"=>"", "data"=>"2012-12-28", "tipo_ordem"=>"0", "tipo"=>"0", "moeda"=>"1", "porcen_desconto_us"=>"", "desconto_dolar"=>"", "valor_dolar_contado"=>" 0,00 ", "recebido_dolar"=>"", "porcen_desconto_gs"=>"0", "desconto_guarani"=>"0", "valor_guarani_contado"=>"186.000", "recebido_guarani"=>"", "conta_id"=>"1", "cheque_status"=>"0", "cheque_valor_dolar"=>" 0,00 ", "cheque_valor_guarani"=>" 186.000 ", "cheque"=>"", "diferido(3i)"=>"28", "diferido(2i)"=>"12", "diferido(1i)"=>"2012", "banco"=>"", "titular"=>"", "vuelto_conta_id"=>"1", "vuelto_cheque_status"=>"0", "vuelto_cheque"=>"", "vuelto_diferido(3i)"=>"28", "vuelto_diferido(2i)"=>"12", "vuelto_diferido(1i)"=>"2012", "vuelto_valor_dolar"=>"0,00", "vuelto_valor_guarani"=>"0,00", "plano_condicao"=>"", "plano_taxa"=>"", "plano_status"=>"", "plano_data"=>"", "interes_us"=>"", "interes_gs"=>"", "cota"=>"1", "cota_dolar_01"=>" 0,00 ", "cota_guarani_01"=>" 186.000 ", "data_cota_01(3i)"=>"28", "data_cota_01(2i)"=>"12", "data_cota_01(1i)"=>"2012", "fatura"=>"0", "fatura_legal"=>"CIABAY", "fatura_legal_ruc"=>"", "documento_numero_01"=>"001", "documento_numero_02"=>"001", "documento_numero"=>"0000002"}, "valor_dolar"=>" 0,00 ", "valor_guarani"=>" 186.000 ", "troco_dolar"=>"0,00", "troco_guarani"=>"0", "total_dolar"=>" 0,00 ", "total_guarani"=>" 186.000 ", "commit"=>"Grabar"}
+Redirected to http://localhost:3000/vendas/20/vendas_financa
+Completed 302 Found in 75ms (ActiveRecord: 39.1ms)
+
+
+Started GET "/vendas/20/vendas_financa" for 127.0.0.1 at 2012-12-28 15:30:30 -0200
+Processing by VendasController#vendas_financa as HTML
+  Parameters: {"id"=>"20"}
+  Rendered vendas/eps/_new_financa_E05.html.erb (40.9ms)
+  Rendered vendas/eps/_index_financa_E03.html.erb (12.4ms)
+  Rendered vendas/vendas_financa.html.erb within layouts/layout_vendas (61.4ms)
+Completed 200 OK in 95ms (Views: 49.2ms | ActiveRecord: 37.8ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2012-12-28 15:30:30 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/personas/persona_venda" for 127.0.0.1 at 2012-12-28 16:37:22 -0200
+Processing by PersonasController#show as HTML
+  Parameters: {"id"=>"persona_venda"}
+Completed 500 Internal Server Error in 53ms
+
+ActiveRecord::RecordNotFound (Couldn't find Persona with id=persona_venda):
+  app/controllers/personas_controller.rb:256:in `show'
+
+
+
+
+Started GET "/personas/persona_venda" for 127.0.0.1 at 2012-12-28 16:37:27 -0200
+Processing by PersonasController#show as HTML
+  Parameters: {"id"=>"persona_venda"}
+Completed 500 Internal Server Error in 214ms
+
+ActiveRecord::RecordNotFound (Couldn't find Persona with id=persona_venda):
+  app/controllers/personas_controller.rb:256:in `show'
+
+
+
+
+Started GET "/zetta" for 127.0.0.1 at 2013-01-03 10:35:08 -0200
+
+PG::Error (SSL SYSCALL error: EOF detected
+):
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:297:in `exec'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:297:in `dealloc'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:281:in `block in clear'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:280:in `each_value'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:280:in `clear'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:342:in `clear_cache!'
+  activerecord (3.2.8) lib/active_record/connection_adapters/postgresql_adapter.rb:355:in `reconnect!'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract_adapter.rb:219:in `verify!'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:327:in `block in checkout_and_verify'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:403:in `_run__2309075028279704893__checkout__896184979974121745__callbacks'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:385:in `_run_checkout_callbacks'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:326:in `checkout_and_verify'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:247:in `block (2 levels) in checkout'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:236:in `loop'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:236:in `block in checkout'
+  /Users/user/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/1.9.1/monitor.rb:201:in `mon_synchronize'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:233:in `checkout'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:96:in `block in connection'
+  /Users/user/.rvm/rubies/ruby-1.9.2-p320/lib/ruby/1.9.1/monitor.rb:201:in `mon_synchronize'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:95:in `connection'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:404:in `retrieve_connection'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_specification.rb:170:in `retrieve_connection'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_specification.rb:144:in `connection'
+  activerecord (3.2.8) lib/active_record/query_cache.rb:61:in `call'
+  activerecord (3.2.8) lib/active_record/connection_adapters/abstract/connection_pool.rb:473:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:405:in `_run__1656970062346202967__call__896184979974121745__callbacks'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:405:in `__run_callback'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:385:in `_run_call_callbacks'
+  activesupport (3.2.8) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (3.2.8) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/remote_ip.rb:31:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+Connecting to database specified by database.yml
+
+
+Started GET "/zetta" for 127.0.0.1 at 2013-01-03 10:35:48 -0200
+Processing by LoginsController#new as HTML
+  Rendered logins/new.html.erb within layouts/logins (113.2ms)
+Completed 200 OK in 336ms (Views: 211.6ms | ActiveRecord: 96.6ms)
+
+
+Started GET "/assets/logins.css" for 127.0.0.1 at 2013-01-03 10:35:49 -0200
+Served asset /logins.css - 200 OK (52ms)
+
+
+Started GET "/assets/logins.js" for 127.0.0.1 at 2013-01-03 10:35:49 -0200
+Served asset /logins.js - 200 OK (225ms)
+
+
+Started GET "/assets/admin/hsep.gif" for 127.0.0.1 at 2013-01-03 10:35:50 -0200
+Served asset /admin/hsep.gif - 404 Not Found (7ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/admin/hsep.gif"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/assets/admin/mbg.jpg" for 127.0.0.1 at 2013-01-03 10:35:50 -0200
+Served asset /admin/mbg.jpg - 304 Not Modified (56ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:35:50 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started POST "/buscas/get_unidade" for 127.0.0.1 at 2013-01-03 10:35:51 -0200
+Processing by BuscasController#get_unidade as */*
+  Parameters: {"unidade"=>"1"}
+WARNING: Can't verify CSRF token authenticity
+  Rendered text template (0.0ms)
+Completed 200 OK in 34ms (Views: 13.9ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/buscas/get_usuario" for 127.0.0.1 at 2013-01-03 10:35:51 -0200
+Processing by BuscasController#get_usuario as */*
+  Parameters: {"usuario"=>"1"}
+WARNING: Can't verify CSRF token authenticity
+  Rendered text template (0.0ms)
+Completed 200 OK in 18ms (Views: 1.2ms | ActiveRecord: 14.8ms)
+
+
+Started POST "/logins/logar?html%5Bid%5D=login_form" for 127.0.0.1 at 2013-01-03 10:35:54 -0200
+Processing by LoginsController#logar as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Z6lR3w17YvwYQHVg1OfsfUgSFp+3UF7AuWBYIZBtBKA=", "unidade"=>"1", "busca"=>{"unidade_id"=>"1", "usuario_id"=>"1"}, "usuario"=>"1", "usuario_senha"=>"di03051999", "html"=>{"id"=>"login_form"}}
+WARNING: Can't verify CSRF token authenticity
+Redirected to http://localhost:3000/menu
+Completed 302 Found in 31ms (ActiveRecord: 24.9ms)
+
+
+Started GET "/menu" for 127.0.0.1 at 2013-01-03 10:35:54 -0200
+Processing by MenusController#index as HTML
+  Rendered menus/index.html.erb within layouts/application (2.0ms)
+  Rendered layouts/_application_E03.html.erb (3.2ms)
+Completed 200 OK in 206ms (Views: 199.9ms | ActiveRecord: 5.3ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 10:35:55 -0200
+Served asset /application.css - 304 Not Modified (379ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 10:35:55 -0200
+Served asset /application.js - 304 Not Modified (139ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 10:35:55 -0200
+Served asset /wbg.gif - 304 Not Modified (23ms)
+
+
+Started GET "/assets/logo.JPG" for 127.0.0.1 at 2013-01-03 10:35:55 -0200
+Served asset /logo.JPG - 404 Not Found (6ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.JPG"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 10:35:55 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (25ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:35:56 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/personas" for 127.0.0.1 at 2013-01-03 10:38:28 -0200
+Processing by PersonasController#index as HTML
+  Rendered personas/index.html.erb within layouts/application (7.4ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 88ms (Views: 84.5ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/icon_print_black.png" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+Served asset /icon_print_black.png - 200 OK (25ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+Served asset /load.gif - 304 Not Modified (50ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:38:29 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/personas/new" for 127.0.0.1 at 2013-01-03 10:38:32 -0200
+Processing by PersonasController#new as HTML
+  Rendered personas/eps/_form_principal_E03.html.erb (508.4ms)
+  Rendered personas/eps/_form_cliente_E03.html.erb (7.0ms)
+  Rendered personas/eps/_form_empregado_E03.html.erb (12.0ms)
+  Rendered personas/_form.html.erb (580.9ms)
+  Rendered personas/new.html.erb within layouts/application (593.5ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 868ms (Views: 562.4ms | ActiveRecord: 139.3ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 10:38:32 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 10:38:32 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/images/defalt.jpg" for 127.0.0.1 at 2013-01-03 10:38:33 -0200
+
+ActionController::RoutingError (No route matches [GET] "/images/defalt.jpg"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:38:33 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:38:38 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/produtos" for 127.0.0.1 at 2013-01-03 10:38:48 -0200
+Processing by ProdutosController#index as HTML
+  Rendered produtos/index.html.erb within layouts/application (186.0ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 2208ms (Views: 355.5ms | ActiveRecord: 544.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 10:38:51 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 10:38:51 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 10:38:51 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:38:51 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/produtos/new" for 127.0.0.1 at 2013-01-03 10:38:53 -0200
+Processing by ProdutosController#new as HTML
+  Rendered produtos/eps/_form_principal_E03.html.erb (330.2ms)
+  Rendered produtos/_form.html.erb (352.4ms)
+  Rendered produtos/new.html.erb within layouts/application (364.1ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 436ms (Views: 388.8ms | ActiveRecord: 46.7ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 10:38:54 -0200
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 10:38:54 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/images/defalt.jpg" for 127.0.0.1 at 2013-01-03 10:38:54 -0200
+
+ActionController::RoutingError (No route matches [GET] "/images/defalt.jpg"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2013-01-03 10:38:54 -0200
+
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/produtos/1401/cod_barra" for 127.0.0.1 at 2013-01-03 15:46:29 -0200
+Processing by ProdutosController#cod_barra as HTML
+  Parameters: {"id"=>"1401"}
+  Rendered produto_barras/_index_barra.html.erb (85.9ms)
+  Rendered produto_barras/_form.html.erb (195.9ms)
+  Rendered produtos/cod_barra.html.erb within layouts/application (429.8ms)
+  Rendered layouts/_application_E03.html.erb (3.7ms)
+Completed 200 OK in 693ms (Views: 523.5ms | ActiveRecord: 41.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 15:46:30 -0200
+Compiled scaffold.css  (1ms)  (pid 3052)
+Compiled button.css  (0ms)  (pid 3052)
+Compiled table.css  (1ms)  (pid 3052)
+Compiled select2.css  (0ms)  (pid 3052)
+Compiled application.css  (228ms)  (pid 3052)
+Served asset /application.css - 200 OK (284ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 15:46:30 -0200
+Compiled jquery.js  (6ms)  (pid 3052)
+Compiled jquery_ujs.js  (0ms)  (pid 3052)
+Compiled all.js  (0ms)  (pid 3052)
+Compiled select2.js  (2ms)  (pid 3052)
+Compiled jquery.maskMoney.js  (2ms)  (pid 3052)
+Compiled abas.js  (0ms)  (pid 3052)
+Compiled application.js  (262ms)  (pid 3052)
+Served asset /application.js - 304 Not Modified (4646ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 15:46:35 -0200
+Served asset /wbg.gif - 304 Not Modified (5ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 15:46:35 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (20ms)
+
+
+Started GET "/produtos" for 127.0.0.1 at 2013-01-03 15:46:38 -0200
+Processing by ProdutosController#index as HTML
+  Rendered produtos/index.html.erb within layouts/application (84.5ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 1686ms (Views: 120.3ms | ActiveRecord: 426.0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 15:46:39 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 15:46:40 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 15:46:40 -0200
+Served asset /load.gif - 304 Not Modified (13ms)
+
+
+Started GET "/produtos/roteiro/1401" for 127.0.0.1 at 2013-01-03 15:46:47 -0200
+
+ActionController::RoutingError (No route matches [GET] "/produtos/roteiro/1401"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/produtos/1401/edit" for 127.0.0.1 at 2013-01-03 15:46:51 -0200
+Processing by ProdutosController#edit as HTML
+  Parameters: {"id"=>"1401"}
+  Rendered produtos/eps/_form_principal_E03.html.erb (379.1ms)
+  Rendered produtos/_form.html.erb (399.9ms)
+  Rendered produtos/edit.html.erb within layouts/application (420.6ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 483ms (Views: 399.0ms | ActiveRecord: 80.9ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 15:46:52 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/images/defalt.jpg" for 127.0.0.1 at 2013-01-03 15:46:52 -0200
+
+ActionController::RoutingError (No route matches [GET] "/images/defalt.jpg"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+

@@ -1,6 +1,6 @@
 class NotaCredito < ActiveRecord::Base
-  has_many :nota_creditos_detalhes,   :order => 1
-  has_many :nota_creditos_docs,   :order => 1
+  has_many :nota_creditos_detalhes,   :order => 1, :dependent => :destroy
+  has_many :nota_creditos_docs,   :order => 1, :dependent => :destroy
 
 
   def self.filtro_nc(params)                                         #

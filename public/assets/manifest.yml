@@ -933,7 +933,9 @@ spinner.gif: spinner.gif
 wbg.gif: wbg.gif
 application.js: application.js
 logins.js: logins.js
+vendas.js: vendas.js
 application.css: application.css
+button.css: button.css
 css/README.txt: css/README.txt
 images/ui-anim_basic_16x16.gif: images/ui-anim_basic_16x16.gif
 images/ui-bg_flat_0_aaaaaa_40x100.png: images/ui-bg_flat_0_aaaaaa_40x100.png
@@ -965,6 +967,7 @@ themes/base/images/ui-icons_2e83ff_256x240.png: themes/base/images/ui-icons_2e83
 themes/base/images/ui-icons_454545_256x240.png: themes/base/images/ui-icons_454545_256x240.png
 themes/base/images/ui-icons_888888_256x240.png: themes/base/images/ui-icons_888888_256x240.png
 themes/base/images/ui-icons_cd0a0a_256x240.png: themes/base/images/ui-icons_cd0a0a_256x240.png
+vendas/venda.css: vendas/venda.css
 jquery-ui/black-tie/ui-bg_diagonals-thick_8_333333_40x40.png: jquery-ui/black-tie/ui-bg_diagonals-thick_8_333333_40x40.png
 jquery-ui/black-tie/ui-bg_flat_65_ffffff_40x100.png: jquery-ui/black-tie/ui-bg_flat_65_ffffff_40x100.png
 jquery-ui/black-tie/ui-bg_glass_40_111111_1x400.png: jquery-ui/black-tie/ui-bg_glass_40_111111_1x400.png

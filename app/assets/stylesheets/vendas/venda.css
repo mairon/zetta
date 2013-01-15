@@ -8,7 +8,7 @@ body,html {
     margin: 0;
     padding:0;
     background-color:#f0f0f0;
-    font:normal 12px arial, helvetica,tahoma,sans-serif;
+    font:normal 16px arial, helvetica,tahoma,sans-serif;
 }
 
 .header
@@ -54,7 +54,6 @@ div.backb{
 
 div.contents
 {   
-    font:normal 12px arial, helvetica,tahoma,sans-serif;
     font-weight:500;
     font-weight: normal;
     color:#282828;    
@@ -81,10 +80,9 @@ div.footer
 
 .group input.large{
     border: 1px solid #aaa;        
-    height: 60px;
+    height: 30px;
     color: #444;
-    font-size:60px;
-    width: 96%;
+    font-size:30px;
     padding: 10px;
     margin: 10px;    
     -webkit-border-radius: 10px;
@@ -94,10 +92,10 @@ div.footer
 
 .group input.medium{        
     border: 1px solid #aaa;
-    height: 60px;
-    font-size:60px;
+    height: 30px;
+    font-size:30px;
     color: #444;
-    width: 600px;
+    width: 400px;
     margin: 10px;
     padding: 10px;
     -webkit-border-radius: 10px;
@@ -107,8 +105,8 @@ div.footer
 
 .group input.small{        
     border: 1px solid #aaa;
-    height: 60px;
-    width: 280px;
+    height: 30px;
+    width: 380px;
     font-size:60px;    
     padding: 10px;
     margin: 10px;
@@ -137,7 +135,7 @@ div.footer
     float: left;
     color: #444;
     margin-top: 10px;
-    background-color: #ebeff7;
+    background-color: #808999;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;    
@@ -150,7 +148,7 @@ div.footer
     color: #444;
     margin-top: 10px;
     margin-bottom: 20px;
-    background-color: #ebeff7;
+    background-color: #808999;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;    
@@ -180,15 +178,15 @@ div.footer
 
 .head_grid{
     background: url(/assets/wbg.gif) repeat-x top; 
-    font:normal 14px arial, helvetica,tahoma,sans-serif;
+    font:normal 18px arial, helvetica,tahoma,sans-serif;
 }
 
 .rolagem
 {
-    font:normal 14px arial, helvetica,tahoma,sans-serif;
+    font:normal 18px arial, helvetica,tahoma,sans-serif;
     border: 1px solid #cccccc;
-    background: white;
-    height:340px;
+    background-color: #808999;
+    height:580px;
     overflow:auto;
     padding: 1px 1px 1px 1px;
 }
@@ -201,13 +199,16 @@ div.footer
     background-color: #fff;
 }
 
+.right td{
+    font:normal 26px arial, helvetica,tahoma,sans-serif;
+
+}
 input[type="text"]{
     border: 1px solid #aaa;
-    font:normal 12px arial, helvetica,tahoma,sans-serif;
-    height: 30px;
+    height: 60px;
     padding: 2px;
-    margin: 2px;
-    font-size:14px;    
+    margin: 8px;
+    font-size:26px;    
     color: #444;
     outline: none; 
     -webkit-border-radius: 4px;

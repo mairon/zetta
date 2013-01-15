@@ -153,13 +153,21 @@ class VendasProdutosController < ApplicationController
 
     def create                      #
 
-      @vendas_produto = VendasProduto.create!(params[:vendas_produto])
-        respond_to do |format|
-          format.html { redirect_to @vendas_produto.venda }
-          format.js
-        end
-      end
+        @vendas_produto = VendasProduto.new(params[:vendas_produto])
 
+        respond_to do |format|
+            if @vendas_produto.save
+                flash[:notice] = 'Producto Adcionado'
+                format.html {  redirect_to venda_path(@vendas_produto.venda_id) }
+                format.js
+            else
+                format.html { render :action => "new" }
+                format.js
+            end
+        end
+
+    end
+    
     def update                      #
         @vendas_produto = VendasProduto.find(params[:id])
         @vendas_produto.usuario_updated   = current_user.id

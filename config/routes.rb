@@ -45,7 +45,7 @@ Zetta::Application.routes.draw do
     match 'cotz_us_venda'  => "buscas#cotz_us_venda", :via => :post
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
-    match 'busca_produto'  => "buscas#busca_produto", :via => :post    
+    match 'busca_produto'  => "buscas#busca_produto", :via => :get   
   end
 
   #login
@@ -304,6 +304,7 @@ resources :pagares_detalhe
       get 'comprovante'
     end
   end
+  resources :transferencia_contas_detalhes
   resources :transferencia_contas do
     collection do
       get 'busca_diferido'

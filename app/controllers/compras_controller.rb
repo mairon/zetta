@@ -306,9 +306,9 @@
                     format.html { redirect_to(@compra) }
                 else
                     if @compra.adcionais == 1
-                        format.html { redirect_to "/compras/compras_gasto/#{@compra.id}" }
+                        format.html { redirect_to "/compras/#{@compra.id}/compras_gasto" }
                     else
-                        format.html { redirect_to "/compras/compras_financa/#{@compra.id}" }
+                        format.html { redirect_to "/compras/#{@compra.id}/compras_financa" }
                     end                   
                 end
                 

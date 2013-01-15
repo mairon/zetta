@@ -1,9 +1,14 @@
 class Egresso < ActiveRecord::Base
     validates_presence_of :cotacao,
                           :valor_dolar,
-                          :valor_guarani
+                          :valor_guarani,
+                          :concepto
+                          
+    validates :cotacao, :numericality =>  { :greater_than => 0 }
 
-    def before_save
+
+    before_save :finds
+    def finds
         @doc = Documento.find_by_id(self.documento_id);
         self.documento_nome = @doc.nome.to_s;
 

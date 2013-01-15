@@ -32,9 +32,12 @@ class BuscasController < ApplicationController
 
   def busca_produto
     @venda = Venda.find(params[:id])
-    prod =  Produto.find_by_barra( params[:cod])
+    prod   = Produto.find_by_id(params[:cod])    if params[:tipo_cod] == "CODIGO"
+    prod   = Produto.find_by_barra(params[:cod]) if params[:tipo_cod] == "BARRA"
 
-    return render :json => prod    
+    stock  = Stock.sum('entrada - saida', :conditions => ["produto_id = ? and deposito_id = ? and data <= ?",params[:id], params[:deposito_id], @venda.data] )
+
+    return render :json => {:produto => prod, :sum_stock => stock}
   end
 
 end

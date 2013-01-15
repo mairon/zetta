@@ -1,64 +1,57 @@
-<div class="group">
-	<table class="backgrounds">
-	<tr>
-		<td align="right">Total Prod.: </td>
-		<td align="right"><%= format( "%.3f", @produto_count.to_f )%> </td>
+<div class="groupvenda"> 
+	
+		<table>
+		<tr>
+			<td>Cotizacion:</td>
+			<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
+			<td align="right">Total Prod.: </td>
+			<td align="right"><%= format( "%.3f", @produto_count.to_f )%> </td>
+		</tr>
 
-		<td align="right">Cotizacion U$:</td>
-		<td align="right"><%= h number_to_currency(@venda.cotacao, :format=>' %n ', :precision => 0)  %></td>
-
-		<td align="right">Cotizacion R$:</td>
-		<td align="right"><%= h number_to_currency(@venda.cotacao_real, :format=>' %n ', :precision => 0)  %></td>
-
-	</tr>
-
-	<tr>	
-		<td>
-			<font size="7" color="red">
-				Total Gs.:
+		<tr>
+			<td>
+			<font size="6" color="green">
+				Total U$ :
 			</font>
-		</td>
-		<td align="right">
-			<font size="7" color="red">
-				<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
+			</td>
+			<td align="right">
+			<font size="6" color="green">
+				<%= h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> 
 			</font>
-		</td>
+			</td>
 
-		<td width="300" align="right">
-		<font size="7" color="green">
-			Total U$ :
-		</font>
-		</td>
-		<td align="right">
-		<font size="7" color="green">
-			<%= h number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",")  %> 
-		</font>
-		</td>
+			<td width="200" align="right">
+				<font size="6" color="red">
+					Total Gs.:
+				</font>
+			</td>
+			<td align="right">
+				<font size="6" color="red">
+					<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :separator => ",",:precision => 0)  %>
+				</font>
+			</td>
 
+			<td width="400" align="right">
+				<font size="6" color="blue">
+					Total R$.:
+				</font>
+			</td>
+			<td align="right">
+				<font size="6" color="blue">
+					<%= number_to_currency(@produto_sum_real, :format=>' %n ', :separator => ",", :separator => ",")  %>
+				</font>
+			</td>
 
-		<td width="300" align="right">
-			<font size="7" color="blue">
-				Total R$.:
-			</font>
-		</td>
-		<td align="right">
-			<font size="7" color="blue">
-				<%= number_to_currency(@produto_sum_real, :format=>' %n ', :separator => ",", :separator => ",")  %>
-			</font>
-		</td>
-
-	</tr>				
-</table>	
+		</tr>				
+	</table>	
+</div> 
 
 <br/>
-<div class="left">
-	<%= render :partial=>Form.last.form_venda_financa, :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>
-</div>    
-<div class="right">
+
+<div class="groupvenda">	
 	<%= render :partial=>"/vendas/eps/index_financa_E03", :locals=>{:vendas_financas => @venda.vendas_financas} %>
-</div>
-<br/>
-<br/>
+    <%= render :partial=>Form.last.form_venda_financa, :locals=>{:vendas_financa=>VendasFinanca.new(:venda_id=>@venda.id)} %>	</div>
+    
 
 <div class="backgrounds">
 	<div class="buttons">
@@ -131,6 +124,31 @@
 	function fecha(){
 		self.close();
 	}
+
+$(window).keydown(function(event) {
+  if(event.ctrlKey && event.keyCode == 71) { 
+			location.href="/vendas/" + document.getElementById('id').value +"/gerador_cotas"
+    event.preventDefault(); 
+  }
+  if(event.ctrlKey && event.keyCode == 67) { 
+		window.open('/vendas/' + document.getElementById('id').value + '/comprovante', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+
+    event.preventDefault(); 
+  }
+
+  if(event.ctrlKey && event.keyCode == 70) { 
+		window.open('/vendas/' + document.getElementById('id').value+'/fatura', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+
+    event.preventDefault(); 
+  }
+
+
+  if(event.ctrlKey && event.keyCode == 80) { 
+		window.open('/vendas/' + document.getElementById('id').value + '/pagare', 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+    event.preventDefault(); 
+  }
+
+});
 
     document.onkeydown=function(e){
 

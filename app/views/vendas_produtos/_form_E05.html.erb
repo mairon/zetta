@@ -1,10 +1,6 @@
 <!-- form base balcao! -->
 <%= form_for(@vendas_produto) do |f| %>
 
-<!-- form base! -->
-      <div class="backgrounds">
-      <%= f.text_field :produto_nome, :class => 'large', :placeholder => 'Producto' %>
-      </div>
       <div class="left">  
 
         <%= text_field :cod,:busca,                
@@ -177,6 +173,7 @@
             <%= number_to_currency(VendasProduto.sum(:total_guarani,   :conditions => ['venda_id = ?',@vendas_produto.venda.id]), :format=>' %n ',:precision => 0) %>
           </div>
         </div>
+  
       </div>
   <% end %>
 

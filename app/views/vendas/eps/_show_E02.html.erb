@@ -1,14 +1,13 @@
 <div class="group">
-	<%= render :partial=>Form.last.form_venda_produtos %>	  
-	<div class="right">    	
+	<div class="left">    	
 			<table class="head_grid">
 				<tr>
 					<td width="50" align="center">ind.</td>
-					<td width="280"align="left">Descripcion</td>
+					<td width="680"align="left">Descripcion</td>
 					<td width="70" align="right">Qtd</td>
 					<td width="70" align="right">Unit</td>
-					<td width="80"></td>
-					<td width="80"></td>
+					<td width="70" align="right">Tot.</td>
+					<td width="110"></td>
 					
 
 				</tr>
@@ -18,7 +17,9 @@
 				  	<%= render :partial => @venda.vendas_produtos %>
 				</div>
 			</div>
+
 	</div>
+	<%= render :partial=>Form.last.form_venda_produtos %>	  
 
 	<div class="backgrounds">
 	<div class="buttons">

@@ -1,7 +1,5 @@
 <!-- Interacao com real !-->
   
-<body onload="ImputFocus('egresso_data_3i')">
-
 <h1 align="right" id="header">Egresos</h1>
 <%= form_for(@egresso) do |f| %>
     <% if @egresso.errors.any? %>
@@ -86,13 +84,13 @@
 
                         <tr>
                           <%= field_gs 'Valor Gs.:',f, :valor_guarani,
-                          :onblur   => "GsToUsRs('egresso_cotacao','egresso_cotacao_real','egresso_valor_guarani','egresso_valor_dolar','egresso_valor_real')"  %>
+                          :onchange   => "GsToUsRs('egresso_cotacao','egresso_cotacao_real','egresso_valor_guarani','egresso_valor_dolar','egresso_valor_real')"  %>
                     
                           <%= field_us 'Valor U$:',f, :valor_dolar,
-                          :onblur   => "UsToGsRs('egresso_cotacao','egresso_cotacao_real','egresso_valor_dolar','egresso_valor_guarani','egresso_valor_real')" %>
+                          :onchange   => "UsToGsRs('egresso_cotacao','egresso_cotacao_real','egresso_valor_dolar','egresso_valor_guarani','egresso_valor_real')" %>
 
                           <%= field_us 'Valor R$:',f, :valor_real,
-                          :onblur   => "RsToUsGs('egresso_cotacao','egresso_cotacao_real','egresso_valor_guarani','egresso_valor_dolar','egresso_valor_real')" %>
+                          :onchange   => "RsToUsGs('egresso_cotacao','egresso_cotacao_real','egresso_valor_guarani','egresso_valor_dolar','egresso_valor_real')" %>
                         </tr>
 
                         <tr>
@@ -105,10 +103,7 @@
                         <tr>
                           <td align="right" valign="top">Concepto :</td>
                           <td colspan="3"><%= f.text_area :concepto,
-                                                          :size      => '48x4',
-                                                          :value     => 'EGRESOS',
-                                                          :onkeydown => "f(this)",
-                                                          :onkeyup   => "f(this)"%></td>
+                                                          :size      => '48x4' %></td>
                         </tr>
                       </table>
                     </fieldset>
@@ -122,8 +117,6 @@
     <%= link_to 'Volver', egressos_path , :class => "button back" %>      
   </div>
 <% end %>
-
-</body>
 
 <script type="text/javascript">
 
@@ -140,7 +133,7 @@
   });
 
   //busca cotacao real
-  $("egresso_cotacao_real").focus(function(){
+  $("#egresso_cotacao_real").focus(function(){
     $.ajax({url: '/buscas/cotz_rs_compra',
             type: 'POST',
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},

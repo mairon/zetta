@@ -8735,3 +8735,741 @@ ActionController::RoutingError (No route matches [GET] "/images/defalt.jpg"):
   script/rails:6:in `<main>'
 
 
+Connecting to database specified by database.yml
+
+
+Started GET "/compras" for 127.0.0.1 at 2013-01-03 16:27:44 -0200
+Processing by ComprasController#index as HTML
+  Rendered compras/index.html.erb within layouts/application (6.8ms)
+  Rendered layouts/_application_E03.html.erb (2.3ms)
+Completed 200 OK in 189ms (Views: 176.6ms | ActiveRecord: 11.5ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:27:45 -0200
+Compiled scaffold.css  (0ms)  (pid 3283)
+Compiled button.css  (0ms)  (pid 3283)
+Compiled table.css  (0ms)  (pid 3283)
+Compiled select2.css  (0ms)  (pid 3283)
+Compiled application.css  (25ms)  (pid 3283)
+Served asset /application.css - 304 Not Modified (56ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:27:45 -0200
+Compiled jquery.js  (7ms)  (pid 3283)
+Compiled jquery_ujs.js  (0ms)  (pid 3283)
+Compiled all.js  (0ms)  (pid 3283)
+Compiled select2.js  (1ms)  (pid 3283)
+Compiled jquery.maskMoney.js  (1ms)  (pid 3283)
+Compiled abas.js  (0ms)  (pid 3283)
+Compiled application.js  (124ms)  (pid 3283)
+Served asset /application.js - 304 Not Modified (3916ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:27:49 -0200
+Served asset /wbg.gif - 304 Not Modified (7ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 16:27:49 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (12ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 16:27:49 -0200
+Served asset /load.gif - 304 Not Modified (14ms)
+
+
+Started GET "/compras/busca?seta=0&inicio=&final=&tipo=CODIGO&busca=&commit=buscar" for 127.0.0.1 at 2013-01-03 16:27:52 -0200
+Processing by ComprasController#busca as */*
+  Parameters: {"seta"=>"0", "inicio"=>"", "final"=>"", "tipo"=>"CODIGO", "busca"=>"", "commit"=>"buscar"}
+  Rendered compras/busca.html.erb (299.9ms)
+Completed 200 OK in 308ms (Views: 282.9ms | ActiveRecord: 24.4ms)
+
+
+Started GET "/compras/new" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Processing by ComprasController#new as HTML
+  Rendered compras/eps/_form_compra_E03.html.erb (98.3ms)
+  Rendered compras/new.html.erb within layouts/application (147.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 224ms (Views: 190.7ms | ActiveRecord: 31.7ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/form_compra.js" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Compiled form_compra.js  (0ms)  (pid 3283)
+Served asset /form_compra.js - 304 Not Modified (123ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (0ms)
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-01-03 16:27:54 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"3/1/2013"}
+  Rendered text template (0.0ms)
+Completed 200 OK in 61ms (Views: 20.3ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/buscas/cotz_rs_compra" for 127.0.0.1 at 2013-01-03 16:27:55 -0200
+Processing by BuscasController#cotz_rs_compra as */*
+  Parameters: {"data"=>"3/1/2013"}
+  Rendered text template (0.0ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/personas/persona_compra" for 127.0.0.1 at 2013-01-03 16:28:04 -0200
+Processing by PersonasController#persona_compra as HTML
+  Rendered personas/persona_compra.html.erb within layouts/consulta (1.8ms)
+Completed 200 OK in 14ms (Views: 11.2ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/assets/scaffold.css" for 127.0.0.1 at 2013-01-03 16:28:04 -0200
+Served asset /scaffold.css - 200 OK (21ms)
+
+
+Started GET "/assets/cadastros.js" for 127.0.0.1 at 2013-01-03 16:28:04 -0200
+Compiled cadastros.js  (3ms)  (pid 3283)
+Served asset /cadastros.js - 200 OK (462ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:28:05 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:28:05 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/personas/busca_persona_compra?busca=TE&commit=Buscar" for 127.0.0.1 at 2013-01-03 16:28:06 -0200
+Processing by PersonasController#busca_persona_compra as */*
+  Parameters: {"busca"=>"TE", "commit"=>"Buscar"}
+  Rendered personas/busca_persona_compra.html.erb (200.0ms)
+Completed 200 OK in 204ms (Views: 194.0ms | ActiveRecord: 9.2ms)
+
+
+Started GET "/personas/busca_persona_compra?busca=TEST&commit=Buscar" for 127.0.0.1 at 2013-01-03 16:28:06 -0200
+Processing by PersonasController#busca_persona_compra as */*
+  Parameters: {"busca"=>"TEST", "commit"=>"Buscar"}
+  Rendered personas/busca_persona_compra.html.erb (3.8ms)
+Completed 200 OK in 6ms (Views: 2.3ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/compras" for 127.0.0.1 at 2013-01-03 16:28:22 -0200
+Processing by ComprasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compra"=>{"clase_produto"=>"0", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "unidade_id"=>"1", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo_compra"=>"0", "moeda"=>"0", "tipo"=>"0", "adcionais"=>"0", "status"=>"0", "persona_nome"=>"TESTE", "despachante_id"=>"0", "documento_id"=>"2", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "documento_timbrado"=>"00000000", "exentas_dolar"=>"0,00", "gravadas_05_dolar"=>"0,00", "gravadas_10_dolar"=>"4.000,00", "imposto_05_dolar"=>"0,00", "imposto_10_dolar"=>"363,64", "total_dolar"=>"4.000,00", "desconto_dolar"=>"0,00", "exentas_guarani"=>"0", "gravadas_05_guarani"=>"0", "gravadas_10_guarani"=>"0", "imposto_05_guarani"=>"0", "imposto_10_guarani"=>"0", "total_guarani"=>"0", "desconto_guarani"=>"0", "exentas_real"=>"0,00", "gravadas_05_real"=>"0,00", "gravadas_10_real"=>"0,00", "imposto_05_real"=>"0,00", "imposto_10_real"=>"0,00", "total_real"=>"0,00", "desconto_real"=>"0,00"}, "moeda"=>"0", "tipo"=>"0", "commit"=>"Seguir"}
+Redirected to http://localhost:3000/compras/7
+Completed 302 Found in 166ms (ActiveRecord: 49.0ms)
+
+
+Started GET "/compras/7" for 127.0.0.1 at 2013-01-03 16:28:23 -0200
+Processing by ComprasController#show as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_produto.html.erb (6.9ms)
+  Rendered compras/eps/_new_produto_E03.html.erb (129.0ms)
+  Rendered compras/show.html.erb within layouts/application (235.6ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 262ms (Views: 232.2ms | ActiveRecord: 27.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:28:23 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:28:23 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:28:23 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/produtos/busca_compra_produto" for 127.0.0.1 at 2013-01-03 16:28:25 -0200
+Processing by ProdutosController#busca_compra_produto as HTML
+  Rendered produtos/busca_compra_produto.html.erb within layouts/consulta (2.9ms)
+Completed 200 OK in 14ms (Views: 11.0ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:28:25 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 16:28:25 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/produtos/dinamic_busca_compra_produto?tipo=DESCRIPCION&busca=TE" for 127.0.0.1 at 2013-01-03 16:28:29 -0200
+Processing by ProdutosController#dinamic_busca_compra_produto as */*
+  Parameters: {"tipo"=>"DESCRIPCION", "busca"=>"TE"}
+  Rendered produtos/dinamic_busca_compra_produto.html.erb (1253.2ms)
+Completed 200 OK in 2005ms (Views: 1315.4ms | ActiveRecord: 258.6ms)
+
+
+Started POST "/compras_produtos" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Processing by ComprasProdutosController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_produto"=>{"compra_id"=>"7", "status"=>"0", "cotacao"=>"4170", "moeda"=>"0", "data"=>"2013-01-03", "persona_id"=>"2998", "persona_nome"=>"TESTE", "produto_id"=>"22", "codigo"=>"", "fabricante_cod"=>"1450", "clase_id"=>"4", "grupo_id"=>"1", "sub_grupo_id"=>"", "tipo_compra"=>"0", "clase_produto"=>"0", "custo_dolar"=>"10,00", "custo_guarani"=>"41.700", "custo_contabil_dolar"=>"9,00", "custo_contabil_guarani"=>"37.530", "produto_nome"=>"ACEITE DE LINAZA CORFIX 100ML", "quantidade"=>"10", "iva_taxa"=>"0", "ultimo_custo_us"=>"0,00", "ultimo_custo_gs"=>"0,00", "unitario_dolar"=>"10,00", "total_dolar"=>"100,00", "iva_dolar"=>"1,000", "unitario_guarani"=>"41.700", "total_guarani"=>"417.000", "iva_guarani"=>"4.170", "porcen_balcao"=>"10", "porcen_maiorista"=>"0", "porcen_minorista"=>"0", "deposito_id"=>"1"}, "key"=>"1450", "saldo"=>"", "commit"=>"   Grabar   "}
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+[paperclip] Saving attachments.
+Redirected to http://localhost:3000/compras/7
+Completed 302 Found in 307ms (ActiveRecord: 77.1ms)
+
+
+Started GET "/compras/7" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Processing by ComprasController#show as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_produto.html.erb (14.9ms)
+  Rendered compras/eps/_new_produto_E03.html.erb (15.1ms)
+  Rendered compras/show.html.erb within layouts/application (32.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 48ms (Views: 26.5ms | ActiveRecord: 18.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 16:29:10 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:29:13 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (18.1ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (64.5ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 143ms (Views: 122.9ms | ActiveRecord: 15.2ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:29:13 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:29:13 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras/7/novo_financa" for 127.0.0.1 at 2013-01-03 16:29:18 -0200
+Processing by ComprasController#novo_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_new_financa.html.erb (403.5ms)
+  Rendered compras/novo_financa.html.erb within layouts/application (460.0ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 678ms (Views: 472.3ms | ActiveRecord: 69.3ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:29:19 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:29:19 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started POST "/compras_financas" for 127.0.0.1 at 2013-01-03 16:29:27 -0200
+Processing by ComprasFinancasController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"0", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"5", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  "}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 119ms (ActiveRecord: 74.1ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:29:27 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (6.4ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (7.9ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 33ms (Views: 11.4ms | ActiveRecord: 17.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:29:27 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:29:27 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/financas/extrato_bancario" for 127.0.0.1 at 2013-01-03 16:29:36 -0200
+Processing by FinancasController#extrato_bancario as HTML
+  Rendered financas/extrato_bancario.html.erb within layouts/application (4.8ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 14ms (Views: 9.5ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:29:36 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:29:36 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/resultado_extrato_bancario?utf8=%E2%9C%93&inicio=01%2F01%2F2012&final=10%2F03%2F2012&cheque=&filtro=1&busca%5Bconta%5D=5&moeda=1&tipo=0" for 127.0.0.1 at 2013-01-03 16:29:49 -0200
+Processing by FinancasController#resultado_extrato_bancario as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2012", "final"=>"10/03/2012", "cheque"=>"", "filtro"=>"1", "busca"=>{"conta"=>"5"}, "moeda"=>"1", "tipo"=>"0"}
+***************WICKED***************
+  Rendered financas/resultado_extrato_bancario.html.erb within layouts/layer_relatorios (89.1ms)
+Compiled relatorios.css  (0ms)  (pid 3283)
+  Rendered text template (0.0ms)
+Sent data resultado_extrato_bancario.pdf (1.3ms)
+Completed 200 OK in 3897ms (Views: 0.9ms | ActiveRecord: 10.5ms)
+
+
+Started GET "/financas/resultado_extrato_bancario?utf8=%E2%9C%93&inicio=01%2F01%2F2013&final=10%2F03%2F2013&cheque=&filtro=1&busca%5Bconta%5D=5&moeda=1&tipo=0" for 127.0.0.1 at 2013-01-03 16:30:03 -0200
+Processing by FinancasController#resultado_extrato_bancario as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2013", "final"=>"10/03/2013", "cheque"=>"", "filtro"=>"1", "busca"=>{"conta"=>"5"}, "moeda"=>"1", "tipo"=>"0"}
+***************WICKED***************
+  Rendered financas/resultado_extrato_bancario.html.erb within layouts/layer_relatorios (16.7ms)
+  Rendered text template (0.0ms)
+Sent data resultado_extrato_bancario.pdf (1.4ms)
+Completed 200 OK in 2310ms (Views: 1.0ms | ActiveRecord: 13.4ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:30:27 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (458.5ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (473.4ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 504ms (Views: 407.0ms | ActiveRecord: 93.6ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:30:28 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:30:28 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started PUT "/compras_financas/9" for 127.0.0.1 at 2013-01-03 16:30:53 -0200
+Processing by ComprasFinancasController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"0", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"2", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  ", "id"=>"9"}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 92ms (ActiveRecord: 74.8ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:30:53 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (5.6ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (7.1ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 30ms (Views: 10.0ms | ActiveRecord: 14.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:30:53 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:30:53 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/extrato_bancario" for 127.0.0.1 at 2013-01-03 16:30:59 -0200
+Processing by FinancasController#extrato_bancario as HTML
+  Rendered financas/extrato_bancario.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 12ms (Views: 7.9ms | ActiveRecord: 4.1ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:30:59 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:30:59 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/extrato_bancario" for 127.0.0.1 at 2013-01-03 16:32:24 -0200
+Processing by FinancasController#extrato_bancario as HTML
+  Rendered financas/extrato_bancario.html.erb within layouts/application (3.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 10ms (Views: 5.9ms | ActiveRecord: 3.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:32:24 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:32:24 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:32:38 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (389.2ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (389.6ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 406ms (Views: 338.9ms | ActiveRecord: 64.5ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:32:39 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:32:39 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started PUT "/compras_financas/9" for 127.0.0.1 at 2013-01-03 16:33:08 -0200
+Processing by ComprasFinancasController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"1", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"4", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  ", "id"=>"9"}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 110ms (ActiveRecord: 93.5ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:33:09 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (6.1ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (7.7ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 34ms (Views: 9.7ms | ActiveRecord: 19.1ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:33:09 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:33:09 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:33:28 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (306.2ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (306.5ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 321ms (Views: 248.4ms | ActiveRecord: 70.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:33:28 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:33:28 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started PUT "/compras_financas/9" for 127.0.0.1 at 2013-01-03 16:33:36 -0200
+Processing by ComprasFinancasController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"0", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"5", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  ", "id"=>"9"}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 94ms (ActiveRecord: 79.6ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:33:36 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (5.5ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (6.8ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 29ms (Views: 8.8ms | ActiveRecord: 15.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:33:36 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:33:36 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/extrato_bancario" for 127.0.0.1 at 2013-01-03 16:33:40 -0200
+Processing by FinancasController#extrato_bancario as HTML
+  Rendered financas/extrato_bancario.html.erb within layouts/application (4.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 14ms (Views: 7.0ms | ActiveRecord: 6.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:33:40 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:33:40 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/resultado_extrato_bancario?utf8=%E2%9C%93&inicio=01%2F01%2F2013&final=10%2F03%2F2013&cheque=&filtro=1&busca%5Bconta%5D=5&moeda=1&tipo=0" for 127.0.0.1 at 2013-01-03 16:33:52 -0200
+Processing by FinancasController#resultado_extrato_bancario as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2013", "final"=>"10/03/2013", "cheque"=>"", "filtro"=>"1", "busca"=>{"conta"=>"5"}, "moeda"=>"1", "tipo"=>"0"}
+***************WICKED***************
+  Rendered financas/resultado_extrato_bancario.html.erb within layouts/layer_relatorios (13.5ms)
+  Rendered text template (0.0ms)
+Sent data resultado_extrato_bancario.pdf (1.2ms)
+Completed 200 OK in 2371ms (Views: 0.9ms | ActiveRecord: 10.9ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:34:05 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (329.0ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (329.5ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 347ms (Views: 273.7ms | ActiveRecord: 70.2ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:34:06 -0200
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:34:06 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started PUT "/compras_financas/9" for 127.0.0.1 at 2013-01-03 16:34:13 -0200
+Processing by ComprasFinancasController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"1", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"5", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  ", "id"=>"9"}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 95ms (ActiveRecord: 78.1ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:34:13 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (5.9ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (7.4ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 29ms (Views: 9.6ms | ActiveRecord: 15.0ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:34:13 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:34:13 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:34:16 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (398.4ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (398.8ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 414ms (Views: 346.3ms | ActiveRecord: 65.1ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:34:17 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:34:17 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:35:29 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (399.1ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (399.4ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 416ms (Views: 343.1ms | ActiveRecord: 69.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:35:30 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:35:30 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:35:35 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (5.7ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (7.0ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 28ms (Views: 8.8ms | ActiveRecord: 14.9ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:35:35 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:35:35 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:35:37 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (387.0ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (387.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 401ms (Views: 337.5ms | ActiveRecord: 61.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:35:38 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:35:38 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/compras_financas/9/edit" for 127.0.0.1 at 2013-01-03 16:36:15 -0200
+Processing by ComprasFinancasController#edit as HTML
+  Parameters: {"id"=>"9"}
+  Rendered compras_financas/_form.html.erb (674.7ms)
+  Rendered compras_financas/edit.html.erb within layouts/application (683.4ms)
+  Rendered layouts/_application_E03.html.erb (73.8ms)
+Completed 200 OK in 1143ms (Views: 739.4ms | ActiveRecord: 128.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:36:17 -0200
+Served asset /application.css - 304 Not Modified (14ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:36:17 -0200
+Served asset /application.js - 304 Not Modified (14ms)
+
+
+Started PUT "/compras_financas/9" for 127.0.0.1 at 2013-01-03 16:36:21 -0200
+Processing by ComprasFinancasController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"M7yjBP/D0NhNiLDe3m16vSS6U3EgvCOIijKCIowpVSw=", "compras_financa"=>{"compra_id"=>"7", "cotacao"=>"4170", "cotacao_real"=>"1990", "tipo"=>"0", "moeda"=>"1", "descricao"=>"Compra Mercaderia Prov. TESTE Doc. 000 - 000 - 987987", "clase_produto"=>"0", "tipo_compra"=>"0", "documento_id"=>"2", "documento_nome"=>"FACTURA CONTADO", "data(3i)"=>"3", "data(2i)"=>"1", "data(1i)"=>"2013", "persona_id"=>"2998", "documento_numero_01"=>"000", "documento_numero_02"=>"000", "documento_numero"=>"987987", "cota"=>"1", "vencimento(3i)"=>"3", "vencimento(2i)"=>"1", "vencimento(1i)"=>"2013", "conta_id"=>"5", "cheque"=>"", "diferido(3i)"=>"3", "diferido(2i)"=>"1", "diferido(1i)"=>"2013", "valor_dolar"=>"4.000,00", "valor_guarani"=>"16.680.000", "valor_real"=>"8.381,91"}, "commit"=>"   Grabar  ", "id"=>"9"}
+Redirected to http://localhost:3000/compras/7/compras_financa
+Completed 302 Found in 94ms (ActiveRecord: 56.1ms)
+
+
+Started GET "/compras/7/compras_financa" for 127.0.0.1 at 2013-01-03 16:36:21 -0200
+Processing by ComprasController#compras_financa as HTML
+  Parameters: {"id"=>"7"}
+  Rendered compras/_index_financa.html.erb (9.3ms)
+  Rendered compras/compras_financa.html.erb within layouts/application (92.3ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 116ms (Views: 95.8ms | ActiveRecord: 14.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:36:21 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:36:21 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/extrato_bancario" for 127.0.0.1 at 2013-01-03 16:36:27 -0200
+Processing by FinancasController#extrato_bancario as HTML
+  Rendered financas/extrato_bancario.html.erb within layouts/application (5.0ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 14ms (Views: 9.2ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:36:27 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:36:27 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/financas/resultado_extrato_bancario?utf8=%E2%9C%93&inicio=01%2F01%2F2013&final=10%2F03%2F2013&cheque=&filtro=1&busca%5Bconta%5D=5&moeda=1&tipo=0" for 127.0.0.1 at 2013-01-03 16:36:38 -0200
+Processing by FinancasController#resultado_extrato_bancario as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2013", "final"=>"10/03/2013", "cheque"=>"", "filtro"=>"1", "busca"=>{"conta"=>"5"}, "moeda"=>"1", "tipo"=>"0"}
+***************WICKED***************
+  Rendered financas/resultado_extrato_bancario.html.erb within layouts/layer_relatorios (19.5ms)
+  Rendered text template (0.0ms)
+Sent data resultado_extrato_bancario.pdf (4.4ms)
+Completed 200 OK in 2429ms (Views: 4.1ms | ActiveRecord: 13.0ms)
+
+
+Started GET "/vendas" for 127.0.0.1 at 2013-01-03 16:41:50 -0200
+Processing by VendasController#index as HTML
+  Rendered vendas/index.html.erb within layouts/application (27.2ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 49ms (Views: 45.2ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-03 16:41:50 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:41:50 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-03 16:41:50 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 16:41:50 -0200
+Served asset /load.gif - 304 Not Modified (2ms)
+
+
+Started GET "/vendas/busca_vendas?filtro=0&inicio=&final=&tipo=CODIGO&busca=&commit=buscar" for 127.0.0.1 at 2013-01-03 16:41:51 -0200
+Processing by VendasController#busca_vendas as */*
+  Parameters: {"filtro"=>"0", "inicio"=>"", "final"=>"", "tipo"=>"CODIGO", "busca"=>"", "commit"=>"buscar"}
+  Rendered vendas/busca_vendas.html.erb (337.8ms)
+Completed 200 OK in 341ms (Views: 254.5ms | ActiveRecord: 85.6ms)
+
+
+Started GET "/vendas/35" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"35"}
+  Rendered vendas_produtos/_new_produto.html.erb (31.9ms)
+  Rendered vendas_produtos/_vendas_produto.html.erb (3.0ms)
+  Rendered vendas/eps/_show_E02.html.erb (69.1ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (71.9ms)
+Completed 200 OK in 308ms (Views: 141.1ms | ActiveRecord: 20.6ms)
+
+
+Started GET "/assets/vendas/venda.css" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /vendas/venda.css - 304 Not Modified (24ms)
+
+
+Started GET "/assets/button.css" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /button.css - 304 Not Modified (13ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /vendas.js - 304 Not Modified (28ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /wbg.gif - 304 Not Modified (4ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-03 16:41:54 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started POST "/buscas/busca_produto" for 127.0.0.1 at 2013-01-03 16:43:50 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"35"}
+Completed 200 OK in 161ms (Views: 2.4ms | ActiveRecord: 5.5ms)

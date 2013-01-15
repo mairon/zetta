@@ -9,6 +9,14 @@ $(document).ready(function() {
 	});
 });
 
+
+$("input").keypress(function bloqEnter(objEvent) {
+    var iKeyCode;
+    iKeyCode = objEvent.keyCode;
+    if(iKeyCode == 13) return false;
+    return true;
+});
+  
 function bloqEnter(objEvent) {
     var iKeyCode;
     iKeyCode = objEvent.keyCode;

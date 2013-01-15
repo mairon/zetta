@@ -2,8 +2,7 @@
 <div class="group">
   <%= form_for(vendas_produto) do |f| %>
     <%= f.hidden_field :venda_id %>
-    <%= f.text_field :produto_nome, :class => 'large', :placeholder => 'Producto' %>
-    <div class="left">    	
+    <div class="right">    	
     	<%= f.text_field :barra, :class => 'medium', :placeholder => 'barra' %>
     	<br>
 
@@ -24,9 +23,11 @@
           </div>
 
     	</div>
+    <%= f.text_field :produto_nome, :class => 'large', :placeholder => 'Producto' %>
+
     </div>
     
-
+wewewe
     <div class="right">    	
     		<table width="510">
     			<tr>

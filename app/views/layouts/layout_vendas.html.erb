@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title>MercoSys Enterprise</title>
-    <%= stylesheet_link_tag 'vendas/venda','button' %>
+    <title>MercoSys Zetta</title>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
     <%= javascript_include_tag 'application','vendas' %>
 
     <%= csrf_meta_tag %>    
@@ -18,17 +18,21 @@
 
   </head>
   <body>
-    <div class="header">
-      <span class="header_logo">MercoSys Zetta</span>
-      <span class="header_log">        
+    <div class="cabeca">
+      <span class="style1"> MercoSys Zetta </span>
+      <small class="small">
+        version<%= $version %><%= $empresa %>
+      </small>
+
+      <span class="style2"> 
         Unidade : <%= current_unidade.unidade_nome %> |
         Usuario : <%= current_user.usuario_nome%> |
         <% if session[:logged] %>
-          <%= link_to "logout", login_path(1) ,:method => :delete %>
+          <%= link_to "logout", new_login_path, :action => :delete %>
         <% end %>
       </span>
-    </div>
 
+    </div>
 
     <div class="Mensagem" id="observacao">
       <%= flash[:observacao] %>

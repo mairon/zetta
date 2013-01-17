@@ -1,5 +1,7 @@
 Zetta::Application.routes.draw do
 
+  resources :meta
+
   resources :variavels
 
   resources :elementos

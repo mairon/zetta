@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107134110) do
+ActiveRecord::Schema.define(:version => 20130116104432) do
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -1402,6 +1402,20 @@ ActiveRecord::Schema.define(:version => 20130107134110) do
   create_table "menus", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "meta", :force => true do |t|
+    t.date     "data"
+    t.date     "periodo_inicio"
+    t.date     "periodo_final"
+    t.integer  "persona_id"
+    t.string   "persona_nome"
+    t.integer  "moeda"
+    t.decimal  "valor_dolar"
+    t.decimal  "valor_guarani"
+    t.decimal  "valor_real"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "moedas", :force => true do |t|

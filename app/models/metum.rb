@@ -1,3 +1,12 @@
 class Metum < ActiveRecord::Base
-  attr_accessible :data, :moeda, :periodo_final, :periodo_inicio, :persona_id, :persona_nome, :valor_dolar, :valor_guarani, :valor_real
+
+	before_save :finds
+
+  def finds
+
+	  #busca vendedor
+	  vend = Persona.find_by_id(self.persona_id);
+	  self.persona_nome = vend.nome.to_s unless self.persona_id.blank?
+  end
+
 end

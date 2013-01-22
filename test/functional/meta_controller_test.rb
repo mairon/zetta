@@ -18,7 +18,7 @@ class MetaControllerTest < ActionController::TestCase
 
   test "should create metum" do
     assert_difference('Metum.count') do
-      post :create, metum: { data: @metum.data, moeda: @metum.moeda, periodo_final: @metum.periodo_final, periodo_inicio: @metum.periodo_inicio, persona_id: @metum.persona_id, persona_nome: @metum.persona_nome, valor_dolar: @metum.valor_dolar, valor_guarani: @metum.valor_guarani, valor_real: @metum.valor_real }
+      post :create, metum: { descricao: @metum.descricao, moeda: @metum.moeda, periodo_final: @metum.periodo_final, periodo_inicio: @metum.periodo_inicio, status: @metum.status, valor_max_gs: @metum.valor_max_gs, valor_max_rs: @metum.valor_max_rs, valor_max_us: @metum.valor_max_us, valor_min_gs: @metum.valor_min_gs, valor_min_rs: @metum.valor_min_rs, valor_min_us: @metum.valor_min_us }
     end
 
     assert_redirected_to metum_path(assigns(:metum))
@@ -35,7 +35,7 @@ class MetaControllerTest < ActionController::TestCase
   end
 
   test "should update metum" do
-    put :update, id: @metum, metum: { data: @metum.data, moeda: @metum.moeda, periodo_final: @metum.periodo_final, periodo_inicio: @metum.periodo_inicio, persona_id: @metum.persona_id, persona_nome: @metum.persona_nome, valor_dolar: @metum.valor_dolar, valor_guarani: @metum.valor_guarani, valor_real: @metum.valor_real }
+    put :update, id: @metum, metum: { descricao: @metum.descricao, moeda: @metum.moeda, periodo_final: @metum.periodo_final, periodo_inicio: @metum.periodo_inicio, status: @metum.status, valor_max_gs: @metum.valor_max_gs, valor_max_rs: @metum.valor_max_rs, valor_max_us: @metum.valor_max_us, valor_min_gs: @metum.valor_min_gs, valor_min_rs: @metum.valor_min_rs, valor_min_us: @metum.valor_min_us }
     assert_redirected_to metum_path(assigns(:metum))
   end
 

@@ -1,0 +1,13 @@
+<h1 class="group">
+  <b>Fecha Inicio:</b>
+  <%= @meta.periodo_inicio.strftime("%d/%m/%Y") %>
+
+  <b>Fecha Final:</b>
+  <%= @meta.periodo_final.strftime("%d/%m/%Y") %>
+</h1>
+
+<div class="group">
+  <%= render :partial=>"/meta_detalhes/index_detalhes", :locals=>{:meta_detalhes => @meta.meta_detalhes}%>
+</div>
+
+<%= render :partial=>"/meta_detalhes/new_detalhes", :locals=>{ :meta_detalhe => MetaDetalhe.new(:meta_id=>@meta.id) } %> 

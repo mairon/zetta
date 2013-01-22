@@ -1,0 +1,38 @@
+<table class="head_grid">
+          <tr>
+            <td width="300" align="center">Empleado</td>
+            <td width="100" align="center">Setor</td>
+            <td width="80" align="center">Valor Min U$</td>
+            <td width="80" align="center">Valor Max U$</td>
+            <td width="80" align="center">Valor Min G$</td>
+            <td width="80" align="center">Valor Max G$</td>
+            <td width="80" align="center">Valor Min R$</td>
+            <td width="80" align="center">Valor Max R$</td>
+            <td width="80" align="center">Comisión Min</td>
+            <td width="80" align="center">Comisión Max</td>
+          </tr>
+</table>
+
+<div class="rolagem" dir="div">
+
+    <table>
+<% meta_detalhes.each do |detalhe| %>
+  <tr class = "<%= cycle("cor1", "cor2") %>">
+    <td width="300" align="center"><%= detalhe.persona_nome %></td>
+    <td width="100" align="left"><%= detalhe.setor_nome %></td>
+    <td width="80" align="center"><%= detalhe.valor_min_us %></td>
+    <td width="80" align="center"><%= detalhe.valor_max_us %></td>
+    <td width="80" align="center"><%= detalhe.valor_min_gs %></td>
+    <td width="80" align="center"><%= detalhe.valor_max_gs %></td>
+    <td width="80" align="center"><%= detalhe.valor_min_rs %></td>
+    <td width="80" align="center"><%= detalhe.valor_max_rs %></td>
+    <td width="80" align="center"><%= detalhe.comicao_min %></td>
+    <td width="80" align="center"><%= detalhe.comicao_max %></td>
+   
+    <td><%= link_to 'Edit', edit_meta_detalhe_path(detalhe) %></td>
+    <td><%= link_to 'Destroy', detalhe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+        
+    </table>
+</div>

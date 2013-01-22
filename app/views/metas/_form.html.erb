@@ -1,0 +1,96 @@
+<%= form_for(@meta) do |f| %>
+  <% if @meta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meta.errors.count, "error") %> prohibited this meta from being saved:</h2>
+
+      <ul>
+      <% @meta.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <ul class="tabs">
+      <li><a href="#tab1">Controle de Pulv. - [Edicion]</a></li>
+   </ul>
+
+   <div class="tab_container">
+      <div id="tab1" class="tab_content">
+
+        <table>
+              <tr>
+                <td>
+                  <fieldset >
+                    <table>
+                      <tr>
+                        <td align="right">Fecha Inicio :</td>
+                        <td colspan="1"><%= f.date_select :periodo_inicio %></td>                        
+                    
+                        <td align="right">Fecha Final :</td>
+                        <td colspan="1"><%= f.date_select :periodo_final %></td>                        
+                      </tr>
+
+                      <td>
+                        <fieldset>
+                          <legend>Moneda</legend>
+                            <%= f.radio_button :moeda, 0, :checked => true %>DOLAR </br>
+                            <%= f.radio_button :moeda, 1 %>GUARANI </br>
+                            <%= f.radio_button :moeda, 2 %>REAL
+                        </fieldset>
+                      </td>
+
+                      <tr>
+                        <td align="right">Valor Minimo U$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_min_us, :size => 15 %></td>
+                    
+                        <td align="right">Valor Maximo U$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_max_us, :size => 15 %></td>
+                      </tr>
+
+                      <tr>
+                        <td align="right">Valor Minimo G$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_min_gs, :size => 15 %></td>
+            
+                        <td align="right">Valor Maximo G$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_max_gs, :size => 15 %></td>
+                      </tr>
+
+                      <tr>
+                        <td align="right">Valor Minimo R$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_min_rs, :size => 15 %></td>
+                    
+                        <td align="right">Valor Maximo R$ :</td>
+                        <td colspan="1"><%= f.text_field :valor_max_rs, :size => 15 %></td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <fieldset>
+                            <legend>Status</legend>
+                              <%= f.radio_button :status, 0, :checked => true %>ATIVO
+                              <%= f.radio_button :status, 1 %>INATIVO
+                          </fieldset>
+                        </td>
+                      </tr>
+
+                    <table>
+                      <tr>
+                        <td align="right">Descricao :</td>
+                        <td colspan="1"><%= f.text_area :descricao,
+                                                 :cols => 80, :rows => 4 %></td>
+                    
+                      </tr>
+                    </table>
+                    </table>
+                  </fieldset>                    
+                </td>
+              </tr>
+        </table>
+      </div>
+      <div class="buttons">
+        <%= f.submit :value => "Seguir", :class => "button" %>
+        <%= link_to 'Back', controle_pulvs_path, :class => "button back" %>
+      </div>
+      <% end %>
+</div>

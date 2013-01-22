@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116104432) do
+ActiveRecord::Schema.define(:version => 20130121184044) do
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -1404,16 +1404,37 @@ ActiveRecord::Schema.define(:version => 20130116104432) do
     t.datetime "updated_at"
   end
 
-  create_table "meta", :force => true do |t|
-    t.date     "data"
-    t.date     "periodo_inicio"
-    t.date     "periodo_final"
+  create_table "meta_detalhes", :force => true do |t|
+    t.integer  "meta_id"
     t.integer  "persona_id"
     t.string   "persona_nome"
+    t.integer  "setor_id"
+    t.string   "setor_nome"
+    t.decimal  "valor_min_us"
+    t.decimal  "valor_min_gs"
+    t.decimal  "valor_min_rs"
+    t.decimal  "valor_max_us"
+    t.decimal  "valor_max_gs"
+    t.decimal  "valor_max_rs"
+    t.decimal  "comicao_min"
+    t.decimal  "comicao_max"
+    t.text     "descricao"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "metas", :force => true do |t|
+    t.date     "periodo_inicio"
+    t.date     "periodo_final"
     t.integer  "moeda"
-    t.decimal  "valor_dolar"
-    t.decimal  "valor_guarani"
-    t.decimal  "valor_real"
+    t.decimal  "valor_min_us"
+    t.decimal  "valor_min_gs"
+    t.decimal  "valor_min_rs"
+    t.decimal  "valor_max_us"
+    t.decimal  "valor_max_gs"
+    t.decimal  "valor_max_rs"
+    t.integer  "status"
+    t.text     "descricao"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

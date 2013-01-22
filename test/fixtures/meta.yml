@@ -1,23 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  data: 2013-01-16
-  periodo_inicio: 2013-01-16
-  periodo_final: 2013-01-16
-  persona_id: 1
-  persona_nome: MyString
+  periodo_inicio: 2013-01-21
+  periodo_final: 2013-01-21
   moeda: 1
-  valor_dolar: 9.99
-  valor_guarani: 9.99
-  valor_real: 9.99
+  valor_min_us: 9.99
+  valor_min_gs: 9.99
+  valor_min_rs: 9.99
+  valor_max_us: 9.99
+  valor_max_gs: 9.99
+  valor_max_rs: 9.99
+  status: 1
+  descricao: MyText
 
 two:
-  data: 2013-01-16
-  periodo_inicio: 2013-01-16
-  periodo_final: 2013-01-16
-  persona_id: 1
-  persona_nome: MyString
+  periodo_inicio: 2013-01-21
+  periodo_final: 2013-01-21
   moeda: 1
-  valor_dolar: 9.99
-  valor_guarani: 9.99
-  valor_real: 9.99
+  valor_min_us: 9.99
+  valor_min_gs: 9.99
+  valor_min_rs: 9.99
+  valor_max_us: 9.99
+  valor_max_gs: 9.99
+  valor_max_rs: 9.99
+  status: 1
+  descricao: MyText

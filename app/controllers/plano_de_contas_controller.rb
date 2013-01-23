@@ -13,22 +13,23 @@ before_filter :authenticate
   def print
     @plano_de_contas = PlanoDeConta.all(:order => 'codigo')
 
-      pdf = render :layout => 'layer_relatorios'
-      kit = PDFKit.new(pdf,:page_size        => 'A4',
-                           :print_media_type  => true,
-                           :header_font_name  => 'bold',
-                           :header_font_size  => "8" ,
-                           :header_spacing    => "2",
-                           :footer_font_size  => "7",
-                           :footer_right  => "Pagina [page] de [toPage]",
-                           :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
-                           :margin_top    => '0.20in',
-                           :margin_bottom => '0.25in',
-                           :margin_left   => '0.10in',
-                           :margin_right  => '0.10in')
-      kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
-      send_data(kit.to_pdf, :filename => "Plan_de_Cuentas.pdf")
-
+      respond_to do |format|
+      format.html do
+        render  :pdf                    => "resultado_fechamento_caixa",                
+                :layout                 => "layer_relatorios",
+                :margin => {:top        => '0.20in',
+                            :bottom     => '0.25in',
+                            :left       => '0.10in',
+                            :right      => '0.10in'},        
+                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :spacing    => 25},
+                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :right      => "Pagina [page] de [toPage]",
+                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+      end
+    end
   end
 
 

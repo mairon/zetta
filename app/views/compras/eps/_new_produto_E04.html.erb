@@ -1,6 +1,5 @@
 
-<% form_for(compras_produto) do |f| %>
-  <%= f.error_messages %>
+<%= form_for(compras_produto) do |f| %>
   <%= f.hidden_field :compra_id %>
   <%= f.hidden_field :status,    :value => @compra.status.to_i%>
   <%= f.hidden_field :cotacao,   :value => @compra.cotacao.to_i%>
@@ -37,11 +36,7 @@
         <td colspan="4">
             <%= text_field_tag( 'key',
                                  nil,
-                                 :id       => "key",
-                                 :onchange => remote_function( :update     => "key",
-                                                               :url        => { :action => :get_produto, :id => 1},
-                                                               :with       => "'key='+this.value"),
-                                                               :size       => 5
+                                 :id       => "key"
                                                             ) %>
 
             <%= f.text_field :produto_nome,

@@ -88,7 +88,6 @@ class RelatoriosController < ApplicationController
         "                                                   #{$empresa_nome}
                                                         Listado de Ventas
 - Fecha...: #{params[:inicio]} hasta #{params[:final]}
-- Secto...: #{find_setor.nome}
 - Moneda..: #{moeda}
 -----------------------------------------------------------------------------------------------------------------------------------------
    Lanz.      Fecha      Vendedor             Cliente                            Factura           Tipo            Cantidad         Total
@@ -791,7 +790,7 @@ def resultado_controle_visitas
 
     respond_to do |format|
       format.html do
-        render  :pdf                    => "resultado_pedidos_vendas",                
+        render  :pdf                    => "resultado_controle_visitas",                
                 :layout                 => "layer_relatorios",
                 :margin => {:top        => '1.20in',
                             :bottom     => '0.25in',
@@ -807,5 +806,33 @@ def resultado_controle_visitas
                             :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
       end
     end
+  end
+
+def resultado_fluxo_caixa    
+      
+    head =
+"                                                                                           #{$empresa_nome}
+                                                                                            Fluxo de Caja
+- Periodo: #{('01/'+ (params[:mes_inicio].to_i).to_s + '/0001').to_date.strftime("%B") } hasta #{('01/'+ (params[:mes_final].to_i).to_s + '/0001').to_date.strftime("%B") }                                                                                                                                                          Ano: #{params[:ano]}"
+
+    respond_to do |format|
+      format.html do
+        render  :pdf                    => "resultado_controle_visitas",                
+                :layout                 => "layer_relatorios",
+                :orientation            => 'Landscape', 
+                :margin => {:top        => '0.60in',
+                            :bottom     => '0.25in',
+                            :left       => '0.10in',
+                            :right      => '0.10in'},        
+                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :left       => head,
+                            :spacing    => 9},
+                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :right      => "Pagina [page] de [toPage]",
+                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+      end
     end
+    end  
 end

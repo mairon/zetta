@@ -11,9 +11,16 @@ class SueldosController < ApplicationController
 
     def comprovante         #
         @sueldo = Sueldo.find(params[:id])
-        @debe   = SueldosDetalhe.sum(:valor_guarani,:conditions => ["sueldo_id = ? AND estado = 1", @sueldo.id])
-        @haber  = SueldosDetalhe.sum(:valor_guarani,:conditions => ["sueldo_id = ? AND  estado = 0", @sueldo.id])
-        @tot    = @haber - @debe
+        if @sueldo.moeda == 0
+            saldo = 'divida_dolar - cobro_dolar'
+        elsif @sueldo.moeda == 1
+            saldo = 'divida_guarani - cobro_guarani'
+        else
+            saldo = 'divida_real - cobro_real'
+        end
+        @pendentes = Cliente.sum(saldo,:conditions => ["persona_id = ?  AND liquidacao = 0  AND tipo = '1' and data <= ?",@sueldo.persona_id,@sueldo.data_final])
+
+        @sueldos_detalhes = SueldosDetalhe.all(:conditions => ["sueldo_id = ?",@sueldo.id],:order => 'data,id')
 
         render :layout => false
     end
@@ -21,7 +28,16 @@ class SueldosController < ApplicationController
     def get_moeda           #
         @moeda =  Moeda.find(:first,:select => 'dolar_venda', :conditions =>  [ "data = ?", params[:key]])
         return render :text => "<script type='text/javascript'>
-                               document.getElementById('sueldos_detalhe_cotacao').value       = '#{format("%.2f",@moeda.dolar_venda.to_f)}';
+                               document.getElementById('sueldos_detalhe_cotacao').value       = '#{@moeda.dolar_venda.to_i}';
+                            </script>"
+    end
+
+
+
+    def get_moeda_real           #
+        @moeda =  Moeda.find(:first,:select => 'real_venda', :conditions =>  [ "data = ?", params[:key]])
+        return render :text => "<script type='text/javascript'>
+                               document.getElementById('sueldos_detalhe_cotacao_real').value       = '#{@moeda.real_venda.to_i}';
                             </script>"
     end
 
@@ -65,12 +81,9 @@ class SueldosController < ApplicationController
 
     def show
         @sueldo = Sueldo.find(params[:id])
-        
-        @pendencias = Cliente.sum('divida_guarani - cobro_guarani', :conditions => [" PERSONA_ID = #{@sueldo.persona_id}
-         AND   LIQUIDACAO = 0
-         AND   TIPO       = '1'
-         AND   date_part('month', DATA) <= '#{@sueldo.mes}'  AND  date_part('year', DATA) <= '#{@sueldo.ano}'"])
 
+        @pendentes = Cliente.all(:conditions => ["persona_id = ?  AND liquidacao = 0  AND tipo = '1' AND (divida_guarani + divida_dolar + divida_real) > 0 and data <= ?",@sueldo.persona_id,@sueldo.data_final],:order => 'data,id')
+    
         respond_to do |format|
             format.html # show.html.erb
             format.xml  { render :xml => @sueldo }

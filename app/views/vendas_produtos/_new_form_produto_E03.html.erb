@@ -47,7 +47,7 @@
         <td><%= f.text_field :quantidade,
                              :size       => 8,
                              :value      => 1,
-                             :onkeyup    => "EnterTab(event,'vendas_produto_total_desconto')",
+                             :onkeyup    => "EnterTab(event,'vendas_produto_total_guarani')",
                              :onkeypress => "return bloqEnter(event)",
                              :onblur     => " VendasProdutoTotalDolar(),
                                               VendasProdutoTotalGs(),
@@ -230,18 +230,24 @@ $("#cod_busca").keyup(function(){
 });
 
 
-document.onkeyup=function(e){
-   if(e.which == 67){
-      $('#tipo_cod').val("CODIGO");
-      return false;
-   }
+$(window).keydown(function(event) {
+ if(event.ctrlKey && event.keyCode == 67) { 
+    $('#tipo_cod').val("CODIGO");
+    event.preventDefault(); 
+  }
 
-   if(e.which == 66){
+  if(event.ctrlKey && event.keyCode == 66) { 
       $('#tipo_cod').val("BARRA");
-      return false;
-   }
+    event.preventDefault(); 
+  }
 
-}
+  if(event.ctrlKey && event.keyCode == 49) { 
+    $('#vendas_produto_total_desconto').focus();
+    event.preventDefault(); 
+  }
+
+});
+
 
 </script>
 

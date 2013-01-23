@@ -11,8 +11,6 @@
       <%= f.hidden_field :cidade_nome,  :value => @venda.cidade_nome%>
       <%= f.hidden_field :cidade_id,    :value => @venda.cidade_id %>
       <%= f.hidden_field :bairro,       :value => @venda.bairro%>
-      <%= f.hidden_field :vendedor_id,  :value => @venda.vendedor_id%>
-      <%= f.hidden_field :vendedor_nome,:value => @venda.vendedor_nome%>
       <%= f.hidden_field :clase_produto,:value => @venda.clase_produto %>
       <%= f.hidden_field :data, :value => @venda.data %>    
       <%= f.hidden_field :tipo_ordem , :value => 0  %>
@@ -150,7 +148,7 @@
                                   <legend>Gs.:</legend>
                                   <table valign="top">
                                     <tr>
-                                      <td height="55" align="right">Desc. Gs.:</td>
+                                      <td align="right">Desc. Gs.:</td>
                                       <td>
                                        	<%= f.text_field :porcen_desconto_gs,
                                                             :size     => 5,
@@ -174,7 +172,7 @@
                                     </tr>
 
 
-                                    <tr height="53">
+                                    <tr>
                                        <td align="right">Valor Gs. :</td>
                                        <td width="300"><%= f.text_field :valor_guarani_contado,
                                                             :size     => 16,
@@ -188,7 +186,7 @@
 
 
                                     <tr>
-                                       <td height="55" align="right">Recebido Gs. :</td>
+                                       <td height="25" align="right">Recebido Gs. :</td>
                                        <td><%= f.text_field :recebido_guarani,
                                                             :size     => 16,
                                                             :class => "money_gs",
@@ -217,7 +215,7 @@
            				    <td width="400">
                           <div>
                             <table>
-                              <tr height="230">
+                              <tr height="70">
                                 <td>
                                   <font size="12" color="green">U$.: <SPAN ID="mostra_dolar">0,00</SPAN> </font><br/>
                                   <font size="12" color="red">Gs.: <SPAN ID="mostra_guarani">0</SPAN> </font><br/>
@@ -252,20 +250,20 @@
                   <table>
                     <tr>
                       <td align="right">Cuenta :</td>
-                      <td width="251"><%= f.collection_select :conta_id, Conta.all( :select     =>' id,nome',:conditions => ["tipo = 0"],:order      => '1'), :id,:nome,{},{:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_cheque_status')"} %></td>
+                      <td width="251"><%= f.collection_select :conta_id, Conta.all( :select     =>' id,nome',:conditions => ["tipo = 0"],:order      => '1'), :id,:nome,{},{:class => 'combo',:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_cheque_status')"} %></td>
  
                       <td align="right"></td>
                       <td><%= f.check_box :cheque_status,
                                            :onkeypress  => "return bloqEnter(event)",
                                            :onchange => "toggleDiv('mydiv'),toggleDiv('mydiv2');",
-                                           :onkeyup     => "EnterTab(event,'vendas_financa_fatura_0')"%> Cheque?</td>
+                                           :onkeyup     => "EnterTab(event,'vendas_financa_vendedor_id')"%> Cheque?</td>
                     </tr>
                     <tr>
                       <td>Vendedor:</td>
                       <td>    
                         <%= f.collection_select :vendedor_id, Persona.all( :select     => ' id,nome,tipo_vendedor',
                           :conditions => ["tipo_vendedor = 1"],
-                          :order      => '2'),:nome,:nome %>
+                          :order      => '2'),:nome,:nome,{},{:class => 'combo',:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_fatura_0')"} %>
                       </td>
                     </tr>     
                   </table>
@@ -472,9 +470,6 @@
                             </tr>
                          </table>
                       </td>
-                   </tr>
-
-                   <tr>
                       <td align="right">Factura a Nombre de.:</td>
 
                       <td colspan="2"><%= f.text_field :fatura_legal,
@@ -495,7 +490,7 @@
                    <% if current_user.tipo == 2 %>
                    <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '002'"])%>
                    <tr>
-                      <td align="right">Factura N.:</td>
+                      <td align="right"  colspan="3">Factura N.:</td>
 
                       <td><%= f.text_field :documento_numero_01,
                                            :size => 3,
@@ -518,7 +513,7 @@
 
                    <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '001'"])%>
                    <tr>
-                      <td align="right">Factura N.:</td>
+                      <td align="right" colspan="3">Factura N.:</td>
 
                       <td><%= f.text_field :documento_numero_01,
                                            :size => 3,

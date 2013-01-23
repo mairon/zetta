@@ -23,7 +23,7 @@ Relatorio Cobros
       <% tottotal       = 0 %>
       <% totquantidade  = 0 %>
 
-      <% @stocks.each do |stock|%>
+      <%= @stocks.each do |stock|%>
 
                  <% if quebra != stock.produto_nome  %>
                     <% if quebra2 != stock.quantidade_bomba  %>

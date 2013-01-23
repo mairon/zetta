@@ -1,80 +1,56 @@
 <body onload="window.print()">
-
-
+<style type="text/css">
+html body, tr td {
+  font-family:Lucida Console, Courier, Monotype;
+  font-size:10px;
+}
+.header{
+  font-size:18px; 
+}
+</style>
   <table align="left"  valign="top">
     <tr>
-      <td colspan="4" align="center">
-        <FONT FACE="times new roman" size="3">
-          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        </FONT>
-      </td>
-    </tr>
-
-    <tr>
       <td >
-          <FONT FACE="times new roman" size="4">
-            <%= $empresa_nome %>
-          </FONT>
+        <b class="header">
+          <%= $empresa_nome %>
+        </b>            
      </td>
-      <td align="right">
-          <FONT FACE="times new roman" size="4">
-            RECIBO N.:<%=@sueldo.id%>
-          </FONT>
+
+      <td align="right" >
+        <b class="header">
+          Hoja de Pago N.:<%=@sueldo.id.to_s.rjust(6,'0')%>
+        </b>                    
      </td>
-    </tr>
-
-    <tr>       
-
-      <td align="left">
-          <FONT FACE="times new roman" size="3">
-            Ruc : <%= $ruc %>
-          </FONT>
-       </td>
-
-      <td align="right">
-          <FONT FACE="times new roman" size="3">
-             Periodo :<%= @sueldo.mes %> / <%= @sueldo.ano %>
-          </FONT>
-       </td>
-    </tr>
-    <tr>
-
-      <td align="left">
-          <FONT FACE="times new roman" size="3">
-            Tel : <%= $tel %>
-          </FONT>
-       </td>
-
-
-      <td align="right">
-          <FONT FACE="times new roman" size="3">
-             Hora :<%=Time.now.strftime("%H:%M:%S")%>
-          </FONT>
-       </td>
-    </tr>
-
-    <tr>
-      <td colspan="4" align="center">
-        <FONT FACE="times new roman" size="3">
-          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        </FONT>
-      </td>
     </tr>
 
     <tr>
       <td align="left" colspan="2">
         <table>
+
+        <tr>  
+          <td align="right">
+            Periodo : 
+          </td>     
+          
+          <td>
+              
+             <%= @sueldo.data_inicio.strftime("%d/%m/%Y") %> hasta <%= @sueldo.data_final.strftime("%d/%m/%Y") %>
+              - Dias(<%=  @sueldo.data_final.to_date - @sueldo.data_inicio.to_date %>)
+              
+           </td>
+        </tr>
+
           <tr>
-            <td>
-              <FONT FACE="times new roman" size="3">
+            <td align="right">
+              
                 Nombre :
-              </FONT>
+              
             </td>
 
             <td  align="left">
-                <FONT FACE="times new roman" size="3">
+                
                   <%= @sueldo.persona_nome %>
-                </FONT>
+                
             </td>
 
           </tr>
@@ -83,147 +59,148 @@
 
     </tr>
 
+
     <tr>
-      <td align="left">
+      <td align="center" colspan="4">        
+            -------------------------------------------------------------------------------------------------------------------------------
+      </td>
+    </tr>
+
+    <tr>
+      <td valign="top" colspan="4">
         <table>
           <tr>
-            <td>
-              <FONT FACE="times new roman" size="3">
-              </FONT>
-            </td>
-
-            <td  align="left">
-                <FONT FACE="times new roman" size="3">
-                </FONT>
-            </td>
-
+            <td width="30"align="center">Codigo</td>
+            <td width="100"align="center">Fecha</td>
+            <td width="450"align="center">Descpripcion</td>
+            <td width="100"align="center">Haber</td>
+            <td width="100"align="center">Debe</td>
+            <td width="100"align="center">Saldo</td>
           </tr>
-        </table>
-      </td>
-
-    </tr>
-
-
-    <tr>
-      <td align="left" colspan="2">
-        <table>
           <tr>
-            <td>
-              <FONT FACE="times new roman" size="3">
-          Importe :
-              </FONT>
+            <td align="center" colspan="7">            
+            -------------------------------------------------------------------------------------------------------------------------------
             </td>
-
-            <td  align="left">
-                <FONT FACE="times new roman" size="3">
-                       <%=h number_to_currency(@tot, :format=>' %n ', :precision => 0)  %>
-                </FONT>
-            </td>
-
           </tr>
+
+
+          <% cre = 0 %>
+          <% deb = 0 %>
+          <% @sueldos_detalhes.each do |sueldos_detalhe| %>
+            <tr class = "<%= cycle("cor1", "cor2") %>">
+              <td width="30" align="center"><%= sueldos_detalhe.id.to_s.rjust(6,'0') %></td>
+              <td width="100" align="center"><%= sueldos_detalhe.data.strftime("%d/%m/%Y") %></td>
+              <td width="450" align="left"><%= sueldos_detalhe.descricao %></td>
+              <% if sueldos_detalhe.moeda == 0 %>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.credito_us, :format=>' %n ', :separeitor => ',')   %></td>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.debito_us, :format=>' %n ', :separeitor => ',')   %></td>
+                <% cre += sueldos_detalhe.credito_us %>
+                <% deb += sueldos_detalhe.debito_us %>
+
+              <% elsif sueldos_detalhe.moeda == 1 %>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.credito_gs, :format=>' %n ', :precision => 0)   %></td>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.debito_gs, :format=>' %n ', :precision => 0)   %></td>
+
+                <% cre += sueldos_detalhe.credito_gs %>
+                <% deb += sueldos_detalhe.debito_gs %>
+
+              <% else %>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.credito_rs, :format=>' %n ', :separeitor => ',')   %></td>
+                <td width="100" align="right"><%= number_to_currency(sueldos_detalhe.debito_rs, :format=>' %n ', :separeitor => ',')   %></td>
+                <% cre += sueldos_detalhe.credito_rs %>
+                <% deb += sueldos_detalhe.debito_rs %>
+
+              <% end %>
+              <td width="100"></td>
+              </tr>
+            <% end %>
+
+            <tr>
+              <td colspan="2"></td>
+              <td ><b>Totales ==> </b></td>
+              <% if @sueldo.moeda == 1 %>
+                <td width="100" align="right"><b><%=h number_to_currency(cre, :format=>' %n ', :precision => 0) %></b></td>
+                <td width="100" align="right"><b><%=h number_to_currency(deb, :format=>' %n ', :precision => 0) %></b></td>
+                <td width="100" align="right"><b><%=h number_to_currency(cre.to_f - deb.to_f, :format=>' %n ', :precision => 0) %></b></td>
+              <% else %>
+                <td width="100" align="right"><b><%=h number_to_currency(cre, :format=>' %n ', :separeitor => ',') %></b></td>
+                <td width="100" align="right"><b><%=h number_to_currency(deb, :format=>' %n ', :separeitor => ',') %></b></td>
+                <td width="100" align="right"><b><%=h number_to_currency(cre.to_f - deb.to_f, :format=>' %n ', :separeitor => ',') %></b></td>        
+              <% end %>
+            </tr>
         </table>
       </td>
-   </tr>
-
-    <tr>
-      <td align="left">
-        <table>
-          <tr>
-            <td>
-              <FONT FACE="times new roman" size="3">
-          En Letras :
-              </FONT>
-            </td>
-
-            <td  align="left">
-                <FONT FACE="times new roman" size="3">
-                   <%=  @tot.to_f.por_extenso.upcase  %>
-                </FONT>
-            </td>
-
-          </tr>
-        </table>
-      </td>
-
-   </tr>
-
-    <tr>
-      <td align="center" colspan="4">
-        <FONT FACE="times new roman" size="3">
-          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        </FONT>
-      </td>
     </tr>
-
-    <tr height="220">
-      <td valign="top">
-        <FONT FACE="times new roman" size="3">
-        </FONT>
-      </td>
-    </tr>
-
   
     <tr>
-      <td>
-              <FONT FACE="times new roman" size="3">
-                -------------------------------------------
-              </FONT>
-            </td>
-
-            <td align="right">
-              <FONT FACE="times new roman" size="3">
-                     -------------------------------------------
-              </FONT>
-            </td>
-
-    </tr>
-
-    <tr>
-      <td>
-              <FONT FACE="times new roman" size="3">
-                <%=  $empresa_nome %>
-              </FONT>
-            </td>
-
-            <td   width="350" align="center">
-              <FONT FACE="times new roman" size="3">
-                     <%=@sueldo.persona_nome%>
-              </FONT>
-            </td>
-
-    </tr>
-
-
-    <tr>
-      <td align="right">
-        <FONT FACE="times new roman" size="3">
-          <b>            
-          </b>
-        </FONT>
+      <td align="center" colspan="4">
+        
+            -------------------------------------------------------------------------------------------------------------------------------
       </td>
     </tr>
 
     <tr>
+      <td>
+        <table>
+          <tr>
+            <td>Saldo Deudor Pendiente : </td>
+            <% if @sueldo.moeda == 1 %>
+              <td width="100" align="right"><b><%=h number_to_currency(@pendentes.to_f, :format=>' %n ', :precision => 0) %></b></td>
+            <% else %>
+              <td width="100" align="right"><b><%=h number_to_currency(@pendentes.to_f, :format=>' %n ', :separeitor => ',') %></b></td>        
+            <% end %>            
+          </tr>
+
+          <tr>
+            <td>Importe de Sueldo : </td>
+            <% if @sueldo.moeda == 1 %>
+              <td width="100" align="right"><b><%=h number_to_currency(cre.to_f - deb.to_f, :format=>' %n ', :precision => 0) %></b></td>
+            <% else %>
+              <td width="100" align="right"><b><%=h number_to_currency(cre.to_f - deb.to_f, :format=>' %n ', :separeitor => ',') %></b></td>        
+            <% end %>            
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+
+
+    <tr height="80" valign="bottom">
+      <td>              
+        ---------------------------------------
+      </td>
+
+      <td align="right">          
+        ---------------------------------------
+              
+      </td>
+
+    </tr>
+
+    <tr>
+      <td>
+        <%=  $empresa_nome %>
+      </td>
+      <td   width="350" align="right">              
+        <%=@sueldo.persona_nome%>
+      </td>
+
+    </tr>
+
+    <tr>
       <td align="center" colspan="4">
-        <FONT FACE="times new roman" size="3">
-          --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        </FONT>
+            -------------------------------------------------------------------------------------------------------------------------------
       </td>
     </tr>
 
     <tr>
       <td colspan="2">
-        <FONT FACE="times new roman" size="3">
+        
           Hecho por : <%=current_user.usuario_nome%>
-          Unidade por : <%=current_unidade.unidade_nome%>
-        </FONT>
+          Unidade : <%=current_unidade.unidade_nome%>
+        
       </td>
     </tr>
-
-      <td align="center" colspan="4">
-        <FONT FACE="times new roman" size="3">
-        </FONT>
-      </td>
 
   </table>
 

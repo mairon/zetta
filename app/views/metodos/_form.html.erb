@@ -11,7 +11,7 @@
     </div>
   <% end %>
  <ul class="tabs">
-    <li><a href="#tab1">Metodos - [Edicion]</a></li>
+    <li><a href="#tab1">Ensaio - [Edicion]</a></li>
   </ul>
 
 
@@ -25,16 +25,30 @@
                 <table>
                   <tr>
                     <td align="right">Nome :</td>
-                    <td><%= f.text_field :nome %> Cod.: <%= f.text_field :cod, :size => 15 %></td>                  
+                    <td><%= f.text_field :nome,:size => 90 %> Cod.: <%= f.text_field :cod, :size => 15 %></td>                  
                   </tr>                 
                   <tr>
-                   <td align="right"> Equipo: </td>
+                   <td align="right"> Equipo : </td>
                    <td> <%= f.collection_select :equipo_id, Equipo.all( :select     => ' id,descricao',
                                                           :conditions => ["status = 0"],
                                                           :order      => '2'),:id,:descricao, { :include_blank => true } %></td>
                     
 
                   </tr>
+
+                  <tr>
+                    <td align="right">Tipo :</td>
+                    <td>
+                      <%= f.select :tipo_id,
+                      ([["SOLO", "0"],
+                        ["CALCARIO", "1"],
+                        ["ADUBO ORGANICO", "2"],
+                        ["GESSO", "3"],
+                        ["FOLHAR", "4"]])%>
+                      
+                    </td>
+                  </tr>                                    
+
                   <tr>
                     <td align="right">Status :</td>
                     <td>
@@ -42,12 +56,76 @@
                       <%= f.radio_button :status, 1%>Desactivo
                     </td>       
                   </tr>
+
                 </table>
                 
               </fieldset>
             </td>
           </tr>
         </table>
+
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+                 <legend>Formula</legend>
+                <table>
+                  <tr>
+                    <td align="right">Valor Ensaio:</td>
+                    <td><%= f.select :valor_ensaio,
+                    ([["LEITURA DIRETA", "LEITURA DIRETA"],
+                        ["VOLUME TITULO", "VOLUME TITULO"],
+                        ["PESAGEM", "PESAGEM"]]) %>
+                        Valor : <%= f.text_field :valor, :size => 15 %>
+                    </td>                  
+                  </tr>                 
+                  <tr>
+                    <td align="right">Var 01 </td>
+                    <td><%= f.collection_select :var_01_id, Produto.all( :select     => ' id,nome',
+                                                          :conditions => ["clase_id = 5"],
+                                                          :order      => '2'),:id,:nome, { :include_blank => true } %>
+                      <%= f.select :calc_01,
+                                    ([["", ""],
+                                      ["X", "X"],
+                                      ["÷", "÷"]]) %>                   
+                      Var 02
+                      <%= f.collection_select :var_02_id, Produto.all( :select     => ' id,nome',
+                                                          :conditions => ["clase_id = 5"],
+                                                          :order      => '2'),:id,:nome, { :include_blank => true } %>
+                      <%= f.select :calc_02,
+                                    ([["", ""],
+                                      ["X", "X"],
+                                      ["÷", "÷"]]) %>                                           
+                      Var 03
+                      <%= f.collection_select :var_03_id, Produto.all( :select     => ' id,nome',
+                                                          :conditions => ["clase_id = 5"],
+                                                          :order      => '2'),:id,:nome, { :include_blank => true } %>
+                      </td>
+                  </tr>
+                </table>
+                
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+                <legend>Precios</legend>
+                <table>
+                  <tr>
+                    <%= field_us 'U$ :',f,:preco_us %>
+                    <%= field_gs 'Gs.:',f,:preco_gs %>
+                    <%= field_us 'R$ :',f,:preco_rs, %>
+                  </tr>
+                </table>
+                
+              </fieldset>
+            </td>
+          </tr>
+        </table>        
       </div>
 
       <div class="buttons">

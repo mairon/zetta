@@ -9473,3 +9473,1071 @@ Started POST "/buscas/busca_produto" for 127.0.0.1 at 2013-01-03 16:43:50 -0200
 Processing by BuscasController#busca_produto as */*
   Parameters: {"cod"=>"", "id"=>"35"}
 Completed 200 OK in 161ms (Views: 2.4ms | ActiveRecord: 5.5ms)
+Connecting to database specified by database.yml
+Compiled jquery.js  (10ms)  (pid 19208)
+Compiled jquery_ujs.js  (0ms)  (pid 19208)
+Compiled all.js  (0ms)  (pid 19208)
+Compiled select2.js  (1ms)  (pid 19208)
+Compiled jquery.maskMoney.js  (0ms)  (pid 19208)
+Compiled abas.js  (0ms)  (pid 19208)
+Compiled application.js  (94ms)  (pid 19208)
+Compiled global.js  (0ms)  (pid 19208)
+Compiled logins.js  (88ms)  (pid 19208)
+Compiled vendas.js  (0ms)  (pid 19208)
+Compiled scaffold.css  (1ms)  (pid 19208)
+Compiled button.css  (0ms)  (pid 19208)
+Compiled table.css  (1ms)  (pid 19208)
+Compiled select2.css  (0ms)  (pid 19208)
+Compiled application.css  (174ms)  (pid 19208)
+Compiled logins.css  (0ms)  (pid 19208)
+Compiled vendas/venda.css  (0ms)  (pid 19208)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/logins/new" for 127.0.0.1 at 2013-01-18 16:09:50 -0200
+Processing by LoginsController#new as HTML
+  Rendered logins/new.html.erb within layouts/logins (63.9ms)
+Completed 200 OK in 283ms (Views: 205.0ms | ActiveRecord: 55.3ms)
+
+
+Started GET "/assets/logins.css" for 127.0.0.1 at 2013-01-18 16:09:51 -0200
+Served asset /logins.css - 200 OK (10ms)
+
+
+Started GET "/assets/logins.js" for 127.0.0.1 at 2013-01-18 16:09:51 -0200
+Compiled jquery.js  (8ms)  (pid 19371)
+Served asset /logins.js - 200 OK (94ms)
+
+
+Started GET "/assets/admin/hsep.gif" for 127.0.0.1 at 2013-01-18 16:09:51 -0200
+Served asset /admin/hsep.gif - 404 Not Found (7ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/admin/hsep.gif"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/assets/admin/mbg.jpg" for 127.0.0.1 at 2013-01-18 16:09:51 -0200
+Served asset /admin/mbg.jpg - 200 OK (3ms)
+
+
+Started POST "/buscas/get_unidade" for 127.0.0.1 at 2013-01-18 16:09:52 -0200
+Processing by BuscasController#get_unidade as */*
+  Parameters: {"unidade"=>"1"}
+WARNING: Can't verify CSRF token authenticity
+  Rendered text template (0.0ms)
+Completed 200 OK in 105ms (Views: 27.8ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/buscas/get_usuario" for 127.0.0.1 at 2013-01-18 16:09:53 -0200
+Processing by BuscasController#get_usuario as */*
+  Parameters: {"usuario"=>"1"}
+WARNING: Can't verify CSRF token authenticity
+  Rendered text template (0.0ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/logins/logar?html%5Bid%5D=login_form" for 127.0.0.1 at 2013-01-18 16:09:56 -0200
+Processing by LoginsController#logar as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PJJqq3QHFi8SQpoGI1rltHW3AkLMiQL4jEnakzzcT7E=", "unidade"=>"1", "busca"=>{"unidade_id"=>"1", "usuario_id"=>"1"}, "usuario"=>"1", "usuario_senha"=>"di03051999", "html"=>{"id"=>"login_form"}}
+WARNING: Can't verify CSRF token authenticity
+Redirected to http://localhost:3000/menu
+Completed 302 Found in 29ms (ActiveRecord: 6.9ms)
+
+
+Started GET "/menu" for 127.0.0.1 at 2013-01-18 16:09:56 -0200
+Processing by MenusController#index as HTML
+  Rendered menus/index.html.erb within layouts/application (0.9ms)
+  Rendered layouts/_application_E03.html.erb (1.7ms)
+Completed 200 OK in 23ms (Views: 17.3ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-18 16:09:56 -0200
+Compiled scaffold.css  (0ms)  (pid 19371)
+Compiled button.css  (0ms)  (pid 19371)
+Compiled table.css  (0ms)  (pid 19371)
+Compiled select2.css  (0ms)  (pid 19371)
+Compiled application.css  (25ms)  (pid 19371)
+Served asset /application.css - 304 Not Modified (40ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-18 16:09:56 -0200
+Compiled jquery_ujs.js  (0ms)  (pid 19371)
+Compiled all.js  (0ms)  (pid 19371)
+Compiled select2.js  (2ms)  (pid 19371)
+Compiled jquery.maskMoney.js  (1ms)  (pid 19371)
+Compiled abas.js  (0ms)  (pid 19371)
+Compiled application.js  (38ms)  (pid 19371)
+Served asset /application.js - 200 OK (3567ms)
+
+
+Started GET "/assets/logo.JPG" for 127.0.0.1 at 2013-01-18 16:10:00 -0200
+Served asset /logo.JPG - 404 Not Found (8ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/logo.JPG"):
+  actionpack (3.2.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.8) lib/rails/rack/logger.rb:26:in `call_app'
+  railties (3.2.8) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.8) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.8) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  rack-cache (1.2) lib/rack/cache/context.rb:136:in `forward'
+  rack-cache (1.2) lib/rack/cache/context.rb:245:in `fetch'
+  rack-cache (1.2) lib/rack/cache/context.rb:185:in `lookup'
+  rack-cache (1.2) lib/rack/cache/context.rb:66:in `call!'
+  rack-cache (1.2) lib/rack/cache/context.rb:51:in `call'
+  railties (3.2.8) lib/rails/engine.rb:479:in `call'
+  railties (3.2.8) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.8) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.5.0) lib/thin/connection.rb:81:in `block in pre_process'
+  thin (1.5.0) lib/thin/connection.rb:79:in `catch'
+  thin (1.5.0) lib/thin/connection.rb:79:in `pre_process'
+  thin (1.5.0) lib/thin/connection.rb:54:in `process'
+  thin (1.5.0) lib/thin/connection.rb:39:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.5.0) lib/thin/backends/base.rb:63:in `start'
+  thin (1.5.0) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.8) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.8) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.8) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.8) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+
+
+Started GET "/stocks/projecao_compras" for 127.0.0.1 at 2013-01-18 16:10:07 -0200
+Processing by StocksController#projecao_compras as HTML
+  Rendered stocks/projecao_compras.html.erb within layouts/application (3120.7ms)
+  Rendered layouts/_application_E03.html.erb (0.1ms)
+Completed 200 OK in 3131ms (Views: 2431.3ms | ActiveRecord: 698.7ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-18 16:10:10 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-18 16:10:10 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/stocks/resultado_projecao_compras?utf8=%E2%9C%93&inicio=01%2F01%2F2010&final=01%2F05%2F2014&campo_clase=&busca%5Bclase%5D=&campo_grupo=&busca%5Bgrupo%5D=&campo_grupo=&busca%5Bsub_grupo%5D=&campo_produto=&busca%5Bproduto%5D=&busca%5Bdeposito%5D=&tipo=0" for 127.0.0.1 at 2013-01-18 16:10:19 -0200
+Processing by StocksController#resultado_projecao_compras as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2010", "final"=>"01/05/2014", "campo_clase"=>"", "busca"=>{"clase"=>"", "grupo"=>"", "sub_grupo"=>"", "produto"=>"", "deposito"=>""}, "campo_grupo"=>"", "campo_produto"=>"", "tipo"=>"0"}
+***************WICKED***************
+  Rendered stocks/resultado_projecao_compras.html.erb within layouts/layer_relatorios (67.0ms)
+Compiled relatorios.css  (0ms)  (pid 19371)
+  Rendered stocks/headers/projecao_compras.html within layouts/layer_relatorios (1.8ms)
+  Rendered text template (0.0ms)
+Sent data resultado_fechamento_caixa.pdf (1.3ms)
+Completed 200 OK in 6699ms (Views: 1.0ms | ActiveRecord: 126.7ms)
+
+
+Started GET "/stocks/resultado_projecao_compras?utf8=%E2%9C%93&inicio=01%2F01%2F2010&final=01%2F05%2F2014&campo_clase=&busca%5Bclase%5D=&campo_grupo=&busca%5Bgrupo%5D=&campo_grupo=&busca%5Bsub_grupo%5D=&campo_produto=&busca%5Bproduto%5D=&busca%5Bdeposito%5D=&tipo=0" for 127.0.0.1 at 2013-01-18 16:14:24 -0200
+Processing by StocksController#resultado_projecao_compras as HTML
+  Parameters: {"utf8"=>"✓", "inicio"=>"01/01/2010", "final"=>"01/05/2014", "campo_clase"=>"", "busca"=>{"clase"=>"", "grupo"=>"", "sub_grupo"=>"", "produto"=>"", "deposito"=>""}, "campo_grupo"=>"", "campo_produto"=>"", "tipo"=>"0"}
+***************WICKED***************
+  Rendered stocks/resultado_projecao_compras.html.erb within layouts/layer_relatorios (14.4ms)
+  Rendered stocks/headers/projecao_compras.html within layouts/layer_relatorios (0.4ms)
+  Rendered text template (0.0ms)
+Sent data resultado_fechamento_caixa.pdf (1.4ms)
+Completed 200 OK in 7410ms (Views: 1.1ms | ActiveRecord: 90.5ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/vendas/45" for 127.0.0.1 at 2013-01-21 15:29:17 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (7.3ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (48.9ms)
+  Rendered vendas_produtos/_new_produto.html.erb (128.6ms)
+  Rendered vendas/eps/_show_E01.html.erb (320.2ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (335.8ms)
+Completed 200 OK in 673ms (Views: 384.8ms | ActiveRecord: 35.1ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-21 15:29:19 -0200
+Compiled scaffold.css  (0ms)  (pid 4723)
+Compiled button.css  (1ms)  (pid 4723)
+Compiled table.css  (0ms)  (pid 4723)
+Compiled select2.css  (0ms)  (pid 4723)
+Compiled application.css  (84ms)  (pid 4723)
+Served asset /application.css - 200 OK (176ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 15:29:19 -0200
+Compiled jquery.js  (10ms)  (pid 4723)
+Compiled jquery_ujs.js  (1ms)  (pid 4723)
+Compiled all.js  (0ms)  (pid 4723)
+Compiled select2.js  (2ms)  (pid 4723)
+Compiled jquery.maskMoney.js  (0ms)  (pid 4723)
+Compiled abas.js  (1ms)  (pid 4723)
+Compiled application.js  (121ms)  (pid 4723)
+Served asset /application.js - 304 Not Modified (4042ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2013-01-21 15:29:23 -0200
+Compiled vendas.js  (0ms)  (pid 4723)
+Served asset /vendas.js - 200 OK (109ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-21 15:29:23 -0200
+Served asset /wbg.gif - 200 OK (14ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-21 15:29:24 -0200
+Served asset /load.gif - 200 OK (33ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:29:27 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 156ms (Views: 3.0ms | ActiveRecord: 7.7ms)
+
+
+Started GET "/vendas/vendas_financa?id=45" for 192.168.0.50 at 2013-01-21 15:30:31 -0200
+Processing by VendasController#vendas_financa as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas/eps/_index_financa_E03.html.erb (8.2ms)
+  Rendered vendas/eps/_new_financa_E05.html.erb (329.5ms)
+  Rendered vendas/vendas_financa.html.erb within layouts/layout_vendas (549.7ms)
+Completed 200 OK in 587ms (Views: 534.2ms | ActiveRecord: 44.6ms)
+
+
+Started GET "/assets/application.css" for 192.168.0.50 at 2013-01-21 15:30:32 -0200
+Served asset /application.css - 200 OK (0ms)
+
+
+Started GET "/assets/application.js" for 192.168.0.50 at 2013-01-21 15:30:32 -0200
+Served asset /application.js - 200 OK (1ms)
+
+
+Started GET "/assets/vendas.js" for 192.168.0.50 at 2013-01-21 15:30:32 -0200
+Served asset /vendas.js - 200 OK (0ms)
+
+
+Started GET "/assets/wbg.gif" for 192.168.0.50 at 2013-01-21 15:30:32 -0200
+Served asset /wbg.gif - 200 OK (0ms)
+
+
+Started GET "/vendas/45/comprovante" for 192.168.0.50 at 2013-01-21 15:30:34 -0200
+Processing by VendasController#comprovante as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas/eps/_comprovante_E03.html.erb (76.4ms)
+  Rendered vendas/comprovante.html.erb (77.6ms)
+Completed 200 OK in 99ms (Views: 75.8ms | ActiveRecord: 17.9ms)
+
+
+Started GET "/vendas/45" for 192.168.0.50 at 2013-01-21 15:30:41 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.7ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (13.9ms)
+  Rendered vendas_produtos/_new_produto.html.erb (16.9ms)
+  Rendered vendas/eps/_show_E01.html.erb (25.6ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (25.9ms)
+Completed 200 OK in 46ms (Views: 23.9ms | ActiveRecord: 19.0ms)
+
+
+Started GET "/assets/load.gif" for 192.168.0.50 at 2013-01-21 15:30:41 -0200
+Served asset /load.gif - 200 OK (0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:44 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 3.1ms | ActiveRecord: 6.5ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:45 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 12ms (Views: 2.6ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:46 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 2.9ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:47 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 3.3ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.4ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:30:50 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 3.8ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/vendas/45" for 127.0.0.1 at 2013-01-21 15:35:42 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.4ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (14.5ms)
+  Rendered vendas_produtos/_new_produto.html.erb (17.5ms)
+  Rendered vendas/eps/_show_E01.html.erb (25.5ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (25.7ms)
+Completed 200 OK in 47ms (Views: 23.6ms | ActiveRecord: 19.4ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-21 15:35:42 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 15:35:42 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2013-01-21 15:35:42 -0200
+Served asset /vendas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-21 15:35:43 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-21 15:35:43 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:35:43 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 2.7ms | ActiveRecord: 8.8ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:35:48 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 12ms (Views: 2.5ms | ActiveRecord: 6.8ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:35:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 12ms (Views: 2.5ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:35:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 8ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:35:51 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/vendas/45" for 192.168.0.50 at 2013-01-21 15:38:21 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.6ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (13.5ms)
+  Rendered vendas_produtos/_new_produto.html.erb (16.4ms)
+  Rendered vendas/eps/_show_E01.html.erb (25.1ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (25.3ms)
+Completed 200 OK in 125ms (Views: 23.2ms | ActiveRecord: 21.9ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:24 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.0ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:24 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 34ms (Views: 4.0ms | ActiveRecord: 26.2ms)
+
+
+Started GET "/buscas/busca_produto?cod=/media/mercosys/DCAE-2E28/app&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:25 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"/media/mercosys/DCAE-2E28/app", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 15ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=/MEDIA/MERCOSYS/DCAE-2E28/APP&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:25 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"/MEDIA/MERCOSYS/DCAE-2E28/APP", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 12ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=/MEDIA/MERCOSYS/DCAE-2E28/APP&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:27 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"/MEDIA/MERCOSYS/DCAE-2E28/APP", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 11ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=/MEDIA/MERCOSYS/DCAE-2E28/APP&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:27 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"/MEDIA/MERCOSYS/DCAE-2E28/APP", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 11ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=/MEDIA/MERCOSYS/DCAE-2E28/APP&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:27 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"/MEDIA/MERCOSYS/DCAE-2E28/APP", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 10ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:28 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 13ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:28 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 17ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:29 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 12ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:29 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 10ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:29 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 10ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/vendas/45" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.3ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (13.8ms)
+  Rendered vendas_produtos/_new_produto.html.erb (16.9ms)
+  Rendered vendas/eps/_show_E01.html.erb (25.2ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (25.4ms)
+Completed 200 OK in 49ms (Views: 23.1ms | ActiveRecord: 20.6ms)
+
+
+Started GET "/buscas/busca_produto?cod==&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"=", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 11ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/assets/application.css" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/vendas.js" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Served asset /vendas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 192.168.0.50 at 2013-01-21 15:38:30 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:35 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.2ms | ActiveRecord: 6.9ms)
+
+
+Started GET "/vendas/45" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.4ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (13.7ms)
+  Rendered vendas_produtos/_new_produto.html.erb (16.9ms)
+  Rendered vendas/eps/_show_E01.html.erb (25.2ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (25.4ms)
+Completed 200 OK in 49ms (Views: 23.0ms | ActiveRecord: 20.8ms)
+
+
+Started GET "/assets/application.css" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/vendas.js" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Served asset /vendas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 192.168.0.50 at 2013-01-21 15:38:41 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/vendas/45" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.6ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (15.1ms)
+  Rendered vendas_produtos/_new_produto.html.erb (17.9ms)
+  Rendered vendas/eps/_show_E01.html.erb (27.0ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (27.3ms)
+Completed 200 OK in 50ms (Views: 24.8ms | ActiveRecord: 20.2ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 2.8ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/assets/application.css" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/vendas.js" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Served asset /vendas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 192.168.0.50 at 2013-01-21 15:38:45 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:47 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 3.6ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:48 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 3.6ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 2.8ms | ActiveRecord: 6.3ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:50 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.4ms | ActiveRecord: 6.8ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:52 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 2.9ms | ActiveRecord: 6.4ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:53 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 3.6ms | ActiveRecord: 7.0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:54 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 2.8ms | ActiveRecord: 6.6ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:54 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 3.0ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/buscas/busca_produto?cod=p&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:56 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"p", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 11ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=Pt&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:56 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"Pt", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 11ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=PT&id=45&tipo_cod=BARRA&deposito_id=1" for 192.168.0.50 at 2013-01-21 15:38:56 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"PT", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 15ms (Views: 3.4ms | ActiveRecord: 8.2ms)
+Connecting to database specified by database.yml
+
+
+Started GET "/vendas/45" for 127.0.0.1 at 2013-01-21 15:39:39 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (7.6ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (46.1ms)
+  Rendered vendas_produtos/_new_produto.html.erb (130.4ms)
+  Rendered vendas/eps/_show_E01.html.erb (274.1ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (285.8ms)
+Completed 200 OK in 600ms (Views: 323.8ms | ActiveRecord: 51.1ms)
+
+
+Started GET "/vendas/45" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.6ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (15.0ms)
+  Rendered vendas_produtos/_new_produto.html.erb (18.2ms)
+  Rendered vendas/eps/_show_E01.html.erb (27.3ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (27.7ms)
+Completed 200 OK in 115ms (Views: 88.8ms | ActiveRecord: 21.7ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Served asset /application.css - 304 Not Modified (14ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Served asset /application.js - 304 Not Modified (16ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Served asset /vendas.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Served asset /load.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-21 15:39:40 -0200
+Served asset /wbg.gif - 304 Not Modified (3ms)
+
+
+Started GET "/vendas/45" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Processing by VendasController#show as HTML
+  Parameters: {"id"=>"45"}
+  Rendered vendas_produtos/_vendas_produto.html.erb (2.8ms)
+  Rendered vendas_produtos/_new_form_produto_E03.html.erb (14.2ms)
+  Rendered vendas_produtos/_new_produto.html.erb (17.2ms)
+  Rendered vendas/eps/_show_E01.html.erb (26.2ms)
+  Rendered vendas/show.html.erb within layouts/layout_vendas (26.5ms)
+Completed 200 OK in 51ms (Views: 24.5ms | ActiveRecord: 21.7ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/vendas.js" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Served asset /vendas.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Served asset /wbg.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/load.gif" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Served asset /load.gif - 304 Not Modified (0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:41 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 166ms (Views: 4.7ms | ActiveRecord: 10.1ms)
+
+
+Started GET "/buscas/busca_produto?cod=%20if(event.ctrlKey%20&&%20event.keyCode%20==%2067)%20{%20%20%20%20%20%20$('" for 127.0.0.1 at 2013-01-21 15:39:46 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>" if(event.ctrlKey ", " event.keyCode "=>"= 67) {      $('"}
+Completed 500 Internal Server Error in 0ms
+
+ActiveRecord::RecordNotFound (Couldn't find Venda without an ID):
+  app/controllers/buscas_controller.rb:34:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=%20IF(EVENT.CTRLKEY%20&&%20EVENT.KEYCODE%20==%2067)%20{%20%20%20%20%20%20$('" for 127.0.0.1 at 2013-01-21 15:39:47 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>" IF(EVENT.CTRLKEY ", " EVENT.KEYCODE "=>"= 67) {      $('"}
+Completed 500 Internal Server Error in 0ms
+
+ActiveRecord::RecordNotFound (Couldn't find Venda without an ID):
+  app/controllers/buscas_controller.rb:34:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=%20IF(EVENT.CTRLKEY%20&&%20EVENT.KEYCODE%20==%2067)%20{%20%20%20%20%20%20$('" for 127.0.0.1 at 2013-01-21 15:39:47 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>" IF(EVENT.CTRLKEY ", " EVENT.KEYCODE "=>"= 67) {      $('"}
+Completed 500 Internal Server Error in 0ms
+
+ActiveRecord::RecordNotFound (Couldn't find Venda without an ID):
+  app/controllers/buscas_controller.rb:34:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=%20IF(EVENT.CTRLKEY%20&&%20EVENT.KEYCODE%20==%2067)%20{%20%20%20%20%20%20$('" for 127.0.0.1 at 2013-01-21 15:39:47 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>" IF(EVENT.CTRLKEY ", " EVENT.KEYCODE "=>"= 67) {      $('"}
+Completed 500 Internal Server Error in 0ms
+
+ActiveRecord::RecordNotFound (Couldn't find Venda without an ID):
+  app/controllers/buscas_controller.rb:34:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.0ms | ActiveRecord: 8.0ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:49 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 14ms (Views: 3.4ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=BARRA&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:51 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"BARRA", "deposito_id"=>"1"}
+Completed 200 OK in 13ms (Views: 2.9ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:52 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 8ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:52 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:53 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 8ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:53 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:54 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 8ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:55 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:39:55 -0200
+Processing by BuscasController#busca_produto as */*
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+
+
+Started GET "/buscas/busca_produto?cod=&id=45&tipo_cod=CODIGO&deposito_id=1" for 127.0.0.1 at 2013-01-21 15:40:06 -0200
+Processing by BuscasController#busca_produto as HTML
+  Parameters: {"cod"=>"", "id"=>"45", "tipo_cod"=>"CODIGO", "deposito_id"=>"1"}
+Completed 500 Internal Server Error in 7ms
+
+NoMethodError (undefined method `id' for nil:NilClass):
+  app/controllers/buscas_controller.rb:38:in `busca_produto'
+
+
+Connecting to database specified by database.yml
+
+
+Started GET "/compras/8/edit" for 127.0.0.1 at 2013-01-21 18:21:04 -0200
+Processing by ComprasController#edit as HTML
+  Parameters: {"id"=>"8"}
+  Rendered compras/eps/_form_compra_E03.html.erb (174.3ms)
+  Rendered compras/edit.html.erb within layouts/application (213.3ms)
+  Rendered layouts/_application_E03.html.erb (1.6ms)
+Completed 200 OK in 502ms (Views: 301.3ms | ActiveRecord: 20.9ms)
+
+
+Started GET "/assets/form_compra.js" for 127.0.0.1 at 2013-01-21 18:21:05 -0200
+Compiled form_compra.js  (0ms)  (pid 6168)
+Served asset /form_compra.js - 200 OK (253ms)
+
+
+Started GET "/assets/application.css" for 127.0.0.1 at 2013-01-21 18:21:05 -0200
+Compiled scaffold.css  (0ms)  (pid 6168)
+Compiled button.css  (0ms)  (pid 6168)
+Compiled table.css  (0ms)  (pid 6168)
+Compiled select2.css  (0ms)  (pid 6168)
+Compiled application.css  (24ms)  (pid 6168)
+Served asset /application.css - 304 Not Modified (106ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 18:21:06 -0200
+Compiled jquery.js  (6ms)  (pid 6168)
+Compiled jquery_ujs.js  (0ms)  (pid 6168)
+Compiled all.js  (0ms)  (pid 6168)
+Compiled select2.js  (68ms)  (pid 6168)
+Compiled jquery.maskMoney.js  (0ms)  (pid 6168)
+Compiled abas.js  (0ms)  (pid 6168)
+Compiled application.js  (133ms)  (pid 6168)
+Served asset /application.js - 304 Not Modified (3478ms)
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-01-21 18:21:09 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"3/1/2013"}
+  Rendered text template (0.0ms)
+Completed 200 OK in 44ms (Views: 7.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-01-21 18:21:09 -0200
+Served asset /wbg.gif - 200 OK (15ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-01-21 18:21:09 -0200
+Served asset /gray/toolbar/bg.gif - 200 OK (20ms)
+
+
+Started GET "/personas/persona_compra" for 127.0.0.1 at 2013-01-21 18:21:11 -0200
+Processing by PersonasController#persona_compra as HTML
+  Rendered personas/persona_compra.html.erb within layouts/consulta (2.4ms)
+Completed 200 OK in 84ms (Views: 80.9ms | ActiveRecord: 2.3ms)
+
+
+Started GET "/assets/scaffold.css" for 127.0.0.1 at 2013-01-21 18:21:11 -0200
+Served asset /scaffold.css - 200 OK (26ms)
+
+
+Started GET "/assets/cadastros.js" for 127.0.0.1 at 2013-01-21 18:21:11 -0200
+Compiled cadastros.js  (3ms)  (pid 6168)
+Served asset /cadastros.js - 200 OK (470ms)
+
+
+Started GET "/assets/application.js" for 127.0.0.1 at 2013-01-21 18:21:12 -0200
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-01-21 18:21:13 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"3/1/2013"}
+  Rendered text template (0.0ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 1.4ms)
+Connecting to database specified by database.yml
+Compiled jquery.js  (6ms)  (pid 6250)
+Compiled jquery_ujs.js  (0ms)  (pid 6250)
+Compiled all.js  (0ms)  (pid 6250)
+Compiled select2.js  (2ms)  (pid 6250)
+Compiled jquery.maskMoney.js  (0ms)  (pid 6250)
+Compiled abas.js  (0ms)  (pid 6250)
+Compiled application.js  (147ms)  (pid 6250)
+Compiled global.js  (0ms)  (pid 6250)
+Compiled logins.js  (20ms)  (pid 6250)
+Compiled vendas.js  (0ms)  (pid 6250)
+Compiled scaffold.css  (0ms)  (pid 6250)
+Compiled button.css  (0ms)  (pid 6250)
+Compiled table.css  (0ms)  (pid 6250)
+Compiled select2.css  (0ms)  (pid 6250)
+Compiled application.css  (50ms)  (pid 6250)
+Compiled logins.css  (0ms)  (pid 6250)
+Compiled vendas/venda.css  (0ms)  (pid 6250)

@@ -2,6 +2,7 @@ class VendasProduto < ActiveRecord::Base
   belongs_to :venda
   belongs_to :produto
   validates_presence_of :produto_nome,:quantidade
+  #validate :valid_stock
   before_save :calcs  
   attr_accessor :current_user
   

@@ -363,7 +363,6 @@ def self.controle_visitas(params)
                  
     Presupuesto.find_by_sql(sql)
   end
-
 end
 
   

@@ -1,0 +1,236 @@
+<table border="1">
+	<tr class="head">
+
+		<td width="200" >Descrip</td>
+
+		<% m = params[:mes_inicio].to_i %>
+		<% count_index = 0 %>
+
+		<% params[:mes_inicio].to_i..params[:mes_final].to_i.times  do |m| %>
+
+			<td width="80" align="right"> <%= ('01/'+ (m+1).to_s + '/0001').to_date.strftime("%B") %></td>
+			<% m += 1 %>
+			<% count_index += 1 %>
+
+		<% end %>
+
+		<td width="80" align="right">Total</td>
+
+	</tr>
+
+	<tr>
+		<td colspan="14" height="20">Entradas</td>
+	</tr>
+
+
+	<!-- VENDAS CONTADO -->
+	<% sql_contato =	"SELECT 
+						date_part('month', DATA) AS MES,
+						SUM(TOTAL_GUARANI) AS TOTAL_GUARANI
+			FROM VENDAS
+			WHERE date_part('month', DATA) >= '#{params[:mes_inicio]}' AND date_part('month', DATA) <= '#{params[:mes_final]}' AND 
+						date_part('year', DATA) = '#{params[:ano]}'
+						group by 1
+						ORDER BY 1"
+		vd_contado = Venda.find_by_sql(sql_contato) %>
+
+	<tr>
+
+		<td>Venta Contado</td>
+
+		<% m = params[:mes_inicio].to_i %>
+		<% count_index = 0 %>
+
+		<% count_vd = 0 %>
+		<% sum_vd   = 0 %>
+
+		<% params[:mes_inicio].to_i..params[:mes_final].to_i.times  do |m| %>
+			
+			<td align="right">
+
+
+				<% vd_contado.each do |vd_d|%>
+
+					<% if vd_d.mes.to_i == ( m.to_i + 1) %>
+
+						<%= number_to_currency( vd_d.total_guarani, :format =>' %n ', :precision => 0 ) %>
+
+						<% count_vd += 1 %>
+						<% sum_vd   += vd_d.total_guarani.to_f %>
+
+					<% end %>
+
+				<% end %>
+			</td>
+
+		<% m += 1 %>
+		<% count_index += 1 %>
+
+		<% end %>
+
+		<td width="80" align="right"><%= number_to_currency( sum_vd, :format =>' %n ', :precision => 0 ) %></td>
+
+	</tr>
+
+
+
+	<!-- COBROS -->
+	<% sql_cobro =	"SELECT 
+						date_part('month', DATA) AS MES,
+						SUM(VALOR_GUARANI) AS TOTAL_GUARANI
+			FROM COBROS
+			WHERE date_part('month', DATA) >= '#{params[:mes_inicio]}' AND date_part('month', DATA) <= '#{params[:mes_final]}' AND 
+						date_part('year', DATA) = '#{params[:ano]}'
+						group by 1
+						ORDER BY 1"
+		vd_cobro = Venda.find_by_sql(sql_cobro) %>
+
+	<tr>
+
+		<td>Cobros de Clientes</td>
+
+		<% m = params[:mes_inicio].to_i %>
+		<% count_index = 0 %>
+
+		<% count_c = 0 %>
+		<% sum_c   = 0 %>
+
+		<% params[:mes_inicio].to_i..params[:mes_final].to_i.times  do |m| %>
+			
+			<td align="right">
+
+				<% vd_cobro.each do |c|%>
+
+					<% if c.mes.to_i == ( m.to_i + 1) %>
+	
+						<%= number_to_currency( c.total_guarani, :format =>' %n ', :precision => 0 ) %>
+						<% count_c += 1 %>
+						<% sum_c   += c.total_guarani.to_f %>
+
+					<% end %>
+
+
+				<% end %>
+			</td>
+
+		<% m += 1 %>
+		<% count_index += 1 %>
+
+		<% end %>
+
+		<td width="80" align="right"><%= number_to_currency( sum_c, :format =>' %n ', :precision => 0 ) %></td>
+
+	</tr>
+
+	<tr>
+		<td>Recebimento Ideal</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Recebimento San Alberto</td>		
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+
+	</tr>
+
+	<tr>
+		<td>Prestemo Srl </td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>SRL entrada / KIKO </td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr height="20">
+
+		<td>Total de Entradas</td>
+
+		<% m = params[:mes_inicio].to_i %>
+		<% count_index = 0 %>
+
+		<% count_c = 0 %>
+		<% sum_c   = 0 %>
+
+		<% params[:mes_inicio].to_i..params[:mes_final].to_i.times  do |m| %>
+			
+			<td align="right">
+
+			</td>
+
+		<% m += 1 %>
+		<% count_index += 1 %>
+
+		<% end %>
+
+	</tr>
+
+	<tr>
+		<td colspan="14" height="20">Saida</td>
+	</tr>
+
+	<tr>
+		<td>Proveedores Pagos</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Proveedores Pagos / Tarjeta</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Proveedores a Pagar</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Proveedores Ideal</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Total Gastos Operativos</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+	<tr>
+		<td>Total Salidascli</td>
+		<% 13.times do |t| %>
+			<td></td>		
+		<% end %>
+	</tr>
+
+</table>
+
+<style type="text/css">
+	table {
+		border-collapse: collapse;
+		font-size: 10px
+	}
+	.titulo {
+		font-size: 22px
+	}
+	td, tr {
+		border: 1px solid black;
+	}
+</style>

@@ -23,7 +23,7 @@
   <br/>
   <br/>
   <br/>
-  <p align="center"><%= Barby::Code128B.new(@persona.id.to_s.rjust(9,'0')).to_svg %></p>
+  <p align="center"><%= Barby::Code39.new(@persona.id.to_s.rjust(9,'0')).to_svg.html_safe %></p>
   <p align="center"><%= @persona.id.to_s.rjust(9,'0') %></p>	
 </div>
 

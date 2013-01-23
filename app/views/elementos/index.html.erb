@@ -1,0 +1,29 @@
+<h1 align="right" id="header">Elementos</h1>
+<div class="acessos">
+   <%= link_to 'Nuevo', new_elemento_path, :class => "button add" %>
+</div>
+
+<table class="head_grid">
+          <tr>
+            <td width="50" align="center">Sigla</td>
+            <td width="250" align="center">Nombre</td>
+            <td width="250" align="center">Fórmula</td>
+            <td width="50" align="center">Factor</td>
+          </tr>
+</table>
+
+<div class="rolagem" dir="div">
+<table>
+<% @elementos.each do |elemento| %>
+  <tr class = "<%= cycle("cor1", "cor2") %>">
+    <td width="50" align="center"><%= elemento.sigla %></td>
+    <td width="250" align="left"><%= elemento.nome %></td>
+    <td width="250" align="left"><%= elemento.formula %></td>
+    <td width="50" align="left"><%= elemento.fator %></td>
+
+    <td><%= link_to 'Editar', edit_elemento_path(elemento) %></td>
+    <td><%= link_to 'Borrar', elemento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+</div>

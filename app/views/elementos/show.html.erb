@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Descricao:</b>
+  <%= @elemento.descricao %>
+</p>
+
+<p>
+  <b>Sigla:</b>
+  <%= @elemento.sigla %>
+</p>
+
+
+<%= link_to 'Edit', edit_elemento_path(@elemento) %> |
+<%= link_to 'Back', elementos_path %>

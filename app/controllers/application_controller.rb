@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def current_unidade       #
     @current_unidade ||= Unidade.find(session[:unidade],:select => 'id,unidade_nome')
   end
-
+    
   def authenticate          #
     if session[:logged]
       true

@@ -543,7 +543,6 @@ class ProdutosController < ApplicationController
 
     def edit                         #
         @produto = Produto.find(params[:id])
-        @quantidade = Stock.sum("entrada - saida",:conditions => ["produto_id = ?",params[:id]])
     end
 
     def create                       #
@@ -553,47 +552,7 @@ class ProdutosController < ApplicationController
 
         respond_to do |format|
             if @produto.save
-                if @produto.preco_venda_guarani > 0
-                    TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                        :usuario_updated    => @produto.usuario_updated,
-                        :produto_id         => @produto.id,
-                        :produto_nome       => @produto.nome,
-                        :codigo             => @produto.codigo,
-                        :fabricante_id      => @produto.fabricante_id,
-                        :fabricante         => @produto.fabricante,
-                        :data               => @produto.data,
-                        :cotacao            => @produto.cotacao,
-                        :taxa               => @produto.taxa,
-                        :preco_venda_dolar  => @produto.preco_venda_dolar,
-                        :preco_venda_guarani => @produto.preco_venda_guarani,
-                        :tipo               => 0,
-                        :tabela             => 'PRODUTOS',
-                        :tabela_id          => @produto.id
-
-                    )
-                end
-
-                if @produto.preco_maiorista_guarani > 0
-                    TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                        :usuario_updated    => @produto.usuario_updated,
-                        :produto_id         => @produto.id,
-                        :produto_nome       => @produto.nome,
-                        :codigo             => @produto.codigo,
-                        :fabricante_id      => @produto.fabricante_id,
-                        :fabricante         => @produto.fabricante,
-                        :data               => @produto.data,
-                        :cotacao            => @produto.cotacao,
-                        :taxa               => @produto.taxa,
-                        :preco_venda_dolar  => @produto.preco_maiorista_dolar,
-                        :preco_venda_guarani => @produto.preco_maiorista_guarani,
-                        :tipo               => 1,
-                        :tabela             => 'PRODUTOS',
-                        :tabela_id          => @produto.id
-
-                    )
-                end
-
-
+                
                 flash[:notice] = 'Grabado con Sucesso'
                 format.html { redirect_to(produtos_url) }
                 format.xml  { render :xml => @produto, :status => :created, :location => @produto }
@@ -604,99 +563,14 @@ class ProdutosController < ApplicationController
         end
     end
 
+
+
     def update                       #
         @produto = Produto.find(params[:id])
-        @produto.usuario_created = current_user.usuario_nome
-        @produto.unidade_created = current_unidade.unidade_nome
-
+        @produto.usuario_updated = current_user.usuario_nome
+        @produto.unidade_updated = current_unidade.unidade_nome
         respond_to do |format|
             if @produto.update_attributes(params[:produto])
-
-                ultimo_preco_min = TabelaPrecoProduto.find(:last,:conditions => ["tipo = 0 AND produto_id = ?",@produto.id])
-                ultimo_preco_max = TabelaPrecoProduto.find(:last,:conditions => ["tipo = 1 AND produto_id = ?",@produto.id])
-
-                if ultimo_preco_min == nil
-
-                    TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                        :usuario_updated    => @produto.usuario_updated,
-                        :produto_id         => @produto.id,
-                        :produto_nome       => @produto.nome,
-                        :codigo             => @produto.codigo,
-                        :fabricante_id      => @produto.fabricante_id,
-                        :fabricante         => @produto.fabricante,
-                        :data               => @produto.data,
-                        :cotacao            => @produto.cotacao,
-                        :taxa               => @produto.taxa,
-                        :preco_venda_dolar  => @produto.preco_venda_dolar,
-                        :preco_venda_guarani => @produto.preco_venda_guarani,
-                        :tipo               => 0,
-                        :tabela             => 'PRODUTOS',
-                        :tabela_id          => @produto.id
-
-                    )
-                else
-                    if ultimo_preco_min.preco_venda_guarani != @produto.preco_venda_guarani
-                        TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                            :usuario_updated    => @produto.usuario_updated,
-                            :produto_id         => @produto.id,
-                            :produto_nome       => @produto.nome,
-                            :codigo             => @produto.codigo,
-                            :fabricante_id      => @produto.fabricante_id,
-                            :fabricante         => @produto.fabricante,
-                            :data               => @produto.data,
-                            :cotacao            => @produto.cotacao,
-                            :taxa               => @produto.taxa,
-                            :preco_venda_dolar  => @produto.preco_venda_dolar,
-                            :preco_venda_guarani => @produto.preco_venda_guarani,
-                            :tipo               => 0,
-                            :tabela             => 'PRODUTOS',
-                            :tabela_id          => @produto.id
-
-                        )
-                    end
-                end
-
-                if ultimo_preco_max == nil
-
-                    TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                        :usuario_updated    => @produto.usuario_updated,
-                        :produto_id         => @produto.id,
-                        :produto_nome       => @produto.nome,
-                        :codigo             => @produto.codigo,
-                        :fabricante_id      => @produto.fabricante_id,
-                        :fabricante         => @produto.fabricante,
-                        :data               => @produto.data,
-                        :cotacao            => @produto.cotacao,
-                        :taxa               => @produto.taxa,
-                        :preco_venda_dolar  => @produto.preco_venda_dolar,
-                        :preco_venda_guarani => @produto.preco_venda_guarani,
-                        :tipo               => 1,
-                        :tabela             => 'PRODUTOS',
-                        :tabela_id          => @produto.id
-
-                    )
-                else
-                    if ultimo_preco_max.preco_venda_guarani != @produto.preco_venda_guarani
-                        TabelaPrecoProduto.create(   :usuario_created    => @produto.usuario_created ,
-                            :usuario_updated    => @produto.usuario_updated,
-                            :produto_id         => @produto.id,
-                            :produto_nome       => @produto.nome,
-                            :codigo             => @produto.codigo,
-                            :fabricante_id      => @produto.fabricante_id,
-                            :fabricante         => @produto.fabricante,
-                            :data               => @produto.data,
-                            :cotacao            => @produto.cotacao,
-                            :taxa               => @produto.taxa,
-                            :preco_venda_dolar  => @produto.preco_venda_dolar,
-                            :preco_venda_guarani => @produto.preco_venda_guarani,
-                            :tipo               => 1,
-                            :tabela             => 'PRODUTOS',
-                            :tabela_id          => @produto.id
-
-                        )
-                    end
-                end
-
                 flash[:notice] = 'Actualizado con Sucesso'
                 format.html { redirect_to(produtos_url) }
                 format.xml  { head :ok }

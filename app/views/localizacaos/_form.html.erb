@@ -1,0 +1,45 @@
+<%= form_for(@localizacao) do |f| %>
+  <% if @localizacao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@localizacao.errors.count, "error") %> prohibited this localizacao from being saved:</h2>
+
+      <ul>
+      <% @localizacao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <ul class="tabs">
+      <li><a href="#tab1">Ubicación - [Edicion]</a></li>
+   </ul>
+
+    <div class="tab_container">
+      <div id="tab1" class="tab_content">
+        <table>
+          <tr>
+            <td width="1000">
+              <fieldset>
+                <table>
+                  <tr>
+                    <td align="right">Ocupación :</td>
+                    <td><%= f.text_field :ocupacao, :size => 60 %></td>                        
+                 
+                    <td align="right">Sigla :</td>
+                    <td><%= f.text_field :sigla, :size => 30 %></td>                        
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <%= f.submit :value => " Grabar ", :class => "button" %>
+      <%= link_to 'Volver', localizacaos_path, :class => "button back" %>
+    </div>
+    
+<% end %>

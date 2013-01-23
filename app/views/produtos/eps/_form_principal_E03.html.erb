@@ -131,17 +131,11 @@
             </tr>
             <tr>
                <td align="right">Iva :</td>
-               <td width="230"><%= f.select :taxa,
-                    (
-                     [
-                        [0, 0],
-                        [5, 5],
-                        [10,10],
-                        [70,70],
-                        [80,80]
-                     ]
-                  ),{},{:onkeyup    => "EnterTab(event,'produto_peso_bruto')",
-                      :onkeypress => "return bloqEnter(event)"}%>
+               <% if @produto.taxa == 0 %>
+               <td width="230"><%= f.text_field :taxa, :value => 10, :size => 20 %>
+                <% else %>
+                <td width="230"><%= f.text_field :taxa, :size => 20 %>
+                <% end %>
                </td>          
             </tr>
 

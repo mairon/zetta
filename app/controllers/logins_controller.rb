@@ -40,6 +40,9 @@ class LoginsController < ApplicationController
         session[:unidade]   = params[:busca]["unidade_id"]
         session[:logged]    = params[:busca]["usuario_id"]
         flash[:notice]      = 'Logado con Sucesso!'
+        ep = Empresa.last
+        $empresa_nome = ep.nome
+
         redirect_to menu_path
 
       else

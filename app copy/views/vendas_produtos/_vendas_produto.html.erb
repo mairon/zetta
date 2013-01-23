@@ -1,8 +1,0 @@
-<table>
-	<tr class="<%= cycle("cor1", "cor2") %>">
-		<td width="50" align="center"></td>
-		<td width="280"align="left"><%= truncate(vendas_produto.produto_nome) %></td>
-		<td width="70" align="right"><%= vendas_produto.quantidade %></td>
-		<td width="70" align="right"><%= number_to_currency(vendas_produto.unitario_guarani, :format=>' %n ', :precision => 0 ) %> </td>	<td width="70" align="right"><%= number_to_currency(vendas_produto.total_guarani, :format=>' %n ', :precision => 0 ) %> </td>		
-	</tr>
-</table>

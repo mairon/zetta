@@ -1,0 +1,38 @@
+<table>
+<<<<<<< HEAD
+<%= content_tag_for(:tr,  vendas_produto, :class => cycle('cor1','cor2')) do %>
+
+		<td width="50" align="center"></td>
+=======
+	<tr  class="<%= cycle("cor1", "cor2") %>">
+
+		<td width="50" align="center"> <%= vendas_produto.fabricante_cod %> </td>
+>>>>>>> karen/master
+		<td width="350" align="left"> <%= vendas_produto.produto_nome %> <%= vendas_produto.lotes %>  </td>
+		<td width="80" align="right"> <%= format("%.3f",vendas_produto.quantidade.to_f) %> </td>
+
+		<% if vendas_produto.moeda == 0 %>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.unitario_dolar, :format=>' %n ', :separeitor =>  "," ) %> </td>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.total_dolar, :format=>' %n ', :separeitor =>  "," ) %> </td>
+			<td width="80" align="right"><%= number_to_currency( vendas_produto.quantidade.to_f * vendas_produto.iva_dolar.to_f , :format=>' %n ', :separeitor =>  "," ) %> </td>
+		<% elsif vendas_produto.moeda == 1 %>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.unitario_guarani, :format=>' %n ', :precision => 0) %> </td>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.total_guarani, :format=>' %n ', :precision => 0) %> </td>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.quantidade.to_f * vendas_produto.iva_guarani.to_f , :format=>' %n ', :precision => 0 ) %> </td>
+
+		<% else %>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.unitario_real, :format=>' %n ', :separeitor =>  "," ) %> </td>
+			<td width="80" align="right"><%= number_to_currency(vendas_produto.total_real, :format=>' %n ', :separeitor =>  "," ) %> </td>
+			<td width="80" align="right"><%= number_to_currency( vendas_produto.quantidade.to_f * vendas_produto.iva_real.to_f, :format=>' %n ', :separeitor =>  "," ) %> </td>
+		<% end %>
+
+		<td width="80" align="right"><%= vendas_produto.total_desconto %></td>
+		<td><%= link_to 'Editar', edit_vendas_produto_path(vendas_produto) %></td>
+		<td><%= link_to 'Borrar', vendas_produto, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+<<<<<<< HEAD
+	<% end %>
+</table>
+=======
+	</tr>
+</table>
+>>>>>>> karen/master

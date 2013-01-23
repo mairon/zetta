@@ -1,5 +1,7 @@
 <% if params[:modelo] == '0' %>
-	<%= render :partial => "/stocks/forms/rentabilidad_resumen"  %>
+	<%= render :partial => "/stocks/forms/rentabilidad_resumen" %>
+<% elsif params[:modelo] == '1' %>
+	<%= render :partial => "/stocks/forms/rentabilidad_detalhado" %>
 <% else %>
-	<%= render :partial => "/stocks/forms/rentabilidad_detalhado"  %>
+	<%= render :partial => "/stocks/forms/rentabilidad_agrupado_setor" %>
 <% end %>

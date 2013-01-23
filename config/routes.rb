@@ -1,5 +1,11 @@
 Zetta::Application.routes.draw do
 
+  resources :variavels
+
+  resources :elementos
+
+  resources :localizacaos
+
   resources :produto_barras
 
   resources :unidade_metricas
@@ -71,7 +77,11 @@ Zetta::Application.routes.draw do
   resources :rodados
   resources :documentos
   resources :planos
-  resources :plano_de_contas
+  resources :plano_de_contas do
+    collection do
+      get 'print'
+    end
+  end 
   resources :moedas
   resources :cidades
   resources :estados
@@ -95,6 +105,10 @@ Zetta::Application.routes.draw do
       get 'busca_persona_nota_credito_proveedor' 
       get 'busca_persona_venda_financa'          
       get 'busca_persona_venda'
+      get 'persona_venda'
+    end
+    member do 
+      get 'tarjeta'
     end
   end                   
   resources :produtos do
@@ -125,7 +139,7 @@ Zetta::Application.routes.draw do
       get 'dinamic_busca'                            
       get 'busca_ordem_produto'                      
       get 'dinamic_busca_ordem_produto'              
-      get 'imagem'                                   
+      get 'imagem'                                  
     end
     member do
       get 'cod_barra'
@@ -191,6 +205,8 @@ Zetta::Application.routes.draw do
       get 'dinamic_busca_stock_inicial'    
       get 'resultado_iventario'              
       get 'resultado_relatorio_consumo_bomba'
+      get 'projecao_compras'
+      get 'resultado_projecao_compras'      
     end
   end
   resources :pagares do
@@ -239,6 +255,8 @@ resources :pagares_detalhe
     member do
       get  'vendas_financa'
       get  'gerador_cotas'
+      get  'comprovante'
+      get  'fatura'
     end 
   end
   resources :vendas_financas
@@ -246,14 +264,17 @@ resources :pagares_detalhe
   resources :vendas_produtos
   
   resources :producaos do
+    collection do
+      get 'busca'
+      get 'producao_final'
+    end
     resources :producao_produtos do 
       collection do 
-        get 'busca'
-        get 'producao_final'
         get 'detalhe_print'
       end 
     end 
   end  
+
   resources :manutencao_maquinas do
     resources :manutencao_maquina_produtos
   end
@@ -322,6 +343,7 @@ resources :pagares_detalhe
     end
     member do
       get 'form_sueldos_detalhes'
+      get 'comprovante'
     end
   end 
   
@@ -405,6 +427,8 @@ resources :pagares_detalhe
       get 'resultado_livro_diario'
       get 'controle_visitas'
       get 'resultado_controle_visitas'
+      get 'fluxo_caixa'
+      get 'resultado_fluxo_caixa'
     end
   end
 

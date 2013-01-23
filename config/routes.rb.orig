@@ -1,10 +1,13 @@
 Zetta::Application.routes.draw do
 
-<<<<<<< HEAD
+  resources :variavels
+
+  resources :elementos
+
+  resources :localizacaos
+
   resources :produto_barras
 
-=======
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
   resources :unidade_metricas
 
   resources :localidades
@@ -48,7 +51,11 @@ Zetta::Application.routes.draw do
     match 'cotz_us_venda'  => "buscas#cotz_us_venda", :via => :post
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
+<<<<<<< HEAD
+    match 'busca_produto'  => "buscas#busca_produto", :via => :get   
+=======
     match 'vendas_produto'  => "buscas#vendas_produto", :via => :post    
+>>>>>>> karen/master
   end
 
   #login
@@ -102,7 +109,6 @@ Zetta::Application.routes.draw do
   end                   
   resources :produtos do
     collection do
-<<<<<<< HEAD
       get 'dinamic_busca_consulta_stock'             
       get 'index_print'                              
       get 'consulta_stock'                           
@@ -129,55 +135,21 @@ Zetta::Application.routes.draw do
       get 'dinamic_busca'                            
       get 'busca_ordem_produto'                      
       get 'dinamic_busca_ordem_produto'              
-      get 'imagem'                                   
+      get 'imagem'                                  
     end
     member do
       get 'cod_barra'
       get 'roteiro'
       get 'composicao'
 
-=======
-    get 'roteiro'
-    get 'dinamic_busca_consulta_stock'             
-    get 'index_print'                              
-    get 'consulta_stock'                           
-    get 'busca_compra_produto'                     
-    get 'dinamic_busca_compra_produto'             
-    get 'busca_composicao_produto'                 
-    get 'dinamic_busca_composicao_produto'         
-    get 'busca_pedido_compra_produto'              
-    get 'dinamic_busca_pedido_compra_produto'      
-    get 'busca_presupuesto_produto'                
-    get 'dinamic_busca_presupuesto_produto'        
-    get 'busca_venda_produto'                      
-    get 'dinamic_busca_venda_produto'              
-    get 'busca_consumicao_interna_produto'         
-    get 'dinamic_busca_consumicao_interna_produto' 
-    get 'busca_manutencao_mq_produto'              
-    get 'dinamic_busca_manutencao_mq_produto'      
-    get 'busca_producao_produto'                   
-    get 'dinamic_busca_producao_produto'           
-    get 'busca_remicao_produto'                    
-    get 'dinamic_busca_remicao_produto'            
-    get 'busca_venda_produto_maiorista'            
-    get 'dinamic_busca_venda_produto_maiorista'    
-    get 'dinamic_busca'                            
-    get 'busca_ordem_produto'                      
-    get 'dinamic_busca_ordem_produto'              
-    get 'imagem'                                   
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
     end
   end  
   resources :financas do
     collection do
       get 'relatorio_financas'
       get 'extrato_bancario'
-<<<<<<< HEAD
       get 'resultado_extrato_bancario'    
 
-=======
-      get 'resultado_extrato_bancario'      
->>>>>>> cdc50780b07ed862ae6da45ef7dfeb10eca1a7bd
     end  
   end
   resources :forms
@@ -284,14 +256,17 @@ resources :pagares_detalhe
   resources :vendas_produtos
   
   resources :producaos do
+    collection do
+      get 'busca'
+      get 'producao_final'
+    end
     resources :producao_produtos do 
       collection do 
-        get 'busca'
-        get 'producao_final'
         get 'detalhe_print'
       end 
     end 
   end  
+
   resources :manutencao_maquinas do
     resources :manutencao_maquina_produtos
   end
@@ -342,6 +317,7 @@ resources :pagares_detalhe
       get 'comprovante'
     end
   end
+  resources :transferencia_contas_detalhes
   resources :transferencia_contas do
     collection do
       get 'busca_diferido'
@@ -442,6 +418,8 @@ resources :pagares_detalhe
       get 'resultado_livro_diario'
       get 'controle_visitas'
       get 'resultado_controle_visitas'
+      get 'fluxo_caixa'
+      get 'resultado_fluxo_caixa'
     end
   end
 

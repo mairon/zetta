@@ -1,22 +1,11 @@
+<body onload="ImputFocus('cod')">
 <h1 align="right" id="header">.</h1>
 
 <%= form_for(@stock) do |f| %>
-  <% if @stock.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@stock.errors.count, "error") %> prohibited this asset from being saved:</h2>
+  <%= f.hidden_field :persona_nome, :value => 'AJUSTE' %>
+  <%= f.hidden_field :taxa%>
 
-      <ul>
-        <% @stock.errors.full_messages.each do |msg| %>
-        <li>
-          <%= msg %>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <%= f.hidden_field  :status,
-                      :value => 0 %>
   Stock Inicial
   <div class="group_cd">
     <table>
@@ -28,35 +17,20 @@
 
       <tr height="35">
 
-       <td align="right">Cotizacion :</td>
-       <td><%= text_field :stock,
-                          :cotacao ,
-                          { :size    => 10,:value => @stock.cotacao,
-                            :onfocus  => {:remote => true,
-                                          :update => "cod",
-                                                        :url    => { :action => :get_moeda},
-                                                                     :with   => "'key='+ key.value "} } %>
-       </td>        
+       
       </tr>
 
       <tr height="35">
          <td align="right">Deposito:</td>
          <td><%= f.collection_select :deposito_id, Deposito.all(:select => 'id,nome',:order => '1'),:id,:nome %></td>
+          <td align="right">Saldo :</td>
+         <td><%= text_field_tag( 'saldo' ) %></td>
+
       </tr>
 
       <tr height="35">
          <td align="right">Producto:</td>
          <td colspan="4">
-
-            <%= text_field_tag( 'cod',
-                                 nil,
-                                 :id       => "cod",
-                                 :onblur => {:remote => true,
-                                             :update => "cod",
-                                                               :url        => { :action => :get_produto_inicial, :id => 1},
-                                                               :with       => "'cod='+this.value"},
-                                                               :size       => 5
-                                                            ) %>
 
 
              <%= f.collection_select :produto_id, Produto.all(:select => 'id,nome',:order => '2'),:id,:nome %>
@@ -64,25 +38,19 @@
       </tr>
 
       <tr height="35">
-         <td align="right">Taxa :</td>
-         <td><%= f.text_field :taxa,
-                              :size => 5%></td>
-     </tr>
-
-      <tr height="35">
          <td align="right">Entrada:</td>
          <td><%= f.text_field :entrada,
                               :size => 15%></td>
          <td align="right">Saida:</td>
 
-         <td><%= f.text_field :saida%></td>
+         <td><%= f.text_field :saida,
+                              :size => 15%> <%= f.submit " Grabar ", :class => 'button' %></td>
 
       </tr>
         <%= field_gs 'Costo Gs.:',f, :unitario_guarani,:onchange  => "GsToUs('stock_unitario_guarani','stock_unitario_dolar','stock_cotacao')"%>
       
         <%= field_us 'U$.:',f,  :unitario_dolar,:onchange  => "UsToGs('stock_unitario_dolar','stock_unitario_guarani','stock_cotacao')"%>      
     </table>
-  </div>
-      <%= f.submit " Grabar " %>
+  </div>      
 <% end %>
 

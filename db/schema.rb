@@ -1456,6 +1456,59 @@ ActiveRecord::Schema.define(:version => 20130122164506) do
     t.datetime "updated_at"
   end
 
+  create_table "meta", :force => true do |t|
+    t.date     "periodo_inicio"
+    t.date     "periodo_final"
+    t.integer  "moeda"
+    t.decimal  "valor_min_us",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_min_gs",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_min_rs",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_us",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_gs",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_rs",   :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "status"
+    t.text     "descricao"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+  end
+
+  create_table "meta_detalhes", :force => true do |t|
+    t.integer  "meta_id"
+    t.integer  "persona_id"
+    t.string   "persona_nome"
+    t.integer  "setor_id"
+    t.string   "setor_nome"
+    t.decimal  "valor_min_us", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",      :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_min_gs", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_min_rs", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_us", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_gs", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_max_rs", :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "comicao_min",  :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "comicao_max",  :precision => 15, :scale => 2, :default => 0.0
+    t.text     "descricao"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
+
+  create_table "metas", :force => true do |t|
+    t.date     "periodo_inicio"
+    t.date     "periodo_final"
+    t.integer  "moeda"
+    t.decimal  "valor_min_us"
+    t.decimal  "valor_min_gs"
+    t.decimal  "valor_min_rs"
+    t.decimal  "valor_max_us"
+    t.decimal  "valor_max_gs"
+    t.decimal  "valor_max_rs"
+    t.integer  "status"
+    t.text     "descricao"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "metodos", :force => true do |t|
     t.integer  "cod"
     t.string   "nome",         :limit => 150

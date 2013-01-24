@@ -2,6 +2,9 @@ class Persona < ActiveRecord::Base
     #acts_as_active
     validates_presence_of :nome,:ruc
     validates_uniqueness_of :ruc
+
+    belongs_to :meta_detalhes
+    
     
     if $empresa != "E01"
         validates_attachment_size :picture, :less_than => 10.megabytes

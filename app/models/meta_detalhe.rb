@@ -1,8 +1,8 @@
 class MetaDetalhe < ActiveRecord::Base
+  belongs_to :metas
 
   validates :comicao_max, :comicao_min, :persona_id, :setor_id, :presence => true
 
-  belongs_to :metas
   before_save :finds
 
   def finds

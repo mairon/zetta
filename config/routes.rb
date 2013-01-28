@@ -1,5 +1,25 @@
 Zetta::Application.routes.draw do
 
+  resources :metas
+  resources :meta_detalhes
+  
+  #safra
+  resources :safras
+  resources :safra_brotados
+  resources :servicos
+  resources :safra_ardidos
+  resources :safra_verdosos
+  resources :safra_quebrados
+  resources :safra_averiados
+  resources :safra_umidades
+  resources :safra_impurezas
+
+  resources :safra_produtos do
+    member do
+      get 'descontos'
+    end
+  end 
+
   match 'zetta' => 'logins#new'
   match 'menu'  => 'menus#index'
 
@@ -12,7 +32,11 @@ Zetta::Application.routes.draw do
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
     match 'busca_produto'  => "buscas#busca_produto", :via => :get   
+  end
 
+  scope 'geradors' do
+    match 'gerador_arquivo'  => "geradors#gerador_arquivo", :via => :get
+    match 'result_gerador'   => "geradors#result_gerador", :via => :get
   end
 
   #login
@@ -25,16 +49,16 @@ Zetta::Application.routes.draw do
     end
   end
 
-  #cadastros
+  
+#cadastros
+resources :variavels
+  resources :elementos
   resources :localizacaos
   resources :produto_barras
+  resources :unidade_metricas
   resources :localidades
   resources :metodos
   resources :equipos
-  resources :servicos
-  resources :variavels
-  resources :elementos
-  resources :unidade_metricas
   resources :empresas
   resources :contas
   resources :sub_grupos
@@ -46,8 +70,6 @@ Zetta::Application.routes.draw do
   resources :clases
   resources :rodados
   resources :documentos
-  resources :metas
-  resources :meta_detalhes
   resources :planos
   resources :plano_de_contas do
     collection do
@@ -64,18 +86,18 @@ Zetta::Application.routes.draw do
       get 'persona_nota_credito'
       get 'persona_cobro'
       get 'persona_pago'
-      get 'busca_persona_pago'
-      get 'busca_persona_cobro'
-      get 'persona_presupuesto'
-      get 'persona_nota_credito_proveedor'
-      get 'busca_persona_presupuesto'
-      get 'busca'
-      get 'persona_compra'
-      get 'busca_persona_compra'
-      get 'busca_cliente'
-      get 'busca_persona_nota_credito'
-      get 'busca_persona_nota_credito_proveedor'
-      get 'busca_persona_venda_financa'
+      get 'busca_persona_pago'                    
+      get 'busca_persona_cobro'                  
+      get 'persona_presupuesto'                  
+      get 'persona_nota_credito_proveedor'       
+      get 'busca_persona_presupuesto'            
+      get 'busca'                                
+      get 'persona_compra'                 
+      get 'busca_persona_compra'                 
+      get 'busca_cliente'                        
+      get 'busca_persona_nota_credito'           
+      get 'busca_persona_nota_credito_proveedor' 
+      get 'busca_persona_venda_financa'          
       get 'busca_persona_venda'
       get 'persona_venda'
     end
@@ -399,8 +421,6 @@ resources :pagares_detalhe
       get 'resultado_controle_visitas'
       get 'fluxo_caixa'
       get 'resultado_fluxo_caixa'
-      get 'metas'
-      get 'resultado_metas'
     end
   end
 
@@ -428,22 +448,7 @@ resources :financas do
       get 'resultado_extrato_bancario'
     end
   end
-  
-#safra
-  resources :safras
-  resources :safra_produtos do
-    member do
-      get 'descontos'
-    end
-  end
 
-  resources :safra_umidades
-  resources :safra_ardidos
-  resources :safra_verdosos
-  resources :safra_quebrados
-  resources :safra_averiados
-  resources :safra_impurezas
-  resources :safra_brotados
 
 #contabilidade
 resources :diarios do

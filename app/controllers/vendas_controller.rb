@@ -342,6 +342,17 @@ class VendasController < ApplicationController
       render :layout => false
   end
 
+  def ticket                          #
+      @venda           = Venda.find(params[:id])
+      @venda_produto   = VendasProduto.all(:conditions => ['venda_id = ?',params[:id]],:order => 'id' )
+      @produto_sum_gs  = VendasProduto.sum(:total_guarani,:conditions => ['venda_id = ?',params[:id]] )
+      @produto_sum_us  = VendasProduto.sum(:total_dolar,:conditions => ['venda_id = ?',params[:id]] )
+      @fin_sum_gs  = VendasFinanca.sum(:cota_guarani_01,:conditions => ['venda_id = ? AND tipo = 1',params[:id]] )
+      @fin_sum_us  = VendasFinanca.sum(:cota_dolar_01,:conditions => ['venda_id = ? AND tipo = 1',params[:id]] )
+      @venci           = VendasFinanca.last(:conditions => ['venda_id = ? AND tipo = 1',params[:id]] )       
+      render :layout => false
+  end
+
   def pagare                          #
       @venda           = Venda.find(params[:id])
       @venda_produto   = VendasProduto.all(:conditions => ['venda_id = ?',params[:id]],:order => 'id' )

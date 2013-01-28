@@ -1,21 +1,21 @@
-development:     #mai789789
+development:     #
   adapter: postgresql
   encoding: unicode
   database: enterprise
   pool: 5
   username: postgres
-<<<<<<< HEAD
-  password: mai789789
-=======
   password: di03051999
->>>>>>> karen/master
+<<<<<<< HEAD
   host: localhost
+=======
+  host: 192.168.0.50
+>>>>>>> 1c836c1332211462e4445133d60285928eee6794
   port: 5432
 
 test:            #
   adapter: postgresql
   encoding: unicode
-  database: zetta
+  database: enterprise
   pool: 5
   username: postgres
   password: di03051999
@@ -25,9 +25,9 @@ test:            #
 production:      #
   adapter: postgresql
   encoding: unicode
-  database: zetta
+  database: enterprise
   pool: 5
   username: postgres
-  password: mai789789
+  password: di03051999
   host: 192.168.0.50
   port: 5432

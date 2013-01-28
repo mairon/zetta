@@ -45,10 +45,8 @@ class MetaDetalhesController < ApplicationController
     respond_to do |format|
       if @meta_detalhe.save
       format.html { redirect_to "/metas/#{@meta_detalhe.meta_id}"}
-      format.json { head :no_content }
       else
-        format.html { render action: "new" }
-        format.json { render json: @meta_detalhe.errors, status: :unprocessable_entity }
+      format.html { redirect_to "/metas/#{@meta_detalhe.meta_id}"}
       end
     end
   end

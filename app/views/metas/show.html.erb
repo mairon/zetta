@@ -26,6 +26,12 @@
 			  	<%= render :partial=>"/meta_detalhes/index_detalhes", :locals=>{:meta_detalhes => @meta.meta_detalhes}%>
 			  </div>
 				<%= render :partial=>"/meta_detalhes/new_detalhes", :locals=>{ :meta_detalhe => MetaDetalhe.new(:meta_id=>@meta.id) } %> 
+        <div class="buttons">
+        <%= link_to 'Volver', edit_meta_path(@meta), :class => "button back" %>
+        <%= link_to 'Salir', metas_path, :class => "button next" %>
+
+      </div>
   	</div>
+
 
 

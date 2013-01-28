@@ -1,7 +1,6 @@
 <body onload="DataCompra(),SueldoSetaValor(),CampoCompra(),ExibeDivCompraFinanca(),ExibeDivCompraDetalheFatura()">  
   Detalhes Financieros - Edicion
-  <% form_for(compra) do |f| %>
-    <%= f.error_messages  %>
+  <%= form_for(compra) do |f| %>
     <div class="group_cd">
        <%= f.hidden_field :sueldo_id %>
        <table>

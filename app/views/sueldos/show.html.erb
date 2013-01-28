@@ -1,41 +1,39 @@
 
-<h1 align="right" id="header">Sueldos</h1>
-Sueldos - Ingresos
+<h1 id="header">Sueldos Detalhes</h1>
 <div class="group">
   <table >
     <tr class = "<%= cycle("cor1", "cor2") %>">
-      <td align="right">Mes :</td>
-      <td><%= @sueldo.mes %>/<%= @sueldo.ano %> </td>
+      <td align="right">Periodo :</td>
+      <td><%= @sueldo.data_inicio.strftime("%d/%m/%Y") %> - <%= @sueldo.data_final.strftime("%d/%m/%Y") %> - Dias(<%=  @sueldo.data_final.to_date - @sueldo.data_inicio.to_date %>)</td>
       <td align="right">Empleado :</td>
       <td><%= @sueldo.persona_nome %> </td>
 
     </tr>
-
     <tr class = "<%= cycle("cor1", "cor2") %>">
       <td align="right">Salario :</td>
-      <td width="250" align="right"><%= number_to_currency(@sueldo.salario, :format=>' %n ', :precision => 0)  %> </td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario, :format=>' %n ', :separeitor => ',')  %> </td>
       <td align="right">Salario Min.:</td>
-      <td width="250" align="right"><%= number_to_currency(@sueldo.salario_minimo, :format=>' %n ', :precision => 0) %> </td>
+      <td width="250" align="right"><%= number_to_currency(@sueldo.salario_minimo, :format=>' %n ', :separeitor => ',') %> </td>
     </tr>
-
-    <tr class = "<%= cycle("cor1", "cor2") %>">
-      <td align="right">Comision :</td>
-      <td width="250" align="right"><%= number_to_currency(@sueldo.comissao, :format=>' %n ', :precision => 0) %> </td>
-      <td align="right">C.I.:</td>
-      <td width="250" align="right"><%= number_to_currency(@sueldo.ci, :format=>' %n ', :precision => 0) %> </td>
-      <td align="right">A Receber:</td>
-      <td width="250" align="right"><%= number_to_currency(@sueldo.salario.to_f - @total_receber_gs.to_f, :format=>' %n ', :precision => 0) %> </td>
-    </tr>
-
   </table>
 </div>
-Pendente <%= number_to_currency(@pendencias, :format=>' %n ', :precision => 0)  %>
-<p><a href="/sueldos/form_sueldos_detalhes/<%=@sueldo.id%>" id="novo" >Nuevo</a></p>
 
-<%= render :partial=>"index_sueldos_detalhes", :locals=>{:sueldos_detalhes => @sueldo.sueldos_detalhes  } %>
+<fieldset>
+  <legend>Pendencias</legend>
+  <%= render :partial=>"pendentes" %>
+</fieldset>
+
+<%= render :partial=>"/sueldos_detalhes/new_saldo_liquiq", :locals=>{:sueldos_detalhe=>SueldosDetalhe.new(:sueldo_id=>@sueldo.id)} %>
+
+<fieldset>
+  <legend>Extracto</legend>
+  <%= render :partial=>"index_sueldos_detalhes", :locals=>{:sueldos_detalhes => @sueldo.sueldos_detalhes  } %>
+</fieldset>
+
 <div class="buttons">
+  <a href="/sueldos/<%=@sueldo.id%>/form_sueldos_detalhes" class="button add" >Nuevo</a>
+  <a href="javascript:void(0)" onClick="ComprovanteSueldo()" class="button print">Comprobante</a>   
   <%= link_to 'Volver', edit_sueldo_path(@sueldo), :class => "button back" %> 
-  <a href="javascript:void(0)" onClick="ComprovanteSueldo()" class="button print">Comprobante</a> 
   <input type="hidden" id="id" name="id" value="<%=params[:id]%>" />
   <%= link_to 'Salir', {:action => 'index'}, :class => "button delete" %>    
 </div>
@@ -43,7 +41,7 @@ Pendente <%= number_to_currency(@pendencias, :format=>' %n ', :precision => 0)  
 <script>
   function ComprovanteSueldo()                //
   {
-    window.open('/sueldos/comprovante/' + document.getElementById('id').value, 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400');
+    window.open('/sueldos/' + document.getElementById('id').value + "/comprovante", 'Pagina', ' SCROLLBARS=YES, TOP=250, LEFT=500, WIDTH=600, HEIGHT=400') ;
   }
 </script>
 

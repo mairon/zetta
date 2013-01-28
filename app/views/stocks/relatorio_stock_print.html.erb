@@ -21,7 +21,7 @@
 </table>
 <table>
 
-  <% for produto in @stocks %>
+  <%= for produto in @stocks %>
     <% entradas = Stock.sum( :entrada,:conditions => ['produto_id = ?',produto.id] ) %>
     <% saidas   = Stock.sum( :saida  ,:conditions => ['produto_id = ?',produto.id] ) %>
     <% stock    = entradas - saidas %>

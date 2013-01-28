@@ -1,0 +1,45 @@
+<% recalculo = Stock.all( :select     => 'id,produto_id,deposito_id,entrada,saida,unitario_guarani,unitario_dolar,tabela,promedio_guarani', 
+                          :conditions => ["produto_id = ?",produto], 
+                          :order      => 'produto_id,data,status' ) %>
+
+<% saldo_stock       = 0 %>
+<% valor_stock_gs    = 0 %>
+<% valor_stock_us    = 0 %>
+<% promedio_stock_gs = 0 %>
+<% promedio_stock_us = 0 %>
+
+<% recalculo.each do |prod_rec| %>
+
+  <% saldo_stock    += ( prod_rec.entrada - prod_rec.saida ) %>
+  <% prod_rec.update_attribute :saldo, saldo_stock.to_f %>
+
+  <!-- #RECALCULO CUSTO ENTRADA-->
+  <% if ( prod_rec.entrada.to_f > 0 ) %>          
+    <% valor_stock_gs += ( prod_rec.entrada.to_f * prod_rec.unitario_guarani.to_f )  %>
+    <% valor_stock_us += ( prod_rec.entrada.to_f * prod_rec.unitario_dolar.to_f )  %>
+    <% promedio_stock_gs = ( valor_stock_gs.to_f / saldo_stock.to_f )  %>
+    <% promedio_stock_us = ( valor_stock_us.to_f / saldo_stock.to_f )  %>
+
+    <% prod_rec.update_attribute :promedio_guarani, promedio_stock_gs.to_f %>
+    <% prod_rec.update_attribute :promedio_dolar, promedio_stock_us.to_f  %>
+  <% end %>
+ 
+ <!-- #RECALCULO CUSTO SAIDA-->
+  <% if ( prod_rec.saida.to_f > 0 ) %>
+  
+    <% prod_rec.update_attribute :promedio_guarani, promedio_stock_gs.to_f %>
+    <% prod_rec.update_attribute :promedio_dolar, promedio_stock_us.to_f %>
+  <% end %>
+
+  <!-- #ZERA CUSTO-->
+  <% if saldo_stock.to_f == 0 %>
+    <% promedio_stock_gs = 0 %>
+    <% promedio_stock_us = 0 %>
+    <% valor_stock_gs    = 0 %>
+    <% valor_stock_us    = 0 %>                    
+    <% prod_rec.update_attribute :promedio_guarani, promedio_stock_gs.to_f %>
+    <% prod_rec.update_attribute :promedio_dolar, promedio_stock_us.to_f  %>
+
+  <% end %>
+
+<% end %>

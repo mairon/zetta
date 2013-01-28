@@ -6,6 +6,20 @@ class StocksController < ApplicationController
                             </script>"
     end
 
+    def get_vend                                  #
+        vend =  Persona.find(:first, :conditions =>  [ "id = ?", params[:campo_vend]])
+        return render :text => "<script type='text/javascript'>
+                    document.getElementById('busca_vendedor').value                = '#{vend.id.to_i}';
+                            </script>"
+    end
+
+    def get_client                                  #
+        per =  Persona.first(:select => 'id', :conditions =>  [ "id = ?", params[:campo_client]])
+        return render :text => "<script type='text/javascript'>
+                    document.getElementById('busca_persona').value                = '#{per.id.to_i}';
+                            </script>"
+    end
+
     def get_moeda                                  #
         @moeda =  Moeda.find(:first,:select => 'dolar_venda', :conditions =>  [ "data = ?", params[:key]])
         return render :text => "<script type='text/javascript'>
@@ -29,10 +43,20 @@ class StocksController < ApplicationController
 
     def get_produto_inicial                        #
         @produto =  Produto.find(:first, :conditions =>  [ "fabricante_cod = ?", params[:cod]])
-        
+        cotacao =  Moeda.last
+        stock = Stock.sum( 'entrada - saida',:conditions => ["produto_id = ?  AND data <= '#{cotacao.data}' ",@produto.id] ) 
+        suma_entrada       = Stock.sum(:entrada, :conditions => ["produto_id = #{@produto.id} AND data <= '#{cotacao.data}'"])
+        suma_custo_dolar   = Stock.sum('( entrada * unitario_dolar)',   :conditions => ["produto_id = #{@produto.id} AND STATUS = 0 AND data <= '#{cotacao.data}'"])
+        suma_custo_guarani = Stock.sum('( entrada * unitario_guarani )', :conditions => ["produto_id = #{@produto.id} AND STATUS = 0 AND data <= '#{cotacao.data}'"])        
+        stock_custo_dolar   = ( suma_custo_dolar.to_f / suma_entrada.to_f )
+        stock_custo_guarani = ( suma_custo_guarani.to_f / suma_entrada.to_f )        
         return render :text => "<script type='text/javascript'>
                                 document.getElementById('stock_produto_id').value             = '#{@produto.id.to_i}';
                                 document.getElementById('stock_taxa').value                   = '#{@produto.taxa.to_i}';
+                                document.getElementById('saldo').value                   = '#{stock.to_f}';
+                                document.getElementById('stock_unitario_dolar').value         = '#{format("%.2f",stock_custo_dolar.to_f)}';
+                                document.getElementById('stock_unitario_guarani').value       = '#{stock_custo_guarani.to_i}';
+
                             </script>"
     end
 
@@ -106,42 +130,53 @@ class StocksController < ApplicationController
         else
             deposito = params[:busca]["deposito"]
         end
-
+        if params[:filtro] == '0'
+            f = 'SOLO ENTRADAS'
+        elsif params[:filtro] == '1'
+            f = 'SOLO SALIDAS'
+        else
+            f = 'ENTRADA Y SALIDAS'
+        end
         if params[:status].to_s == '0'
             @stocks = Stock.ficha_stock_resumido(params)
             @saldo_anterior = Stock.relatorio_ficha_stock_saldo_anterio( params )
 
             head =
-            "                                                                                                         #{$empresa_nome}
-                                                                                                                            FICHA STOCK
-    Fecha : #{params[:inicio]} hasta #{params[:final]}
-    Clase : #{clase}   Grupo : #{grupo}  Produto : #{produto}   Deposito : #{deposito}
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Lanz.    Fecha         Persona                              Deposito       Producto                                                                                    Unit Tot. Entrada Tot. Salida    Entrada        Salida        Saldo
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+"                                                       #{$empresa_nome}
+                                                           FICHA STOCK FISICO                                                          
+ Fecha....: #{params[:inicio]} hasta #{params[:final]}
+ Clase....: #{clase}   
+ Grupo....: #{grupo}  
+ Produto..: #{produto}   
+ Deposito.: #{deposito}
+ Filtro...: #{f}
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Lanz.  Fecha    Persona             St Dep. Cod. Producto                                Unit  Tot.Entr  Tot.Sali Entrada  Salida  Saldo
+-----------------------------------------------------------------------------------------------------------------------------------------
             "
 
         else
             @stocks = Stock.relatorio_ficha_stock(params)
             @saldo_anterior = Stock.relatorio_ficha_stock_saldo_anterio( params )
     head =
-             "                                                                                                     #{$empresa_nome}
-                                                                                                                            FICHA STOCK
-    Fecha : #{params[:inicio]} hasta #{params[:final]}
-    Clase : #{clase}   Grupo : #{grupo}  Produto : #{produto}   Deposito : #{deposito}
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Cod.  Fecha   Deposito                                Producto                                       Entrada   Salida   Saldo       Unit.           Costo          Tot. Entr.       Tot. Salida     Tot. Stock
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+"                                                       #{$empresa_nome}
+                                                           FICHA STOCK FINANCIERO                                                          
+ Fecha....: #{params[:inicio]} hasta #{params[:final]}
+ Clase....: #{clase}   
+ Grupo....: #{grupo}  
+ Produto..: #{produto}   
+ Deposito.: #{deposito}
+------------------------------------------------------------------------------------------------------------------------------------------
+  Lanz.  Fecha   Dep.  Produto                                Entrada Salida Saldo      Unit.     Costo    Tot.Entr. Tot.Salida Tot Stock           
+------------------------------------------------------------------------------------------------------------------------------------------
 "
 
         end
 
 
-    respond_to do |format|
+        respond_to do |format|
       format.html do
-        render  :pdf                    => "relatorio_stock",                
+        render  :pdf                    => "resultado_fechamento_caixa",                
                 :layout                 => "layer_relatorios",
                 :margin => {:top        => '1.20in',
                             :bottom     => '0.25in',
@@ -157,90 +192,107 @@ Cod.  Fecha   Deposito                                Producto                  
                             :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
       end
     end
+
     end
 
     def resultado_iventario                        #
     
         @stocks = Stock.resultaro_iventario( params )
 
-
         head =
-        "                                                                                    #{$empresa_nome}
-                                                                                       Iventario
+        "                                                               #{$empresa_nome}
+                                                        LISTADO DE IVENTARIO
+Fecha..: #{params[:inicio]} Hasta #{params[:final]}
 
+-----------------------------------------------------------------------------------------------------------------------------------------
+    Cod.           Producto                                                                        Cantidad       Unitario          Total
+-----------------------------------------------------------------------------------------------------------------------------------------
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     Cod.                      Productos                                                                            Saldo   Unit. Gs.   Total Gs.    Unit. U$   Total. U$
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        "
-
-        head_consulta =
-        "                                                                                    #{$empresa_nome}
-                                                                                       Iventario
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     Cod.                      Productos                                                                            Saldo                      Observacion
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_iventario",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
- 
+        respond_to do |format|
+          format.html do
+            render  :pdf                    => "resultado_fechamento_caixa",                
+                    :layout                 => "layer_relatorios",
+                    :margin => {:top        => '1.20in',
+                                :bottom     => '0.25in',
+                                :left       => '0.10in',
+                                :right      => '0.10in'},        
+                    :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                                :font_size  => 7,
+                                :left       => head,
+                                :spacing    => 25},
+                    :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                                :font_size  => 7,
+                                :right      => "Pagina [page] de [toPage]",
+                                :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+          end
+        end
     end
 
-    def resultado_rentabilidade                    #
-		if params[:modelo] == "0"
+    def resultado_rentabilidade
+  		if params[:modelo] == "0"
         @stocks = Stock.rentabilidade( params )
 
 
         head =
-        "                                                                                    #{$empresa_nome}
-                                                                                       Rentabilidad
+  "                                                                 #{$empresa_nome}
+                                                                 Rentabilidad                                                                                                                          
 
--Fecha #{params[:inicio]} Hasta #{params[:final]}
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     Cod.                      Productos                                                                     Cantidad     Venta         Costo         Renta.   Margen%
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  -Fecha #{params[:inicio]} Hasta #{params[:final]}
+  -----------------------------------------------------------------------------------------------------------------------------------------
+      Cod.           Productos                                                    Cantidad     Venta         Costo         Renta.   Margen%
+  -----------------------------------------------------------------------------------------------------------------------------------------
+          "
+
+
+		elsif params[:modelo] == "1"
+
+      @stocks = Stock.rentabilidade_detalhado( params )
+
+      unless params[:busca]["produto"].blank?
+          pd = Produto.find_by_id(params[:busca]["produto"], :select => 'id,nome')
+          pd = pd.nome
+      else
+          pd = 'Todos'
+      end 
+
+      unless params[:busca]["persona"].blank?
+          per = Persona.find_by_id(params[:busca]["persona"], :select => 'id,nome')
+          per = per.nome
+      else
+          per = 'Todos'
+      end 
+
+      head =
+"                                                            #{$empresa_nome}
+                                                   Rentabilidad Detalhado Por Producto                                                  
+
+ - Fecha....: #{params[:inicio]} Hasta #{params[:final]}
+ - Producto.: #{pd}
+ - Cliente..: #{per}
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Fecha   Vend.             Cod.       Fab. Producto                   Tipo Cli. Desc.  Cantidad     Venta      Costo     Renta    Margen%
+-----------------------------------------------------------------------------------------------------------------------------------------
         "
+    else 
+       @stocks = Stock.rentabilidade_agrupado_setor(params)
 
+ head =
+  "                                                                 #{$empresa_nome}
+                                                                 Rentabilidad                                                                                                                          
 
-		else
-        @stocks = Stock.rentabilidade_detalhado( params )
-
-
-        head =
-        "                                                                                    #{$empresa_nome}
-                                                                                       Rentabilidad
-
--Fecha #{params[:inicio]} Hasta #{params[:final]}
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     Cod.                      Productos                                                                     Cantidad     Venta         Costo         Renta.   Margen%
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        "
-
+  -Fecha #{params[:inicio]} Hasta #{params[:final]}
+  -----------------------------------------------------------------------------------------------------------------------------------------
+   Cod.   Productos                                                           Cantidad     Venta         Costo         Renta.   Margen%
+  -----------------------------------------------------------------------------------------------------------------------------------------
+          "       
 		end
 
-        respond_to do |format|
+    respond_to do |format|
       format.html do
-        render  :pdf                    => "resultado_rentabilidade",                
+        render  :pdf                    => "resultado_fechamento_caixa",                
                 :layout                 => "layer_relatorios",
                 :margin => {:top        => '1.20in',
                             :bottom     => '0.25in',
@@ -256,7 +308,35 @@ Cod.  Fecha   Deposito                                Producto                  
                             :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
       end
     end
+
     end
+
+
+def resultado_projecao_compras
+
+    @stocks = Stock.projecao_compras(params)              
+    respond_to do |format|
+      format.html do
+        render  :pdf                    => "resultado_fechamento_caixa",                
+                :layout                 => "layer_relatorios",
+                :margin => {:top        => '1.55in',
+                            :bottom     => '0.25in',
+                            :left       => '0.10in',
+                            :right      => '0.10in'},        
+                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,                            
+                            :html => { :template => 'stocks/headers/projecao_compras.html',
+                            :layout     => "layer_relatorios" },
+                            :spacing    => 0},
+                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :right      => "Pagina [page] de [toPage]",
+                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+      end
+    end
+
+    end
+
 
     def relatorio_stock_print                      #
         cond = "data >= '#{params[:inicio]}' AND data <= '#{params[:final]}'"
@@ -299,7 +379,7 @@ Cod.  Fecha   Deposito                                Producto                  
         respond_to do |format|
             if @stock.save
                 flash[:notice] = 'Grabado con Sucesso'
-                format.html { redirect_to('/stocks/stock_inicial') }
+                format.html { redirect_to('/stocks/new') }
                 format.xml  { render :xml => @stock, :status => :created, :location => @stock }
             else
                 format.html { render :action => "new" }

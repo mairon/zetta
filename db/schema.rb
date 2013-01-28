@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121184044) do
+ActiveRecord::Schema.define(:version => 20130124182727) do
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -814,6 +814,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.string   "cod_contabil",    :limit => 50
     t.integer  "rubro_id"
     t.string   "rubro_nome"
+    t.integer  "venda",           :limit => 2
   end
 
   create_table "controle_pulv_maqs", :force => true do |t|

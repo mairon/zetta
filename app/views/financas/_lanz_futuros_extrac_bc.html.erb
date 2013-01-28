@@ -1,19 +1,10 @@
 <table>
 	<tr height="40">
-<<<<<<< HEAD
-		<td colspan="7" align="center" valign="bottom">--------------------------------------------------Lanzamientos Fucturos-------------------------------------------------</td>
-	</tr>
-	<tr class="head">
-		<td align="center">Fecha</td>
-		<td align="center">Concepto</td>
-		<td align="center">Ob Ref.</td>
-=======
 		<td colspan="7" align="center" valign="bottom">----------------------------------------------------------Lanzamientos Fucturos----------------------------------------------------------</td>
 	</tr>
 	<tr class="head">
 		<td align="center">Fecha</td>
 		<td align="left">Concepto</td>
->>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
 		<td align="center">Nr. Cheque</td>
 		<td align="right">Credito</td>
 		<td align="right">Debito</td>
@@ -21,11 +12,7 @@
 
 	</tr>
 	<tr>
-<<<<<<< HEAD
-		<td colspan="7" align="center">----------------------------------------------------------------------------------------------------------------------</td>
-=======
 		<td colspan="7" align="center">----------------------------------------------------------------------------------------------------------------------------------------</td>
->>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
 	</tr>
 
 	<% totentrada   = 0 %>
@@ -57,10 +44,7 @@
 			<% else %>
 			   <td width="640" align="left"> <%= h lf.concepto%> </td>
 			<% end %>
-<<<<<<< HEAD
 			<td width="50" align="center"> <%= h lf.ob_ref %>  </td>
-=======
->>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
 			<td width="100" align="center"> <%= h lf.cheque %>  </td>
 	   	    <% if params[:moeda].to_s == '1'%>
 	  		  <td width="80" align="right"> <%= h number_to_currency(entrada, :format=>' %n ', :precision => 0) %> </td>
@@ -76,11 +60,7 @@
 		</tr>
 	<% end %>
 	<tr class="head">
-<<<<<<< HEAD
 		<td colspan="4"></td>
-=======
-		<td colspan="3"></td>
->>>>>>> 91ec53da52d59a21ba519661cbc43de549c343e7
       	<% if params[:moeda].to_s == '1' %>	      
 			<td width="80" align="right" ><%= number_to_currency(totentrada, :format=>' %n ', :precision => 0 ) %></td>
 			<td width="80" align="right"><%= number_to_currency(totsaida, :format=>' %n ', :precision => 0 ) %></td>

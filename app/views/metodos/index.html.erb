@@ -17,8 +17,8 @@
   <tr class = "<%= cycle("cor1", "cor2") %>">
     <td width="50" align="center"><%= metodo.id.to_s.rjust(6,'0') %></td>
     <td width="350" align="left"><%= metodo.nome %></td>    
-    <td><%= link_to 'Editar', edit_bico_path(bico) %></td>
-    <td><%= link_to 'Borrar', bico, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
+    <td><%= link_to 'Editar', edit_metodo_path(metodo) %></td>
+    <td><%= link_to 'Borrar', metodo, method: :delete, data: { confirm: 'Estas Seguro?' } %></td>
   </tr>
 <% end %>
 </table>

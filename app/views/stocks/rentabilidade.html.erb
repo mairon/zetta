@@ -1,6 +1,11 @@
 <body onload="DataFinal(),CampoInicio()">
   <h1 align="right" id="header">.</h1>
   Rentabilidad
+  <style type="text/css">
+    select {
+      width: 350px;
+    }
+  </style>
   <div class="group">
     <h2>
       <%= form_tag resultado_rentabilidade_stocks_path, :method => "get" do%>
@@ -10,30 +15,25 @@
             <td><input name       = "inicio"
                        id         = "inicio"
                        size       = "10"
+                       type       = "text"
                        onkeypress = "return bloqEnter(event)"
                        onkeyup    = "Formatadata(this,event),EnterTab(event,'final')" />
                 Hasta
                 <input name       = "final"
                        id         = "final"
                        size       = "10"
+                       type       = "text"
                        onkeypress = "return bloqEnter(event)"
                        onkeyup    = "Formatadata(this,event),EnterTab(event,'campo_clase')" /></td>
           </tr>
 
           <tr>
-            <td align="right">Clase :</td>
+            <td align="right">Sector :</td>
             <td>
               <%= text_field_tag( 'campo_clase',
                                    nil,
                                    :id       => "campo_clase",
-                                   :onchange => {:remote => true,
-                                                 :update     => "campo_clase",
-                                                                 :url        => { :action => :get_clase, :id => 1},
-                                                                 :with       => "'campo_clase='+this.value"},
-                                                                 :size       => 5,
-                                                                 :onkeypress => "return bloqEnter(event)",
-                                                                 :onkeyup    => "EnterTab(event,'busca_clase')"
-                                                              ) %>
+                                   :size     => 5 ) %>
 
               <%=   select("busca", "clase", Clase.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] },
                                                                                           { :include_blank => true },
@@ -47,15 +47,8 @@
             <td>
               <%= text_field_tag( 'campo_grupo',
                                    nil,
-                                   :id       => "campo_grupo",
-                                   :onchange => {:remote => true,
-                                                 :update     => "campo_grupo",
-                                                                 :url        => { :action => :get_grupo, :id => 1},
-                                                                 :with       => "'campo_grupo='+this.value"},
-                                                                 :onkeypress => "return bloqEnter(event)",
-                                                                 :onkeyup    => "EnterTab(event,'busca_grupo')",
-                                                                 :size       => 5
-                              ) %>
+                                   :id       => "campo_grupo", 
+                                   :size => 5 ) %>
 
               <%=   select("busca", "grupo", Grupo.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] },
                                                                                           { :include_blank => true },
@@ -63,23 +56,13 @@
                                                                                             :onkeyup       => "EnterTab(event,'campo_produto')" })   %></td>
           </tr>
 
-
           <tr>
             <td align="right">Producto :</td>
 
             <td>
               <%= text_field_tag( 'campo_produto',
                                    nil,
-                                  :id       => "campo_produto",
-                                  :onchange => {:remote => true,
-                                                :update => "campo_produto",
-                                                                :url        => { :action => :get_produto, :id => 1},
-                                                                :with       => "'campo_produto='+this.value"},
-                                                                :size       => 5,
-                                                                :onkeypress => "return bloqEnter(event)",
-                                                                :onkeyup    => "EnterTab(event,'busca_produto')"
-
-                                ) %>
+                                  :id       => "campo_produto", :size => 5 ) %>
 
 
               <%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] },
@@ -90,39 +73,58 @@
 
           <tr>
             <td align="right">Deposito :</td>
-
             <td>
               <%=   select("busca", "deposito", Deposito.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] },
                                                                                                             { :include_blank => true },
                                                                                                             { :onkeypress    => "return bloqEnter(event)",
                                                                                                               :onkeyup       => "EnterTab(event,'filtro')" })   %></td>
           </tr>
+            <td align="right">Vendedor :</td>
 
+            <td>
+              <%= text_field_tag( 'campo_vend',
+                                   nil,
+                                  :id       => "campo_vend",:size => 5 ) %>
 
-               <tr>
-                  <td align="right">Tipo :</td>
-                  <td>
-                    <fieldset>
-                       <%= radio_button_tag :modelo, 0,  :Checked => "True" %> Resumen
-                       <%= radio_button_tag :modelo, 1 %> Detalhado
-                    </fieldset>
-                  </td>
-               </tr>
+              <%=   select("busca", "vendedor", Persona.all(:select => 'id,nome',:conditions => ["tipo_vendedor = 1"],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true },
+                                               { :onkeyup    => "EnterTab(event,'busca_cidade ')",
+                                                 :onkeypress => "return bloqEnter(event)"})  %></td>
+          </tr>
 
-               <tr>
-                  <td align="right">Tipo De Producto:</td>
-                  <td>
-                    <fieldset>
-                       <%= radio_button_tag :prod, 0,  :Checked => "True" %> Mercaderia
-                       <%= radio_button_tag :prod, 1 %> Servicios
-                       <%= radio_button_tag :prod, 2 %> Todos
-                    </fieldset>
-                  </td>
-               </tr>
+          </tr>
+            <td align="right">Cliente :</td>
+            <td>
+              <%= text_field_tag( 'campo_client', nil, :size => 5 ) %>
+
+              <%=   select("busca", "persona", Persona.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true },
+                                               { :onkeyup    => "EnterTab(event,'busca_cidade')",
+                                                 :onkeypress => "return bloqEnter(event)"})  %></td>
+          </tr>
 
 
           <tr>
-	          <td></td>
+            <td align="right">Tipo :</td>
+            <td>
+              <fieldset>
+                 <%= radio_button_tag :modelo, 0,  :Checked => "True" %> Resumen
+                 <%= radio_button_tag :modelo, 1 %> Detalhado
+                 <%= radio_button_tag :modelo, 2 %> Agrupo Por Sector
+              </fieldset>
+            </td>
+          </tr>
+
+            <tr>
+              <td align="right">Tipo De Producto:</td>
+              <td>
+                <fieldset>
+                  <%= radio_button_tag :prod, 0,  :Checked => "True" %> Mercaderia
+                  <%= radio_button_tag :prod, 1 %> Servicios
+                  <%= radio_button_tag :prod, 2 %> Todos
+                </fieldset>
+              </td>
+            </tr>
+            <tr>              
+	            <td></td>
               <td>
                    <%= check_box_tag :lancamento,'1', :onkeyup    => "Formatadata(this,event),EnterTab(event,'moeda')",
                                                   :onkeypress => "return bloqEnter(event)" %> Todos lo lanzamientos
@@ -138,6 +140,7 @@
                     <fieldset>
                        <%= radio_button_tag :moeda, 0,  :Checked => "True" %> Dolar
                        <%= radio_button_tag :moeda, 1 %> Guaranies
+                       <%= radio_button_tag :moeda, 2 %> Reais
                     </fieldset>
                   </td>
                </tr>
@@ -148,11 +151,13 @@
             <td>
               <input  id      ="button"
                       type    ="submit"
-                      value   ="              Informe             "
+                      class   = "button_info"
+                      value   ="Informe"
                       onclick = "Tipo('0')"/>
 
               <input type     = "submit"
-                     value    = "            Excel            "
+                     class    = "button_info"
+                     value    = "Excel"
                      onclick  = "Tipo('1')"/>
             </td>
           </tr>

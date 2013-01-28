@@ -1,7 +1,7 @@
 
 <!-- Interacao com real !-->
 	
-  <h1 align="right" id="header">Ingresos</h1>
+  <h1 align="right" id="header">Ingresos-E02</h1>
 
   <%= form_for(@ingresso) do |f| %>
     
@@ -101,13 +101,13 @@
 
                         <tr>
                           <%= field_gs 'Valor Gs.:',f, :valor_guarani,
-         							    :onblur   => "GsToUsRs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_guarani','ingresso_valor_dolar','ingresso_valor_real')"  %>
+         							    :onchange   => "GsToUsRs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_guarani','ingresso_valor_dolar','ingresso_valor_real')"  %>
 									  
                           <%= field_us 'Valor U$:',f, :valor_dolar,
-         							    :onblur   => "UsToGsRs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_dolar','ingresso_valor_guarani','ingresso_valor_real')" %>
+         							    :onchange   => "UsToGsRs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_dolar','ingresso_valor_guarani','ingresso_valor_real')" %>
 
                           <%= field_us 'Valor R$:',f, :valor_real,
-         							    :onblur   => "RsToUsGs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_guarani','ingresso_valor_dolar','ingresso_valor_real')" %>
+         							    :onchange   => "RsToUsGs('ingresso_cotacao','ingresso_cotacao_real','ingresso_valor_guarani','ingresso_valor_dolar','ingresso_valor_real')" %>
                         </tr>
 
                         <tr>
@@ -121,9 +121,7 @@
                         <tr>
                           <td align="right" valign="top">Concepto :</td>
                           <td colspan="3"><%= f.text_area :concepto,
-                                                          :size => '48x4',
-                                                          :onkeydown => "f(this)",
-                                                          :onkeyup   => "f(this)"%></td>
+                                                          :size => '48x4' %></td>
                         </tr>
                       </table>
                     </fieldset>

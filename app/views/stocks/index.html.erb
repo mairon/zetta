@@ -1,21 +1,28 @@
 <body onload="DataFinal(),CampoInicio()">
   <h1 align="right" id="header">.</h1>
-  Relatorio de Stock 
+  Ficha de Stock 
+  <style type="text/css">
+    select {
+      width: 600px;
+    }
+  </style>
   <div class="group">
     <h2>
-      <%= form_tag relatorio_stock_stocks_path, :method => "get" do%>
+      <%= form_tag relatorio_stock_stocks_path, :method => "get" do %>
         <table>          
           <tr>
             <td align="right"> Fecha:</td>
             <td><input name       = "inicio"
                        id         = "inicio"
                        size       = "10"
+                       type       = "text"
                        onkeypress = "return bloqEnter(event)"
                        onkeyup    = "Formatadata(this,event),EnterTab(event,'final')" />
                 Hasta
                 <input name       = "final"
                        id         = "final"
                        size       = "10"
+                       type       = "text"
                        onkeypress = "return bloqEnter(event)"
                        onkeyup    = "Formatadata(this,event),EnterTab(event,'campo_clase')" /></td>
           </tr>
@@ -26,14 +33,7 @@
               <%= text_field_tag( 'campo_clase',
                                    nil,
                                    :id       => "campo_clase",
-                                   :onchange => {                :remote     => true,
-                                                                 :update     => "campo_clase",
-                                                                 :url        => { :action => :get_clase, :id => 1},
-                                                                 :with       => "'campo_clase='+this.value"},
-                                                                 :size       => 5,
-                                                                 :onkeypress => "return bloqEnter(event)",
-                                                                 :onkeyup    => "EnterTab(event,'busca_clase')"
-                                                              ) %>
+                                   :size => 5 ) %>
 
               <%=   select("busca", "clase", Clase.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] },                 
                                                                                           { :include_blank => true },
@@ -48,14 +48,7 @@
               <%= text_field_tag( 'campo_grupo',
                                    nil,
                                    :id       => "campo_grupo",
-                                   :onchange => {                :remote     => true,
-                                                                 :update     => "campo_grupo",
-                                                                 :url        => { :action => :get_grupo, :id => 1},
-                                                                 :with       => "'campo_grupo='+this.value"},
-                                                                 :onkeypress => "return bloqEnter(event)",
-                                                                 :onkeyup    => "EnterTab(event,'busca_grupo')",
-                                                                 :size       => 5
-                              ) %>
+                                   :size     => 5 ) %>
 
               <%=   select("busca", "grupo", Grupo.all(:select => 'id,descricao').collect {|p| [ p.descricao, p.id ] }, 
                                                                                           { :include_blank => true },
@@ -71,23 +64,23 @@
               <%= text_field_tag( 'campo_produto',
                                    nil,
                                   :id       => "campo_produto",
-                                  :onchange => {                :remote     => true,
-                                                                :update     => "campo_produto",
-                                                                :url        => { :action => :get_produto, :id => 1},
-                                                                :with       => "'campo_produto='+this.value"},
-                                                                :size       => 5,
-                                                                :onkeypress => "return bloqEnter(event)",
-                                                                :onkeyup    => "EnterTab(event,'busca_produto')"
-
-                                ) %>
+                                  :size     => 5 ) %>
 
 
               <%=   select("busca", "produto", Produto.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, 
                                                                                                           { :include_blank => true },
                                                                                                           { :onkeypress    => "return bloqEnter(event)",
                                                                                                             :onkeyup       => "EnterTab(event,'busca_deposito')" })   %></td>
+                                                                                                   
           </tr>
-
+          <tr>
+            <td align="right">Persona :</td>
+            <td>
+              <%=   select("busca", "persona", Persona.all(:select => 'id,nome',:order => 'nome').collect {|p| [ p.nome, p.id ] }, 
+                                                                                                          { :include_blank => true },
+                                                                                                          { :onkeypress    => "return bloqEnter(event)",
+                                                                                                            :onkeyup       => "EnterTab(event,'busca_deposito')" })   %></td>                       
+          </tr>
           <tr>
             <td align="right">Deposito :</td>
 
@@ -110,14 +103,14 @@
                        value      = "0"
                        checked
                        onkeypress = "return bloqEnter(event)"
-                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Resumen
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Fisico
 
                 <input id    ="status"
                        name  ="status"
                        type  ="radio"
                        value ="1"
                        onkeypress = "return bloqEnter(event)"
-                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Detalhado
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Financiero
 
               </fieldset>
             </td>
@@ -178,17 +171,52 @@
             </td>
           </tr>
 
+          <tr>
+            <td></td>
+            <td>
+              <fieldset>
+                <legend>Orden</legend>
+                <input id         = "orden"
+                       name       = "orden"
+                       type       = "radio"
+                       value      = "0"
+                       checked
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Fecha 
+
+                <input id         = "orden"
+                       name       = "orden"
+                       type       = "radio"
+                       value      = "1"
+                       checked
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Producto 
+
+                <input id         = "orden"
+                       name       = "orden"
+                       type       = "radio"
+                       value      = "2"
+                       checked
+                       onkeypress = "return bloqEnter(event)"
+                       onkeyup    = "Formatadata(this,event),EnterTab(event,'button')" />Persona
+
+              </fieldset>
+            </td>
+          </tr>
+
 
           <tr>
             <td></td>
             <td>
               <input  id      ="button"
                       type    ="submit"
-                      value   ="            Informe           "
+                      class="button_info"
+                      value   ="Informe"
                       onclick = "Tipo('0')"/>
 
               <input type     = "submit"
-                     value    = "            Excel            "
+                     class="button_info"
+                     value    = "Excel"
                      onclick  = "Tipo('1')"/>
             </td>
           </tr>

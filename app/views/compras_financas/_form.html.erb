@@ -76,21 +76,11 @@ function TipoCompra(d){
         <td>
           <fieldset>
             <legend>Tipo</legend>
-            <% if @compras_financa.compra.tipo.to_i == 1 %>
               <%= f.radio_button :tipo, 1,  
-                                 :Checked  => "True",
                                  :onblur   => "TipoCompra('1'),TipoFinancaCompra()" %> Credito
                               
               <%= f.radio_button :tipo, 0, 
                                  :onblur => "TipoCompra('0'),TipoFinancaCompra()" %> Contado
-            <% else %>
-              <%= f.radio_button :tipo, 1,
-                                 :onblur => "TipoCompra('1'),TipoFinancaCompra()" %> Credito
-                              
-              <%= f.radio_button :tipo, 0, 
-                         :Checked    => "True",
-                         :onblur     => "TipoCompra('0'),TipoFinancaCompra()" %> Contado
-            <% end %>            
             <input type="hidden" id="tipo" value="<%= @compras_financa.compra.tipo %>"/>
 
           </fieldset>
@@ -102,19 +92,9 @@ function TipoCompra(d){
         <td>
           <fieldset>
             <legend>Moneda</legend>
-            <% if @compras_financa.compra.moeda.to_i == 1 %>
-              <%= f.radio_button :moeda, 1, :Checked => "True" %> Gs.                        
-              <%= f.radio_button :moeda, 0 %> Dolar
-              <%= f.radio_button :moeda, 2 %> Real
-            <% elsif  @compras_financa.compra.moeda.to_i == 0 %>
-              <%= f.radio_button :moeda, 1 %> Gs.                        
-              <%= f.radio_button :moeda, 0, :Checked => "True" %> Dolar
-              <%= f.radio_button :moeda, 2 %> Real
-            <% else %>
               <%= f.radio_button :moeda, 1 %> Gs.                        
               <%= f.radio_button :moeda, 0 %> Dolar
-              <%= f.radio_button :moeda, 2, :Checked => "True" %> Real
-            <% end %>
+              <%= f.radio_button :moeda, 2 %> Real
           </fieldset>
         </td>
       </tr>

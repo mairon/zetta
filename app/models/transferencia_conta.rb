@@ -4,7 +4,8 @@ class TransferenciaConta < ActiveRecord::Base
     :valor_dolar,
     :valor_guarani
 
-    def before_save           #
+    before_save :finds
+    def finds
         @doc = Documento.find_by_id(self.documento_id);
         self.documento_nome = @doc.nome.to_s;
 
@@ -24,7 +25,7 @@ class TransferenciaConta < ActiveRecord::Base
         end 
     end
 
-    def self.filtro(params)   #
+    def self.filtro(params) 
         
         unless params[:inicio].blank?
             cond = ["data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' AND reg_status != 2 "]

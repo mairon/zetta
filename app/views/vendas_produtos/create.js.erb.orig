@@ -1,0 +1,17 @@
+<% if @vendas_produto.errors.any? %>
+
+	$('#error_explanation').html("<ul><% @vendas_produto.errors.full_messages.each do |msg| %><li><%= escape_javascript ( msg ) %></li> <% end %></ul>");
+	$("#error_explanation").show(300);
+
+<% else %>
+
+	$('#new_vendas_produto')
+	$('#vendas_produtos').append("<%= escape_javascript(render(:partial => @vendas_produto)) %>");
+<<<<<<< HEAD
+	$("#sub_total").html("<%= number_to_currency(VendasProduto.sum(:total_guarani,   :conditions => ['venda_id = ?',@vendas_produto.venda_id]), :format=>' %n ', :precision => 0)%>");
+=======
+	$("#sub_total").html(" <span>Sub-Total:</span> <%= number_to_currency(VendasProduto.sum(:total_guarani,   :conditions => ['venda_id = ?',@vendas_produto.venda_id]), :format=>' %n ', :precision => 0)%>");
+>>>>>>> karen/master
+	$("#new_vendas_produto")[0].reset();
+	$('#cod_busca').focus();
+<% end %>

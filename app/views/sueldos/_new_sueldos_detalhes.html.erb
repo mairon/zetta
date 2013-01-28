@@ -4,6 +4,11 @@
   <%= f.hidden_field :sueldo_id %>
   <%= f.hidden_field :persona_id, :value => @sueldo.persona_id %>
   <%= f.hidden_field :persona_nome, :value => @sueldo.persona_nome %>
+  <%= f.hidden_field :documento_numero_01, :value => '000' %>
+  <%= f.hidden_field :documento_numero_02, :value => '000' %>
+  <%= f.hidden_field :documento_numero, :value => SueldosDetalhe.maximum(:id) + 1 %>
+  <%= f.hidden_field :vencimento, :value => Time.now.strftime("%Y-%m-%d") %>
+
   Sueldo Detalhe - Edicion 
   <div class="group_cd">
     <table>
@@ -18,47 +23,65 @@
               <fieldset>
                 <legend>Moneda</legend>
                 <%= f.radio_button :moeda, 1,  :Checked => "True" %> Gs.
-                <%= f.radio_button :moeda, 0%> Dolar                
+                <%= f.radio_button :moeda, 0 %> Dolar
+                <%= f.radio_button :moeda, 2 %> Real
               </fieldset>
             </td>
           </tr>
 
         <tr>
-          <td align="right">Cotizacion :</td>
+          <td align="right">Cotizacion U$:</td>
           <td>             <%= text_field :sueldos_detalhe,
                                           :cotacao ,
                                           { :size    => 15,
                                             :onfocus  => remote_function(:update => "key",
                                                                         :url    => { :action => :get_moeda},
                                                                                      :with   => "'key='+ key.value ") } %></td>
+
+          <td align="right">R$ :</td>
+          <td>             <%= text_field :sueldos_detalhe,
+                                          :cotacao_real ,
+                                          { :size    => 15,
+                                            :onfocus  => remote_function(:update => "key",
+                                                                        :url    => { :action => :get_moeda_real},
+                                                                                     :with   => "'key='+ key.value ") } %></td>
+
         </tr>
 
     <tr>
-      <td></td>
-      <td>
+       <td align="right">Tipo :</td>
+                      <td><%= f.select :tipo,
+                          ([["SUELDO", "SUELDO"],
+                            ["BONIFICACION", "BONIFICACION"],
+                            ["EXTRA", "EXTRA"],
+                            ["ADELANTO", "ADELANTO"],
+                            ["COMISION", "COMISION"],
+                            ["OTROS", "OTROS"]
+                            ]) %>
+                      </td>
+    </tr>
+    <tr>        
+      <td align="right">Estado:</td>
+      <td colspan="3">
         <fieldset>
-          <legend>Estado :</legend>
-          <%= f.radio_button :estado, 0,:Checked => "True" %>Haber
-          <%= f.radio_button :estado , 1 %>Descuento
+          <legend>Liquidacion</legend>
+          <%= f.radio_button :estado,0, :Checked => "True"%> Parte
+          <%= f.radio_button :estado,1  %> Cancelacion
         </fieldset>
-      </td>
-    </tr>
-    
-    <tr>
-       <td align="right">Documento:</td>
-       <td><%= f.collection_select :documento_id, Documento.all( :select => 'id,nome',
-                                                                :order  => '1' ),:id,
-                                                                                 :nome %></td>
+        </td>
     </tr>
 
-
     <tr>
-        <td>Valor Gs.:</td>
-        <td><%= f.text_field :valor_guarani,
-                             :onchange => "SueldoDetalheGuaraniDolar()" %></td>
-        <td>Valor U$.:</td>
-        <td><%= f.text_field :valor_dolar,
-                             :onchange => "SueldoDetalheDolarGuarani()" %></td>
+      <% if @sueldo.moeda == 0 %>
+        <%= field_us 'Credito Us.:',f,:credito_us %>
+        <%= field_us 'Debito Us.:',f,:debito_us %>
+      <% elsif @sueldo.moeda == 1 %>
+        <%= field_gs 'Credito G$:',f,:credito_gs %>
+        <%= field_gs 'Debito G$:',f,:debito_gs %>
+      <% else %>
+        <%= field_us 'Credito R$:',f,:credito_rs %>
+        <%= field_us 'Debito R$:',f,:debito_rs %>
+      <% end %>
 
       </tr>
 

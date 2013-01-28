@@ -35,17 +35,9 @@
   <%= f.hidden_field :custo_contabil_guarani %>
 
 
-<ul class="tabs">
-         <li><a href="#tab1">Compras - [Edicion]</a></li>
-      </ul>
-
-
-      <div class="tab_container">
-         <div id="tab1" class="tab_content">
-
       <table>
         <tr>
-          <td align="right">Producto :</td>
+          <td align="right" width="108">Producto :</td>
           <td colspan="4">
             <%= text_field_tag( 'key',
                                  nil,
@@ -60,12 +52,12 @@
             <%= f.text_field :produto_nome,
                              :onkeydown => "f(this)",
                              :onkeyup   => "f(this)",
-                             :size      => 70 %>        
+                             :size      => 80 %>        
             <%= link_to '', {:controller => 'produtos',:action => 'new'}, :popup => ['new_window','height=500,width=1000'], :class => "links add" %>
           </td>
 
           <td>Saldo : <%= text_field_tag :saldo,nil,
-                             :size    => 10 %></td>
+                             :size    => 8 %></td>
 
         </tr>
 
@@ -120,15 +112,18 @@
 
         <% end %>
 
-
         <tr>
-          <td align="right">Balcao :</td>
-          <td><%= f.text_field :porcen_balcao,
+          <td colspan="10" width="870" height="85" >
+            <fieldset>
+            <table>
+                      <tr>
+          <td align="right" wi>Balcao :</td>
+          <td width="210"><%= f.text_field :porcen_balcao,
                                :size    => 5,
                                :precision => 0%> % </td>
 
           <td align="right">Mayorista :</td>
-          <td><%= f.text_field :porcen_maiorista,
+          <td width="255"><%= f.text_field :porcen_maiorista,
                                :size    => 5%> % </td>
 
           <td align="right">Corporativo :</td>
@@ -137,20 +132,41 @@
                                :precision => 0 %> % </td>
         </tr>
 
+      <% if  @compra.moeda.to_i == 0 %>
+            <tr>                                   
+              <%= field_us 'Precio Venta U$.:',f,:preco_venda_dolar,:onchange =>"VendaPorcentagemInversaUs()"%>
+                                                      
+              <%= field_us 'Precio Mayor U$.:',f,:preco_maiorista_dolar,:onchange =>"VendaPorcentagemMayoriInversaUs()"%>
+
+              <%= field_us 'Precio Corp U$.:',f,:preco_minorista_dolar,:onchange => "VendaPorcentagemMinorInversaUs()"%>
+            </tr>
+      <% else %>
+            <tr>
+                                   
+              <%= field_gs 'Precio Venta Gs.:',f,:preco_venda_guarani,:onchange =>"VendaPorcentagemInversa()"%>
+              
+              <%= field_gs 'Precio Mayor.:',f,:preco_maiorista_guarani,:onchange =>"VendaPorcentagemMayoriInversa()"%>
+
+              <%= field_gs 'Precio Corp.:',f,:preco_minorista_guarani,:onchange => "VendaPorcentagemMinorInversa()" %>
+
+            </tr>
+
+      <% end %>      
+
+            </table>
+            </fieldset>
+          </td>
+        </tr>
+
         <tr>
           <td align="right">Deposito:</td>
-          <td><%= f.collection_select :deposito_id, Deposito.all(:select => 'id,nome',
+          <td colspan="4"><%= f.collection_select :deposito_id, Deposito.all(:select => 'id,nome',
                                                                  :order => '2'),:id,
                                                                  :nome %></td>
           <td>
-            <%= f.submit "   Grabar   ",:disable_with => "Aguarde...", :class => "button"   %>
+            <%= f.submit "Grabar",:disable_with => "Aguarde...", :class => "button"   %>
           </td>
         </tr>
-      </div>
-    </div>
-
-
-
       </table>
 <% end %>
 

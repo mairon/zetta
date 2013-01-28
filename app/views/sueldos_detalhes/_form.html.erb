@@ -1,7 +1,6 @@
 <h1 align="right" id="header">Sueldos Detalhes</h1>
 <body onload="SueldoDetalheFocoData()">
-  <% form_for(@sueldos_detalhe) do |f| %>
-    <%= f.error_messages %>
+  <%= form_for(@sueldos_detalhe) do |f| %>
   <%= f.hidden_field :sueldo_id %>
   <%= f.hidden_field :persona_id, :value => @sueldos_detalhe.sueldo.persona_id %>
   <%= f.hidden_field :persona_nome, :value => @sueldos_detalhe.sueldo.persona_nome %>

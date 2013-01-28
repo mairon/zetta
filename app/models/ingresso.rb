@@ -1,14 +1,14 @@
 class Ingresso < ActiveRecord::Base
-
-  before_save :finds
   
   validates :cotacao,
             :valor_dolar,
             :valor_guarani, 
+            :concepto,
             :presence => true
 
   validates :cotacao, :numericality =>  { :greater_than => 0 }
 
+  before_save :finds
 
   def finds
     doc = Documento.find_by_id(self.documento_id);

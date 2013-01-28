@@ -1,102 +1,79 @@
 
 <div class="group">
 
-  <table>
+  <table >
+    <% totentrada     = 0 %>
+    <% totsaida       = 0 %>
+    <% custentrada_gs = 0 %>
+    <% custentrada_us = 0 %>
+    <% custsaida_gs   = 0 %>
+    <% custsaida_us   = 0 %>
+    <% qtd            = 0 %>
+    <% stock          = @saldo_anterior.to_f %>
+    <% prod           = 0 %>
+    <% number_to_currency( stock.to_f, :format=>' %n ', :separeitor => ',' ) %>
 
-      <% totentrada     = 0 %>
-      <% totsaida       = 0 %>
-      <% custentrada_gs = 0 %>
-      <% custentrada_us = 0 %>
-      <% custsaida_gs   = 0 %>
-      <% custsaida_us   = 0 %>
-      <% qtd            = 0 %>
-      <% stock          = @saldo_anterior.to_f %>
-      <% prod           = 0 %>
-      <% number_to_currency( stock.to_f, :format=>' %n ', :separeitor => ',' ) %>
-      <% for produto in @stocks %>
+    <% @stocks.each do |produto| %>
+
+      <!-- partial de recalculo de stock -->
+      <%= render :partial => "recalculo_custo_promedio", :locals => { :produto => produto.produto_id }%>
+
+      <% if prod.to_i == produto.produto_id.to_i %>
+        <% stock += ( produto.entrada.to_f - produto.saida.to_f ) %>
+      <% else %>  
+        <% stock = ( produto.entrada.to_f - produto.saida.to_f ) %>
+      <% end %>  
       
-              <% recalculo = Stock.all(:select => 'id,produto_id,deposito_id,entrada,saida,unitario_guarani,unitario_dolar,tabela,promedio_guarani', :conditions => ["produto_id = ?",produto.produto_id], :order => 'produto_id,data,saida' ) %>
-              <% saldo_stock       = 0 %>
-              <% valor_stock_gs    = 0 %>
-              <% valor_stock_us    = 0 %>
-              <% promedio_stock_gs = 0 %>
-              <% promedio_stock_us = 0 %>
-              
-              <% recalculo.each do |prod_rec| %>
-              
-              <!-- #RECALCULO CUSTO ENTRADA-->
-               <% if ( prod_rec.entrada.to_f > 0 ) %>
-                 <% saldo_stock    += prod_rec.entrada %>
-                 <% valor_stock_gs += ( prod_rec.entrada.to_f * prod_rec.unitario_guarani.to_f )  %>
-                 <% valor_stock_us += ( prod_rec.entrada.to_f * prod_rec.unitario_dolar.to_f )  %>
-                 <% promedio_stock_gs = ( valor_stock_gs.to_f / saldo_stock.to_f )  %>
-                 <% promedio_stock_us = ( valor_stock_us.to_f / saldo_stock.to_f )  %>
-                 <% prod_rec.update_attribute :promedio_guarani, promedio_stock_gs.to_f %>
-                 <% prod_rec.update_attribute :promedio_dolar, promedio_stock_us.to_f  %>
-               <% end %>
-               
-               <!-- #RECALCULO CUSTO ENTRADA-->
-               <% if ( prod_rec.saida.to_f > 0 ) %>
-                 <% prod_rec.update_attribute :promedio_guarani, promedio_stock_gs.to_f %>
-                 <% prod_rec.update_attribute :promedio_dolar, promedio_stock_us.to_f %>
-               <% end %>
-             <% end %>
-        <% if prod.to_i == produto.produto_id.to_i %>
-          <% stock += ( produto.entrada.to_f - produto.saida.to_f ) %>
-        <% else %>  
-          <% stock = ( produto.entrada.to_f - produto.saida.to_f ) %>
-        <% end %>  
-        
-        <tr>
-          <td width="20" align="center"> <%=h produto.venda_id%> </td>
-          <td width="40" align="center"> <%=h produto.data.strftime("%d/%m/%Y")%> </td>
-          <td width="70"  align="left"> <%=h produto.deposito_nome%> </td>
-          <td width="30"  align="center"> <%=h produto.produto_id %> </td>
-          <td width="500" align="left">   <%=h truncate( produto.produto_nome, :length => 35 ) %> </td>
-          <td width="30" align="right"> <%=h format( "%.2f", produto.entrada.to_f ) %> </td>
-          <td width="30" align="right"> <%=h format( "%.2f", produto.saida.to_f ) %> </td>
-          <td width="30" align="right"> <%=h format( "%.2f", stock.to_f  ) %> </td>
-          <% if params[:moeda].to_s == '0' %>
-            <td width="70" align="right"> <%=h number_to_currency( produto.unitario_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( produto.promedio_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( produto.entrada.to_f * produto.unitario_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_dolar.to_f * produto.saida.to_f ) , :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_dolar.to_f * stock.to_f), :format=>' %n ', :separeitor => ',' )  %> </td>
-          <% else %>
-            <td width="70" align="right"> <%=h number_to_currency( produto.unitario_guarani.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( produto.promedio_guarani.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( produto.entrada.to_f * produto.unitario_guarani.to_f, :format=>' %n ', :precision => 0 )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_guarani.to_f * produto.saida.to_f ) , :format=>' %n ', :precision => 0 )  %> </td>
-            <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_guarani.to_f * stock.to_f), :format=>' %n ', :precision => 0 )  %> </td>
-          <% end %>
-        </tr>
-        <% totentrada   =  totentrada.to_f + produto.entrada.to_f %>
-        <% totsaida     =  totsaida.to_f + produto.saida.to_f + produto.saida.to_f %>
-        <% custentrada_gs  += ( produto.entrada.to_f * produto.unitario_guarani.to_f) %>
-        <% custentrada_us  += ( produto.entrada.to_f * produto.unitario_dolar.to_f) %>
-        <% custsaida_gs    += ( produto.saida.to_f * produto.promedio_guarani.to_f ) %>
-        <% custsaida_us    += ( produto.saida.to_f * produto.promedio_dolar.to_f ) %>
-        <% qtd          = qtd        + 1 %>
-        <% prod         = produto.produto_id %>
-        
-      <% end %>
-        <tr class="head" height="20">
-          <td colspan="5">Anterior : <%= @saldo_anterior %></td>
-          <td align="right"><%= format( "%.3f",totentrada ) %></td>
-          <td align="right"><%= format( "%.3f",totsaida ) %></td>
-          <td align="right"><%= format( "%.3f", ( @saldo_anterior.to_f + totentrada ) - totsaida  ) %></td>
-          <td colspan="2"></td>
-          <% if params[:moeda].to_s == '0'%>
-            <td align="right"><%= number_to_currency( custentrada_us.to_f, :format=>' %n ', :separeitor => ',' ) %></td>
-            <td align="right"><%= number_to_currency( custsaida_us.to_f, :format=>' %n ', :separeitor => ',' ) %></td>
-          <% else %>
-            <td align="right"><%= number_to_currency( custentrada_gs.to_f, :format=>' %n ', :precision => 0 ) %></td>
-            <td align="right"><%= number_to_currency( custsaida_gs.to_f, :format=>' %n ', :precision => 0 ) %></td>
-          <% end %>
-        </tr>
-        <tr>
-          <td colspan="5">Cantidad : <%= qtd %></td>
-        </tr>
-    </table>
+      <tr>
+        <td width="40" align="center"> <%=h produto.cod_processo.to_s.rjust(6,'0') %> </td>
+        <td width="40" align="center"> <%=h produto.data.strftime("%d/%m/%Y")%> </td>
+        <td width="25"  align="center"> <%=h produto.deposito_id.to_s.rjust(2,'0') %> </td>
+        <td width="40"  align="center"> <%=h produto.produto_id.to_s.rjust(6,'0') %> </td>
+        <td width="250" align="left">   <%=h truncate( produto.produto_nome, :length => 38 ) %> </td>
+        <td width="35" align="right"> <%=h format( "%.2f", produto.entrada.to_f ) %> </td>
+        <td width="35" align="right"> <%=h format( "%.2f", produto.saida.to_f ) %> </td>
+        <td width="35" align="right"> <%=h format( "%.2f", stock.to_f  ) %> </td>
+        <% if params[:moeda].to_s == '0' %>
+          <td width="70" align="right"> <%=h number_to_currency( produto.unitario_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( produto.promedio_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( produto.entrada.to_f * produto.unitario_dolar.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_dolar.to_f * produto.saida.to_f ) , :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_dolar.to_f * stock.to_f), :format=>' %n ', :separeitor => ',' )  %> </td>
+        <% else %>
+          <td width="70" align="right"> <%=h number_to_currency( produto.unitario_guarani.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( produto.promedio_guarani.to_f, :format=>' %n ', :separeitor => ',' )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( produto.entrada.to_f * produto.unitario_guarani.to_f, :format=>' %n ', :precision => 0 )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_guarani.to_f * produto.saida.to_f ) , :format=>' %n ', :precision => 0 )  %> </td>
+          <td width="70" align="right"> <%=h number_to_currency( ( produto.promedio_guarani.to_f * stock.to_f), :format=>' %n ', :precision => 0 )  %> </td>
+        <% end %>
+      </tr>
+      <% totentrada      =  totentrada.to_f + produto.entrada.to_f %>
+      <% totsaida        =  totsaida.to_f + produto.saida.to_f %>
+      <% custentrada_gs  += ( produto.entrada.to_f * produto.unitario_guarani.to_f) %>
+      <% custentrada_us  += ( produto.entrada.to_f * produto.unitario_dolar.to_f) %>
+      <% custsaida_gs    += ( produto.saida.to_f * produto.promedio_guarani.to_f ) %>
+      <% custsaida_us    += ( produto.saida.to_f * produto.promedio_dolar.to_f ) %>
+      <% qtd          = qtd        + 1 %>
+      <% prod         = produto.produto_id %>
+      
+    <% end %>
+      <tr class="head" height="20">
+        <td colspan="5">Anterior : <%= @saldo_anterior %></td>
+        <td align="right"><%= format( "%.2f",totentrada ) %></td>
+        <td align="right"><%= format( "%.2f",totsaida ) %></td>
+        <td align="right"><%= format( "%.2f", ( @saldo_anterior.to_f + totentrada ) - totsaida  ) %></td>
+        <td colspan="2"></td>
+        <% if params[:moeda].to_s == '0'%>
+          <td align="right"><%= number_to_currency( custentrada_us.to_f, :format=>' %n ', :separeitor => ',' ) %></td>
+          <td align="right"><%= number_to_currency( custsaida_us.to_f, :format=>' %n ', :separeitor => ',' ) %></td>
+        <% else %>
+          <td align="right"><%= number_to_currency( custentrada_gs.to_f, :format=>' %n ', :precision => 0 ) %></td>
+          <td align="right"><%= number_to_currency( custsaida_gs.to_f, :format=>' %n ', :precision => 0 ) %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td colspan="5">Cantidad : <%= qtd %></td>
+      </tr>
+  </table>
 </div>
 

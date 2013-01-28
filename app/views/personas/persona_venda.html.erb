@@ -1,7 +1,7 @@
 <body onload="CampoBusca()">
   <div class="group">
     <h2>
-      <%form_tag busca_persona_venda_personas_path, :method => "get" do %>
+      <%= form_tag busca_persona_venda_personas_path, :method => "get" do %>
         Buscar :  <input id="busca" name="busca" type="text" onKeyUp="f(this),pesquisa(this.value)" onkeydown = "f(this)"/>
 
       <% end %>
@@ -15,18 +15,11 @@
     <script language="javascript">
       function Fecha(id,cod_velho,nome,limite_credito,classificaco,ruc,tipo_maiorista,direcao,cidade_id,cidade,bairro)
       {
-        window.opener.document.getElementById('venda_persona_id').value             = id;
-        window.opener.document.getElementById('codigo').value                       = cod_velho;
-        window.opener.document.getElementById('venda_persona_cod').value            = cod_velho;
-        window.opener.document.getElementById('venda_persona_nome').value           = nome;
-        window.opener.document.getElementById('venda_limite_credito').value         = limite_credito;
-        window.opener.document.getElementById('venda_classificacao').value          = classificaco;
-        window.opener.document.getElementById('venda_ruc').value                    = ruc;
-        window.opener.document.getElementById('venda_tipo_maiorista').value         = tipo_maiorista;
-        window.opener.document.getElementById('venda_direcao').value                = direcao;
-        window.opener.document.getElementById('venda_cidade_id').value              = cidade_id;
-        window.opener.document.getElementById('venda_cidade_nome').value            = cidade;
-        window.opener.document.getElementById('venda_bairro').value                 = bairro;
+        window.opener.document.getElementById('vendas_financa_persona_id').value      = id;
+        window.opener.document.getElementById('vendas_financa_persona_nome').value    = nome;
+        window.opener.document.getElementById('vendas_financa_fatura_legal').value    = nome;
+        window.opener.document.getElementById('vendas_financa_fatura_legal_ruc').value    = ruc;
+
         self.close();
       }
 

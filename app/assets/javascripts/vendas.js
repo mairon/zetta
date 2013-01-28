@@ -98,7 +98,6 @@ function VendasProdutoIvaGs()                                           //
 
 	}
 }
-
 function VendasProdutoInteres()                                         //
 {
     vardesconto      = ( parseFloat( document.getElementById('vendas_produto_interes').value ) / 100 )

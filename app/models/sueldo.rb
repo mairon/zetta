@@ -3,58 +3,89 @@ class Sueldo < ActiveRecord::Base
   has_many :sueldos_detalhes
   has_many :compras
 
-  def before_save
-    @persona = Persona.find_by_id(self.persona_id);
-    self.persona_nome        = @persona.nome.to_s;
-    self.salario             = @persona.salario.to_f;
-    self.salario_minimo      = @persona.salario_minimo.to_f;
-    self.comissao            = @persona.comissao.to_f;
-    self.ci                  = @persona.ci.to_f;         
-    self.ips                 = @persona.ips.to_f;
+  before_save :finds
+  after_save :inserts
+  def finds
+    per = Persona.find_by_id(self.persona_id);
+    self.persona_nome        = per.nome.to_s;
+    self.salario             = per.salario.to_f;
+    self.salario_minimo      = per.salario_minimo.to_f;
+    self.comissao            = per.comissao.to_f;
+    self.ci                  = per.ci.to_f;         
+    self.ips                 = per.ips.to_f;
 
   end
 
-  def after_save
-    @persona = Persona.find_by_id(self.persona_id);
-    self.persona_nome        = @persona.nome.to_s;
-    self.salario             = @persona.salario.to_f;
-    self.salario_minimo      = @persona.salario_minimo.to_f;
-    self.comissao            = @persona.comissao.to_f;
-    self.ci                  = @persona.ci.to_f;         
-    self.ips                 = @persona.ips.to_f;
-
-    SueldosDetalhe.destroy_all("sueldo_id = #{self.id} AND cotacao IS NULL" )
-    
-    SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
-                           :data             => '#{self.ano}-#{self.mes}-01',
-                           :descricao        => "SUELDO REFERENTE AL MES DE "+"#{self.ano}-#{self.mes}-01 ".to_date.strftime("%B"),
-                           :persona_id       => self.persona_id,
-                           :estado           => 0,
-                           :persona_nome     => self.persona_nome,
-                           :valor_guarani    => self.salario )
-    if self.ips > 0
-      SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
-                             :data             => '#{self.ano}-#{self.mes}-01',
-                             :descricao        => "SUELDO REFERENTE AL MES DE "+"#{self.ano}-#{self.mes}-01 ".to_date.strftime("%B"),
-                             :persona_id       => self.persona_id,
-                             :estado           => 1,
-                             :persona_nome     => self.persona_nome,
-                             :valor_guarani    => self.ips )
-    end                         
-
-                           
-    cancel = Cliente.all(:conditions => ["date_part('month', data) = '#{self.mes}' AND date_part('year', data) = '#{self.ano}' AND persona_id =  #{self.persona_id} AND tipo = '1' AND cobro_dolar + cobro_guarani  > 0 "])                       
-
-    cancel.each do |debes|
-    SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
-                           :data             => debes.data,
-                           :descricao        => debes.tabela,
-                           :persona_id       => self.persona_id,
-                           :estado           => 1,
-                           :persona_nome     => self.persona_nome,
-                           :valor_guarani    => debes.cobro_guarani )
-   end                        
-                              
+  def inserts
+    salario = SueldosDetalhe.count(:id, :conditions => ["tipo = 'SUELDO'"])
+    if salario.to_i == 0
+      if self.moeda == 0 
+        SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
+                               :data             => self.data_inicio,
+                               :vencimento       => self.data_inicio,
+                               :tipo             => 'SUELDO',
+                               :documento_numero_01 =>'000',
+                               :documento_numero_02 =>'000',
+                               :documento_numero    =>'700' + self.id.to_s,
+                               :cota             => 0,
+                               :estado           => 1,
+                               :moeda            => self.moeda,
+                               :descricao        => "SUELDO REFERENTE AL MES DE "+"#{self.data_inicio}".to_date.strftime("%B"),
+                               :persona_id       => self.persona_id,
+                               :estado           => 0,
+                               :persona_id       => self.persona_id,
+                               :persona_nome     => self.persona_nome,                             
+                               :credito_us       =>  self.salario.to_f,
+                               :credito_gs       =>  0,
+                               :credito_rs       =>  0,
+                               :debito_us        =>  0,
+                               :debito_gs        =>  0,
+                               :debito_rs        =>  0)          
+      elsif self.moeda == 1
+        SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
+                               :data             => self.data_inicio,
+                               :vencimento       => self.data_inicio,
+                               :tipo             => 'SUELDO',
+                               :documento_numero_01 =>'000',
+                               :documento_numero_02 =>'000',
+                               :documento_numero    =>'700' + self.id.to_s,
+                               :cota             => 0,
+                               :estado           => 1,
+                               :moeda            => self.moeda,
+                               :descricao        => "SUELDO REFERENTE AL MES DE "+"#{self.data_inicio}".to_date.strftime("%B"),
+                               :persona_id       => self.persona_id,
+                               :estado           => 0,
+                               :persona_id       => self.persona_id,
+                               :persona_nome     => self.persona_nome,                             
+                               :credito_us       =>  0,
+                               :credito_gs       =>  self.salario.to_f,
+                               :credito_rs       =>  0,
+                               :debito_us        =>  0,
+                               :debito_gs        =>  0,
+                               :debito_rs        =>  0)          
+      else
+        SueldosDetalhe.create( :sueldo_id        => self.id.to_i,
+                               :data             => self.data_inicio,
+                               :vencimento       => self.data_inicio,
+                               :tipo             => 'SUELDO',
+                               :documento_numero_01 =>'000',
+                               :documento_numero_02 =>'000',
+                               :documento_numero    =>'700' + self.id.to_s,
+                               :cota             => 0,
+                               :estado           => 1,                               
+                               :moeda            => self.moeda,
+                               :descricao        => "SUELDO REFERENTE AL MES DE "+"#{self.data_inicio}".to_date.strftime("%B"),
+                               :persona_id       => self.persona_id,
+                               :estado           => 0,
+                               :persona_id       => self.persona_id,
+                               :persona_nome     => self.persona_nome,                             
+                               :credito_us       =>  0,
+                               :credito_gs       =>  0,
+                               :credito_rs       =>  self.salario.to_f,
+                               :debito_us        =>  0,
+                               :debito_gs        =>  0,
+                               :debito_rs        =>  0)          
+      end
+    end
   end
-
 end

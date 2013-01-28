@@ -1,8 +1,13 @@
 <table>
 <<<<<<< HEAD
+<%= content_tag_for(:tr,  vendas_produto, :class => cycle('cor1','cor2')) do %>
+
+		<td width="50" align="center"></td>
+=======
 	<tr  class="<%= cycle("cor1", "cor2") %>">
 
 		<td width="50" align="center"> <%= vendas_produto.fabricante_cod %> </td>
+>>>>>>> karen/master
 		<td width="350" align="left"> <%= vendas_produto.produto_nome %> <%= vendas_produto.lotes %>  </td>
 		<td width="80" align="right"> <%= format("%.3f",vendas_produto.quantidade.to_f) %> </td>
 
@@ -24,15 +29,10 @@
 		<td width="80" align="right"><%= vendas_produto.total_desconto %></td>
 		<td><%= link_to 'Editar', edit_vendas_produto_path(vendas_produto) %></td>
 		<td><%= link_to 'Borrar', vendas_produto, :confirm => 'Tiene Certeza?', :method => :delete %></td>
+<<<<<<< HEAD
+	<% end %>
+</table>
 =======
-	<tr class="<%= cycle("cor1", "cor2") %>">
-		<td width="50" align="center"></td>
-		<td width="280"align="left"><%= truncate(vendas_produto.produto_nome) %></td>
-		<td width="70" align="right"><%= vendas_produto.quantidade %></td>
-		<td width="70" align="right"><%= number_to_currency(vendas_produto.unitario_guarani, :format=>' %n ', :precision => 0 ) %> </td>	<td width="70" align="right"><%= number_to_currency(vendas_produto.total_guarani, :format=>' %n ', :precision => 0 ) %> </td>	
-		<td width="40"><%= link_to 'Editar', edit_vendas_produto_path(vendas_produto) %></td>
-		<td><%= link_to 'Borrar', vendas_produto, method: :delete, data: {confirm: "Tem certeza?"} %></td>
-		
->>>>>>> b403d38993e2a96d2e5659c1ed9d1ee456a4a3f1
 	</tr>
 </table>
+>>>>>>> karen/master

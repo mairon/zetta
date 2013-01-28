@@ -1,49 +1,5 @@
 Zetta::Application.routes.draw do
 
-  resources :metas
-
-  resources :meta_detalhes
-
-  resources :variavels
-
-  resources :elementos
-
-  resources :localizacaos
-
-  resources :produto_barras
-
-  resources :unidade_metricas
-
-  resources :localidades
-
-  resources :metodos
-
-  resources :equipos
-
-  resources :safra_brotados
-
-  resources :servicos
-
-  resources :safra_ardidos
-
-  resources :safra_verdosos
-
-  resources :safra_quebrados
-
-  resources :safra_averiados
-
-  resources :safra_impurezas
-
-  resources :safra_produtos do
-    member do
-      get 'descontos'
-    end
-  end
-
-  resources :safra_umidades
-
-  resources :safras
-
   match 'zetta' => 'logins#new'
   match 'menu'  => 'menus#index'
 
@@ -55,7 +11,8 @@ Zetta::Application.routes.draw do
     match 'cotz_us_venda'  => "buscas#cotz_us_venda", :via => :post
     match 'cotz_rs_compra' => "buscas#cotz_rs_compra", :via => :post
     match 'cotz_rs_venda'  => "buscas#cotz_rs_venda", :via => :post
-    match 'vendas_produto'  => "buscas#vendas_produto", :via => :post
+    match 'busca_produto'  => "buscas#busca_produto", :via => :get   
+
   end
 
   #login
@@ -69,6 +26,15 @@ Zetta::Application.routes.draw do
   end
 
   #cadastros
+  resources :localizacaos
+  resources :produto_barras
+  resources :localidades
+  resources :metodos
+  resources :equipos
+  resources :servicos
+  resources :variavels
+  resources :elementos
+  resources :unidade_metricas
   resources :empresas
   resources :contas
   resources :sub_grupos
@@ -80,8 +46,14 @@ Zetta::Application.routes.draw do
   resources :clases
   resources :rodados
   resources :documentos
+  resources :metas
+  resources :meta_detalhes
   resources :planos
-  resources :plano_de_contas
+  resources :plano_de_contas do
+    collection do
+      get 'print'
+    end
+  end 
   resources :moedas
   resources :cidades
   resources :estados
@@ -105,6 +77,10 @@ Zetta::Application.routes.draw do
       get 'busca_persona_nota_credito_proveedor'
       get 'busca_persona_venda_financa'
       get 'busca_persona_venda'
+      get 'persona_venda'
+    end
+    member do 
+      get 'tarjeta'
     end
   end
   resources :produtos do
@@ -201,6 +177,8 @@ Zetta::Application.routes.draw do
       get 'dinamic_busca_stock_inicial'
       get 'resultado_iventario'
       get 'resultado_relatorio_consumo_bomba'
+      get 'projecao_compras'
+      get 'resultado_projecao_compras'      
     end
   end
   resources :pagares do
@@ -249,7 +227,7 @@ resources :pagares_detalhe
     member do
       get  'vendas_financa'
       get  'gerador_cotas'
-    end
+    end 
   end
   resources :vendas_financas
 
@@ -317,6 +295,7 @@ resources :pagares_detalhe
       get 'comprovante'
     end
   end
+  resources :transferencia_contas_detalhes
   resources :transferencia_contas do
     collection do
       get 'busca_diferido'
@@ -334,6 +313,7 @@ resources :pagares_detalhe
     end
     member do
       get 'form_sueldos_detalhes'
+      get 'comprovante'
     end
   end
 
@@ -419,6 +399,8 @@ resources :pagares_detalhe
       get 'resultado_controle_visitas'
       get 'fluxo_caixa'
       get 'resultado_fluxo_caixa'
+      get 'metas'
+      get 'resultado_metas'
     end
   end
 
@@ -446,7 +428,22 @@ resources :financas do
       get 'resultado_extrato_bancario'
     end
   end
+  
+#safra
+  resources :safras
+  resources :safra_produtos do
+    member do
+      get 'descontos'
+    end
+  end
 
+  resources :safra_umidades
+  resources :safra_ardidos
+  resources :safra_verdosos
+  resources :safra_quebrados
+  resources :safra_averiados
+  resources :safra_impurezas
+  resources :safra_brotados
 
 #contabilidade
 resources :diarios do

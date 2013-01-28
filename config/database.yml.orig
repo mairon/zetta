@@ -1,0 +1,33 @@
+development:     #mai789789
+  adapter: postgresql
+  encoding: unicode
+  database: enterprise
+  pool: 5
+  username: postgres
+<<<<<<< HEAD
+  password: mai789789
+=======
+  password: di03051999
+>>>>>>> karen/master
+  host: localhost
+  port: 5432
+
+test:            #
+  adapter: postgresql
+  encoding: unicode
+  database: zetta
+  pool: 5
+  username: postgres
+  password: di03051999
+  host: localhost
+  port: 5432
+
+production:      #
+  adapter: postgresql
+  encoding: unicode
+  database: zetta
+  pool: 5
+  username: postgres
+  password: mai789789
+  host: 192.168.0.50
+  port: 5432

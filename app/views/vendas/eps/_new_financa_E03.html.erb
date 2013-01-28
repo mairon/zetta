@@ -1,10 +1,11 @@
 <!-- form base !-->
-<body onload="VendasFinancaFocoMoeda('vendas_financa_moeda_1')">
-   <% form_for(vendas_financa) do |f| %>
+
+   <%= form_for(vendas_financa) do |f| %>
+     
 
       <%= f.hidden_field :venda_id %>
       <%= f.hidden_field :cotacao,      :value => @venda.cotacao.to_i %>
-      <%= f.hidden_field :persona_nome, :value => @venda.persona_nome ,:readonly => "readonly"%>
+      <%= f.hidden_field :persona_nome, :value => @venda.persona_nome %>
       <%= f.hidden_field :persona_id,   :value => @venda.persona_id %>
       <%= f.hidden_field :ruc,          :value => @venda.ruc%>
       <%= f.hidden_field :direcao,      :value => @venda.direcao%>
@@ -19,15 +20,15 @@
       <input type="hidden" id="mes" value="<%= @venda.data.strftime("%m").to_i%>"/>
       <input type="hidden" id="ano" value="<%= @venda.data.strftime("%Y").to_i%>"/>
       <table>
-      	 	
+          
          <tr>
 
-      	<% if current_user.tipo != 2  %>
-      	 	 <td align="right">Fecha :</td>
+        <% if current_user.tipo != 2  %>
+           <td align="right">Fecha :</td>
              <td><%= f.date_select :data %></td>
-      	<% else %>
-          <%= f.hidden_field :data, :value => @venda.data%>  	 
-      	 <% end %>
+        <% else %>
+          <%= f.hidden_field :data, :value => @venda.data %>    
+         <% end %>
 
 
             <td>
@@ -36,8 +37,13 @@
                   <table>
                      <tr height="23">
                         <td>
-                           <%= f.radio_button :moeda, 1,  :Checked => "True",  :onblur => "VendasfinancaMoeda('1')" %> Gs.
-                           <%= f.radio_button :moeda, 0,:onblur => "VendasfinancaMoeda('0')"%> Dolar
+                           <%= f.radio_button :moeda, 1,  :Checked => "True",  
+                                                          :onblur  => "VendasfinancaMoeda('1')",
+                                                          :onkeyup => "EnterTab(event,'vendas_financa_tipo')" %> Gs.
+
+                           <%= f.radio_button :moeda, 0,
+                                                      :onblur => "VendasfinancaMoeda('0')",
+                                                      :onkeyup => "EnterTab(event,'vendas_financa_tipo')" %> Dolar
                            <input type="hidden" id="moeda" name="moeda"/>
                         </td>
                      </tr>
@@ -48,13 +54,13 @@
                <fieldset>
                   <legend>Tipo :</legend>
                   <table>
-                     <tr>
-
-
-                        <td>
-                        	<%= f.select :tipo, ([["CONTADO", 0], ["CREDITO", 1]]),{},{:onblur  => "VendasfinancaAbreDiv(this)"} %>      	 	
-                        </td>
-                     </tr>
+                    <tr>
+                      <td>
+                        <%= f.select :tipo, ([["CONTADO", 0], ["CREDITO", 1]]),{},{ :onblur       => "VendasfinancaAbreDiv(this)",
+                                                                                      :onkeypress => "return bloqEnter(event)",
+                                                                                      :onkeyup    => "VendasfinancaAbreDiv(this)"} %>         
+                      </td>
+                    </tr>
                   </table>
                </fieldset>
             </td>
@@ -90,17 +96,17 @@
                                     <tr>
                                        <td align="right">Desc. U$ :</td>
                                        <td>
-                                       	<%= f.text_field :porcen_desconto_us,                                       	
+                                        <%= f.text_field :porcen_desconto_us,                                         
                                                             :onblur   => "VendaFinancaDescUs()",
                                                             :size     => 5,
-                                                            :onKeyup  => "maskIt(this,event,'###.###.###,##',true)",
+                                                            :class => "money_us",
                                                             :value    => 0,
                                                             :dir      => "rtl"%> %
                                                             
-                                       	<%= f.text_field :desconto_dolar,
+                                        <%= f.text_field :desconto_dolar,
                                                             :size     => 14,
                                                             :value    => 0,
-                                                            :onKeyup  => "maskIt(this,event,'###.###.###,##',true)",
+                                                            :class    => "money_us",
                                                             :dir      =>"rtl",
                                                             :onblur   => "VendaFinancaValorDescUs()"%></td>
 
@@ -112,7 +118,7 @@
                                        <td><%= f.text_field :valor_dolar_contado,
                                                             :size     => 16,
                                                             :value    => number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ","),
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###,##',true)",
+                                                            :class => "money_us",
                                                             :dir      =>"rtl"%></td>
 
                                     </tr>
@@ -122,7 +128,7 @@
                                        <td align="right">Recebido U$ :</td>
                                        <td><%= f.text_field :recebido_dolar,
                                                             :size     => 16,
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###,##',true)",
+                                                            :class => "money_us",
                                                             :dir      =>"rtl",
                                                             :onblur => "VendasFinancaTrocoUs()"%></td>
 
@@ -137,17 +143,21 @@
                                     <tr>
                                        <td align="right">Desc. Gs.:</td>
                                        <td>
-                                       	<%= f.text_field :porcen_desconto_gs,
+                                        <%= f.text_field :porcen_desconto_gs,
                                                             :size     => 5,
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                                                            :class    => "money_gs",
                                                             :dir      =>"rtl",
-                                                            :onblur   => "VendaFinancaDescGs()" %> %
+                                                            :value    => 0,
+                                                            :onkeyup => "EnterTab(event,'vendas_financa_desconto_guarani')",
+                                                            :onchange => "VendaFinancaDescGs()" %> %
                                                             
-                                       	<%= f.text_field :desconto_guarani,
+                                        <%= f.text_field :desconto_guarani,
                                                             :size     => 16,
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                                                            :class    => "money_gs",     
+                                                            :value    => 0,
                                                             :dir      =>"rtl",
-                                                            :onblur => "VendaFinancaValorDescGs()"%></td>
+                                                            :onkeyup  => "EnterTab(event,'vendas_financa_valor_guarani_contado')",
+                                                            :onchange   => "VendaFinancaValorDescGs()"%></td>
                                     </tr>
 
 
@@ -156,7 +166,8 @@
                                        <td><%= f.text_field :valor_guarani_contado,
                                                             :size     => 16,
                                                             :value    => number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0),
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                                                            :class    => "money_gs",  
+                                                            :onkeyup  => "EnterTab(event,'vendas_financa_recebido_guarani')" ,  
                                                             :dir      =>"rtl" %></td>
                                     </tr>
 
@@ -166,8 +177,9 @@
                                        <td align="right">Recebido Gs. :</td>
                                        <td><%= f.text_field :recebido_guarani,
                                                             :size     => 16,
-                                                            :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                                                            :class => "money_gs",     
                                                             :dir      =>"rtl",
+                                                            :onkeyup  => "EnterTab(event,'vendas_financa_conta_id')",
                                                             :onblur => "VendasFinancaTrocoGs()"%></td>
 
                                     </tr>
@@ -182,9 +194,9 @@
                </td>
 
                <td valign="top">
-       		       	<table>
-			          <tr>
-       				    <td>
+                  <table>
+                <tr>
+                  <td>
                           <div class="group">
                             <table>
                               <tr height="115">
@@ -203,15 +215,15 @@
                               </tr>
                             </table>
                           </div>
-             			</td>
-             		  </tr>
-            	    </table>
+                  </td>
+                  </tr>
+                  </table>
                </td>
             </tr>
          </table>
          
          <table>
-         	<tr>
+          <tr>
               <td>
                 <div class="group">
                   <table>
@@ -222,6 +234,15 @@
                       <td align="right"></td>
                       <td><%= f.check_box :cheque_status, :onchange => "toggleDiv('mydiv'),toggleDiv('mydiv2');"%> Cheque?</td>
                     </tr>
+
+                    <tr>
+                      <td>Vendedor:</td>
+                      <td>    
+                        <%= f.collection_select :vendedor_id, Persona.all( :select     => ' id,nome,tipo_vendedor',
+                          :conditions => ["tipo_vendedor = 1"],
+                          :order      => '2'),:nome,:nome %>
+                      </td>
+                    </tr>                       
                   </table>
  
                   <div id="mydiv" style="display:none;">
@@ -232,7 +253,7 @@
                         <td><%= f.text_field :cheque_valor_dolar,
                                              :size => 15,
                                              :value    => number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ","),
-                                             :onkeyup  =>"maskIt(this,event,'###.###.###.###,##',true)",
+                                             :class => "money_us",
                                              :onblur => "UsToGs('vendas_financa_cotacao','vendas_financa_cheque_valor_dolar','vendas_financa_cheque_valor_guarani'),VendasVultos()",
                                              :dir      =>"rtl" %></td>
 
@@ -240,7 +261,7 @@
                         <td><%= f.text_field :cheque_valor_guarani,
                                              :size => 15,
                                              :value    => number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0),
-                                             :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                                             :class => "money_gs",
                                              :onblur => "GsToUs('vendas_financa_cotacao','vendas_financa_cheque_valor_guarani','vendas_financa_cheque_valor_dolar'),VendasVultos()",
                                              :dir      =>"rtl" %></td>
                       </tr>
@@ -267,8 +288,8 @@
                   </div>
                 </div>
 
-         		
-         		</td>
+            
+            </td>
 
                <td valign="top">
                  <div id="mydiv2" style="display:none;">
@@ -284,7 +305,7 @@
                       <td><%= f.check_box :vuelto_cheque_status %> Cheque?</td>
 
                     </tr>
-
+                    
                     <tr>
                       <td align="right"> Vuelto Cheque:</td>
                       <td><%= f.text_field :vuelto_cheque,
@@ -301,7 +322,7 @@
                       <td align="right"> Vuelto Valor Us.: </td>
                       <td><%= f.text_field :vuelto_valor_dolar,:size => 15%></td>
                      </tr>
-               	
+                
                      <tr>
                        <td align="right"> Vuelto  Valor Gs.: </td>
                        <td><%= f.text_field :vuelto_valor_guarani,:size => 15%></td>
@@ -309,10 +330,10 @@
                  </table>
                  </div>
                  </div>
-       			</td>
+            </td>
 
 
-         	</tr>
+          </tr>
          </table>
 </div>
       <!-- DIV DETALHES CREDITO ====================================================== -->
@@ -327,22 +348,15 @@
              value="<%= number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0) %>" />
 
       <div id="TIPO_CREDITO"  style="display:none;" >
-      	<table>
-      	<tr>
-      		<td>
-      		  <div class="group">      				
-                <table>         	
+        <table>
+        <tr>
+          <td>
+            <div class="group">             
+                <table>           
                   <tr>
                     <td align="right">Condiciones :</td>
                       <td colspan="4">
-                        <%= text_field_tag( 'codigo',nil,:id         => "codigo",
-                                      :onchange   => remote_function( :update     => "codigo",
-                                      :url        => { :action     => :get_plano, :id => @venda.id},
-                                      :with       => "'codigo='+this.value"),
-                                      :size       => 3,
-                                      :onkeypress  => "return bloqEnter(event)",
-                                      :onkeyup     => "EnterTab(event,'vendas_financa_fatura_0')" ) %>
-                                                            	
+                                                                                      
                         <%= f.collection_select :plano_id, Plano.all( :select     =>' id,condicao', :order      => '2'), :id,:condicao,{:include_blank => '_______________________________________'},{:onkeyup     => "EnterTab(event,'vendas_financa_comta_id')"} %>
                             Dias  <%= f.text_field :plano_periodo,:size => 3  %>
                             <fieldset>
@@ -360,7 +374,7 @@
                         <%= f.hidden_field :interes_gs %>                  
                   
                   </tr>
-         	
+          
                   <tr>
                     <td>Cuotas :</td>
                     <td><%= f.text_field :cota,         :value => @count.to_i + 1,:size => 3 %></td>
@@ -373,7 +387,7 @@
                            <td><%= f.text_field :cota_dolar_01,
                             :size     => 15,
                             :value    => number_to_currency(@produto_sum_dolar, :format=>' %n ', :separator => ",") ,
-                            :onkeyup  =>"maskIt(this,event,'###.###.###.###,##',true)",
+                            :class => "money_us",
                             :dir      =>"rtl" %></td>
 
                         </tr>
@@ -385,7 +399,7 @@
                            <tr>
                              <td align="right">Valor Gs. : </td>
                              <td><%= f.text_field :cota_guarani_01,
-                               :onkeyup  =>"maskIt(this,event,'###.###.###.###',true)",
+                               :class => "money_gs",
                                :size     => 15,
                                :value    => number_to_currency(@produto_sum_guarani, :format=>' %n ', :precision => 0),
                                :dir      =>"rtl" %></td>
@@ -399,10 +413,10 @@
                        <td><%= f.date_select :data_cota_01 %></td>
                      </tr>
                    </table>
-      			</div>
-      		</td>
-      	</tr>
-      	</table>
+            </div>
+          </td>
+        </tr>
+        </table>
 
       <br/>
 
@@ -412,10 +426,10 @@
       <!-- DIV DETALHES AO FATURA ==================================================-->
       
       <table>
-      	<tr>
-      		<td>
+        <tr>
+          <td>
              <div class="group">
-             	
+              
       <table>
          <tr>
             <td></td>
@@ -510,16 +524,203 @@
       </table>
 
    <% end %>
-             	
-             	
+              
+              
              </div>
  
 
-      			
-      		</td>      			
-      	</tr>
-      	
+            
+          </td>           
+        </tr>
+        
       </table>
 
 
-</body>
+<script type="text/javascript">
+
+$(document).ready(function() {
+  //foco na primeira input de cada form
+  $('#vendas_financa_moeda_1').focus();  
+
+});
+
+  $("input").keypress(function bloqEnter(objEvent) {
+    var iKeyCode;
+    iKeyCode = objEvent.keyCode;
+    if(iKeyCode == 13) return false;
+    return true;
+});
+  
+function VendasfinancaMoeda(v){
+    document.getElementById('moeda').value = v
+}
+
+function EnterTabVenda(){
+    if( event.keyCode == 13 ){
+        if (document.getElementById('vendas_financa_moeda').value == '1'){
+          document.getElementById('vendas_financa_porcen_desconto_gs').focus();
+        } else {
+          document.getElementById('vendas_financa_porcen_desconto_us').focus();
+        }
+    }
+}
+
+function VendasfinancaAbreDiv(d){
+    if (document.getElementById('vendas_financa_tipo').value == '0' ){
+
+          document.getElementById('TIPO_CONTADO').style.display                        = "inline";
+          document.getElementById('TIPO_CREDITO').style.display                        = "none";
+
+          if( document.getElementById('moeda').value == '0')
+              {
+                  document.getElementById('TIPO_CONTADO_DOLAR').style.display                  = "inline";
+                  document.getElementById('TIPO_CONTADO_GUARANI').style.display                = "none";
+                  document.getElementById("vendas_financa_porcen_desconto_us").focus();
+              }
+           else if (document.getElementById('moeda').value == '1' )
+               {
+                  document.getElementById('TIPO_CONTADO_DOLAR').style.display                  = "none";
+                  document.getElementById('TIPO_CONTADO_GUARANI').style.display                = "inline";
+                  $('#vendas_financa_porcen_desconto_gs').focus();
+               }
+            else
+               {
+                  document.getElementById('TIPO_CONTADO_DOLAR').style.display                  = "none";
+                  document.getElementById('TIPO_CONTADO_GUARANI').style.display                = "none";
+                  document.getElementById("vendas_financa_porcen_desconto_rs").focus();
+               }
+
+               
+        }
+
+    if (document.getElementById('vendas_financa_tipo').value == '1')
+    {
+          if( document.getElementById('moeda').value == '0')
+              {
+                  document.getElementById('TIPO_CREDITO_DOLAR').style.display                  = "inline";
+                  document.getElementById('TIPO_CREDITO_GUARANI').style.display                = "none";
+                  document.getElementById("codigo").focus();
+              }
+           else if( document.getElementById('moeda').value == '1' )
+               {
+                  document.getElementById('TIPO_CREDITO_DOLAR').style.display                  = "none";
+                  document.getElementById('TIPO_CREDITO_GUARANI').style.display                = "inline";
+                  document.getElementById("codigo").focus();
+
+               }
+
+           else
+               {
+                  document.getElementById('TIPO_CREDITO_DOLAR').style.display                  = "none";
+                  document.getElementById('TIPO_CREDITO_GUARANI').style.display                = "none";
+                  document.getElementById('TIPO_CREDITO_REAL').style.display                   = "inline";
+                  document.getElementById("codigo").focus();
+
+               }
+
+        document.getElementById('vendas_financa_tipo').value = '1'
+        document.getElementById('TIPO_CREDITO').style.display           = "inline";
+        document.getElementById('TIPO_CONTADO').style.display           = "none";
+        document.getElementById("codigo").focus();
+
+    }
+}
+function VendaFinancaDescUs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_dolar_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var porcen   = eval( parseFloat( document.getElementById( 'vendas_financa_porcen_desconto_us' ).value.replace(/\./g, "").replace(",", ".") ) / 100 );
+    var total    = ( totvenda * porcen )        
+    document.getElementById( 'vendas_financa_desconto_dolar' ).value = ( number_format(total,2, ',', '.') );
+}
+
+
+function VendaFinancaDescRs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_real_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var porcen   = eval( parseFloat( document.getElementById( 'vendas_financa_porcen_desconto_rs' ).value.replace(/\./g, "").replace(",", ".") ) / 100 );
+    var total    = ( totvenda * porcen )        
+    document.getElementById( 'vendas_financa_desconto_real' ).value = ( number_format(total,2, ',', '.') );
+}
+
+
+function VendaFinancaValorDescUs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_dolar_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var desc     = parseFloat( document.getElementById( 'vendas_financa_desconto_dolar' ).value.replace(/\./g, "").replace(",", ".") )    
+    var porcen   = ( eval( desc / totvenda ) * 100 );
+    document.getElementById( 'vendas_financa_porcen_desconto_us' ).value = ( number_format(porcen,0, ',', '.') );
+    document.getElementById( 'vendas_financa_valor_dolar_contado' ).value = ( number_format( ( totvenda - desc ),2, ',', '.') );
+}
+
+
+function VendaFinancaValorDescRs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_real_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var desc     = parseFloat( document.getElementById( 'vendas_financa_desconto_real' ).value.replace(/\./g, "").replace(",", ".") )    
+    var porcen   = ( eval( desc / totvenda ) * 100 );
+    document.getElementById( 'vendas_financa_porcen_desconto_rs' ).value = ( number_format(porcen,0, ',', '.') );
+    document.getElementById( 'vendas_financa_valor_real_contado' ).value = ( number_format( ( totvenda - desc ),2, ',', '.') );
+}
+
+
+function VendasFinancaTrocoUs(){
+        vartrocod = eval( parseFloat( document.getElementById('vendas_financa_recebido_dolar').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('vendas_financa_valor_dolar_contado').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('troco_dolar').value = ( number_format(vartrocod,2, ',', '.') );
+        document.getElementById('mostra_dolar').innerHTML  = '<span>'+number_format(vartrocod,2, ',', '.')+'</span>';
+
+        varcotacaod = eval( parseFloat( document.getElementById('troco_dolar').value.replace(/\./g, "").replace(",", ".") ) * document.getElementById('vendas_financa_cotacao').value )  ;
+        document.getElementById('troco_guarani').value = ( number_format(varcotacaod,0, ',', '.') );
+        document.getElementById('mostra_guarani').innerHTML  = '<span>'+number_format(varcotacaod,0, ',', '.')+'</span>';
+
+        varpagod = eval( parseFloat( document.getElementById('recebido').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('troco_dolar').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('vendas_financa_valor_dolar_contado').value = ( number_format(varpagod,2, ',', '.') );
+
+        varpagocg = eval( parseFloat( document.getElementById('vendas_financa_valor_dolar_contado').value.replace(/\./g, "").replace(",", ".") ) * document.getElementById('vendas_financa_cotacao').value  ) ;
+        document.getElementById('vendas_financa_valor_guarani_contado').value = ( number_format(varpagocg,0, ',', '.') );
+
+}
+
+
+function VendaFinancaDescGs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_guarani_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var porcen   = eval( parseFloat( document.getElementById( 'vendas_financa_porcen_desconto_gs' ).value.replace(/\./g, "").replace(",", ".") ) / 100 );
+    var total    = ( totvenda * porcen )        
+    document.getElementById( 'vendas_financa_desconto_guarani' ).value = ( number_format(total,0, ',', '.') );
+}
+
+
+function VendaFinancaValorDescGs(){
+    var totvenda = parseFloat( document.getElementById( 'valor_guarani_contado' ).value.replace(/\./g, "").replace(",", ".") )
+    var desc     = parseFloat( document.getElementById( 'vendas_financa_desconto_guarani' ).value.replace(/\./g, "").replace(",", ".") )    
+    var porcen   = ( eval( desc / totvenda ) * 100 );
+    document.getElementById( 'vendas_financa_porcen_desconto_gs' ).value = ( number_format(porcen,0, ',', '.') );
+    document.getElementById( 'vendas_financa_valor_guarani_contado' ).value = ( number_format( ( totvenda - desc ),0, ',', '.') );
+}
+
+
+
+function VendasFinancaTrocoGs(){
+        vartrocog = eval( parseFloat( document.getElementById('vendas_financa_recebido_guarani').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('vendas_financa_valor_guarani_contado').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('troco_guarani').value = ( number_format(vartrocog,0, ',', '.') );
+        document.getElementById('mostra_guarani').innerHTML  = '<span>'+number_format(vartrocog,0, ',', '.')+'</span>';
+
+        varcotacaog = eval( parseFloat( document.getElementById('troco_guarani').value.replace(/\./g, "").replace(",", ".") ) / document.getElementById('vendas_financa_cotacao').value )  ;
+        document.getElementById('troco_dolar').value = ( number_format(varcotacaog,2, ',', '.') );
+        document.getElementById('mostra_dolar').innerHTML  = '<span>'+number_format(varcotacaog,2, ',', '.')+'</span>';
+
+
+        varpagog = eval( parseFloat( document.getElementById('recebido').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('troco_guarani').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('vendas_financa_valor_guarani_contado').value = ( number_format(varpagog,0, ',', '.') );
+
+        varpagod = eval( parseFloat( document.getElementById('vendas_financa_valor_guarani_contado').value.replace(/\./g, "").replace(",", ".") ) / document.getElementById('vendas_financa_cotacao').value  ) ;
+        document.getElementById('vendas_financa_valor_dolar_contado').value = ( number_format(varpagod,2, ',', '.') );
+}
+
+
+function VendasVultos(){
+        vartrocog = eval( parseFloat( document.getElementById('vendas_financa_cheque_valor_dolar').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('vendas_financa_valor_dolar_contado').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('vendas_financa_vuelto_valor_dolar').value = ( number_format(vartrocog,2, ',', '.') );
+
+        vartrocog = eval( parseFloat( document.getElementById('vendas_financa_cheque_valor_guarani').value.replace(/\./g, "").replace(",", ".") ) - parseFloat( document.getElementById('vendas_financa_valor_guarani_contado').value.replace(/\./g, "").replace(",", ".") ) )  ;
+        document.getElementById('vendas_financa_vuelto_valor_guarani').value = ( number_format(vartrocog,0, ',', '.') );
+}
+
+</script>
+
+

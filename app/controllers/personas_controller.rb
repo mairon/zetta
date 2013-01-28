@@ -40,11 +40,26 @@ class PersonasController < ApplicationController
         persona = "AND tipo_despachante = 1"   if params[:per] == "DESPACHANTE"
         persona = ""   if params[:persona] == ""
 
-        @personas = Persona.all(:select => 'id,cod_velho,nome,classificacao,ruc,tipo,estado,telefone,cidade,direcao',
+        @personas = Persona.all(
             :conditions => ["#{tipo} LIKE ? #{persona}", "%#{params[:busca]}%"],
             :order => "nome")
         respond_to do |format|
-            format.html {render :layout => false}
+            
+            format.html do
+        render  :pdf                    => "resultado_fechamento_caixa",                
+                :layout                 => "layer_relatorios",
+                :margin => {:top        => '1.20in',
+                            :bottom     => '0.25in',
+                            :left       => '0.10in',
+                            :right      => '0.10in'},        
+                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,                            
+                            :spacing    => 25},
+                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :right      => "Pagina [page] de [toPage]",
+                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+      end
 
             format.js { render :layout => false }
         end

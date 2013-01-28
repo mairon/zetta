@@ -364,6 +364,26 @@ def self.controle_visitas(params)
     Presupuesto.find_by_sql(sql)
   end
 
+  def self.resultado_metas(params)
+    persona = "AND PERSONA_ID = '#{params[:busca]["persona"]}'" unless params[:busca]["persona"].blank?
+
+    sql = "SELECT ID,
+                  PERIODO_INICIO,
+                  PERIODO_FINAL,
+                  MOEDA,
+                  VALOR_MIN_US,
+                  VALOR_MIN_GS,
+                  VALOR_MIN_RS,
+                  VALOR_MAX_US,
+                  VALOR_MAX_GS,
+                  VALOR_MAX_RS,
+                  DESCRICAO
+          FROM 
+                  METAS
+          WHERE PERIODO_INICIO BETWEEN '#{params[:inicio]}' AND '#{params[:final]}'"
+  Meta.find_by_sql(sql)                
+  end
+
 end
 
   

@@ -10,19 +10,21 @@
       </ul>
     </div>
   <% end %>
-  <%= f.hidden_field :persona_id %>
-  <%= f.hidden_field :meta_id %>
-  <%= f.hidden_field :setor_id %>
 
-  <div class="tab_container">
-    <div id="tab1" class="tab_content">
+  <%= f.hidden_field :meta_id %>
 
       <table>
         <tr>
           <td width="1000">
             <fieldset>
                 <table>
+
                   <tr> 
+                    <td align="right">Setor :</td>
+                      <td colspan="1"><%= f.collection_select :setor_id, Setor.all( :select => ' id,nome',
+                                          :order  => '2' ), :id,
+                                          :nome %></td>
+
                     <td align="right">Empleado :</td>
                     <td ><%= f.collection_select :persona_id, Persona.where("tipo_funcionario = 1", :select => ' id,nome',
                              :order  => '2' ), :id,
@@ -30,54 +32,35 @@
                   </tr>
 
                   <tr>
-                    <td align="right">Setor :</td>
-                      <td colspan="1"><%= f.collection_select :setor_id, Setor.all( :select => ' id,nome',
-                                          :order  => '2' ), :id,
-                                          :nome %></td>
+                    <% if @meta.moeda == 0 %>
+                      <%= field_us 'Min. U$ :',f,:valor_min_us %>
+                      <%= field_us 'Max. U$ :',f,:valor_max_us %>
+                    <% elsif @meta.moeda == 1 %>
+                      <%= field_gs 'Min. Gs :',f,:valor_min_gs %>
+                      <%= field_gs 'Max. Gs :',f,:valor_max_gs %>
+                    <% else %>
+                      <%= field_us 'Min. R$ :',f,:valor_min_rs %>
+                      <%= field_us 'Max. R$ :',f,:valor_max_rs %>
+                    <% end %>
                   </tr>
-
-                  <tr>
-                    <td align="right">Valor Minimo U$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_min_us, :size => 15 %></td>
-                    
-                    <td align="right">Valor Maximo U$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_max_us, :size => 15 %></td>
-                  </tr>
-
-                  <tr>
-                    <td align="right">Valor Minimo G$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_min_gs, :size => 15 %></td>
-            
-                    <td align="right">Valor Maximo G$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_max_gs, :size => 15 %></td>
-                  </tr>
-
-                  <tr>
-                    <td align="right">Valor Minimo R$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_min_rs, :size => 15 %></td>
                   
-                    <td align="right">Valor Maximo R$ :</td>
-                    <td colspan="1"><%= f.text_field :valor_max_rs, :size => 15 %></td>
-                  </tr>
-
                   <tr>
-                    <td align="right">Comisión Minimo :</td>
+                    <td align="right">Comisión Min. :</td>
                     <td colspan="1"><%= f.text_field :comicao_min, :size => 15 %></td>
                   
-                    <td align="right">Comisión Maximo :</td>
+                    <td align="right">Max. :</td>
                     <td colspan="1"><%= f.text_field :comicao_max, :size => 15 %></td>
                   </tr>
 
-                  <table>
                   <tr>
                     <td align="right">Descricao :</td>
-                   	<td colspan="1"><%= f.text_area :descricao,
-                                          :cols => 80, :rows => 4 %></td>
+                   	<td colspan="4"><%= f.text_area :descricao,
+                                          :cols => 80, :rows => 3 %></td>
                   </tr>
-                  </table>
 
                   <tr>
-                    <td><%= f.submit :value => " Grabar ", :class => "button" %></td>
+                    <td></td>
+                    <td align="right" colspan="4"><%= f.submit :value => " Grabar ", :class => "button" %></td>
                   </tr>
                 </table>
               </fieldset>                    
@@ -86,4 +69,3 @@
         </table>
 
 <% end %>
-</div>

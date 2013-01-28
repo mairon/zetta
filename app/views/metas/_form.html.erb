@@ -12,80 +12,89 @@
   <% end %>
 
   <ul class="tabs">
-      <li><a href="#tab1">Controle de Pulv. - [Edicion]</a></li>
+      <li><a href="#tab1">Metas - [Edicion]</a></li>
    </ul>
 
    <div class="tab_container">
       <div id="tab1" class="tab_content">
 
         <table>
-              <tr>
-                <td>
-                  <fieldset >
-                    <table>
-                      <tr>
-                        <td align="right">Fecha Inicio :</td>
-                        <td colspan="1"><%= f.date_select :periodo_inicio %></td>                        
-                    
-                        <td align="right">Fecha Final :</td>
-                        <td colspan="1"><%= f.date_select :periodo_final %></td>                        
-                      </tr>
+          <tr>
+            <td width="800" colspan="2">
+              <fieldset>
+                <legend>Periodo</legend>
+                <table>
+                  <tr>
+                    <td align="right">Inicio :</td>
+                    <td colspan="1"><%= f.date_select :periodo_inicio %></td>                        
+                
+                    <td align="right">Final :</td>
+                    <td colspan="1"><%= f.date_select :periodo_final %></td>                        
+                  </tr>
+                </table>
+              </fieldset>
+            </td>
+          </tr>
 
-                      <td>
-                        <fieldset>
-                          <legend>Moneda</legend>
-                            <%= f.radio_button :moeda, 0, :checked => true %>DOLAR </br>
-                            <%= f.radio_button :moeda, 1 %>GUARANI </br>
-                            <%= f.radio_button :moeda, 2 %>REAL
-                        </fieldset>
-                      </td>
+          <tr>
+            <td  valign="top" >
+              <fieldset>
+                <legend>Moneda</legend>
+                <table>
+                  <tr>
+                    <td><%= f.radio_button :moeda, 0, :checked => true %>DOLAR </td>
+                  </tr>
+                  <tr>
+                    <td><%= f.radio_button :moeda, 1 %>GUARANI</td>
+                  </tr>
+                  <tr>
+                    <td><%= f.radio_button :moeda, 2 %>REAL</td>
+                  </tr>
+                </table>                                                                                  
+              </fieldset>
+            </td>
 
-                      <tr>
-                        <td align="right">Valor Minimo U$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_min_us, :size => 15 %></td>
-                    
-                        <td align="right">Valor Maximo U$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_max_us, :size => 15 %></td>
-                      </tr>
+            <td>
+              <fieldset>
+              <legend>Valores</legend>
+              <table>
+                <tr>
+                  <%= field_us 'Min. U$:',f,:valor_min_us %>
+                  <%= field_us 'Max. U$:',f,:valor_max_us %>
+                </tr>
 
-                      <tr>
-                        <td align="right">Valor Minimo G$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_min_gs, :size => 15 %></td>
-            
-                        <td align="right">Valor Maximo G$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_max_gs, :size => 15 %></td>
-                      </tr>
+                <tr>
+                  <%= field_gs 'Min. Gs:',f,:valor_min_gs %>
+                  <%= field_gs 'Max. Gs:',f,:valor_max_gs %>
+                </tr>
 
-                      <tr>
-                        <td align="right">Valor Minimo R$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_min_rs, :size => 15 %></td>
-                    
-                        <td align="right">Valor Maximo R$ :</td>
-                        <td colspan="1"><%= f.text_field :valor_max_rs, :size => 15 %></td>
-                      </tr>
+                <tr>
+                  <%= field_us 'Min. R$:',f,:valor_min_rs %>
+                  <%= field_us 'Max. R$:',f,:valor_max_rs %>
 
-                      <tr>
-                        <td>
-                          <fieldset>
-                            <legend>Status</legend>
-                              <%= f.radio_button :status, 0, :checked => true %>ATIVO
-                              <%= f.radio_button :status, 1 %>INATIVO
-                          </fieldset>
-                        </td>
-                      </tr>
+                </tr>
+              </table>
+              </fieldset>
+            </td>
+          </tr>            
 
-                    <table>
-                      <tr>
-                        <td align="right">Descricao :</td>
-                        <td colspan="1"><%= f.text_area :descricao,
-                                                 :cols => 80, :rows => 4 %></td>
-                    
-                      </tr>
-                    </table>
-                    </table>
-                  </fieldset>                    
-                </td>
-              </tr>
+          <tr>
+            <td colspan="2">
+              <fieldset>
+                <legend>Status</legend>
+                  <%= f.radio_button :status, 0, :checked => true %>ATIVO
+                  <%= f.radio_button :status, 1 %>INATIVO
+              </fieldset>
+            </td>
+          </tr>
+
+          <tr>              
+            <td colspan="2" valign="top"> Concepto :<%= f.text_area :descricao,
+                                       :cols => 135, :rows => 6 %></td>
+          
+          </tr>
+
+
         </table>
       </div>
       <div class="buttons">

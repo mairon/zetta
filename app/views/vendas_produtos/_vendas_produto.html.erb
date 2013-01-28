@@ -1,7 +1,7 @@
 <table>
-	<tr  class="<%= cycle("cor1", "cor2") %>">
+<%= content_tag_for(:tr,  vendas_produto, :class => cycle('cor1','cor2')) do %>
 
-		<td width="50" align="center"> <%= vendas_produto.fabricante_cod %> </td>
+		<td width="50" align="center"></td>
 		<td width="350" align="left"> <%= vendas_produto.produto_nome %> <%= vendas_produto.lotes %>  </td>
 		<td width="80" align="right"> <%= format("%.3f",vendas_produto.quantidade.to_f) %> </td>
 
@@ -23,5 +23,5 @@
 		<td width="80" align="right"><%= vendas_produto.total_desconto %></td>
 		<td><%= link_to 'Editar', edit_vendas_produto_path(vendas_produto) %></td>
 		<td><%= link_to 'Borrar', vendas_produto, :confirm => 'Tiene Certeza?', :method => :delete %></td>
-	</tr>
+	<% end %>
 </table>

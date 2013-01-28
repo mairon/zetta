@@ -41,10 +41,22 @@
 
 		</tr>
 	</table>
-  </div>
-           
+  </div>           
+   </td>
+
+   <td rowspan="3" valign="top">
+   	<br/>
+   	Legend<br/>
+   	( F4 ) - Seguir <br/>
+   	( Ctrl + 1 )  - descuento <br/>
+   	( F2 ) - Busca por Descrip. <br/>
+   	( Ctrl + C ) Busca por Cod. <br/>
+   	( Ctrl + B ) Busca por Barra <br/>
+
+
    </td>
        </tr>
+
 		<tr>
 			<td>
 			<div class="group">
@@ -90,7 +102,7 @@
 							<td>
 								<font class="style3" color="red">Total Gs.:</font>
 								<font class="style3" color="red">
-									<span id="total_guarani"><%= number_to_currency(@total_guarani, :format=>' %n ',:precision => 0) %></span>
+									<span id="sub_total"><%= number_to_currency(@total_guarani, :format=>' %n ',:precision => 0) %></span>
 								</font>													
 							</td>
 

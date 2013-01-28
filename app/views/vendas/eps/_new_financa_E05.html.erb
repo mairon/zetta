@@ -1,6 +1,5 @@
 <!-- form base !-->
 <div class="left">
-
    <%= form_for(vendas_financa) do |f| %>
 
       <%= f.hidden_field :venda_id %>
@@ -12,8 +11,6 @@
       <%= f.hidden_field :cidade_nome,  :value => @venda.cidade_nome%>
       <%= f.hidden_field :cidade_id,    :value => @venda.cidade_id %>
       <%= f.hidden_field :bairro,       :value => @venda.bairro%>
-      <%= f.hidden_field :vendedor_id,  :value => @venda.vendedor_id%>
-      <%= f.hidden_field :vendedor_nome,:value => @venda.vendedor_nome%>
       <%= f.hidden_field :clase_produto,:value => @venda.clase_produto %>
       <%= f.hidden_field :data, :value => @venda.data %>    
       <%= f.hidden_field :tipo_ordem , :value => 0  %>
@@ -24,12 +21,13 @@
         <tr>
           <td></td>
           <td><b>Tipo:</b> 0 = Contado | 1 = Credito</td>
-          <td align="right"><b>Moneda:</b> 0 = Dolar | 1 = Guaranies | 2 = Real</td>
+          <td></td>
+          <td><b>Moneda:</b> 0 = Dolar | 1 = Guaranies | 2 = Real</td>
 
         </tr>
         <tr>
           <td align="right"><font size="5"> Tipo: </font></td>
-          <td width="200">
+          <td width="400">
             <%= f.text_field :tipo, :class => 'mini', :value       => 0,
                                                       :onblur      => "VendasfinancaAbreDiv(this)",
                                                       :onkeypress  => "return bloqEnter(event)",
@@ -84,8 +82,8 @@
       <div id="TIPO_CONTADO" style="display: none;" >
          <table>
             <tr>
-               <td valign="top">
-                  <div class="group_cd" >
+               <td valign="top" width="460">
+                  <div >
                      <input id    = "valor_dolar_contado"
                             name  = "valor_dolar"
                             type  = "hidden"
@@ -150,7 +148,7 @@
                                   <legend>Gs.:</legend>
                                   <table valign="top">
                                     <tr>
-                                      <td height="55" align="right">Desc. Gs.:</td>
+                                      <td align="right">Desc. Gs.:</td>
                                       <td>
                                        	<%= f.text_field :porcen_desconto_gs,
                                                             :size     => 5,
@@ -174,9 +172,9 @@
                                     </tr>
 
 
-                                    <tr height="53">
+                                    <tr>
                                        <td align="right">Valor Gs. :</td>
-                                       <td ><%= f.text_field :valor_guarani_contado,
+                                       <td width="300"><%= f.text_field :valor_guarani_contado,
                                                             :size     => 16,
                                                             :value    => number_to_currency(@produto_sum_guarani, :format=>'%n', :precision => 0),
                                                             :dir         =>"rtl",                     
@@ -188,7 +186,7 @@
 
 
                                     <tr>
-                                       <td height="55" align="right">Recebido Gs. :</td>
+                                       <td height="25" align="right">Recebido Gs. :</td>
                                        <td><%= f.text_field :recebido_guarani,
                                                             :size     => 16,
                                                             :class => "money_gs",
@@ -210,19 +208,18 @@
                   </div>
                </td>
 
-               <td valign="top">
+               <td valign="top" rowspan="2">
                 <fieldset>
                   <legend>Vuelto</legend>
        		       	<table>
-    			          <tr>
            				    <td width="400">
-                          <div class="group">
+                          <div>
                             <table>
-                              <tr height="115">
+                              <tr height="70">
                                 <td>
-                                  <font size="7" color="green">U$.: <SPAN ID="mostra_dolar">0,00</SPAN> </font><br/>
-                                  <font size="7" color="red">Gs.: <SPAN ID="mostra_guarani">0</SPAN> </font><br/>
-                                  <font size="7" color="blue">R$.: <SPAN ID="mostra_guarani">0,00</SPAN> </font><br/>
+                                  <font size="12" color="green">U$.: <SPAN ID="mostra_dolar">0,00</SPAN> </font><br/>
+                                  <font size="12" color="red">Gs.: <SPAN ID="mostra_guarani">0</SPAN> </font><br/>
+                                  <font size="12" color="blue">R$.: <SPAN ID="mostra_guarani">0,00</SPAN> </font><br/>
 
                                   <input id   = "troco_dolar"
                                          name = "troco_dolar"
@@ -241,23 +238,34 @@
                   </fieldset>
                </td>
             </tr>
-         </table>
-         
-         <table>
-         	<tr>
+
+            <tr>
               <td>
-                <div class="group">
+                
+        <table>
+          <tr>
+              <td>
+                <fieldset>
+                <div>
                   <table>
                     <tr>
                       <td align="right">Cuenta :</td>
-                      <td><%= f.collection_select :conta_id, Conta.all( :select     =>' id,nome',:conditions => ["tipo = 0"],:order      => '1'), :id,:nome,{},{:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_cheque_status')"} %></td>
+                      <td width="251"><%= f.collection_select :conta_id, Conta.all( :select     =>' id,nome',:conditions => ["tipo = 0"],:order      => '1'), :id,:nome,{},{:class => 'combo',:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_cheque_status')"} %></td>
  
                       <td align="right"></td>
                       <td><%= f.check_box :cheque_status,
                                            :onkeypress  => "return bloqEnter(event)",
                                            :onchange => "toggleDiv('mydiv'),toggleDiv('mydiv2');",
-                                           :onkeyup     => "EnterTab(event,'vendas_financa_fatura_0')"%> Cheque?</td>
+                                           :onkeyup     => "EnterTab(event,'vendas_financa_vendedor_id')"%> Cheque?</td>
                     </tr>
+                    <tr>
+                      <td>Vendedor:</td>
+                      <td>    
+                        <%= f.collection_select :vendedor_id, Persona.all( :select     => ' id,nome,tipo_vendedor',
+                          :conditions => ["tipo_vendedor = 1"],
+                          :order      => '2'),:nome,:nome,{},{:class => 'combo',:onkeypress  => "return bloqEnter(event)",:onkeyup => "EnterTab(event,'vendas_financa_fatura_0')"} %>
+                      </td>
+                    </tr>     
                   </table>
  
                   <div id="mydiv" style="display:none;">
@@ -302,9 +310,10 @@
                     </table>
                   </div>
                 </div>
+                </fieldset>
 
-         		
-         		</td>
+            
+            </td>
 
                <td valign="top">
                  <div id="mydiv2" style="display:none;">
@@ -337,7 +346,7 @@
                       <td align="right"> Vuelto Valor Us.: </td>
                       <td><%= f.text_field :vuelto_valor_dolar,:size => 15%></td>
                      </tr>
-               	
+                
                      <tr>
                        <td align="right"> Vuelto  Valor Gs.: </td>
                        <td><%= f.text_field :vuelto_valor_guarani,:size => 15%></td>
@@ -345,11 +354,17 @@
                  </table>
                  </div>
                  </div>
-       			</td>
+            </td>
 
 
-         	</tr>
+          </tr>
          </table>
+
+              </td>
+            </tr>
+         </table>
+         
+         
 </div>
       <!-- DIV DETALHES CREDITO ====================================================== -->
       <input id   = "total_dolar"
@@ -430,111 +445,104 @@
       
       <table>
       	<tr>
-      		<td>
-             <div class="group">
+      		<td width="878">
+             <div>
              	<fieldset>
-      <table>
-         <tr>
-            <td></td>
-            <td>
-               <table>
-                  <tr>
-                     <td>
-                        <fieldset>
-                           <legend>Factura?</legend>
-                           <%= f.radio_button :fatura, 0,
-                            :Checked     => 'True',
+                <table>
+                   <tr>
+                      <td></td>
+                      <td>
+                         <table>
+                            <tr>
+                               <td>
+                                  <fieldset>
+                                     <legend>Factura?</legend>
+                                     <%= f.radio_button :fatura, 0,
+                                      :Checked     => 'True',
+                                      :onkeypress  => "return bloqEnter(event)",
+                                      :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%> No
+                                     <%= f.radio_button :fatura, 1,
+                                    :onkeypress  => "return bloqEnter(event)",
+                                    :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_01')"%> Si
+
+                                  </fieldset>
+                               </td>
+                            </tr>
+                         </table>
+                      </td>
+                      <td align="right">Factura a Nombre de.:</td>
+
+                      <td colspan="2"><%= f.text_field :fatura_legal,
+                                                       :size => 37,
+            :value => @venda.persona_nome,
+            :onkeypress  => "return bloqEnter(event)",
+            :onkeyup     => "f(this),EnterTab(event,'vendas_financa_documento_numero_02')"%>
+                      </td>
+                      
+                      <td colspan="2">Ruc.:<%= f.text_field :fatura_legal_ruc,
+                        :size => 15,
+                        :value => @venda.ruc,
+                        :onkeypress  => "return bloqEnter(event)",
+                        :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%>
+                      </td>
+
+                   </tr>
+                   <% if current_user.tipo == 2 %>
+                   <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '002'"])%>
+                   <tr>
+                      <td align="right"  colspan="3">Factura N.:</td>
+
+                      <td><%= f.text_field :documento_numero_01,
+                                           :size => 3,
+                                           :value => '001',
+                                           :onkeypress  => "return bloqEnter(event)",
+                                           :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%> -
+                                           
+                         <%= f.text_field :documento_numero_02,
+                            :size        => 3,
+                            :value       => '002',
                             :onkeypress  => "return bloqEnter(event)",
-                            :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%> No
-                           <%= f.radio_button :fatura, 1,
-                          :onkeypress  => "return bloqEnter(event)",
-                          :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_01')"%> Si
+                            :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero')"%> -
+                         <%= f.text_field :documento_numero,
+                            :size        => 16,
+                            :value       => (numero.to_i + 1).to_s.rjust(7,'0'),
+                            :onkeypress  => "return bloqEnter(event)",
+                            :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%></td>
+                      <td colspan='2' align="right"><%= f.submit "     Grabar     ", :class=>'button' %></td>
+                      <% else %>
 
-                        </fieldset>
-                     </td>
-                  </tr>
-               </table>
-            </td>
-         </tr>
+                   <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '001'"])%>
+                   <tr>
+                      <td align="right" colspan="3">Factura N.:</td>
 
-         <tr>
-            <td align="right">Factura a Nombre de.:</td>
+                      <td><%= f.text_field :documento_numero_01,
+                                           :size => 3,
+                                           :value => '001',
+                                           :onkeypress  => "return bloqEnter(event)",
+                                           :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%>-
+                         <%= f.text_field :documento_numero_02,
+                            :size        => 3,
+                            :value       => '001',
+                            :onkeypress  => "return bloqEnter(event)",
+                            :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero')"%>-
+                         <%= f.text_field :documento_numero,
+                            :size        => 16,
+                            :value       => (numero.to_i + 1).to_s.rjust(7,'0'),
+                            :onkeypress  => "return bloqEnter(event)",
+                            :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%></td>
 
-            <td colspan="2"><%= f.text_field :fatura_legal,
-                                             :size => 37,
-  :value => @venda.persona_nome,
-  :onkeypress  => "return bloqEnter(event)",
-  :onkeyup     => "f(this),EnterTab(event,'vendas_financa_documento_numero_02')"%>
-            </td>
-            
-            <td colspan="2">Ruc.:<%= f.text_field :fatura_legal_ruc,
-              :size => 15,
-              :value => @venda.ruc,
-              :onkeypress  => "return bloqEnter(event)",
-              :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%>
-            </td>
+                      <td colspan='2' align="right"><%= f.submit "Grabar", :id => 'vendas_financa_submit', :class=> 'button', :disable_with => "Aguarde..." %></td>
 
-         </tr>
-         <% if current_user.tipo == 2 %>
-         <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '002'"])%>
-         <tr>
-            <td align="right">Factura N.:</td>
-
-            <td><%= f.text_field :documento_numero_01,
-                                 :size => 3,
-                                 :value => '001',
-                                 :onkeypress  => "return bloqEnter(event)",
-                                 :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%> -
-                                 
-               <%= f.text_field :documento_numero_02,
-                  :size        => 3,
-                  :value       => '002',
-                  :onkeypress  => "return bloqEnter(event)",
-                  :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero')"%> -
-               <%= f.text_field :documento_numero,
-                  :size        => 16,
-                  :value       => (numero.to_i + 1).to_s.rjust(7,'0'),
-                  :onkeypress  => "return bloqEnter(event)",
-                  :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%></td>
-            <td colspan='2' align="right"><%= f.submit "     Grabar     ", :class=>'button' %></td>
-            <% else %>
-
-         <% numero = Fatura.maximum(:documento_numero,:conditions => ["documento_numero_02 = '001'"])%>
-         <tr>
-            <td align="right">Factura N.:</td>
-
-            <td><%= f.text_field :documento_numero_01,
-                                 :size => 3,
-                                 :value => '001',
-                                 :onkeypress  => "return bloqEnter(event)",
-                                 :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero_02')"%> -
-               <%= f.text_field :documento_numero_02,
-                  :size        => 3,
-                  :value       => '001',
-                  :onkeypress  => "return bloqEnter(event)",
-                  :onkeyup     => "EnterTab(event,'vendas_financa_documento_numero')"%> -
-               <%= f.text_field :documento_numero,
-                  :size        => 16,
-                  :value       => (numero.to_i + 1).to_s.rjust(7,'0'),
-                  :onkeypress  => "return bloqEnter(event)",
-                  :onkeyup     => "EnterTab(event,'vendas_financa_submit')"%></td>
-
-            <td colspan='2' align="right"><%= f.submit "Grabar", :id => 'vendas_financa_submit', :class=> 'button', :disable_with => "Aguarde..." %></td>
-
-            <% end %>
-         </tr>
+                      <% end %>
+                   </tr>
 
 
-      </table>
-      </fieldset>
+                </table>
+                </fieldset>
 
-   <% end %>
-             	
-             	
-             </div>
- 
-
-      			
+             <% end %>
+             	             	
+             </div>      			
       		</td>      			
       	</tr>
       	

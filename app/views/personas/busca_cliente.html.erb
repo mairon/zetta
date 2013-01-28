@@ -86,17 +86,34 @@ div.border
    <tr>
       <td width="50"align="center">Cod.</td>
       <td width="350"align="center">Nombre</td>
-      <td width="200"align="center">Direcion</td>
       <td width="100"align="center">Tel</td>
-      <td width="300"align="center">Regiao</td>
+      <% if params[:per] == 'EMPLEADO' %>
+        <td width="300"align="center">Cargo</td>
+        <td width="100"align="center">Fecha Ingr.</td>
+        <td width="100"align="right">Tasa Comi. %</td>
+        <% if current_user.tipo == 0 %>
+          <td width="100"align="right">Sueldo</td>
+        <% end %>
+      <% else %>
+        <td width="200"align="center">Direcion</td>      
+      <% end %>
    </tr>
    <% @personas.each do |persona|  %>
    <tr class = "<%= cycle("cor1", "cor2")%>">
       <td width="50"align="center"><%=h persona.id.to_s.rjust(6,'0') %></td>
       <td width="450"align="left"><%=h persona.nome %></td>
-      <td width="200"align="left"><%=h persona.direcao %></td>
       <td width="100"align="center"><%=h persona.telefone %></td>
-      <td width="300"align="center"></td>
+
+      <% if params[:per] == 'EMPLEADO' %>
+        <td width="300" align="left"><%=h persona.cargo %></td>
+        <td width="100" align="center"><%=h persona.data_entrada.strftime("%d/%m/%Y") %></td>
+        <td width="100" align="right"><%= number_to_currency(persona.comissao, :format=>' %n ', :precision => 0 ) %></td>
+        <% if current_user.tipo == 0 %>
+        <td width="100" align="right"><%= number_to_currency(persona.salario, :format=>' %n ', :separeitor => "," ) %></td>
+        <% end %>
+      <% else %>
+        <td width="200"align="left"><%=h persona.direcao %></td>      
+      <% end %>
    </tr>
    <% end %>
 </table>

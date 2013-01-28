@@ -35,7 +35,7 @@ div#contents
 }
 div#contents h1
 {    
-    font:normal 12px tahoma, arial, helvetica, sans-serif;
+    font:normal 14px tahoma, arial, helvetica, sans-serif;
 
 }
 
@@ -356,10 +356,10 @@ h1#header
 {
     background: url(wbg.gif) repeat-x top;
     padding: 7px;
+    padding-left:25px;
     color: #777;
     text-shadow: 1px 1px white, -1px -1px #b1b5d0;
     font-weight: bold;
-    font-size: 13px;    
     border: 1px solid #b1b5d0;
 
 }

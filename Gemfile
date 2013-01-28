@@ -14,7 +14,8 @@ gem 'wicked_pdf'
 gem "wkhtmltopdf-binary"
 gem "brazilian-rails"
 gem "delocalize"
-
+gem "barby"
+gem "rails3-generators", :group => :development
 
 
 # Gems used only for assets and not required

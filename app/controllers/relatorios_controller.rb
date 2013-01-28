@@ -835,4 +835,40 @@ def resultado_fluxo_caixa
       end
     end
     end  
+
+def resultado_metas
+    @metas = Relatorios.resultado_metas(params)
+      
+    head =
+        "                                                   #{$empresa_nome}
+                                                        Listado de Visitas
+- Fecha....: #{params[:inicio]} hasta #{params[:final]}
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+    Fecha     Prox. Visi.    Dias     Consultor                     Cliente                     Servicio                           NC
+-----------------------------------------------------------------------------------------------------------------------------------------
+"
+
+    respond_to do |format|
+      format.html do
+        render  :pdf                    => "resultado_fechamento_caixa",                
+                :layout                 => "layer_relatorios",
+                :margin => {:top        => '1.55in',
+                            :bottom     => '0.25in',
+                            :left       => '0.10in',
+                            :right      => '0.10in'},        
+                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,                            
+                            :html => { :template => 'relatorios/headers/metas.html',
+                            :layout     => "layer_relatorios" },
+                            :spacing    => 0},
+                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
+                            :font_size  => 7,
+                            :right      => "Pagina [page] de [toPage]",
+                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+      end
+    end
+
+end
+
 end

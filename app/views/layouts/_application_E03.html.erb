@@ -1,9 +1,10 @@
 
+
 <div class="menu">
-   <ul>
+   <ul class="dropdown">
       <li><a href="/menu"> Menu</a></li>
       <li><a href="#">Cadastros</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/bicos">                      Bicos</a></li>
             <li><a href="/contas">                     Caja/Banco</a></li>
             <li><a href="/cidades">                    Cidades</a></li>
@@ -30,7 +31,7 @@
       </li>
 
       <li><a href="#">Processos</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/controle_visita">     Controle Visitas</a></li>
             <li><a href="/controle_pulvs">     Controle Pulv</a></li>
          </ul>
@@ -38,7 +39,7 @@
 
 
       <li><a href="#">Facturamento</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/compras">                     Compras</a></li>
             <li><a href="/consumicao_internas">         Consumición Interna</a></li>                        
             <li><a href="/vendas/faturas_pendentes">    Facturas Pendientes</a></li>
@@ -51,13 +52,25 @@
             <li><a href="/recepcao_nota_remicaos">      Recepcion Nota de Remision</a></li>            
             <li><a href="/vendas">                      Ventas</a></li>
             <li><a href="/vendas_entrada_produtos">     Vuelto de Mercaderia</a></li>
+            <li>
+               <a href="#">     Relatorios</a>
+               <ul>
+                  <li><a href="/relatorios/compras">                    Compras</a></li>
+                  <li><a href="/relatorios/consumicao_interna">         Consumicion Interna</a></li>
+                  <li><a href="/relatorios/pedidos_vendas">             Pedido de Ventas</a></li>
+                  <li><a href="/relatorios/vendas">                     Ventas</a></li>
+                  <li><a href="/stocks/projecao_compras">               Proyeccion de Compras</a></li>
+               </ul>               
+
+            </li>
+
          </ul>
       </li>
 
 
       <% if current_user.tipo == 0 or current_user.tipo == 1  %>
       <li><a href="#">Financiero</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/adelantos">                   Adelantos</a></li>
             <li><a href="/fechamento_caixas">           Cierre de Caja</a></li>
             <li><a href="/cobros">                      Cobros</a></li>
@@ -73,7 +86,7 @@
       <% end %>
 
       <li><a href="#">Stock</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/produtos/consulta_stock">     Consulta Stock</a></li>
             <li><a href="/stocks/stock_inicial">        Stock Inicial</a></li>
             <li><a href="/transferencia_depositos">     tranf. Deposito</a></li>
@@ -82,13 +95,13 @@
 
 
       <li><a href="#">Produción</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/producaos">                   Produción</a></li>
          </ul>
       </li>
 
       <li><a href="#">Laboratorio</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/laboratorio/elementos">                    Elementos</a></li>
             <li><a href="/laboratorio/analizes">                     Analize</a></li>
             <li><a href="/localizacaos">                             Ubicación</a></li>
@@ -97,7 +110,7 @@
 
 
       <li><a href="#">Relatorios</a>
-         <ul>
+         <ul class="sub_menu">
             <li><a href="/relatorios/adelantos">                  Adelantos</a></li>
             <li><a href="/relatorios/fechamento_caixa">           Cierre de Caja</a></li>
             <li><a href="/relatorios/cheque_diferido">            Cheques Diferidos</a></li>            
@@ -108,10 +121,12 @@
             <li><a href="/financas/extrato_bancario">             Extracto Bancario</a></li>
             <li><a href="/financas">                              Extracto Caja</a></li>
             <li><a href="/stocks">                                Ficha de Stock</a></li>
+            <li><a href="/relatorios/fluxo_caixa">                Fluxo de Caja</a></li>   
             <li><a href="/relatorios/controle_func">              Fluxo de Empleados</a></li>               
             <li><a href="/relatorios/gastos">                     Gastos</a></li>
             <li><a href="/relatorios/historico_precos">           Historico de Precios</a></li>
             <li><a href="/stocks/iventario">                      Iventario</a></li>
+            <li><a href="/relatorios/metas">                      Metas</a></li>
             <li><a href="/relatorios/pedidos_vendas">             Pedido de Ventas</a></li>
             <li><a href="/proveedores">                           Pagar</a></li>
             <li><a href="/relatorios/pagos">                      Pagos</a></li>               
@@ -128,7 +143,7 @@
       </li>
       <% if current_user.tipo == 0 or current_user.tipo == 1  %>
          <li><a href="#">Contabilidad</a>
-            <ul>
+            <ul class="sub_menu">
                <li><a href="/diarios">                                 Asientos Contables</a></li>
                <li><a href="/contabilidades/generar_acientos_contables">   Generar Asientos Contables</a></li>
                <hr/>
@@ -153,7 +168,7 @@
 
       <% if current_user.tipo == 0 or current_user.tipo == 1  %>
          <li><a href="#">Sistema</a>
-            <ul>
+            <ul class="sub_menu">
                <li><a href="/unidades">                     Unidades</a></li>
                <li><a href="/usuarios">                     Usuarios</a></li>
                <li><a href="/suporte/comando">              Comando Soporte</a></li>

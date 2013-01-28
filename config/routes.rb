@@ -73,6 +73,15 @@ Zetta::Application.routes.draw do
   end
 
   #cadastros
+  resources :localizacaos
+  resources :produto_barras
+  resources :localidades
+  resources :metodos
+  resources :equipos
+  resources :servicos
+  resources :variavels
+  resources :elementos
+  resources :unidade_metricas
   resources :empresas
   resources :contas
   resources :sub_grupos
@@ -84,6 +93,8 @@ Zetta::Application.routes.draw do
   resources :clases
   resources :rodados
   resources :documentos
+  resources :metas
+  resources :meta_detalhes
   resources :planos
   resources :plano_de_contas do
     collection do
@@ -438,6 +449,8 @@ resources :pagares_detalhe
       get 'resultado_controle_visitas'
       get 'fluxo_caixa'
       get 'resultado_fluxo_caixa'
+      get 'metas'
+      get 'resultado_metas'
     end
   end
 
@@ -465,7 +478,22 @@ resources :financas do
       get 'resultado_extrato_bancario'      
     end  
   end
+  
+#safra
+  resources :safras
+  resources :safra_produtos do
+    member do
+      get 'descontos'
+    end
+  end
 
+  resources :safra_umidades
+  resources :safra_ardidos
+  resources :safra_verdosos
+  resources :safra_quebrados
+  resources :safra_averiados
+  resources :safra_impurezas
+  resources :safra_brotados
 
 #contabilidade
 resources :diarios do

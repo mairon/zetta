@@ -7,9 +7,6 @@ class CreateMeta < ActiveRecord::Migration
       t.integer :persona_id
       t.string :persona_nome
       t.integer :moeda
-      t.decimal :valor_dolar
-      t.decimal :valor_guarani
-      t.decimal :valor_real
 
       t.timestamps
     end

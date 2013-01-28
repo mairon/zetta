@@ -4,8 +4,8 @@ development:     #
   database: zetta
   pool: 5
   username: postgres
-  password: mai789789
-  host: localhost
+  password: di03051999
+  host: 192.168.0.50
   port: 5432
 
 test:            #

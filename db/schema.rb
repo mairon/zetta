@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130124182727) do
+=======
+ActiveRecord::Schema.define(:version => 20130121184044) do
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -838,6 +842,7 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
   create_table "controle_pulv_maqs", :force => true do |t|
     t.integer  "controle_pulv_id"
     t.date     "data"
+<<<<<<< HEAD
     t.integer  "hora_maq",                                                        :default => 0
     t.integer  "vazao_01",                                                        :default => 0
     t.integer  "vazao_02",                                                        :default => 0
@@ -845,10 +850,20 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
     t.string   "autonomia_02",      :limit => 100
     t.integer  "velocidade_01",                                                   :default => 0
     t.integer  "velocidade_02",                                                   :default => 0
+=======
+    t.integer  "hora_maq"
+    t.integer  "vazao_01"
+    t.integer  "vazao_02"
+    t.string   "autonomia_01"
+    t.string   "autonomia_02"
+    t.integer  "velocidade_01"
+    t.integer  "velocidade_02"
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.integer  "etiqueta"
     t.integer  "calibracao"
     t.integer  "regular"
     t.integer  "condicao_maq"
+<<<<<<< HEAD
     t.datetime "created_at",                                                                       :null => false
     t.datetime "updated_at",                                                                       :null => false
     t.integer  "rodado_id"
@@ -858,11 +873,16 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
     t.integer  "bico_02_id"
     t.string   "bico_02_nome",      :limit => 80
     t.decimal  "rodado_capacidade",                :precision => 15, :scale => 4, :default => 0.0
+=======
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "controle_pulvs", :force => true do |t|
     t.date     "data"
     t.integer  "persona_id"
+<<<<<<< HEAD
     t.decimal  "area",                          :precision => 15, :scale => 3, :default => 0.0
     t.string   "direcao",        :limit => 120
     t.datetime "created_at",                                                                    :null => false
@@ -891,6 +911,13 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
     t.integer  "usuario_updated"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+=======
+    t.string   "persona_name", :limit => 150
+    t.decimal  "area",                        :precision => 15, :scale => 3, :default => 0.0
+    t.string   "direcao",      :limit => 120
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "depositos", :force => true do |t|
@@ -1505,6 +1532,7 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
     t.decimal  "valor_max_rs"
     t.integer  "status"
     t.text     "descricao"
+<<<<<<< HEAD
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
@@ -1536,6 +1564,10 @@ ActiveRecord::Schema.define(:version => 20130124182727) do
     t.decimal  "preco_us",                    :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "preco_gs",                    :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "preco_rs",                    :precision => 15, :scale => 2, :default => 0.0
+=======
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "moedas", :force => true do |t|

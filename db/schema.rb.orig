@@ -12,10 +12,17 @@
 # It's strongly recommended to check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130124182727) do
 =======
 ActiveRecord::Schema.define(:version => 20130121184044) do
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+ActiveRecord::Schema.define(:version => 20130121184044) do
+=======
+ActiveRecord::Schema.define(:version => 20130124182727) do
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -820,6 +827,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "controle_pulv_id"
     t.date     "data"
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.integer  "hora_maq"
     t.integer  "vazao_01"
     t.integer  "vazao_02"
@@ -828,6 +836,8 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "velocidade_01"
     t.integer  "velocidade_02"
 =======
+=======
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.string   "modelo",           :limit => 100
     t.integer  "hora_maq",                        :default => 0
     t.string   "bico_01",          :limit => 100
@@ -838,12 +848,30 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.string   "autonomia_02",     :limit => 100
     t.integer  "velocidade_01",                   :default => 0
     t.integer  "velocidade_02",                   :default => 0
+<<<<<<< HEAD
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+=======
+    t.integer  "hora_maq"
+    t.integer  "vazao_01"
+    t.integer  "vazao_02"
+    t.string   "autonomia_01"
+    t.string   "autonomia_02"
+    t.integer  "velocidade_01"
+    t.integer  "velocidade_02"
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.integer  "etiqueta"
     t.integer  "calibracao"
     t.integer  "regular"
     t.integer  "condicao_maq"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+=======
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.datetime "created_at",                                                                      :null => false
     t.datetime "updated_at",                                                                      :null => false
     t.integer  "rodado_id"
@@ -853,16 +881,29 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "bico_02_id"
     t.string   "bico_02_nome",      :limit => 80
     t.decimal  "rodado_capacidade",               :precision => 15, :scale => 4, :default => 0.0
+<<<<<<< HEAD
 =======
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "controle_pulvs", :force => true do |t|
     t.date     "data"
     t.integer  "persona_id"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    t.string   "persona_name", :limit => 150
+    t.decimal  "area",                        :precision => 15, :scale => 3, :default => 0.0
+    t.string   "direcao",      :limit => 120
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
+=======
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.decimal  "area"
     t.string   "direcao"
     t.datetime "created_at",                    :null => false
@@ -891,6 +932,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "usuario_updated"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+<<<<<<< HEAD
 =======
     t.string   "persona_name", :limit => 150
     t.decimal  "area",                        :precision => 15, :scale => 3, :default => 0.0
@@ -898,6 +940,9 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.datetime "created_at",                                                                  :null => false
     t.datetime "updated_at",                                                                  :null => false
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "depositos", :force => true do |t|
@@ -1463,12 +1508,21 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "status"
     t.text     "descricao"
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
 =======
     t.datetime "created_at",                                                     :null => false
     t.datetime "updated_at",                                                     :null => false
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+=======
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "moedas", :force => true do |t|
@@ -2587,17 +2641,29 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "safra_id"
     t.integer  "produto_id"
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.decimal  "informado"
     t.decimal  "desconto"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
 =======
+=======
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
+<<<<<<< HEAD
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+=======
+    t.decimal  "informado"
+    t.decimal  "desconto"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.integer  "safra_produto_id"
   end
 
@@ -2761,6 +2827,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "sueldo_id"
     t.date     "data"
 <<<<<<< HEAD
+<<<<<<< HEAD
     t.decimal  "cotacao",                           :precision => 15, :scale => 2
     t.decimal  "valor_guarani",                     :precision => 15, :scale => 2
     t.decimal  "valor_dolar",                       :precision => 15, :scale => 2
@@ -2769,6 +2836,16 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.decimal  "valor_guarani",                      :precision => 15, :scale => 2
     t.decimal  "valor_dolar",                        :precision => 15, :scale => 2
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+    t.decimal  "cotacao",                            :precision => 15, :scale => 2
+    t.decimal  "valor_guarani",                      :precision => 15, :scale => 2
+    t.decimal  "valor_dolar",                        :precision => 15, :scale => 2
+=======
+    t.decimal  "cotacao",                           :precision => 15, :scale => 2
+    t.decimal  "valor_guarani",                     :precision => 15, :scale => 2
+    t.decimal  "valor_dolar",                       :precision => 15, :scale => 2
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.integer  "conta_id"
     t.string   "conta_nome"
     t.integer  "persona_id"
@@ -2787,7 +2864,10 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.date     "diferido"
     t.integer  "moeda"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
     t.string   "tipo",                :limit => 80
     t.date     "vencimento"
     t.string   "documento_numero_01", :limit => 10
@@ -2800,7 +2880,12 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.decimal  "debito_us",                          :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "debito_rs",                          :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "debito_gs",                          :precision => 15, :scale => 2, :default => 0.0
+<<<<<<< HEAD
 >>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+=======
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
   end
 
   create_table "suportes", :force => true do |t|

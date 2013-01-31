@@ -1,0 +1,33 @@
+development:     #
+  adapter: postgresql
+  encoding: unicode
+  database: zetta
+  pool: 5
+  username: postgres
+  password: di03051999
+<<<<<<< HEAD
+  host: localhost
+=======
+  host: 192.168.0.50
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
+  port: 5432
+
+test:            #
+  adapter: postgresql
+  encoding: unicode
+  database: zetta
+  pool: 5
+  username: postgres
+  password: di03051999
+  host: localhost
+  port: 5432
+
+production:      #
+  adapter: postgresql
+  encoding: unicode
+  database: zetta
+  pool: 5
+  username: postgres
+  password: mai789789
+  host: 192.168.0.50
+  port: 5432

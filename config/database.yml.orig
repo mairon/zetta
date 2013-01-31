@@ -1,15 +1,13 @@
-development:     #
+development:     #mai789789
   adapter: postgresql
   encoding: unicode
   database: enterprise
   pool: 5
   username: postgres
   password: di03051999
-<<<<<<< HEAD
   host: localhost
-=======
-  host: 192.168.0.50
->>>>>>> 1c836c1332211462e4445133d60285928eee6794
+  password: di03051999
+  host: localhost
   port: 5432
 
 test:            #

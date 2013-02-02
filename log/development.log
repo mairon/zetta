@@ -1,0 +1,149 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-02-02 17:59:47 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"2/2/2013"}
+  [1m[36mMoeda Load (1.9ms)[0m  [1mSELECT dolar_compra FROM "moedas" WHERE "moedas"."data" = '2/2/2013' LIMIT 1[0m
+Completed 500 Internal Server Error in 41ms
+
+NoMethodError (undefined method `dolar_compra' for nil:NilClass):
+  app/controllers/buscas_controller.rb:15:in `cotz_us_compra'
+
+
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (21.1ms)
+
+
+Started GET "/compras/new_gasto" for 127.0.0.1 at 2013-02-02 17:59:49 -0200
+Processing by ComprasController#new_gasto as HTML
+  [1m[35mSetor Load (2.2ms)[0m  SELECT id,nome FROM "setors" ORDER BY 1
+  [1m[36mForm Load (2.2ms)[0m  [1mSELECT "forms".* FROM "forms" LIMIT 1[0m
+  [1m[35mUnidade Load (2.1ms)[0m  SELECT id,unidade_nome FROM "unidades" ORDER BY 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT id,nome FROM "setors" ORDER BY 1[0m
+  [1m[35mRubro Load (4.9ms)[0m  SELECT id,descricao FROM "rubros" ORDER BY 2
+  [1m[36mRodado Load (1.8ms)[0m  [1mSELECT id,placa FROM "rodados" ORDER BY 2[0m
+  [1m[35mPersona Load (3.1ms)[0m  SELECT id,nome FROM "personas" WHERE (tipo_funcionario = 1) ORDER BY 1
+  [1m[36mDocumento Load (1.7ms)[0m  [1mSELECT id,nome FROM "documentos" ORDER BY 1[0m
+Compiled form_compra.js  (0ms)  (pid 8033)
+  Rendered compras/eps/_form_gasto_E02.html.erb (599.2ms)
+  Rendered compras/new_gasto.html.erb within layouts/application (635.0ms)
+Compiled scaffold.css  (0ms)  (pid 8033)
+Compiled button.css  (0ms)  (pid 8033)
+Compiled table.css  (0ms)  (pid 8033)
+Compiled select2.css  (0ms)  (pid 8033)
+Compiled dropdown.css  (0ms)  (pid 8033)
+Compiled application.css  (109ms)  (pid 8033)
+Compiled jquery.js  (4ms)  (pid 8033)
+Compiled jquery_ujs.js  (0ms)  (pid 8033)
+Compiled all.js  (0ms)  (pid 8033)
+Compiled select2.js  (1ms)  (pid 8033)
+Compiled jquery.maskMoney.js  (0ms)  (pid 8033)
+Compiled abas.js  (0ms)  (pid 8033)
+Compiled jquery.dropdownPlain.js  (0ms)  (pid 8033)
+Compiled application.js  (179ms)  (pid 8033)
+  [1m[35mUnidade Load (6.4ms)[0m  SELECT id,unidade_nome FROM "unidades" WHERE "unidades"."id" = $1 LIMIT 1  [["id", "1"]]
+  [1m[36mUsuario Load (4.1ms)[0m  [1mSELECT id,usuario_nome,tipo FROM "usuarios" WHERE "usuarios"."id" = $1 LIMIT 1[0m  [["id", "1"]]
+  Rendered layouts/_application_E03.html.erb (0.7ms)
+Completed 200 OK in 1196ms (Views: 952.6ms | ActiveRecord: 103.0ms)
+
+
+Started GET "/assets/scaffold.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /scaffold.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/button.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /button.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/table.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /table.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/select2.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /select2.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/dropdown.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /dropdown.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /application.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /jquery.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/all.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /all.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/select2.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /select2.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery.maskMoney.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /jquery.maskMoney.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/abas.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /abas.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.dropdownPlain.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /jquery.dropdownPlain.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /application.js - 304 Not Modified (6ms)
+
+
+Started GET "/assets/form_compra.js?body=1" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /form_compra.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/wbg.gif" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /wbg.gif - 304 Not Modified (10ms)
+
+
+Started GET "/assets/gray/toolbar/bg.gif" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Served asset /gray/toolbar/bg.gif - 304 Not Modified (5ms)
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"2/2/2013"}
+  [1m[35mMoeda Load (1.8ms)[0m  SELECT dolar_compra FROM "moedas" WHERE "moedas"."data" = '2/2/2013' LIMIT 1
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `dolar_compra' for nil:NilClass):
+  app/controllers/buscas_controller.rb:15:in `cotz_us_compra'
+
+
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.3ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (7.5ms)
+
+
+Started POST "/buscas/cotz_us_compra" for 127.0.0.1 at 2013-02-02 17:59:50 -0200
+Processing by BuscasController#cotz_us_compra as */*
+  Parameters: {"data"=>"2/2/2013"}
+  [1m[36mMoeda Load (2.2ms)[0m  [1mSELECT dolar_compra FROM "moedas" WHERE "moedas"."data" = '2/2/2013' LIMIT 1[0m
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `dolar_compra' for nil:NilClass):
+  app/controllers/buscas_controller.rb:15:in `cotz_us_compra'
+
+
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (0.9ms)
+  Rendered /Users/user/.rvm/gems/ruby-1.9.3-p327@rails3cp/gems/actionpack-3.2.11/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (6.5ms)

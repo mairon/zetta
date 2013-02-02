@@ -14,7 +14,18 @@
             <li><a href="/estados">                    Estados</a></li>
             <li><a href="/grupos">                     Grupos</a></li>
             <li><a href="/sub_grupos">                 Marca</a></li>
+<<<<<<< HEAD
+<<<<<<< HEAD
+            <li><a href="/metas">                      Meta</a></li>
+=======
             <li><a href="/metas">                      Metas</a></li>
+>>>>>>> 1c836c1332211462e4445133d60285928eee6794
+=======
+            <li><a href="/metas">                      Metas</a></li>
+=======
+            <li><a href="/metas">                      Meta</a></li>
+>>>>>>> f277663e7191f0757303da69c30fc8c757ca48f6
+>>>>>>> 42f5f869a1997488f41620723636d2c1658a446d
             <li><a href="/personas">                   Personas</a></li>
             <li><a href="/planos">                     Plan de Pagos</a></li>
             <li><a href="/paises">                     Paises</a></li>

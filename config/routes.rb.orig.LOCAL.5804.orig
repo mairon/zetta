@@ -1,25 +1,52 @@
 Zetta::Application.routes.draw do
 
+<<<<<<< HEAD
+=======
   resources :metas
+
   resources :meta_detalhes
-  
-  #safra
-  resources :safras
+
+  resources :variavels
+
+  resources :elementos
+
+  resources :localizacaos
+
+  resources :produto_barras
+
+  resources :unidade_metricas
+
+  resources :localidades
+
+  resources :metodos
+
+  resources :equipos
+
   resources :safra_brotados
+
   resources :servicos
+
   resources :safra_ardidos
+
   resources :safra_verdosos
+
   resources :safra_quebrados
+
   resources :safra_averiados
-  resources :safra_umidades
+
   resources :safra_impurezas
-  
+
   resources :safra_produtos do
     member do
       get 'descontos'
     end
   end 
 
+  resources :safra_umidades
+
+  resources :safras
+
+>>>>>>> 1c836c1332211462e4445133d60285928eee6794
   match 'zetta' => 'logins#new'
   match 'menu'  => 'menus#index'
 

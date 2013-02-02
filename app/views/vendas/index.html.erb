@@ -1,7 +1,7 @@
 <body onload="VendaCampoFiltro()">
    <h1 align="right" id="header">Vendas</h1>
    <div class="acessos">   
-   <%= link_to 'Ventas', {:action => 'new_balcao'}, :popup => ['new_window','height=1100,width=1500'], :class => 'button add' %>
+   <%= link_to 'Ventas', {:action => Form.last.venda_index_new}, :popup => ['new_window','height=1100,width=1500'], :class => 'button add' %>
    </div>
    <div class="group">
       <h2>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121184044) do
+ActiveRecord::Schema.define(:version => 20130202144950) do
 
   create_table "adelantos", :force => true do |t|
     t.datetime "created_at"
@@ -791,11 +791,6 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.decimal  "total_guarani",                  :precision => 15, :scale => 2
   end
 
-  create_table "conta", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "contas", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -814,18 +809,22 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.string   "cod_contabil",    :limit => 50
     t.integer  "rubro_id"
     t.string   "rubro_nome"
+    t.integer  "venda",           :limit => 2
   end
 
   create_table "controle_pulv_maqs", :force => true do |t|
     t.integer  "controle_pulv_id"
     t.date     "data"
-    t.integer  "hora_maq"
-    t.integer  "vazao_01"
-    t.integer  "vazao_02"
-    t.string   "autonomia_01"
-    t.string   "autonomia_02"
-    t.integer  "velocidade_01"
-    t.integer  "velocidade_02"
+    t.string   "modelo",           :limit => 100
+    t.integer  "hora_maq",                        :default => 0
+    t.string   "bico_01",          :limit => 100
+    t.string   "bico_02",          :limit => 100
+    t.integer  "vazao_01",                        :default => 0
+    t.integer  "vazao_02",                        :default => 0
+    t.string   "autonomia_01",     :limit => 100
+    t.string   "autonomia_02",     :limit => 100
+    t.integer  "velocidade_01",                   :default => 0
+    t.integer  "velocidade_02",                   :default => 0
     t.integer  "etiqueta"
     t.integer  "calibracao"
     t.integer  "regular"
@@ -1210,6 +1209,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.string   "form_gastos",         :limit => 100
     t.string   "form_venda_produtos"
     t.string   "form_venda_financa"
+    t.string   "venda_index_new"
   end
 
   create_table "grupos", :force => true do |t|
@@ -1374,6 +1374,17 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.datetime "updated_at"
   end
 
+  create_table "meta", :force => true do |t|
+    t.date     "data"
+    t.date     "periodo_inicio"
+    t.date     "periodo_final"
+    t.integer  "persona_id"
+    t.string   "persona_nome"
+    t.integer  "moeda"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "meta_detalhes", :force => true do |t|
     t.integer  "meta_id"
     t.integer  "persona_id"
@@ -1448,6 +1459,27 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "usuario_updated"
     t.integer  "unidade_created"
     t.integer  "unidade_updated"
+  end
+
+  create_table "nota_credito_proveedor_aplics", :force => true do |t|
+    t.integer  "nota_credito_proveedor_id"
+    t.date     "data"
+    t.integer  "persona_id"
+    t.string   "persona_nome",              :limit => 150
+    t.string   "documento_numero_01",       :limit => 10
+    t.string   "documento_numero_02",       :limit => 10
+    t.string   "documento_numero",          :limit => 30
+    t.string   "cota",                      :limit => 5
+    t.decimal  "valor_dolar",                              :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_guarani",                            :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "valor_real",                               :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "moeda"
+    t.integer  "clase_produto"
+    t.integer  "tipo"
+    t.integer  "liquidacao"
+    t.integer  "vencimento"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "nota_credito_proveedor_produtos", :force => true do |t|
@@ -2063,6 +2095,7 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "usuario_updated"
     t.string   "descricao",       :limit => 200
     t.string   "codigo",          :limit => 20
+    t.integer  "rubro",           :limit => 2
   end
 
   create_table "planos", :force => true do |t|
@@ -2209,6 +2242,14 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "sub_grupo_id"
     t.integer  "deposito_id"
     t.string   "deposito_nome",      :limit => 150
+  end
+
+  create_table "produto_barras", :force => true do |t|
+    t.integer  "produto_id"
+    t.string   "produto_nome"
+    t.string   "barra"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "produto_composicaos", :force => true do |t|
@@ -2422,6 +2463,28 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "estado"
   end
 
+  create_table "reclassif_stocks", :force => true do |t|
+    t.date     "data"
+    t.integer  "produto_id"
+    t.string   "produto_nome",      :limit => 250
+    t.integer  "deposito_id"
+    t.string   "deposito_nome",     :limit => 100
+    t.integer  "clase_id"
+    t.integer  "grupo_id"
+    t.decimal  "quantidade",                       :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "custo_dolar",                      :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "custo_guarani",                    :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "custo_real",                       :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "ant_quantidade",                   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "ant_custo_dolar",                  :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "ant_custo_guarani",                :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "ant_custo_real",                   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "cotacao",                          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "cotacao_real",                     :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rodados", :force => true do |t|
     t.string   "placa",       :limit => 50
     t.string   "marcao",      :limit => 100
@@ -2469,40 +2532,44 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safra_averiados", :force => true do |t|
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safra_brotados", :force => true do |t|
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safra_impurezas", :force => true do |t|
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safra_produtos", :force => true do |t|
@@ -2517,16 +2584,18 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safra_umidades", :force => true do |t|
     t.integer  "safra_id"
     t.integer  "produto_id"
     t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
@@ -2537,18 +2606,19 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "safra_produto_id"
     t.integer  "safra_id"
     t.integer  "produto_id"
-    t.decimal  "informado"
-    t.decimal  "desconto"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.decimal  "informado",        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "decimal",          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "desconto",         :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
   end
 
   create_table "safras", :force => true do |t|
-    t.string   "descricao"
+    t.string   "descricao",  :limit => 50
     t.date     "inicio"
     t.date     "final"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "servicos", :force => true do |t|
@@ -2682,7 +2752,9 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.decimal  "ci",              :precision => 15, :scale => 2
     t.decimal  "ips",             :precision => 15, :scale => 2
     t.integer  "compra_id"
-    t.decimal  "saldo",           :precision => 15, :scale => 2
+    t.date     "data_inicio"
+    t.date     "data_final"
+    t.integer  "moeda"
   end
 
   create_table "sueldos_detalhes", :force => true do |t|
@@ -2693,6 +2765,8 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.integer  "sueldo_id"
     t.date     "data"
     t.decimal  "cotacao",                            :precision => 15, :scale => 2
+    t.decimal  "valor_guarani",                      :precision => 15, :scale => 2
+    t.decimal  "valor_dolar",                        :precision => 15, :scale => 2
     t.integer  "conta_id"
     t.string   "conta_nome"
     t.integer  "persona_id"
@@ -2701,30 +2775,27 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
     t.datetime "updated_at"
     t.integer  "estado"
     t.integer  "documento_id"
-    t.string   "documento_nome",     :limit => 200
+    t.string   "documento_nome",      :limit => 200
     t.integer  "rubro_id"
-    t.string   "rubro_nome",         :limit => 150
+    t.string   "rubro_nome",          :limit => 150
     t.integer  "rubro_cod_contabil"
     t.string   "descricao"
     t.integer  "compra_id"
-    t.string   "cheque",             :limit => 50
+    t.string   "cheque",              :limit => 50
     t.date     "diferido"
     t.integer  "moeda"
-    t.integer  "dias"
-    t.decimal  "porcentagem",                        :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "cotacao_real",                       :precision => 15, :scale => 2, :default => 0.0
-    t.string   "tipo",                :limit => 50
-    t.decimal  "credito_us",                         :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "credito_gs",                         :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "credito_rs",                         :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "debito_us",                          :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "debito_gs",                          :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "debito_rs",                          :precision => 15, :scale => 2, :default => 0.0
+    t.string   "tipo",                :limit => 80
     t.date     "vencimento"
-    t.string   "documento_numero_01", :limit => 5
-    t.string   "documento_numero_02", :limit => 5
-    t.string   "documento_numero",    :limit => 15
-    t.string   "cota",                :limit => 5
+    t.string   "documento_numero_01", :limit => 10
+    t.string   "documento_numero_02", :limit => 10
+    t.string   "documento_numero",    :limit => 100
+    t.integer  "cota"
+    t.decimal  "credito_us",                         :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "credito_rs",                         :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "credito_gs",                         :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "debito_us",                          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "debito_rs",                          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "debito_gs",                          :precision => 15, :scale => 2, :default => 0.0
   end
 
   create_table "suportes", :force => true do |t|
@@ -2866,10 +2937,10 @@ ActiveRecord::Schema.define(:version => 20130121184044) do
   end
 
   create_table "unidade_metricas", :force => true do |t|
-    t.string   "nome"
-    t.string   "sigla"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "nome",       :limit => 100
+    t.string   "sigla",      :limit => 10
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "unidades", :force => true do |t|

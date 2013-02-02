@@ -22,221 +22,7 @@ class VendasController < ApplicationController
     redirect_to("/vendas/"<< @venda.id.to_s<< '/vendas_financa')
   end
   
-  #busca_pedido
-  def get_pedido
-      pedido =  Presupuesto.find(:first, :conditions =>  [ "id = ?", params[:venda_pedido_id]])
 
-      return render :text => "<script type='text/javascript'>
-                                if (#{pedido.status} == 0){
-                                  document.getElementById('venda_vendedor_nome').value   = '#{pedido.vendedor_nome.to_i}';                                  
-                                  document.getElementById('codigo').value                = '#{pedido.persona_id.to_i}';
-                                  document.getElementById('venda_persona_id').value    = '#{pedido.persona_id}';
-                                  document.getElementById('venda_persona_nome').value    = '#{pedido.persona_nome}';
-                                  document.getElementById('venda_limite_credito').value  = '#{pedido.limite_credito}';
-                                  document.getElementById('venda_ruc').value             = '#{pedido.ruc}';                                                                                                                                          
-                                }
-                                else {
-                                  alert('Pedido Ja Facturado ou Cancelado')
-                                  document.getElementById('venda_pedido_id').focus();                        
-
-                                }
-                            </script>"
-  end
-  
-  def get_plano                           #
-      @venda = Venda.find(params[:id])
-
-      plano =  Plano.find(:first, :conditions =>  [ "id = ?", params[:codigo]])
-      
-      @produto_sum_dolar   = VendasProduto.sum('unitario_dolar * quantidade',:conditions => ['venda_id = ?',params[:id]] )
-      @produto_sum_guarani = VendasProduto.sum('unitario_guarani * quantidade',:conditions => ['venda_id = ?',params[:id]] )
-      if @venda.tipo_maiorista.to_i == 0
-        if plano.status == 0
-        
-          data    = @venda.data + plano.periodo.to_i   
-          periodo = plano.periodo.to_i
-          taxa    = plano.periodo.to_i * plano.taxa.to_f
-          int_us  = ( @produto_sum_dolar.to_f * taxa ) / 100  
-          int_gs  = ( @produto_sum_guarani.to_f * taxa ) / 100  
-          tot_us  = ( @produto_sum_dolar.to_f + int_us.to_f )
-          tot_gs  = ( @produto_sum_guarani.to_f + int_gs.to_f )
-
-        else
-
-          data    = ("#{plano.ano}-#{plano.mes}-#{@venda.data.to_date.strftime("%d")}" ).to_date   
-          periodo = ("#{plano.ano}-#{plano.mes}-#{@venda.data.to_date.strftime("%d")}" ).to_date - @venda.data   
-          taxa    = periodo.to_i * plano.taxa.to_f
-          int_us  = ( @produto_sum_dolar.to_f * taxa ) / 100  
-          int_gs  = ( @produto_sum_guarani.to_f * taxa ) / 100
-           
-          tot_us  = ( @produto_sum_dolar.to_f + int_us.to_f )
-          tot_gs  = ( @produto_sum_guarani.to_f + int_gs.to_f )
-         
-        end
-      else
-       
-          data    = ("#{plano.ano}-#{plano.mes}-#{@venda.data.to_date.strftime("%d")}" ).to_date   
-          periodo = ("#{plano.ano}-#{plano.mes}-#{@venda.data.to_date.strftime("%d")}" ).to_date - @venda.data   
-          taxa    = periodo.to_i * plano.taxa.to_f
-          int_us  = 0  
-          int_gs  = 0             
-          tot_us  = ( @produto_sum_dolar.to_f + int_us.to_f )
-          tot_gs  = ( @produto_sum_guarani.to_f + int_gs.to_f )
-
-      end    
-     
-      return render :text => "<script type='text/javascript'>
-                            document.getElementById('vendas_financa_plano_id').value           = '#{plano.id.to_i}';
-                            document.getElementById('vendas_financa_plano_condicao').value     = '#{plano.condicao}';
-                            document.getElementById('vendas_financa_plano_taxa').value         = '#{plano.taxa.to_f}';
-                            document.getElementById('vendas_financa_plano_status').value       = '#{plano.status.to_i}';
-                            document.getElementById('vendas_financa_plano_periodo').value      = '#{periodo}';
-                            document.getElementById('vendas_financa_interes_us').value         = number_format(#{int_us},2, ',', '.');
-                            document.getElementById('vendas_financa_interes_gs').value         = number_format(#{int_gs},0  , ',', '.');
-                            document.getElementById('vendas_financa_cota_dolar_01').value      = number_format(#{tot_us},2, ',', '.');
-                            document.getElementById('vendas_financa_cota_guarani_01').value    = number_format(#{tot_gs},0  , ',', '.');
-                            document.getElementById('vendas_financa_plano_data').value         = '#{plano.ano}-#{plano.mes}-#{@venda.data.strftime("%d")}';
-                            document.getElementById('vendas_financa_data_cota_01_3i').value    = '#{data.strftime("%d").to_i}';
-                            document.getElementById('vendas_financa_data_cota_01_2i').value    = '#{data.strftime("%m").to_i}';
-                            document.getElementById('vendas_financa_data_cota_01_1i').value    = '#{data.strftime("%Y").to_i}';
-
-                            </script>"
-  end
-
-
-  def get_codigo_barra_produto             #
-      @venda   = Venda.find(params[:id])
-      @produto = Produto.first( :conditions =>  [ "fabricante_cod = ?", params[:codigo]])
-      @stock   = Stock.sum('entrada - saida',:conditions => ["produto_id = ? AND DEPOSITO_ID = #{params[:deposito_id]}",@produto.id] )
-
-      if @venda.tipo_maiorista == 0
-          preco_dolar   = @produto.preco_venda_dolar.to_f
-          preco_guarani = @produto.preco_venda_guarani.to_f
-          preco_real    = @produto.preco_venda_real.to_f
-      elsif @venda.tipo_maiorista == 1
-          preco_dolar   = @produto.preco_maiorista_dolar.to_f
-          preco_guarani = @produto.preco_maiorista_guarani.to_f
-      else
-          preco_dolar   = @produto.preco_minorista_dolar.to_f
-          preco_guarani = @produto.preco_minorista_guarani.to_f
-      end
-
-      return render :text => "<script type='text/javascript'>
-                                document.getElementById('venda_produto_produto_busca_').value            = '#{@produto.nome.to_s}';
-                                document.getElementById('vendas_produto_produto_nome').value             = '#{@produto.nome.to_s}';
-                                document.getElementById('vendas_produto_produto_cod').value              = '#{@produto.cod_velho.to_i}';
-                                document.getElementById('vendas_produto_produto_id').value               = '#{@produto.id.to_i}';
-                                document.getElementById('vendas_produto_codigo').value                   = '#{@produto.codigo.to_i}';
-                                document.getElementById('vendas_produto_clase_id').value                 = '#{@produto.clase_id.to_i}';
-                                document.getElementById('vendas_produto_grupo_id').value                 = '#{@produto.grupo_id.to_i}';
-                                document.getElementById('vendas_produto_tipo').value                     = '#{@produto.tipo.to_i}';
-                                document.getElementById('vendas_produto_desconto').value                 = '#{@produto.desconto.to_i}';
-                                document.getElementById('vendas_produto_unitario_dolar').value           = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_unitario_guarani').value         = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_unitario_real').value            = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_dolar').value              = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_guarani').value            = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_preco_real').value               = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_fixo_dolar').value         = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_fixo_guarani').value       = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_preco_fixo_real').value          = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_saldo').value                    = '#{@stock}';
-                                document.getElementById('vendas_produto_taxa').value                     = '#{@produto.taxa.to_i}';
-                                 if ( '#{@stock}' <= 0 )
-                                   {
-                                    document.getElementById('red').innerHTML                             =  '<span>'+'#{@stock}'+'</span>' ;
-                                    document.getElementById('green').innerHTML                           =  '' ;
-                                   }
-                                 else
-                                   {
-                                    document.getElementById('green').innerHTML                           =  '<span>'+'#{@stock}'+'</span>' ;
-                                    document.getElementById('red').innerHTML                             =  '' ;
-                                   }
-                              </script>"
-  end
-
-  def get_produto                          #
-
-      @venda = Venda.find(params[:id])
-
-      @produto =  Produto.find(:first, :conditions =>  [ "nome = ?", params[:produto_busca]])
-
-      @stock    = Stock.sum('entrada - saida',:conditions => ["produto_id = ? AND DEPOSITO_ID = #{params[:deposito_id]}",@produto.id] )
-
-      if @venda.tipo_maiorista == 0
-          preco_dolar   = @produto.preco_venda_dolar.to_f
-          preco_guarani = @produto.preco_venda_guarani.to_f
-          preco_real    = @produto.preco_venda_real.to_f
-      elsif @venda.tipo_maiorista == 1
-          preco_dolar   = @produto.preco_maiorista_dolar.to_f
-          preco_guarani = @produto.preco_maiorista_guarani.to_f
-      else
-          preco_dolar   = @produto.preco_minorista_dolar.to_f
-          preco_guarani = @produto.preco_minorista_guarani.to_f
-      end
-
-
-      return render :text => "<script type='text/javascript'>
-                                document.getElementById('venda_produto_produto_busca_').value            = '#{@produto.nome.to_s}';
-                                document.getElementById('vendas_produto_produto_nome').value             = '#{@produto.nome.to_s}';
-                                document.getElementById('vendas_produto_produto_cod').value              = '#{@produto.cod_velho.to_i}';
-                                document.getElementById('vendas_produto_produto_id').value               = '#{@produto.id.to_i}';
-                                document.getElementById('vendas_produto_codigo').value                   = '#{@produto.codigo.to_i}';
-                                document.getElementById('vendas_produto_clase_id').value                 = '#{@produto.clase_id.to_i}';
-                                document.getElementById('vendas_produto_grupo_id').value                 = '#{@produto.grupo_id.to_i}';
-                                document.getElementById('vendas_produto_tipo').value                     = '#{@produto.tipo.to_i}';
-                                document.getElementById('vendas_produto_desconto').value                 = '#{@produto.desconto.to_i}';
-                                document.getElementById('vendas_produto_unitario_dolar').value           = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_unitario_guarani').value         = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_unitario_real').value            = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_dolar').value              = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_guarani').value            = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_preco_real').value               = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_fixo_dolar').value         = number_format( #{preco_dolar},2, ',', '.')
-                                document.getElementById('vendas_produto_preco_fixo_guarani').value       = number_format( #{preco_guarani},0, ',', '.');
-                                document.getElementById('vendas_produto_preco_fixo_real').value          = number_format( #{preco_real},2, ',', '.')
-                                document.getElementById('vendas_produto_saldo').value                    = '#{@stock}';
-                                document.getElementById('vendas_produto_taxa').value                     = '#{@produto.taxa.to_i}';
-                                 if ( '#{@stock}' <= 0 )
-                                   {
-                                    document.getElementById('red').innerHTML                             =  '<span>'+'#{@stock}'+'</span>' ;
-                                    document.getElementById('green').innerHTML                           =  '' ;
-                                   }
-                                 else
-                                   {
-                                    document.getElementById('green').innerHTML                           =  '<span>'+'#{@stock}'+'</span>' ;
-                                    document.getElementById('red').innerHTML                             =  '' ;
-                                   }
-                              </script>"
-  end
-
-  def get_moeda                            #
-      @moeda =  Moeda.find(:first, :conditions =>  [ "data = ?", params[:key]])
-      return render :text => "<script type='text/javascript'>
-                            document.getElementById('venda_cotacao').value       = '#{@moeda.dolar_compra.to_i}';
-                          </script>"
-  end
-
-
-  def get_moeda_real            #
-      @moeda =  Moeda.find(:first,:select => 'real_venda', :conditions =>  [ "data = ?", params[:key]])
-      return render :text => "<script type='text/javascript'>
-                             document.getElementById('venda_cotacao_real').value       = '#{@moeda.real_venda.to_i}';
-                          </script>"
-  end
-
-
-  def get_cliente                          #
-      @cliente =  Persona.find(:first, :conditions =>  [ "nome = ?", params[:persona_busca]])
-      return render :text => "<script type='text/javascript'>
-                            document.getElementById('vendas_financa_persona_nome').value       = '#{@cliente.nome.to_s}';
-                            document.getElementById('vendas_financa_persona_id').value         = '#{@cliente.id.to_i}';
-                            document.getElementById('vendas_financa_ruc').value                = '#{@cliente.ruc.to_s}';
-                            document.getElementById('vendas_financa_direcao').value            = '#{@cliente.direcao.to_s}';
-                            document.getElementById('vendas_financa_cidade_id').value          = '#{@cliente.cidade_id.to_i}';
-                            document.getElementById('vendas_financa_bairro').value             = '#{@cliente.bairro.to_s}';
-                          </script>"
-  end
 
   def novo_produto                         #
       @venda = Venda.find(params[:id])
@@ -278,7 +64,7 @@ class VendasController < ApplicationController
       @produto_iva_dolar   = VendasProduto.sum('iva_dolar * quantidade',:conditions => ['venda_id = ?',params[:id]] )
       @count               = VendasFinanca.count(:id,:conditions => ['venda_id = ? AND tipo = 1',params[:id]] )
       @count_all           = VendasFinanca.count(:id,:conditions => ['venda_id = ?',params[:id]] )
-      render :layout => 'vendas'
+      render :layout => 'layout_vendas'
   end
 
   def vendas_financa_contado               #
@@ -289,7 +75,7 @@ class VendasController < ApplicationController
       @produto_iva_guarani = VendasProduto.sum('iva_guarani * quantidade',:conditions => ['venda_id = ?',params[:id]] )
       @cota_count          = VendasFinanca.count(:id,:conditions => ['venda_id = ?',params[:id]] )
       @cota_total          = @cota_count +1
-      render :layout => 'vendas'
+      render :layout => 'layout_vendas'
   end
 
   def novo_financa                         #
@@ -429,12 +215,12 @@ class VendasController < ApplicationController
 
       @vfcr  =  VendasFinanca.find_all_by_venda_id(params[:id], :conditions => ['tipo = 1'])
 
-      render :layout => 'vendas'
+      render :layout => 'layout_vendas'
   end
 
   def new                                  #
       @venda = Venda.new
-      render :layout => 'vendas'
+      render :layout => 'layout_vendas'
   end
 
   def new_balcao                                  
@@ -456,7 +242,7 @@ class VendasController < ApplicationController
 
   def edit                                 #
       @venda = Venda.find(params[:id])
-      render :layout => 'vendas'
+      render :layout => 'layout_vendas'
       session[:pagina] = '1'
   end
 

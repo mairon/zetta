@@ -100,10 +100,160 @@ class Relatorios < ActiveRecord::Base
     empregado  = "AND persona_id = '#{params[:busca]["empregado"]}'" unless params[:busca]["empregado"].blank?
     rodado     = "AND rodado_id = '#{params[:busca]["rodados"]}'" unless params[:busca]["rodados"].blank?
     rubro      = "AND rubro_id = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank?
+    rubro_ori  = "AND RUBRO_INICIO_ID = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank?
+    rubro_dest = "AND RUBRO_FINAL_ID = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank? 
+    tipo_gasto = "AND tipo_gasto = #{params[:tipo_gasto]}" unless params[:tipo_gasto].blank?
+
+    obra       = "AND ob_ref = '#{params[:busca]["obra"]}'" unless params[:busca]["obra"].blank?
+    obra_ori   = "AND OBRA_ORIGEM = '#{params[:busca]["obra"]}'" unless params[:busca]["obra"].blank?
+    obra_dest  = "AND OBRA_DESTINO = '#{params[:busca]["obra"]}'" unless params[:busca]["obra"].blank?
+    prov       = "AND persona_id = '#{params[:busca]["prov"]}'" unless params[:busca]["prov"].blank?
+    unid       = "AND unidade_id = '#{params[:busca]["unidade"]}'" unless params[:busca]["unidade"].blank?
+    st         = "AND clase_produto in (#{params[:setores].join(',')})"  unless params[:setores].blank?
+
+    if params[:status].to_s == "0"
+        status = " AND TIPO = 0"      
+    elsif params[:status].to_s == "1"
+        status = "AND TIPO = 1"      
+    else
+        status = ""      
+    end
+
+        if params[:lancamento].to_s != "1"
+           if params[:moeda] == "0"
+              moeda = "AND MOEDA = 0"
+           elsif params[:moeda] == "1"
+              moeda = "AND MOEDA = 1"
+            else
+              moeda = "AND MOEDA = 2"
+           end
+        end
+
+
+    if params[:moeda].to_s == "0"
+      tt    = "TOTAL_DOLAR"
+      vl    = "VALOR_DOLAR"
+    elsif params[:moeda] == "1"
+      tt    = "TOTAL_GUARANI"
+      vl    = "VALOR_GUARANI"
+    else
+      tt    = "TOTAL_REAL"
+      vl    = "VALOR_REAL"      
+    end
+    #DETALHADO
+    if params[:tp] == "0" or params[:tp] == "2" 
+      sql = "SELECT ID,
+                    OB_REF,
+                    TOTAL_REAL,
+                    (SELECT S.SIGLA FROM SETORS S WHERE S.ID = CLASE_PRODUTO) AS SETOR,
+                    UNIDADE_ID,
+                    PERSONA_ID,
+                    PERSONA_NOME,
+                    DATA,
+                    DOCUMENTO_NUMERO_01,
+                    DOCUMENTO_NUMERO_02,
+                    DOCUMENTO_NUMERO,
+                    RUBRO_DESCRICAO,
+                    TOTAL_DOLAR,
+                    TOTAL_GUARANI,
+                    RODADO_NOME,
+                    CLASE_PRODUTO,
+                    QTD
+            FROM COMPRAS
+            WHERE
+                    TIPO_COMPRA = 1 
+                    AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' 
+                    #{moeda}
+                    #{tipo_gasto}  
+                    #{empregado} 
+                    #{rodado} 
+                    #{rubro} 
+                    #{status} 
+                    #{obra} 
+                    #{prov} 
+                    #{unid} 
+                    #{st}
+            ORDER BY 8,5,16"
+
+      Compra.find_by_sql(sql)
+
+    #RESUMIDO POR RUBRO
+    elsif params[:tp].to_s == "1"#{unid}
+      sql = "SELECT R.ID,
+                    R.DESCRICAO,
+                    ( SELECT SUM(#{tt}) FROM COMPRAS WHERE TIPO_COMPRA = 1 AND  RUBRO_ID = R.ID #{moeda} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{tipo_gasto}  #{empregado} #{rodado} #{rubro} #{status} #{obra} #{prov} #{unid} #{st}) AS TOTAL_COMPRA
+                 FROM RUBROS R
+                ORDER BY 3"
+      Compra.find_by_sql(sql)
+    #RESUMIDO POR OBRA  
+    else
+      sql ="SELECT OBRA,RUBRO_ID,RUBRO_DESC, SUM(TOT) AS TOTAL, SUM(DEB_US) AS DEB_US, SUM(DEB_GS) AS DEB_GS, SUM(CRED_US) AS CRED_US, SUM(CRED_GS) AS CRED_GS
+                  FROM( 
+                    SELECT 
+                     OB_REF  AS OBRA,
+                     RUBRO_ID AS RUBRO_ID,
+                     RUBRO_DESCRICAO AS RUBRO_DESC,
+                     SUM(#{tt}) AS TOT,
+                     SUM(0) AS DEB_US,
+                     SUM(0) AS DEB_GS,
+                     SUM(0) AS CRED_US,
+                     SUM(0) AS CRED_GS
+
+                    FROM COMPRAS
+                    WHERE TIPO_COMPRA = 1 #{moeda} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{obra} #{rubro} #{rodado}
+                    GROUP BY 1, 2, 3
+
+                    UNION ALL
+
+                    SELECT 
+                     OBRA_ORIGEM AS OBRA,
+                     RUBRO_INICIO_ID AS RUBRO_ID,
+                     RUBRO_INICIO_NOME AS RUBRO_DESC,
+                     SUM(0) AS TOT,
+                     SUM(VALOR_DOLAR) AS DEB_US,
+                     SUM(VALOR_GUARANI) AS DEB_GS,
+                     SUM(0) AS CRED_US,
+                     SUM(0) AS CRED_GS
+                     
+                    FROM LIQUIDACAO_CUSTOS
+                    WHERE DATA_FINAL BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{moeda} #{obra_ori} #{rubro_ori} #{rodado}
+                    GROUP BY 1, 2, 3
+
+                    UNION ALL
+
+                    SELECT 
+                     OBRA_DESTINO AS OBRA,
+                     RUBRO_FINAL_ID AS RUBRO_ID,
+                     RUBRO_FINAL_NOME AS RUBRO_DESC,
+                     SUM(0) AS TOT,
+                     SUM(0) AS DEB_US,
+                     SUM(0) AS DEB_GS,
+                     SUM(VALOR_DOLAR) AS CRED_US,
+                     SUM(VALOR_GUARANI) AS CRED_GS
+                     
+                    FROM LIQUIDACAO_CUSTOS
+                    WHERE DATA_FINAL BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{moeda} #{obra_dest} #{rubro_dest} #{rodado}
+                    GROUP BY 1, 2, 3
+
+                  ) as a
+                  group by 1, 2, 3
+                  order by 1, 2, 3"
+      Compra.find_by_sql(sql)
+
+    end
+  end
+
+  #agrupado por setor
+  def self.agrupado_setor(params)                          #
+
+    empregado  = "AND persona_id = '#{params[:busca]["empregado"]}'" unless params[:busca]["empregado"].blank?
+    rodado     = "AND rodado_id = '#{params[:busca]["rodados"]}'" unless params[:busca]["rodados"].blank?
+    rubro      = "AND rubro_id = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank?
     tipo_gasto = "AND tipo_gasto = #{params[:tipo_gasto]}" unless params[:tipo_gasto].blank?
     obra       = "AND ob_ref = '#{params[:busca]["obra"]}'" unless params[:busca]["obra"].blank?
     prov       = "AND persona_id = '#{params[:busca]["prov"]}'" unless params[:busca]["prov"].blank?
     unid       = "AND unidade_id = '#{params[:busca]["unidade"]}'" unless params[:busca]["unidade"].blank?
+    st         = "AND clase_produto in (#{params[:setores].join(',')})"
 
     if params[:status].to_s == "0"
         status = " AND TIPO = 0"      
@@ -134,34 +284,38 @@ class Relatorios < ActiveRecord::Base
       tt    = "TOTAL_REAL"
       vl    = "VALOR_REAL"      
     end
-
-    if params[:tp] == "0" or params[:tp] == "2" 
-      Compra.all(:select => 'id, ob_ref,total_real,unidade_id,persona_id,persona_nome,data,documento_numero_01,documento_numero_02,documento_numero,rubro_descricao,total_dolar,total_guarani,rodado_nome',
-                 :conditions => [" TIPO_COMPRA = 1 #{moeda} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{tipo_gasto}  #{empregado} #{rodado} #{rubro} #{status} #{obra} #{prov} #{unid}" ], :order => 'data,documento_numero')
-
-    elsif params[:tp].to_s == "1"
-      sql = "SELECT R.ID,
-                    R.DESCRICAO,
-                    ( SELECT SUM(#{tt}) FROM COMPRAS WHERE TIPO_COMPRA = 1 AND  RUBRO_ID = R.ID #{moeda} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{tipo_gasto}  #{empregado} #{rodado} #{rubro} #{status} #{obra} #{prov} #{unid}) AS TOTAL_COMPRA
-                 FROM RUBROS R
-                ORDER BY 3"
-      Compra.find_by_sql(sql)
-    else
-
+    #AGRUPADO POR SETOR
       sql = "SELECT 
-                  OB_REF,
-                  RUBRO_ID,
-                  RUBRO_DESCRICAO,
-                  SUM(#{tt}) AS TOTAL
-             FROM COMPRAS
-            WHERE TIPO_COMPRA = 1 #{moeda} AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{tipo_gasto}  #{empregado} #{rodado} #{rubro} #{status} #{obra} #{prov} #{unid}
-            GROUP BY 
-                1,2,3                 
-            ORDER BY 1,2"
+
+                    CLASE_PRODUTO,
+                    (SELECT S.SIGLA FROM SETORS S WHERE S.ID = CLASE_PRODUTO) AS SETOR,
+                    (SELECT S.NOME FROM SETORS S WHERE S.ID = CLASE_PRODUTO) AS SETOR_NOME,
+                    COUNT(ID) AS TOT_ID,
+                    SUM(TOTAL_DOLAR) AS TOT_US,
+                    SUM(TOTAL_GUARANI) AS TOT_GS,
+                    SUM(TOTAL_REAL)  AS TOT_RS
+            FROM COMPRAS
+            WHERE
+                    TIPO_COMPRA = 1 
+                    AND data BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' 
+                    #{moeda}
+                    #{tipo_gasto}  
+                    #{empregado} 
+                    #{rodado} 
+                    #{rubro} 
+                    #{status} 
+                    #{obra} 
+                    #{prov} 
+                    #{unid} 
+                    #{st}            
+            GROUP BY
+                    1,2
+"
+
       Compra.find_by_sql(sql)
 
-    end
   end
+
 
   def self.compras(params)                         #
 
@@ -188,6 +342,7 @@ class Relatorios < ActiveRecord::Base
       moeda = "1"
     else
       moeda = "2"
+
     end
 
     clase_produto = "AND CLASE_PRODUTO = #{params[:clase_produto]}" unless params[:clase_produto].blank?
@@ -242,14 +397,16 @@ class Relatorios < ActiveRecord::Base
     persona = "AND persona_id = '#{params[:busca]["persona"]}'" unless params[:busca]["persona"].blank?
     status  = "AND tipo = '#{params[:status]}'" unless params[:status] == "3"
 
-    if params[:lancamento].to_s != "1"      
+    if params[:lancamento].to_s != "1"
+
       if params[:moeda] == "0"
         moeda = "AND moeda = 0"
-      elsif params[:moeda] == "1"        
+      elsif params[:moeda] == "1"
         moeda = "AND moeda = 1"
-      else 
+      else        
         moeda = "AND moeda = 2"
       end
+
     end
 
     sql = "SELECT 
@@ -334,54 +491,82 @@ class Relatorios < ActiveRecord::Base
   end
 
 
-def self.controle_visitas(params)
+def self.egressos(params)
 
-    persona = "AND C.PERSONA_ID = '#{params[:busca]["persona"]}'" unless params[:busca]["persona"].blank?
-    vend    = "AND C.CONSULTOR_ID = '#{params[:busca]["consultor"]}'" unless params[:busca]["consultor"].blank?
-    direc   = "AND C.CIDADE_ID = '#{params[:busca]["cidade"]}'" unless params[:busca]["cidade"].blank?
-    if params[:ordem] == '0'
-      order = "C.DATA,C.CONSULTOR_ID"
-    else
-      order = "C.PERSONA_ID,C.CONSULTOR_ID"
+    rubro = "AND E.RUBRO_ID = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank?
+    conta = "AND E.CONTA_ID = '#{params[:busca]["contas"]}'" unless params[:busca]["contas"].blank?
+    st    = "AND E.CLASE_PRODUTO in (#{params[:setores].join(',')})"  unless params[:setores].blank?
+
+    
+    if params[:lancamento].to_s != "1"
+      if params[:moeda] == "0"
+        moeda = "AND E.MOEDA = 0"
+      elsif params[:moeda] == "1"
+        moeda = "AND E.MOEDA = 1"
+      else
+        moeda = "AND E.MOEDA = 2"
+      end
     end
 
-    sql = "SELECT  C.DATA,
-                   C.CONSULTOR_NOME, 
-                   C.PERSONA_NOME, 
-                   C.SERVICO_NOME,
-                   C.CIDADE_NOME,
-                   C.NC,
-                   S.PERIODO
-            FROM CONTROLE_VISITA C 
-            INNER JOIN SERVICOS S
-            ON C.SERVICO_ID = S.ID
-            WHERE 
-            C.DATA BETWEEN '#{params[:inicio]}' AND '#{params[:final]}'
-            AND C.NC BETWEEN '#{params[:nc_inicio]}' AND '#{params[:nc_final]}'
-            #{persona} #{vend} #{direc}
-            ORDER BY #{order}"
+    sql = "SELECT 
+                  E.ID,
+                  E.DATA,
+                  E.CLASE_PRODUTO,
+                  S.SIGLA,
+                  E.MOEDA,
+                  E.RUBRO_NOME,
+                  E.CONTA_NOME,
+                  E.VALOR_GUARANI,
+                  E.VALOR_DOLAR,
+                  E.VALOR_REAL,
+                  E.CONCEPTO
+           FROM EGRESSOS E 
+           INNER JOIN SETORS S
+           ON E.CLASE_PRODUTO = S.ID
+           WHERE 
+                 E.DATA BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{rubro} #{conta} #{moeda} #{st}
+                 ORDER BY 2,1"
                  
-    Presupuesto.find_by_sql(sql)
+    Egresso.find_by_sql(sql)
   end
 
-  def self.resultado_metas(params)
-    persona = "AND PERSONA_ID = '#{params[:busca]["persona"]}'" unless params[:busca]["persona"].blank?
+def self.ingressos(params)
 
-    sql = "SELECT ID,
-                  PERIODO_INICIO,
-                  PERIODO_FINAL,
-                  MOEDA,
-                  VALOR_MIN_US,
-                  VALOR_MIN_GS,
-                  VALOR_MIN_RS,
-                  VALOR_MAX_US,
-                  VALOR_MAX_GS,
-                  VALOR_MAX_RS,
-                  DESCRICAO
-          FROM 
-                  METAS
-          WHERE PERIODO_INICIO BETWEEN '#{params[:inicio]}' AND '#{params[:final]}'"
-  Meta.find_by_sql(sql)                
+    rubro = "AND E.RUBRO_ID = '#{params[:busca]["rubro"]}'" unless params[:busca]["rubro"].blank?
+    conta = "AND E.CONTA_ID = '#{params[:busca]["contas"]}'" unless params[:busca]["contas"].blank?
+    st    = "AND E.CLASE_PRODUTO in (#{params[:setores].join(',')})"  unless params[:setores].blank?
+
+    
+    if params[:lancamento].to_s != "1"
+      if params[:moeda] == "0"
+        moeda = "AND E.MOEDA = 0"
+      elsif params[:moeda] == "1"
+        moeda = "AND E.MOEDA = 1"
+      else
+        moeda = "AND E.MOEDA = 2"
+      end
+    end
+
+    sql = "SELECT 
+                  E.ID,
+                  E.DATA,
+                  E.CLASE_PRODUTO,
+                  S.SIGLA,
+                  E.MOEDA,
+                  E.RUBRO_NOME,
+                  E.CONTA_NOME,
+                  E.VALOR_GUARANI,
+                  E.VALOR_DOLAR,
+                  E.VALOR_REAL,
+                  E.CONCEPTO
+           FROM INGRESSOS E 
+           INNER JOIN SETORS S
+           ON E.CLASE_PRODUTO = S.ID
+           WHERE 
+                 E.DATA BETWEEN '#{params[:inicio]}' AND '#{params[:final]}' #{rubro} #{conta} #{moeda} #{st}
+                 ORDER BY 2,1"
+                 
+    Ingresso.find_by_sql(sql)
   end
 
 end

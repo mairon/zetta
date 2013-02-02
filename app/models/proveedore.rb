@@ -1,13 +1,14 @@
 class Proveedore < ActiveRecord::Base
-
-    def before_create
+    before_create :calc
+    before_save :finds
+    def calc
         if self.documento_numero == ''
             self.documento_numero_01 = '000'
             self.documento_numero_02 = '000'
             self.documento_numero = '999'<< Cliente.count(:id).to_s
         end
     end 
-    def before_save
+    def finds
         @persona = Persona.find_by_id(self.persona_id);
         self.persona_nome = @persona.nome.to_s unless self.persona_id.blank?    
 

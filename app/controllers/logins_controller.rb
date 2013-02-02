@@ -8,9 +8,7 @@ class LoginsController < ApplicationController
 
   def new       
     session[:logged] = false
-    @vencimento = Login.new
 
-    @vencimento = Login.find(:last)
   end
 
   def create              
@@ -26,7 +24,6 @@ class LoginsController < ApplicationController
   end
 
   def logar      
-    @vencimento = Login.find(:last,:conditions => ["status != 2"])
 
     if session[:logged] and session[:unidade]
       redirect_to menu_path

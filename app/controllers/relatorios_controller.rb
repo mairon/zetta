@@ -7,7 +7,56 @@ class RelatoriosController < ApplicationController
                             </script>"
     end
 
-    
+    def resultado_relatorio_fechamento_turno        #
+        @fechamento_turnos = Relatorios.fechamento_turno(params)
+
+        head =
+        "                                                                                    #{$empresa_nome}
+                                                                                       Cierre de Turno
+    Fecha : #{params[:inicio]} hasta #{params[:final]}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Fecha             Turno                                                                 Inicio                                       Cierre                                    Total
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        "
+
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Pratic - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Cierre_Turno.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Cierre_Turno.xls')
+                }
+            end
+        end
+
+    end
+
     def resultado_fechamento_caixa                  #
 
         vendedor = "AND VENDEDOR_ID = #{params[:busca]['vendedor']}" unless  params[:busca]['vendedor'].blank?
@@ -40,24 +89,42 @@ class RelatoriosController < ApplicationController
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_fechamento_caixa",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Cierre_Caja.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Cierre_Caja.xls')
+                }
+            end
+        end
+
     end
 
     def resultado_vendas                            #
@@ -88,6 +155,7 @@ class RelatoriosController < ApplicationController
         "                                                   #{$empresa_nome}
                                                         Listado de Ventas
 - Fecha...: #{params[:inicio]} hasta #{params[:final]}
+- Secto...: #{find_setor.nome}
 - Moneda..: #{moeda}
 -----------------------------------------------------------------------------------------------------------------------------------------
    Lanz.      Fecha      Vendedor             Cliente                            Factura           Tipo            Cantidad         Total
@@ -95,26 +163,43 @@ class RelatoriosController < ApplicationController
 "
 
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_vendas",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_size  => "7" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :header_font_name  => 'Lucida Console, Courier, Monotype, bold',
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Ventas.pdf")
 
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Ventas.xls')
+                }
+            end
+        end
+
+    end
 
     def resultado_historico_precos                  #
 
@@ -132,24 +217,42 @@ class RelatoriosController < ApplicationController
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_historico_precos",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Historico_Preco.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Historico_Preco.xls')
+                }
+            end
+        end
+
     end
 
     def resultado_tabela_preco                      #
@@ -204,24 +307,42 @@ class RelatoriosController < ApplicationController
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_tabela_preco",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "7" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Tabela_Preco.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Tabela_Preco.xls')
+                }
+            end
+        end
+
     end
 
     def resultado_remicao                           #
@@ -241,24 +362,41 @@ class RelatoriosController < ApplicationController
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_remicao",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Remicao.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Remicao.xls')
+                }
+            end
+        end
 
     end
 
@@ -292,24 +430,42 @@ class RelatoriosController < ApplicationController
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_cheque_diferido",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "8" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enterprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Cheque_Diferido.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_cheque_diferido", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Cheque_Diferido.xls')
+                }
+            end
+        end
+
     end
 
     def resultado_gastos                            #
@@ -338,52 +494,74 @@ class RelatoriosController < ApplicationController
         end
         
         @gastos = Relatorios.gastos(params)
+        
         if params[:tp] == "0" or params[:tp] == "2" 
+            @group_setores = Relatorios.agrupado_setor(params)
         head =
-        "                                                                                   #{$empresa_nome}
-                                                                                                 Gastos
+        "                                                      #{$empresa_nome}
+                                                          Gastos
   - Fecha...: #{params[:inicio]} hasta #{params[:final]} Unidad..:#{params[:busca]['unidade']}
-  - Moneda.: #{moeda}
+  - Moneda..: #{moeda}
   - Tipo....: #{gasto}
-  - Rodado...: #{rd.placa unless params[:busca]["rodados"].blank? }
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Lanz. Unidad  Fecha   Nombre                                      Rubro                                                          Doc.             Rodado         Total
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  - Rodado..: #{rd.placa unless params[:busca]["rodados"].blank? }
+-----------------------------------------------------------------------------------------------------------------------------------------
+  Lanz. Unid. Sect.   Fecha   Nombre                          Rubro                                 Doc.        Rodado    Ctd.      Total
+-----------------------------------------------------------------------------------------------------------------------------------------
         "
        else
 
 
-        head =
-        "                                                                                          #{$empresa_nome}
-                                                                                                 Gastos Por Rubros
-  - Fecha  : #{params[:inicio]} hasta #{params[:final]}
-  - Moneda : #{moeda}
-  - Tipo   : #{gasto}
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   Cod.                                Rubro                                                                                                                                            Total
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        "
+    head =
+        "                                                   #{$empresa_nome}
+                                                        Gastos Por Rubros
+- Fecha....: #{params[:inicio]} hasta #{params[:final]}
+- Moneda...: #{moeda}
+- Tipo.....: #{gasto}
+-----------------------------------------------------------------------------------------------------------------------------------------
+  Cod      Rubro                                                                                         Total   Transf.   Cred.     Saldo
+-----------------------------------------------------------------------------------------------------------------------------------------
+"
+
+
+        end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_size  => "7" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :header_font_name  => 'Lucida Console, Courier, Monotype, bold',
+                :footer_font_size  => "7",                
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.30in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Gastos.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "relatorio_stock", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Remicao.xls')
+                }
+            end
         end
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_gastos",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
     end
-    end
+
 
     def resultado_compras                           #
     
@@ -417,25 +595,42 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_compras",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Compras.pdf")
+
+
+
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_compras", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Compras.xls')
+                }
+            end
+        end
       end
-    end
-    end
 
 
     def resultado_cobros                            #
@@ -451,24 +646,38 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_cobros",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Cobros.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_cobros", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'resultado_cobros.xls')
+                }
+            end
+        end
     end
 
 
@@ -485,26 +694,41 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
   Cod.     Fecha    taRecibo  Nombre                                                Desc.                    Interes                    Valor                                Total
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
-  
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_pagos",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
+
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "8" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Pagos.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_cobros", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'resultado_cobros.xls')
+                }
+            end
+        end
     end
-    end
+
 
 
     def resultado_resumo_mes                            #
@@ -518,24 +742,38 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_resumo_mes",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "20",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.00in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Resume_mes.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_resumo_mes", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'resultado_resumo_mes.xls')
+                }
+            end
+        end
     end
 
 
@@ -555,24 +793,38 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_consumicao_interna",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Consumicao_interna.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_consumicao_interna", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Consumicao_interna.xls')
+                }
+            end
+        end
     end
 
 
@@ -594,24 +846,39 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_comissoes",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "comision.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_consumicao_interna", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'comision.xls')
+                }
+            end
+        end
     end
 
     def resultado_folha_de_pagamento                  #
@@ -628,24 +895,38 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_folha_de_pagamento",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "9" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "comision.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_consumicao_interna", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'comision.xls')
+                }
+            end
+        end
     end
 
 
@@ -663,24 +944,38 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_adelantos",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "8" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "adelantos.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_adelantos", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'adelantos.xls')
+                }
+            end
+        end
     end
 
 
@@ -700,29 +995,39 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_controle_func",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_name  => 'bold',
+                :header_font_size  => "8" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "Fluxo_Empleados.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_adelantos", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'Fluxo_Empleados.xls')
+                }
+            end
+        end
     end
-    end
-
-
-
-
 
 
     def resultado_pedidos_vendas                  #
@@ -756,119 +1061,148 @@ Lanz. Unidad  Fecha   Nombre                                      Rubro         
 -----------------------------------------------------------------------------------------------------------------------------------------
 "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_pedidos_vendas",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_size  => "7" ,
+                :header_spacing    => "25",
+                :header_left       => head,
+                :header_font_name  => 'Lucida Console, Courier, Monotype, bold',
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '1.20in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "List_Pedido_Venda.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_pedidos_vendas", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'List_Pedido_Venda.xls')
+                }
+            end
+        end
     end
-    end
-def resultado_controle_visitas
-    @visitas = Relatorios.controle_visitas(params)
-      
+
+
+    def resultado_egressos                  #
+      @egressos = Relatorios.egressos(params)
+     if params[:moeda].to_s == '0'
+      moeda = 'DOLAR'
+     elsif params[:moeda].to_s == '1'
+      moeda = 'GUARANI'        
+    else
+      moeda = 'REAIS'        
+     end 
+
     head =
         "                                                   #{$empresa_nome}
-                                                        Listado de Visitas
+                                                        Listado de Egressos
 - Fecha....: #{params[:inicio]} hasta #{params[:final]}
-
+- Moneda...: #{moeda}
 -----------------------------------------------------------------------------------------------------------------------------------------
-    Fecha     Prox. Visi.    Dias     Consultor                     Cliente                     Servicio                           NC
+ Lanz.  Fecha  Sect.Cuenta                    Rubro                         Concepto                                                Total
 -----------------------------------------------------------------------------------------------------------------------------------------
 "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_controle_visitas",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.20in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 25},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_size  => "7" ,
+                :header_spacing    => "15",
+                :header_left       => head,
+                :header_font_name  => 'Lucida Console, Courier, Monotype, bold',
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '0.90in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "List_Egressos.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_pedidos_vendas", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'List_Egresso.xls')
+                }
+            end
+        end
     end
-  end
 
-def resultado_fluxo_caixa    
-      
-    head =
-"                                                                                           #{$empresa_nome}
-                                                                                            Fluxo de Caja
-- Periodo: #{('01/'+ (params[:mes_inicio].to_i).to_s + '/0001').to_date.strftime("%B") } hasta #{('01/'+ (params[:mes_final].to_i).to_s + '/0001').to_date.strftime("%B") }                                                                                                                                                          Ano: #{params[:ano]}"
+    def resultado_ingressos
+      @ingressos = Relatorios.ingressos(params)
+     if params[:moeda].to_s == '0'
+      moeda = 'DOLAR'
+     elsif params[:moeda].to_s == '1'
+      moeda = 'GUARANI'        
+    else
+      moeda = 'REAIS'        
+     end 
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_controle_visitas",                
-                :layout                 => "layer_relatorios",
-                :orientation            => 'Landscape', 
-                :margin => {:top        => '0.60in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :left       => head,
-                            :spacing    => 9},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
-    end
-    end  
-
-def resultado_metas
-    @metas = Relatorios.resultado_metas(params)
-      
     head =
         "                                                   #{$empresa_nome}
-                                                        Listado de Visitas
+                                                        Listado de Ingressos
 - Fecha....: #{params[:inicio]} hasta #{params[:final]}
-
+- Moneda...: #{moeda}
 -----------------------------------------------------------------------------------------------------------------------------------------
-    Fecha     Prox. Visi.    Dias     Consultor                     Cliente                     Servicio                           NC
+ Lanz.  Fecha  Sect.Cuenta                    Rubro                         Concepto                                                Total
 -----------------------------------------------------------------------------------------------------------------------------------------
 "
 
-    respond_to do |format|
-      format.html do
-        render  :pdf                    => "resultado_fechamento_caixa",                
-                :layout                 => "layer_relatorios",
-                :margin => {:top        => '1.55in',
-                            :bottom     => '0.25in',
-                            :left       => '0.10in',
-                            :right      => '0.10in'},        
-                :header => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,                            
-                            :html => { :template => 'relatorios/headers/metas.html',
-                            :layout     => "layer_relatorios" },
-                            :spacing    => 0},
-                :footer => {:font_name  => 'Lucida Console, Courier, Monotype, bold',
-                            :font_size  => 7,
-                            :right      => "Pagina [page] de [toPage]",
-                            :left       => "MercoSys Zetta - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}"}
-      end
+        if params[:tipo].to_s == "0"
+            pdf = render :layout => 'layer_relatorios'
+            kit = PDFKit.new(pdf,:page_size     => 'A4',
+                :print_media_type  => true,
+                :header_font_size  => "7" ,
+                :header_spacing    => "15",
+                :header_left       => head,
+                :header_font_name  => 'Lucida Console, Courier, Monotype, bold',
+                :footer_font_size  => "7",
+                :footer_right  => "Pagina [page] de [toPage]",
+                :footer_left   => "MercoSys Enteprise - Fecha de la imprecion: #{Time.now.strftime("%d/%m/%Y")} Hora: #{Time.now.strftime("%H:%M:%S")} - Usuario: #{current_user.usuario_nome}",
+                :margin_top    => '0.90in',
+                :margin_bottom => '0.25in',
+                :margin_left   => '0.10in',
+                :margin_right  => '0.10in')
+            kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+            send_data(kit.to_pdf, :filename => "List_Ingresso.pdf")
+
+        else
+
+            respond_to do |format|
+                format.xls {
+                    xls = render :action => "resultado_pedidos_vendas", :layout => false
+
+                    kit = PDFKit.new(xls,
+                        :encoding => 'UTF-8')
+                    kit.stylesheets << RAILS_ROOT + '/public/stylesheets/relatorios.css'
+
+                    send_data(xls,:filename => 'List_Ingresso.xls')
+                }
+            end
+        end
     end
 
 end
 
-end

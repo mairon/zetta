@@ -1,6 +1,8 @@
 <body onload="DataInicio(),DataFinal(),CampoInicio()">
-   <h1 align="right" id="header">.</h1>
-   Relatorio Gastos
+   <h1 align="right" id="header">Relatorio Gastos</h1>   
+   <style type="text/css">
+   select {width: 400px;}
+   </style>
    <div class="group">
       <h2>
          <%= form_tag resultado_gastos_relatorios_path, :method => "get" do%>
@@ -9,20 +11,18 @@
                <tr height="35">
                   <td align="right"> Fecha:</td>
                   <td>
-                     <input name="inicio" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
+                     <input name="inicio" type="text" id="inicio"  size="10"  onkeyup="Formatadata(this,event)" />
                      Hasta
-                     <input name="final"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>
+                     <input name="final" type="text"  id="final"   size="10" onkeyup="Formatadata(this,event)"/>
                   </td>
                </tr>
 
-               <tr>
+               <tr height="35">
                   <td align="right">Empleado :</td>
                   <td>
                      <%=   select("busca", "empregado", Persona.all(:select => 'id,nome',:conditions => ["tipo_funcionario = 1"],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
                   </td>
-               </tr>
 
-               <tr>
                   <td align="right">Proveedor :</td>
                   <td>
                      <%=   select("busca", "prov", Persona.all(:select => 'id,nome',:conditions => ["tipo_fornecedor = 1"],:order => 'nome').collect {|p| [ p.nome, p.id ] }, { :include_blank => true })   %>
@@ -30,50 +30,56 @@
                </tr>
 
 
-               <tr>
+               <tr height="35">
                   <td align="right">Rodados :</td>
                   <td>
                      <%=   select("busca", "rodados", Rodado.all(:select => 'id,placa',:order => 'placa').collect {|p| [ p.placa, p.id ] }, { :include_blank => true })   %>
                   </td>
-               </tr>
 
-               <tr>
                   <td align="right">Rubro :</td>
                   <td>
                      <%=   select("busca", "rubro", Rubro.all(:select => 'id,descricao',:order => 'descricao').collect {|p| [ p.descricao, p.id ] }, { :include_blank => true })   %>
                   </td>
                </tr>
 
-               <tr>
+               <tr height="35">
                   <td align="right">Unidad.:</td>
                   <td>
                      <%=   select("busca", "unidade", Unidade.all(:select => 'id,unidade_nome',:order => 'unidade_nome').collect {|p| [ p.unidade_nome, p.id ] }, { :include_blank => true })   %>
                   </td>
-               </tr>
 
-
-               <tr>
                   <td align="right">Obra Ref.:</td>
                   <td>
                      <%=   select("busca", "obra", Produto.all(:select => 'fabricante_cod',:order => 'fabricante_cod').collect {|p| [ p.fabricante_cod, p.fabricante_cod ] }, { :include_blank => true })   %>
                   </td>
                </tr>
 
+               <tr height="35">
+                 <td align="right">Sectores :</td>
+                 <td>
+                  <fieldset>
+                      <% st = Setor.all(:select => 'id,sigla')%>
+                      <% st.each do  |s| %>
+                      <%= check_box_tag "setores[]",s.id, :onkeyup    => "Formatadata(this,event),EnterTab(event,'tipo_gasto')",
+                                                      :onkeypress => "return bloqEnter(event)" %> <%= s.sigla %>
+                      <% end %>
+                    </fieldset> 
+                  </td>
 
-               <tr>
+               <tr height="35">
                   <td align="right">Tipo Gasto :</td>
                   <td>
                     <fieldset>
-                       <%= radio_button_tag :tipo_gasto, 0,  :Checked => "True"%> Legal
+                       <%= radio_button_tag :tipo_gasto, 0%> Legal
                        <%= radio_button_tag :tipo_gasto, 1 %> Legal Revertido
                        <%= radio_button_tag :tipo_gasto, 2 %> Comun
                        <%= radio_button_tag :tipo_gasto, 3 %> Comun Revertido
-                       <%= radio_button_tag :tipo_gasto, '' %> Todos
+                       <%= radio_button_tag :tipo_gasto, '',  :Checked => "True" %> Todos
                     </fieldset>
                   </td>
                </tr>
 
-               <tr>
+               <tr height="35">
                  <td></td>
                  <td>
                    <%= check_box_tag :lancamento,'1', :onkeyup    => "Formatadata(this,event),EnterTab(event,'moeda')",
@@ -81,7 +87,7 @@
                 </td>
                </tr>
 
-               <tr>
+               <tr height="35">
                   <td align="right">Moneda :</td>
                   <td>
                     <fieldset>
@@ -90,23 +96,21 @@
                        <%= radio_button_tag :moeda, 2 %> Reais
                     </fieldset>
                   </td>
-               </tr>
 
-               <tr>
                   <td align="right">Tipo :</td>
                   <td>
                     <fieldset>
-                       <%= radio_button_tag :status, 0,  :Checked => "True"%> Contado                      
+                       <%= radio_button_tag :status, 0%> Contado                      
                        <%= radio_button_tag :status, 1 %> Credito
-                       <%= radio_button_tag :status, 2 %> Todo
+                       <%= radio_button_tag :status, 2,  :Checked => "True" %> Todo
                     </fieldset>
                   </td>
                </tr>
 
 
-               <tr>
+               <tr height="35">
                   <td align="right">Status :</td>
-                  <td>
+                  <td colspan="3">
                     <fieldset>
                        <%= radio_button_tag :tp, 0,  :Checked => "True"%> Detalhado                       
                        <%= radio_button_tag :tp, 1 %> Resumido por Rubro
@@ -122,11 +126,13 @@
                   <td>
                      <input  id      ="button"
                              type    ="submit"
-                             value   ="            Informe           "
+                             class   = "button_info"
+                             value   ="Informe"
                              onclick = "Tipo('0')"/>
 
                      <input type     = "submit"
-                            value    = "            Excel            "
+                            class   = "button_info"
+                            value    = "Excel"
                             onclick  = "Tipo('1')"/>
                   </td>
                </tr>
